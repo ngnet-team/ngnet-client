@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  appName: "Ngnet"
+  appName: "Ngnet",
+  serverUrl: "https://localhost:5001/"
 };

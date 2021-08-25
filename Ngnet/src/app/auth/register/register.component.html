@@ -1,0 +1,42 @@
+<div class="form">
+    <form #reg="ngForm" (ngSubmit)="register(reg.value)">
+        <div>
+            <input #emailInput="ngModel" type="text" name="email" placeholder="Email" ngModel required email>
+            <p class="validation" *ngIf="emailInput.errors?.required && emailInput.touched">Email is required!</p>
+            <p class="validation" *ngIf="emailInput.errors?.email && emailInput.touched">Email is invalid!</p>
+        </div>
+    
+        <div>
+            <input #usernameInput="ngModel" type="text" name="username" placeholder="Username" ngModel required>
+            <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">Username is required!</p>
+        </div>
+    
+        <div>
+            <input #passwordInput="ngModel" type="password" name="password" placeholder="Password" ngModel required minlength="6">
+            <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">Password is required!</p>
+            <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">Password should be at least 6 characters!</p>
+        </div>
+    
+        <div>
+            <input #repeatPasswordInput="ngModel" type="password" name="repeatPassword" placeholder="Repeat password" ngModel required minlength="6">
+            <p class="validation" *ngIf="repeatPasswordInput.errors?.required && repeatPasswordInput.touched">Repeat password is required!</p>
+            <p class="validation" *ngIf="repeatPasswordInput.errors?.minlength && repeatPasswordInput.touched">Repeat password should be at least 6 characters!</p>
+        </div>
+    
+        <div>
+            <input #firstNameInput="ngModel" type="text" name="firstName" placeholder="First Name" ngModel>
+        </div>
+    
+        <div>
+            <input #lastNameInput="ngModel" type="text" name="lastName" placeholder="Last Name" ngModel>
+        </div>
+    
+        <div>
+            <input #ageInput="ngModel" type="number" name="age" placeholder="Age" ngModel>
+        </div>
+
+        <div>
+            <button [disabled]="reg.invalid">Sign up</button>
+        </div>
+    </form>
+</div>
