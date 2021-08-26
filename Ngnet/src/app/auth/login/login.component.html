@@ -1,0 +1,22 @@
+<div class="form">
+    <form #log="ngForm" (ngSubmit)="login(log.value)">
+        <div>
+            <input #usernameInput="ngModel" type="text" name="username" placeholder="Username" ngModel required>
+            <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">Username is required!</p>
+        </div>
+    
+        <div>
+            <input #passwordInput="ngModel" type="password" name="password" placeholder="Password" ngModel required minlength="6">
+            <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">Password is required!</p>
+            <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">Password should be at least 6 characters!</p>
+        </div>
+
+        <div *ngFor="let error of serverErrors">
+            <p>{{error.description}}</p>
+        </div>
+
+        <div>
+            <button [disabled]="log.invalid">Sign in</button>
+        </div>
+    </form>
+</div>
