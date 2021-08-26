@@ -11,6 +11,10 @@
             <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">Password should be at least 6 characters!</p>
         </div>
 
+        <div *ngFor="let error of serverErrors">
+            <p>{{error.description}}</p>
+        </div>
+
         <div>
             <button [disabled]="log.invalid">Sign in</button>
         </div>

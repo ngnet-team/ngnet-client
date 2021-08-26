@@ -32,7 +32,11 @@
         </div>
     
         <div>
-            <input #ageInput="ngModel" type="number" name="age" placeholder="Age" ngModel>
+            <input #ageInput="ngModel" type="number" name="age" placeholder="Age" [ngModel]="null">
+        </div>
+
+        <div *ngFor="let error of serverErrors">
+            <p>{{error.description}}</p>
         </div>
 
         <div>

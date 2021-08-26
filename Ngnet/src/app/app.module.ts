@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
+import { HttpErrorInterceptor } from './services/error-interceptor.service';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { SharedModule } from './shared/shared.module';
 
@@ -31,6 +32,11 @@ import { SharedModule } from './shared/shared.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     },
   ],

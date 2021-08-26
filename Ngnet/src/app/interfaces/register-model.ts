@@ -5,5 +5,5 @@ export interface IRegisterModel {
     repeatPassword: string,
     firstName: string,
     lastName: string,
-    age: number
+    age?: number
 }
