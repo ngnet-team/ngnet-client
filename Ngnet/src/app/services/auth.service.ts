@@ -11,9 +11,9 @@ import { IRegisterModel } from '../interfaces/register-model';
 export class AuthService {
 
   private authUrl: string = environment.serverUrl + 'auth';
-  get isLogged() { return this.getToken() };
+  get isLogged(): boolean { return this.getToken() ? true : false };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login(input: ILoginModel): Observable<any> {
     return this.http.post(this.authUrl + '/login', input)
