@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ILoginModel } from '../interfaces/login-model';
 import { IRegisterModel } from '../interfaces/register-model';
-import { IUserResponseModel } from '../interfaces/user-response-model';
 
 @Injectable({
   providedIn: 'root'

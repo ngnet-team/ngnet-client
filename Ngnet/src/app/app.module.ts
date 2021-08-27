@@ -7,10 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
-import { HttpErrorInterceptor } from './services/error-interceptor.service';
-import { HttpInterceptorService } from './services/http-interceptor.service';
+import { AuthGuardService } from './services/guards/auth-guard.service';
+import { NotLoggedGuardService } from './services/guards/not-logged-guard.service';
+import { ErrorInterceptorService } from './services/interceptors/error-interceptor.service';
+import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { SharedModule } from './shared/shared.module';
   providers: [
     AuthService,
     AuthGuardService,
+    NotLoggedGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
@@ -36,7 +38,7 @@ import { SharedModule } from './shared/shared.module';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorInterceptor,
+      useClass: ErrorInterceptorService,
       multi: true
     },
   ],

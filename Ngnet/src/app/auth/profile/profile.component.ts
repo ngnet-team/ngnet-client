@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { IUserResponseModel } from 'src/app/interfaces/user-response-model';
 import { AuthService } from 'src/app/services/auth.service';
 
