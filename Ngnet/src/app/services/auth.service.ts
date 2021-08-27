@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ILoginModel } from '../interfaces/login-model';
 import { IRegisterModel } from '../interfaces/register-model';
+import { IUserResponseModel } from '../interfaces/user-response-model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,15 @@ export class AuthService {
     return this.http.post(this.authUrl + '/register', input)
   }
 
-  setToken(authToken: string) {
+  profile(): Observable<any> {
+    return this.http.get(this.authUrl + '/profile');
+  }
+
+  setToken(authToken: string): void {
     localStorage.setItem('auth-token', authToken)
   }
 
-  getToken() {
+  getToken(): string | null {
     return localStorage.getItem('auth-token')
   }
 }

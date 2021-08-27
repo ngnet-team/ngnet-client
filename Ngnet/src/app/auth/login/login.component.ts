@@ -23,7 +23,7 @@ export class LoginComponent {
         if (res.token) {
           this.authService.setToken(res.token);
         }
-        this.route.navigateByUrl('');
+        this.route.navigateByUrl('profile');
       },
       error: (err) => {
         (err?.error as []).forEach(e => {
