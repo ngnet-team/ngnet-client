@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUserResponseModel } from 'src/app/interfaces/user-response-model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,7 +12,7 @@ export class ProfileComponent {
 
   user: IUserResponseModel = {};
 
-  constructor(private authService: AuthService, private route: Router) {
+  constructor(private authService: AuthService, private route: Router, private router: ActivatedRoute) {
     this.getProfile();
   }
 
