@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private route: Router, private router: ActivatedRoute) {}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const { authRequired, redirectUrl, roleRequired } = route.data;
@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate {
     }
 
     const url = redirectUrl ? redirectUrl : 'login';
-    this.router.navigate([url]);
+    this.route.navigate([url]);
     return false;
   }
 

@@ -8,17 +8,19 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './services/guards/auth-guard.service';
-import { NotLoggedGuardService } from './services/guards/not-logged-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { ErrorInterceptorService } from './services/interceptors/error-interceptor.service';
 import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
+import { ProfileResolverService } from './services/profile-resolver.service';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { HomeComponent } from './home/home.component';
   providers: [
     AuthService,
     AuthGuardService,
-    NotLoggedGuardService,
+    ProfileResolverService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
@@ -44,6 +46,6 @@ import { HomeComponent } from './home/home.component';
       multi: true
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
