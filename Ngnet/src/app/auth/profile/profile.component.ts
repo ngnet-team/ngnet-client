@@ -19,7 +19,6 @@ export class ProfileComponent {
   getProfile(): void {
     this.authService.profile().subscribe(res => {
       this.user = res;
-      console.log(this.user);
     });
   }
 }

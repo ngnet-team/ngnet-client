@@ -1,5 +1,9 @@
 <div class="nav">
+    <div class="logo">
+        Logo
+    </div>
     <div *ngIf="isLogged" class="logged">
+        <a routerLink="/vehicle" class="vehicle">Vehicle Manager</a>
         <a routerLink="/profile" class="profile">Profile</a>
         <a (click)="logout()" class="logout">Logout</a>
     </div>
