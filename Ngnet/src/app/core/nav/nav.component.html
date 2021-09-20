@@ -1,0 +1,10 @@
+<div class="nav">
+    <div *ngIf="isLogged" class="logged">
+        <a routerLink="/profile" class="profile">Profile</a>
+        <a (click)="logout()" class="logout">Logout</a>
+    </div>
+    <div *ngIf="!isLogged" class="not-logged">
+        <a routerLink="/login" class="login">Login</a>
+        <a routerLink="/register" class="register">Register</a>
+    </div>
+</div>

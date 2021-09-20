@@ -7,5 +7,6 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
+
   title:string = environment.appName;
 }
