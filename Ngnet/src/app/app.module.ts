@@ -15,12 +15,15 @@ import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ProfileResolverService } from './services/profile-resolver.service';
 import { AdminComponent } from './admin/admin.component';
+import { VehicleComponent } from './vehicle/vehicle.component';
+import { VehicleService } from './services/vehicle.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AdminComponent,
+    VehicleComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { AdminComponent } from './admin/admin.component';
     AuthService,
     AuthGuardService,
     ProfileResolverService,
+    VehicleService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
