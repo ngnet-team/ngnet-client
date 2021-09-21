@@ -1,4 +1,5 @@
 {
+    "language": "bg",
     "navMenu": {
         "logo": "Лого",
         "login": "Вписване",
@@ -36,5 +37,15 @@
         "requiredUsername": "Потребителското име е задължително!",
         "requiredPassword": "Паролата е задължителна!",
         "passwordLength": "Паролата трябва да бъде минимум 6 символа!"
+    }, 
+    "vehiclecare": {
+        "for": "За",
+        "startDate": "Начална дата",
+        "endDate": "Крайна дата",
+        "paidEndDate": "Платена крайна дата",
+        "reminder": "Напомняне",
+        "price": "Цена",
+        "notes": "Бележки",
+        "save": "Запиши"
     }
 }

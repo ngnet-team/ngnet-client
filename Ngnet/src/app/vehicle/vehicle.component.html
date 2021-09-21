@@ -1,3 +1,89 @@
-<div *ngFor="let name of names.bg">{{name}}</div>
 
-<button (click)="self()">self</button>
+<div class="container">
+    <div class="selfs">
+        <div class="self" *ngFor="let vehicleCare of vehicleCares">
+            <div *ngIf="vehicleCare.name">
+                <span>{{menu.for}}: {{vehicleCare.name}}</span>
+                <span class="manipulations">
+                    <a (click)="edit(vehicleCare)">Edit</a>
+                    <a (click)="remove(vehicleCare.id)">Delete</a>
+                </span>
+            </div>
+            <div *ngIf="vehicleCare.startDate">
+                <span>{{menu.startDate}}:</span> {{vehicleCare.startDate}}
+            </div>
+            <div *ngIf="vehicleCare.endDate">
+                <span>{{menu.endDate}}:</span> {{vehicleCare.endDate}}
+            </div>
+            <div *ngIf="vehicleCare.paidEndDate">
+                <span>{{menu.paidEndDate}}:</span> {{vehicleCare.paidEndDate}}
+            </div>
+            <div *ngIf="vehicleCare.reminder">
+                <span>{{menu.reminder}}:</span> {{vehicleCare.reminder}}
+            </div>
+            <div *ngIf="vehicleCare.price">
+                <span>{{menu.price}}:</span> {{vehicleCare.price}}
+            </div>
+            <div *ngIf="vehicleCare.notes">
+                <span>{{menu.notes}}:</span> {{vehicleCare.notes}}
+            </div>
+        </div>
+    </div>
+    <div class="creation">
+        <div class="form">
+            <form #veh="ngForm" (ngSubmit)="save(veh.value)">
+                <div class="form-raw">
+                    <div>{{menu.for}} <span>{{menu.required}}</span></div>
+                    <div *ngIf="this.selectedLang === 'bg'">
+                        <select name="name" [(ngModel)]="defaultVehicleCares.name" required> 
+                            <option *ngFor="let name of names.bg" [value]="name">{{name}}</option> 
+                        </select> 
+                    </div>
+                    <div *ngIf="this.selectedLang === 'en'">
+                        <select name="name" ngModel required> 
+                            <option *ngFor="let name of names.en" [value]="name">{{name}}</option> 
+                        </select> 
+                    </div>
+                </div>
+            
+                <div class="form-raw">
+                    <div>{{menu.startDate}}</div>
+                    <input #emailInput="ngModel" type="date" name="startDate" [(ngModel)]="defaultVehicleCares.startDate">
+                </div>
+            
+                <div class="form-raw">
+                    <div>{{menu.endDate}}</div>
+                    <input #emailInput="ngModel" type="date" name="endDate" [(ngModel)]="defaultVehicleCares.endDate">
+                </div>
+            
+                <div class="form-raw">
+                    <div>{{menu.paidEndDate}}</div>
+                    <input #emailInput="ngModel" type="date" name="paidEndDate" [(ngModel)]="defaultVehicleCares.paidEndDate">
+                </div>
+            
+                <div class="form-raw">
+                    <div>{{menu.reminder}}</div>
+                    <input #emailInput="ngModel" type="date" name="reminder" [(ngModel)]="defaultVehicleCares.reminder">
+                </div>
+            
+                <div class="form-raw">
+                    <div>{{menu.price}}</div>
+                    <input #emailInput="ngModel" type="number" name="price" [(ngModel)]="defaultVehicleCares.price">
+                </div>
+        
+                <div class="form-raw">
+                    <div>{{menu.notes}}</div>
+                    <input #emailInput="ngModel" type="text" name="notes" [(ngModel)]="defaultVehicleCares.notes">
+                </div>
+
+                <div *ngFor="let error of serverErrors">
+                    <p>{{error.description}}</p>
+                </div>
+    
+                <div>
+                    <button [disabled]="veh.invalid">{{menu.save}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

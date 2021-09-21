@@ -1,19 +1,32 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { IErrorModel } from '../interfaces/response-error-model';
 import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
 import { IVehicleNames } from '../interfaces/vehicle/vehicle-names';
+import { LangService } from '../services/lang.service';
 import { VehicleService } from '../services/vehicle.service';
 
 @Component({
   selector: 'app-vehicle',
   templateUrl: './vehicle.component.html',
-  styleUrls: ['./vehicle.component.sass']
+  styleUrls: ['./vehicle.component.scss']
 })
 export class VehicleComponent {
 
+  serverErrors: IErrorModel[] = [];
+  vehicleCares: IVehicleCareModel[] = [];
+  defaultVehicleCares: IVehicleCareModel = { isDeleted: false };
+  editingId: string | undefined;
+  langEvent: Subscription[] = [];
+  selectedLang: string = this.langService.langState;
+  menu: any = this.langService.get(this.selectedLang).vehiclecare;
   names: IVehicleNames = {};
-  vehicleCare: IVehicleCareModel = { isDeleted: false };
 
-  constructor(private vehicleService: VehicleService) { this.loadNames(); }
+  constructor(private vehicleService: VehicleService, private langService: LangService) { 
+    this.loadNames();
+    this.langListener();
+    this.self();
+   }
 
   loadNames(): void {
     this.vehicleService.loadNames().subscribe(res => {
@@ -22,32 +35,62 @@ export class VehicleComponent {
   }
 
   save(model: IVehicleCareModel): void {
-    this.vehicleService.save(model).subscribe(res => {
-      console.log(res);
-    });;
-  }
+    
+    if (this.editingId) {
+      model.id = this.editingId;
+      this.editingId = undefined;
+    }
 
-  byId(model: IVehicleCareModel): void {
-    this.vehicleService.byId(model).subscribe(res => {
-      console.log(res);
-    });;
+    this.serverErrors = [] as IErrorModel[];
+    
+    this.vehicleService.save(model).subscribe({
+      next: (res) => {
+        if (res > 0) {
+          this.self();
+        }
+        this.defaultVehicleCares = { isDeleted: false };
+      },
+      error: (err) => {
+        (err?.error as []).forEach(e => {
+          this.serverErrors.push(e);
+        });
+      }
+    });
   }
-
-  byUserId(model: IVehicleCareModel): void {
-    this.vehicleService.byUserId(model).subscribe(res => {
-      console.log(res);
-    });;
-  }
-
+  
   self(): void {
     this.vehicleService.self().subscribe(res => {
-      console.log(res);
+      this.vehicleCares = (res as IVehicleCareModel[]).filter(x => x.isDeleted === false);
     });;
   }
-
-  delete(model: IVehicleCareModel): void {
-    this.vehicleService.delete(model).subscribe(res => {
-      console.log(res);
-    });;
+  
+  remove(vehicleId: string | undefined): void {
+    
+    const model: IVehicleCareModel = { isDeleted: true, id: vehicleId };
+    this.save(model);
   }
+  
+  edit(model: IVehicleCareModel): void {
+    this.defaultVehicleCares = model;
+    this.editingId = model.id;
+  }
+  
+  private langListener(): void {
+    this.langEvent.push(this.langService.langEvent.subscribe(result => {
+      this.selectedLang = result.language;
+      this.menu = result.vehiclecare;
+    }))
+  }
+  
+    // byId(model: IVehicleCareModel): void {
+    //   this.vehicleService.byId(model).subscribe(res => {
+    //     console.log(res);
+    //   });;
+    // }
+  
+    // byUserId(model: IVehicleCareModel): void {
+    //   this.vehicleService.byUserId(model).subscribe(res => {
+    //     console.log(res);
+    //   });;
+    // }
 }

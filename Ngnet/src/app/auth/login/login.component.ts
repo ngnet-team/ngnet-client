@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { LangService } from 'src/app/services/lang.service';
-import { environment } from 'src/environments/environment';
 import { ILoginModel } from '../../interfaces/login-model';
 import { AuthService } from '../../services/auth.service';
 
@@ -16,7 +15,7 @@ export class LoginComponent {
 
   serverErrors: IErrorModel[] = [];
   langEvent: Subscription[] = [];
-  selectedLang: string = environment.lang.default;
+  selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).login;
   validations: any = this.langService.get(this.selectedLang).validations;
 

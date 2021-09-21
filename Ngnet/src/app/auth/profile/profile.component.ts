@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { IUserResponseModel } from 'src/app/interfaces/user-response-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +13,7 @@ export class ProfileComponent {
 
   user: IUserResponseModel = {};
   langEvent: Subscription[] = [];
-  selectedLang: string = environment.lang.default;
+  selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).profile;
 
   constructor(private authService: AuthService, private langService: LangService) {

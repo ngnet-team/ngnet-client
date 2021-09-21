@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { INavMenu } from 'src/app/interfaces/nav-menu';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 import { environment } from 'src/environments/environment';
@@ -15,7 +14,7 @@ export class NavComponent {
   @Input() isLogged: boolean = this.authService.isLogged;
   loggingEvent: Subscription[] = [];
   selectedLang: string = environment.lang.default;
-  menu: INavMenu = this.langService.get(this.selectedLang).navMenu;
+  menu: any = this.langService.get(this.selectedLang).navMenu;
 
 
   constructor(private authService: AuthService, private langService: LangService) {
