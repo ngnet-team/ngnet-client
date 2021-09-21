@@ -17,6 +17,7 @@ import { ProfileResolverService } from './services/profile-resolver.service';
 import { AdminComponent } from './admin/admin.component';
 import { VehicleComponent } from './vehicle/vehicle.component';
 import { VehicleService } from './services/vehicle.service';
+import { LangService } from './services/lang.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { VehicleService } from './services/vehicle.service';
     AuthGuardService,
     ProfileResolverService,
     VehicleService,
+    LangService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
