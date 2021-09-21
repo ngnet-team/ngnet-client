@@ -1,6 +1,6 @@
 <div class="nav">
     <div class="logo">
-        {{menu.logo}}
+        <a routerLink="/" class="logo">{{menu.logo}}</a>
     </div>
     <div *ngIf="isLogged" class="logged">
         <a routerLink="/vehicle" class="vehicle">{{menu.vehicleManager}}</a>

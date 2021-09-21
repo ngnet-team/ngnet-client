@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
 
@@ -18,6 +18,7 @@ export class LoginComponent {
   langEvent: Subscription[] = [];
   selectedLang: string = environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).login;
+  validations: any = this.langService.get(this.selectedLang).validations;
 
   constructor(private authService: AuthService, private route: Router, private langService: LangService) {
     this.langListener();
@@ -45,6 +46,7 @@ export class LoginComponent {
   private langListener(): void {
     this.langEvent.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.login;
+      this.validations = result.validations;
     }))
   }
 }

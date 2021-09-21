@@ -1,38 +1,45 @@
 <div class="form">
     <form #reg="ngForm" (ngSubmit)="register(reg.value)">
         <div>
-            <input #emailInput="ngModel" type="text" name="email" placeholder="{{menu.email}}" ngModel required email>
-            <p class="validation" *ngIf="emailInput.errors?.required && emailInput.touched">Email is required!</p>
-            <p class="validation" *ngIf="emailInput.errors?.email && emailInput.touched">Email is invalid!</p>
+            <div>{{menu.email}} <span>{{menu.required}}</span></div>
+            <input #emailInput="ngModel" type="text" name="email" ngModel required email>
+            <p class="validation" *ngIf="emailInput.errors?.required && emailInput.touched">{{validations.requiredEmail}}</p>
+            <p class="validation" *ngIf="emailInput.errors?.email && emailInput.touched">{{validations.invalidEmail}}</p>
         </div>
     
         <div>
-            <input #usernameInput="ngModel" type="text" name="username" placeholder="{{menu.username}}" ngModel required>
-            <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">Username is required!</p>
+            <div>{{menu.username}} <span>{{menu.required}}</span></div>
+            <input #usernameInput="ngModel" type="text" name="username" ngModel required>
+            <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">{{validations.requiredUsername}}</p>
         </div>
     
         <div>
-            <input #passwordInput="ngModel" type="password" name="password" placeholder="{{menu.password}}" ngModel required minlength="6">
-            <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">Password is required!</p>
-            <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">Password should be at least 6 characters!</p>
+            <div>{{menu.password}} <span>{{menu.required}}</span></div>
+            <input #passwordInput="ngModel" type="password" name="password" ngModel required minlength="6">
+            <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">{{validations.requiredPassword}}</p>
+            <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">{{validations.passwordLength}}</p>
         </div>
     
         <div>
-            <input #repeatPasswordInput="ngModel" type="password" name="repeatPassword" placeholder="{{menu.repeatPassword}}" ngModel required minlength="6">
-            <p class="validation" *ngIf="repeatPasswordInput.errors?.required && repeatPasswordInput.touched">Repeat password is required!</p>
-            <p class="validation" *ngIf="repeatPasswordInput.errors?.minlength && repeatPasswordInput.touched">Repeat password should be at least 6 characters!</p>
+            <div>{{menu.repeatPassword}} <span>{{menu.required}}</span></div>
+            <input #repeatPasswordInput="ngModel" type="password" name="repeatPassword" ngModel required minlength="6">
+            <p class="validation" *ngIf="repeatPasswordInput.errors?.required && repeatPasswordInput.touched">{{validations.requiredPassword}}</p>
+            <p class="validation" *ngIf="repeatPasswordInput.errors?.minlength && repeatPasswordInput.touched">{{validations.passwordLength}}</p>
         </div>
     
         <div>
-            <input #firstNameInput="ngModel" type="text" name="firstName" placeholder="{{menu.firstName}}" ngModel>
+            <div>{{menu.firstName}}</div>
+            <input #firstNameInput="ngModel" type="text" name="firstName" ngModel>
         </div>
     
         <div>
-            <input #lastNameInput="ngModel" type="text" name="lastName" placeholder="{{menu.lastName}}" ngModel>
+            <div>{{menu.lastName}}</div>
+            <input #lastNameInput="ngModel" type="text" name="lastName" ngModel>
         </div>
     
         <div>
-            <input #ageInput="ngModel" type="number" name="age" placeholder="{{menu.age}}" [ngModel]="null">
+            <div>{{menu.age}}</div>
+            <input #ageInput="ngModel" type="number" name="age" [ngModel]="null">
         </div>
 
         <div *ngFor="let error of serverErrors">
