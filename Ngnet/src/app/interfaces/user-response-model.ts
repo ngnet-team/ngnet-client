@@ -1,6 +1,6 @@
 export interface IUserResponseModel {
     email?: string,
-    username?: string,
+    userName?: string,
     firstName?: string,
     lastName?: string,
     age?: number,

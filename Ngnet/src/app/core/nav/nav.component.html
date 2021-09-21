@@ -1,0 +1,17 @@
+<div class="nav">
+    <div class="logo">
+        <a routerLink="/" class="logo">{{menu.logo}}</a>
+    </div>
+    <div *ngIf="isLogged" class="logged">
+        <a routerLink="/vehicle" class="vehicle">{{menu.vehicleManager}}</a>
+        <a routerLink="/profile" class="profile">{{menu.profile}}</a>
+        <a (click)="logout()" class="logout">{{menu.logout}}</a>
+    </div>
+    <div *ngIf="!isLogged" class="not-logged">
+        <a routerLink="/login" class="login">{{menu.login}}</a>
+        <a routerLink="/register" class="register">{{menu.register}}</a>
+    </div>
+    <div class="lang">
+        <a (click)="changeLang()" >{{selectedLang.toUpperCase()}}</a>
+    </div>
+</div>

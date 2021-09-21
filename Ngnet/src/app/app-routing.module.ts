@@ -5,6 +5,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { ProfileResolverService } from './services/profile-resolver.service';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { ServerNotFoundComponent } from './shared/server-not-found/server-not-found.component';
+import { VehicleComponent } from './vehicle/vehicle.component';
 
 const routes: Routes = [
     {
@@ -27,6 +28,15 @@ const routes: Routes = [
         data: {
             authRequired: true,
             requiredRole: 'Admin',
+        },
+    },
+    {
+        path: 'vehicle',
+        pathMatch: 'full',
+        component: VehicleComponent,
+        canActivate: [AuthGuardService],
+        data: {
+            authRequired: true,
         },
     },
     //Must be the last route!

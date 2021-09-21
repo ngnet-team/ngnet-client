@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -13,6 +13,7 @@ export class AuthService {
 
   private authUrl: string = environment.serverUrl + 'auth';
   get isLogged(): boolean { return this.getToken() ? true : false };
+  logginEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private http: HttpClient, private route: Router) { }
 

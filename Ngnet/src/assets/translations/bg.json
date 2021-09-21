@@ -1,0 +1,40 @@
+{
+    "navMenu": {
+        "logo": "Лого",
+        "login": "Вписване",
+        "register": "Регистрация",
+        "profile": "Профил",
+        "logout": "Отписване",
+        "vehicleManager": "Мениджър за кола"
+    },
+    "profile": {
+        "email": "Имейл",
+        "username": "Потребителско име",
+        "fullName": "Име",
+        "age": "Години",
+        "role": "Роля"
+    },
+    "login": {
+        "username": "Потребителско име",
+        "password": "Парола",
+        "signIn": "Впиши ме"
+    },
+    "register": {
+        "email": "Имейл",
+        "username": "Потребителско име",
+        "password": "Парола",
+        "repeatPassword": "Повтори парола",
+        "required": " *",
+        "firstName": "Първо име",
+        "lastName": "Фамилно име",
+        "age": "Години",
+        "signUp": "Регистрирай ме"
+    },
+    "validations": {
+        "requiredEmail": "Имейлът е задължителен!",
+        "invalidEmail": "Имейлът е невалиден!",
+        "requiredUsername": "Потребителското име е задължително!",
+        "requiredPassword": "Паролата е задължителна!",
+        "passwordLength": "Паролата трябва да бъде минимум 6 символа!"
+    }
+}

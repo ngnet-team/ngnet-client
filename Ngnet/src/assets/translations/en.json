@@ -1,0 +1,40 @@
+{
+    "navMenu": {
+        "logo": "Logo",
+        "login": "Login",
+        "register": "Register",
+        "profile": "Profile",
+        "logout": "Logout",
+        "vehicleManager": "Vehicle manager"
+    },
+    "profile": {
+        "email": "Email",
+        "username": "Username",
+        "fullName": "Name",
+        "age": "Age",
+        "role": "Role"
+    },
+    "login": {
+        "username": "Username",
+        "password": "Password",
+        "signIn": "Sign in"
+    },
+    "register": {
+        "email": "Email",
+        "username": "Username",
+        "password": "Password",
+        "repeatPassword": "Repeat password",
+        "required": " *",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "age": "Age",
+        "signUp": "Sign up"
+    },
+    "validations": {
+        "requiredEmail": "The email is required!",
+        "invalidEmail": "The email is invalid!",
+        "requiredUsername": "The username is required!",
+        "requiredPassword": "The password is required!",
+        "passwordLength": "The password should be at least 6 characters!"
+    }
+}
