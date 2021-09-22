@@ -1,4 +1,5 @@
 {
+    "language": "en",
     "navMenu": {
         "logo": "Logo",
         "login": "Login",
@@ -36,5 +37,15 @@
         "requiredUsername": "The username is required!",
         "requiredPassword": "The password is required!",
         "passwordLength": "The password should be at least 6 characters!"
+    },
+    "vehiclecare": {
+        "for": "For",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "paidEndDate": "Paid end date",
+        "reminder": "Reminder",
+        "price": "Price",
+        "notes": "Notes",
+        "save": "Save"
     }
 }
