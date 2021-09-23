@@ -6,8 +6,7 @@
         "register": "Регистрация",
         "profile": "Профил",
         "logout": "Отписване",
-        "vehicleManager": "Мениджър за кола",
-        "healthManager": "Мениджър за здраве"
+        "manager": "Мениджър"
     },
     "profile": {
         "email": "Имейл",
@@ -49,7 +48,8 @@
         "notes": "Бележки",
         "save": "Запиши",
         "edit": "Промени",
-        "delete": "Изтрий"
+        "delete": "Изтрий",
+        "back": "Назад"
     },
     "healthcare": {
         "for": "За",
@@ -59,6 +59,11 @@
         "notes": "Бележки",
         "save": "Запиши",
         "edit": "Промени",
-        "delete": "Изтрий"
+        "delete": "Изтрий",
+        "back": "Назад"
+    },
+    "manager": {
+        "toVehicle": "Към мениджър коли",
+        "toHealth": "Към мениджър здраве"
     }
 }

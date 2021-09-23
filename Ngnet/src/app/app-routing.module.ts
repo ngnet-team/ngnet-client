@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { HealthComponent } from './health/health.component';
 import { HomeComponent } from './home/home.component';
+import { ManagerComponent } from './manager/manager.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ProfileResolverService } from './services/profile-resolver.service';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
@@ -32,7 +33,16 @@ const routes: Routes = [
         },
     },
     {
-        path: 'vehicle',
+        path: 'manager',
+        pathMatch: 'full',
+        component: ManagerComponent,
+        canActivate: [AuthGuardService],
+        data: {
+            authRequired: true,
+        },
+    },
+    {
+        path: 'manager/vehicle',
         pathMatch: 'full',
         component: VehicleComponent,
         canActivate: [AuthGuardService],
@@ -41,7 +51,7 @@ const routes: Routes = [
         },
     },
     {
-        path: 'health',
+        path: 'manager/health',
         pathMatch: 'full',
         component: HealthComponent,
         canActivate: [AuthGuardService],

@@ -6,8 +6,7 @@
         "register": "Register",
         "profile": "Profile",
         "logout": "Logout",
-        "vehicleManager": "Vehicle manager",
-        "healthManager": "Health manager"
+        "manager": "Manager"
     },
     "profile": {
         "email": "Email",
@@ -49,7 +48,8 @@
         "notes": "Notes",
         "save": "Save",
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "back": "Back"
     },
     "healthcare": {
         "for": "For",
@@ -59,6 +59,11 @@
         "notes": "Notes",
         "save": "Save",
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "back": "Back"
+    },
+    "manager": {
+        "toVehicle": "To vehicle manager",
+        "toHealth": "To health manager"
     }
 }

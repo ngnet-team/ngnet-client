@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
@@ -22,7 +23,7 @@ export class VehicleComponent {
   menu: any = this.langService.get(this.selectedLang).vehiclecare;
   names: IVehicleNames = {};
 
-  constructor(private vehicleService: VehicleService, private langService: LangService) { 
+  constructor(private vehicleService: VehicleService, private langService: LangService, private route: Router) { 
     this.loadNames();
     this.langListener();
     this.self();
@@ -82,13 +83,18 @@ export class VehicleComponent {
     this.editingId = model.id;
   }
   
+  back(): void {
+    this.route.navigateByUrl("manager");
+  }
+
   private langListener(): void {
     this.langEvent.push(this.langService.langEvent.subscribe(result => {
       this.selectedLang = result.language;
       this.menu = result.vehiclecare;
     }))
   }
-  
+
+
     // byId(model: IVehicleCareModel): void {
     //   this.vehicleService.byId(model).subscribe(res => {
     //     console.log(res);

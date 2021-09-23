@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IHealthCareModel } from '../interfaces/health/health-care-model';
 import { IHealthNames } from '../interfaces/health/health-names';
@@ -22,7 +23,7 @@ export class HealthComponent {
   menu: any = this.langService.get(this.selectedLang).healthcare;
   names: IHealthNames = {};
 
-  constructor(private healthService: HealthService, private langService: LangService) { 
+  constructor(private healthService: HealthService, private langService: LangService, private route: Router) { 
     this.loadNames();
     this.langListener();
     this.self();
@@ -80,6 +81,10 @@ export class HealthComponent {
   edit(model: IHealthCareModel): void {
     this.defaultHealthCares = model;
     this.editingId = model.id;
+  }
+
+  back(): void {
+    this.route.navigateByUrl("manager");
   }
   
   private langListener(): void {

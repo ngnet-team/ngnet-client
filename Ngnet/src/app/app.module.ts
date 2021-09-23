@@ -20,6 +20,7 @@ import { VehicleService } from './services/vehicle.service';
 import { LangService } from './services/lang.service';
 import { HealthComponent } from './health/health.component';
 import { HealthService } from './services/health.service';
+import { ManagerComponent } from './manager/manager.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HealthService } from './services/health.service';
     AdminComponent,
     VehicleComponent,
     HealthComponent,
+    ManagerComponent,
   ],
   imports: [
     BrowserModule,
