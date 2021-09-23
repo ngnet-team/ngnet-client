@@ -19,7 +19,8 @@ export class VehicleComponent {
   serverErrors: IErrorModel[] = [];
   vehicleCares: IVehicleCareModel[] = [];
   defaultVehicleCares: IVehicleCareModel = { isDeleted: false, company: { name: '' } };
-  editingId: string | undefined;
+  editingVehicleCareId: string | undefined;
+  editingCompanyId: number | undefined;
   langEvent: Subscription[] = [];
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).vehiclecare;
@@ -35,10 +36,14 @@ export class VehicleComponent {
    }
 
   save(model: IVehicleCareModel): void {
-    
-    if (this.editingId) {
-      model.id = this.editingId;
-      this.editingId = undefined;
+    if (this.editingVehicleCareId) {
+      model.id = this.editingVehicleCareId;
+      this.editingVehicleCareId = undefined;
+    }
+
+    if (this.editingCompanyId) {
+      model.company.id = this.editingCompanyId;
+      this.editingCompanyId = undefined;
     }
 
     this.serverErrors = [] as IErrorModel[];
@@ -79,7 +84,8 @@ export class VehicleComponent {
   
   edit(model: IVehicleCareModel): void {
     this.defaultVehicleCares = model;
-    this.editingId = model.id;
+    this.editingVehicleCareId = model.id;
+    this.editingCompanyId = model.company.id;
   }
   
   back(): void {
