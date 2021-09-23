@@ -6,7 +6,8 @@
         "register": "Register",
         "profile": "Profile",
         "logout": "Logout",
-        "vehicleManager": "Vehicle manager"
+        "vehicleManager": "Vehicle manager",
+        "healthManager": "Health manager"
     },
     "profile": {
         "email": "Email",
@@ -46,6 +47,18 @@
         "reminder": "Reminder",
         "price": "Price",
         "notes": "Notes",
-        "save": "Save"
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "healthcare": {
+        "for": "For",
+        "date": "Date",
+        "reminder": "Reminder",
+        "price": "Price",
+        "notes": "Notes",
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete"
     }
 }

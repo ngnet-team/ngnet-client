@@ -59,8 +59,15 @@ export class VehicleComponent {
   }
   
   self(): void {
-    this.vehicleService.self().subscribe(res => {
-      this.vehicleCares = (res as IVehicleCareModel[]).filter(x => x.isDeleted === false);
+    this.vehicleService.self().subscribe({
+      next: (res) => {
+        this.vehicleCares = (res as IVehicleCareModel[]).filter(x => x.isDeleted === false);
+      },
+      error: (err) => {
+        (err?.error as []).forEach(e => {
+          this.serverErrors.push(e);
+        });
+      }
     });;
   }
   

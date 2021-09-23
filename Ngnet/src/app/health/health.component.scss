@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+}
+
+.container > div {
+    margin: 2% 2%;
+    width: 50%;
+}
+
+.self {
+    width: 100%;
+    border: 2px solid black;
+    position: relative;
+}
+
+.self > div {
+    display: flex;
+    margin: 5px;
+}
+
+.self > div:first-child {
+    
+    justify-content: space-between;
+}
+
+.manipulations a {
+    margin: 0 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.manipulations a:hover{
+    border: 2px solid rgba(0, 0, 0, 0.363);
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.form-raw {
+    margin-bottom: 2%;
+}
