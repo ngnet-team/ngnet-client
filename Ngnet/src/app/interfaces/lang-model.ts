@@ -6,5 +6,7 @@ export interface ILangModel {
     register?: {},
     validations?: {}, 
     vehiclecare?: {},
-    healthcare?: {}
+    healthcare?: {},
+    manager?: {},
+    company?: {}
 }

@@ -8,7 +8,7 @@ export interface IVehicleCareModel {
     paidEndDate?: Date,
     reminder?: Date,
     price?: number,
-    company?: ICompanyModel,
+    company: ICompanyModel,
     notes?: string,
     userId?: string,
     isDeleted: boolean,

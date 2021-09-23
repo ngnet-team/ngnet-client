@@ -9,8 +9,8 @@
             <div *ngIf="healthCare.name">
                 <span>{{menu.for}}: {{healthCare.name}}</span>
                 <span class="manipulations">
-                    <a (click)="edit(healthCare)">{{menu.edit}}</a>
-                    <a (click)="remove(healthCare.id)">{{menu.delete}}</a>
+                    <a class="button" (click)="edit(healthCare)">{{menu.edit}}</a>
+                    <a class="button" (click)="remove(healthCare.id)">{{menu.delete}}</a>
                 </span>
             </div>
             <div *ngIf="healthCare.date">
@@ -25,6 +25,9 @@
             <div *ngIf="healthCare.notes">
                 <span>{{menu.notes}}:</span> {{healthCare.notes}}
             </div>
+        </div>
+        <div class="back">
+            <a class="button" (click)="back()">{{menu.back}}</a>
         </div>
     </div>
     <div class="creation">

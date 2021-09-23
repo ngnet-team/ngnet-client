@@ -23,13 +23,13 @@
     justify-content: space-between;
 }
 
-.manipulations a {
+.button {
     margin: 0 10px;
     text-decoration: none;
     cursor: pointer;
 }
 
-.manipulations a:hover{
+.button:hover{
     border: 2px solid rgba(0, 0, 0, 0.363);
     border-radius: 5px;
     padding: 2px;
@@ -37,4 +37,24 @@
 
 .form-raw {
     margin-bottom: 2%;
+}
+
+.back {
+    margin-top: 5px;
+}
+
+form {
+    display: flex;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form > div {
+    margin-right: 30px;
+}
+
+.dropdown, input {
+    width: 150px;
 }

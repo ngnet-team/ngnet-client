@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ISimpleDropDownNames } from '../interfaces/simple-dropdown-names';
 import { IHealthCareModel } from '../interfaces/health/health-care-model';
-import { IHealthNames } from '../interfaces/health/health-names';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { HealthService } from '../services/health.service';
 import { LangService } from '../services/lang.service';
@@ -20,18 +21,12 @@ export class HealthComponent {
   langEvent: Subscription[] = [];
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).healthcare;
-  names: IHealthNames = {};
+  names: ISimpleDropDownNames = {};
 
-  constructor(private healthService: HealthService, private langService: LangService) { 
+  constructor(private healthService: HealthService, private langService: LangService, private route: Router) { 
     this.loadNames();
     this.langListener();
     this.self();
-  }
-
-  loadNames(): void {
-    this.healthService.loadNames().subscribe(res => {
-      this.names = res;
-    });
   }
 
   save(model: IHealthCareModel): void {
@@ -81,7 +76,17 @@ export class HealthComponent {
     this.defaultHealthCares = model;
     this.editingId = model.id;
   }
+
+  back(): void {
+    this.route.navigateByUrl("manager");
+  }
   
+  private loadNames(): void {
+    this.healthService.loadNames().subscribe(res => {
+      this.names = res;
+    });
+  }
+
   private langListener(): void {
     this.langEvent.push(this.langService.langEvent.subscribe(result => {
       this.selectedLang = result.language;
