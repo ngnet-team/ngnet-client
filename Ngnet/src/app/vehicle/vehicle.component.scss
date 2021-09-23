@@ -42,3 +42,19 @@
 .back {
     margin-top: 5px;
 }
+
+form {
+    display: flex;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form > div {
+    margin-right: 30px;
+}
+
+.dropdown, input {
+    width: 150px;
+}

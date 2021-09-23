@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ISimpleDropDownNames } from '../interfaces/simple-dropdown-names';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
-import { IVehicleNames } from '../interfaces/vehicle/vehicle-names';
+import { CompanyService } from '../services/company.service';
 import { LangService } from '../services/lang.service';
 import { VehicleService } from '../services/vehicle.service';
+import { ICompanyDropDownNames } from '../interfaces/company-dropdown';
 
 @Component({
   selector: 'app-vehicle',
@@ -16,24 +18,21 @@ export class VehicleComponent {
 
   serverErrors: IErrorModel[] = [];
   vehicleCares: IVehicleCareModel[] = [];
-  defaultVehicleCares: IVehicleCareModel = { isDeleted: false };
+  defaultVehicleCares: IVehicleCareModel = { isDeleted: false, company: { name: '' } };
   editingId: string | undefined;
   langEvent: Subscription[] = [];
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).vehiclecare;
-  names: IVehicleNames = {};
+  company: any = this.langService.get(this.selectedLang).company;
+  names: ISimpleDropDownNames = {};
+  companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
 
-  constructor(private vehicleService: VehicleService, private langService: LangService, private route: Router) { 
+  constructor(private vehicleService: VehicleService, private langService: LangService, private route: Router, private companyService: CompanyService) { 
     this.loadNames();
+    this.loadCompanyNames();
     this.langListener();
     this.self();
    }
-
-  loadNames(): void {
-    this.vehicleService.loadNames().subscribe(res => {
-      this.names = res;
-    });
-  }
 
   save(model: IVehicleCareModel): void {
     
@@ -49,7 +48,7 @@ export class VehicleComponent {
         if (res > 0) {
           this.self();
         }
-        this.defaultVehicleCares = { isDeleted: false };
+        this.defaultVehicleCares = { isDeleted: false, company: { name: '' } };
       },
       error: (err) => {
         (err?.error as []).forEach(e => {
@@ -74,7 +73,7 @@ export class VehicleComponent {
   
   remove(vehicleId: string | undefined): void {
     
-    const model: IVehicleCareModel = { isDeleted: true, id: vehicleId };
+    const model: IVehicleCareModel = { isDeleted: true, id: vehicleId, company: { name: '' } };
     this.save(model);
   }
   
@@ -87,13 +86,25 @@ export class VehicleComponent {
     this.route.navigateByUrl("manager");
   }
 
+  private loadCompanyNames(): void {
+    this.companyService.loadNames().subscribe(res => {
+      this.companyNames = res;
+    });
+  }
+
+  private loadNames(): void {
+    this.vehicleService.loadNames().subscribe(res => {
+      this.names = res;
+    });
+  }
+
   private langListener(): void {
     this.langEvent.push(this.langService.langEvent.subscribe(result => {
       this.selectedLang = result.language;
       this.menu = result.vehiclecare;
+      this.company = result.company;
     }))
   }
-
 
     // byId(model: IVehicleCareModel): void {
     //   this.vehicleService.byId(model).subscribe(res => {

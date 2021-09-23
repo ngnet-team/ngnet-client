@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="selfs">
         <div class="no-self" *ngIf="vehicleCares">
@@ -40,58 +39,101 @@
     <div class="creation">
         <div class="form">
             <form #veh="ngForm" (ngSubmit)="save(veh.value)">
-                <div class="form-raw">
-                    <div>{{menu.for}} <span>{{menu.required}}</span></div>
-                    <div *ngIf="this.selectedLang === 'bg'">
-                        <select name="name" [(ngModel)]="defaultVehicleCares.name" required> 
-                            <option *ngFor="let name of names.bg" [value]="name">{{name}}</option> 
-                        </select> 
+                <div class="main">
+                    <div class="form-raw">
+                        <div>{{menu.for}} <span>{{menu.required}}</span></div>
+                        <div *ngIf="this.selectedLang === 'bg'">
+                            <select name="name" [(ngModel)]="defaultVehicleCares.name" required class="dropdown">
+                                <option *ngFor="let name of names.bg" [value]="name">{{name}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="this.selectedLang === 'en'">
+                            <select name="name" ngModel required class="dropdown">
+                                <option *ngFor="let name of names.en" [value]="name">{{name}}</option>
+                            </select>
+                        </div>
                     </div>
-                    <div *ngIf="this.selectedLang === 'en'">
-                        <select name="name" ngModel required> 
-                            <option *ngFor="let name of names.en" [value]="name">{{name}}</option> 
-                        </select> 
-                    </div>
-                </div>
-            
-                <div class="form-raw">
-                    <div>{{menu.startDate}}</div>
-                    <input #emailInput="ngModel" type="date" name="startDate" [(ngModel)]="defaultVehicleCares.startDate">
-                </div>
-            
-                <div class="form-raw">
-                    <div>{{menu.endDate}}</div>
-                    <input #emailInput="ngModel" type="date" name="endDate" [(ngModel)]="defaultVehicleCares.endDate">
-                </div>
-            
-                <div class="form-raw">
-                    <div>{{menu.paidEndDate}}</div>
-                    <input #emailInput="ngModel" type="date" name="paidEndDate" [(ngModel)]="defaultVehicleCares.paidEndDate">
-                </div>
-            
-                <div class="form-raw">
-                    <div>{{menu.reminder}}</div>
-                    <input #emailInput="ngModel" type="date" name="reminder" [(ngModel)]="defaultVehicleCares.reminder">
-                </div>
-            
-                <div class="form-raw">
-                    <div>{{menu.price}}</div>
-                    <input #emailInput="ngModel" type="number" name="price" [(ngModel)]="defaultVehicleCares.price">
-                </div>
-        
-                <div class="form-raw">
-                    <div>{{menu.notes}}</div>
-                    <input #emailInput="ngModel" type="text" name="notes" [(ngModel)]="defaultVehicleCares.notes">
-                </div>
 
-                <div *ngIf="vehicleCares.length > 0">
-                    <div *ngFor="let error of serverErrors">
-                        <p>{{error.description}}</p>
+                    <div class="form-raw">
+                        <div>{{menu.startDate}}</div>
+                        <input #emailInput="ngModel" type="date" name="startDate"
+                            [(ngModel)]="defaultVehicleCares.startDate">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{menu.endDate}}</div>
+                        <input #emailInput="ngModel" type="date" name="endDate"
+                            [(ngModel)]="defaultVehicleCares.endDate">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{menu.paidEndDate}}</div>
+                        <input #emailInput="ngModel" type="date" name="paidEndDate"
+                            [(ngModel)]="defaultVehicleCares.paidEndDate">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{menu.reminder}}</div>
+                        <input #emailInput="ngModel" type="date" name="reminder"
+                            [(ngModel)]="defaultVehicleCares.reminder">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{menu.price}}</div>
+                        <input #emailInput="ngModel" type="number" name="price" [(ngModel)]="defaultVehicleCares.price">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{menu.notes}}</div>
+                        <input #emailInput="ngModel" type="text" name="notes" [(ngModel)]="defaultVehicleCares.notes">
+                    </div>
+
+                    <div *ngIf="vehicleCares.length > 0">
+                        <div *ngFor="let error of serverErrors">
+                            <p>{{error.description}}</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button [disabled]="veh.invalid">{{menu.save}}</button>
                     </div>
                 </div>
-                
-                <div>
-                    <button [disabled]="veh.invalid">{{menu.save}}</button>
+                <div class="company">
+                    <div class="form-raw">
+                        <div>{{company.label}}</div>
+                        <div>{{company.name}}</div>
+                        <div *ngIf="this.selectedLang === 'bg'">
+                            <select name="name" [(ngModel)]="defaultVehicleCares.company.name" required class="dropdown">
+                                <option *ngFor="let companyName of companyNames.vehicle.bg" [value]="companyName">{{companyName}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="this.selectedLang === 'en'">
+                            <select name="name" ngModel required class="dropdown">
+                                <option *ngFor="let companyName of companyNames.vehicle.en" [value]="companyName">{{companyName}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{company.phoneNumber}}</div>
+                        <input #emailInput="ngModel" type="text" name="date" [(ngModel)]="defaultVehicleCares.company.phoneNumber">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{company.email}}</div>
+                        <input #emailInput="ngModel" type="text" name="email" [(ngModel)]="defaultVehicleCares.company.email">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{company.webSite}}</div>
+                        <input #emailInput="ngModel" type="text" name="webSite" [(ngModel)]="defaultVehicleCares.company.webSite">
+                    </div>
+
+                    <div class="form-raw">
+                        <div>{{company.address}}</div>
+                        <input #emailInput="ngModel" type="text" name="address" [(ngModel)]="defaultVehicleCares.company.address">
+                    </div>
+
                 </div>
             </form>
         </div>

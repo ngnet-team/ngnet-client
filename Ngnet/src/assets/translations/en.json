@@ -62,6 +62,14 @@
         "delete": "Delete",
         "back": "Back"
     },
+    "company": {
+        "name": "Name",
+        "phoneNumber": "Phone number",
+        "email": "Email",
+        "webSite": "Web site",
+        "address": "Address",
+        "label": "Company"
+    },
     "manager": {
         "toVehicle": "To vehicle manager",
         "toHealth": "To health manager"

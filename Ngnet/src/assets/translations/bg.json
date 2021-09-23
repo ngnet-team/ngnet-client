@@ -62,6 +62,14 @@
         "delete": "Изтрий",
         "back": "Назад"
     },
+    "company": {
+        "name": "Име",
+        "phoneNumber": "Телефонен номер",
+        "email": "Имейл",
+        "webSite": "Уеб сайт",
+        "address": "Адрес",
+        "label": "Компания"
+    },
     "manager": {
         "toVehicle": "Към мениджър коли",
         "toHealth": "Към мениджър здраве"
