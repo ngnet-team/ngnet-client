@@ -18,6 +18,8 @@ import { AdminComponent } from './admin/admin.component';
 import { VehicleComponent } from './vehicle/vehicle.component';
 import { VehicleService } from './services/vehicle.service';
 import { LangService } from './services/lang.service';
+import { HealthComponent } from './health/health.component';
+import { HealthService } from './services/health.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { LangService } from './services/lang.service';
     HomeComponent,
     AdminComponent,
     VehicleComponent,
+    HealthComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { LangService } from './services/lang.service';
     AuthGuardService,
     ProfileResolverService,
     VehicleService,
+    HealthService,
     LangService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -4,6 +4,7 @@
     </div>
     <div *ngIf="isLogged" class="logged">
         <a routerLink="/vehicle" class="vehicle">{{menu.vehicleManager}}</a>
+        <a routerLink="/health" class="health">{{menu.healthManager}}</a>
         <a routerLink="/profile" class="profile">{{menu.profile}}</a>
         <a (click)="logout()" class="logout">{{menu.logout}}</a>
     </div>

@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
+import { HealthComponent } from './health/health.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ProfileResolverService } from './services/profile-resolver.service';
@@ -34,6 +35,15 @@ const routes: Routes = [
         path: 'vehicle',
         pathMatch: 'full',
         component: VehicleComponent,
+        canActivate: [AuthGuardService],
+        data: {
+            authRequired: true,
+        },
+    },
+    {
+        path: 'health',
+        pathMatch: 'full',
+        component: HealthComponent,
         canActivate: [AuthGuardService],
         data: {
             authRequired: true,

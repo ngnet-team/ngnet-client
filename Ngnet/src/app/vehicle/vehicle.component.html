@@ -1,12 +1,17 @@
 
 <div class="container">
     <div class="selfs">
+        <div class="no-self" *ngIf="vehicleCares">
+            <div *ngFor="let error of serverErrors">
+                <p>{{error.description}}</p>
+            </div>
+        </div>
         <div class="self" *ngFor="let vehicleCare of vehicleCares">
             <div *ngIf="vehicleCare.name">
                 <span>{{menu.for}}: {{vehicleCare.name}}</span>
                 <span class="manipulations">
-                    <a (click)="edit(vehicleCare)">Edit</a>
-                    <a (click)="remove(vehicleCare.id)">Delete</a>
+                    <a (click)="edit(vehicleCare)">{{menu.edit}}</a>
+                    <a (click)="remove(vehicleCare.id)">{{menu.delete}}</a>
                 </span>
             </div>
             <div *ngIf="vehicleCare.startDate">
@@ -76,10 +81,12 @@
                     <input #emailInput="ngModel" type="text" name="notes" [(ngModel)]="defaultVehicleCares.notes">
                 </div>
 
-                <div *ngFor="let error of serverErrors">
-                    <p>{{error.description}}</p>
+                <div *ngIf="vehicleCares.length > 0">
+                    <div *ngFor="let error of serverErrors">
+                        <p>{{error.description}}</p>
+                    </div>
                 </div>
-    
+                
                 <div>
                     <button [disabled]="veh.invalid">{{menu.save}}</button>
                 </div>
