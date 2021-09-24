@@ -18,14 +18,20 @@ import { IDefaultVehicleCareModel } from '../interfaces/vehicle/default-vehicle-
 export class VehicleComponent {
 
   serverErrors: IErrorModel[] = [];
+  //models
   vehicleCares: IVehicleCareModel[] = [];
   defaultVehicleCare: IDefaultVehicleCareModel = { isDeleted: false, company: {} };
+  //temporary
   editingVehicleCareId: string | undefined;
   editingCompanyId: number | undefined;
+  saveClicked: boolean = this.defaultVehicleCare.company == {};
+  //language
   langEvent: Subscription[] = [];
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).vehiclecare;
   company: any = this.langService.get(this.selectedLang).company;
+  validations: any = this.langService.get(this.selectedLang).validations;
+  //dropdowns
   names: ISimpleDropDownNames = {};
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
 
@@ -129,6 +135,7 @@ export class VehicleComponent {
       this.selectedLang = result.language;
       this.menu = result.vehiclecare;
       this.company = result.company;
+      this.validations = result.validations;
     }))
   }
 }
