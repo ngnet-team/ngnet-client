@@ -36,7 +36,9 @@
         "invalidEmail": "The email is invalid!",
         "requiredUsername": "The username is required!",
         "requiredPassword": "The password is required!",
-        "passwordLength": "The password should be at least 6 characters!"
+        "passwordLength": "The password should be at least 6 characters!",
+        "companyNameRequired": "The company name is required!",
+        "noVehicleCaresFound": "There are no vehicle care records."
     },
     "vehiclecare": {
         "for": "For",
