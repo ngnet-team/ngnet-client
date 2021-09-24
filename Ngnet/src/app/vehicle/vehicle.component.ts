@@ -8,6 +8,7 @@ import { CompanyService } from '../services/company.service';
 import { LangService } from '../services/lang.service';
 import { VehicleService } from '../services/vehicle.service';
 import { ICompanyDropDownNames } from '../interfaces/company-dropdown';
+import { IDefaultVehicleCareModel } from '../interfaces/vehicle/default-vehicle-care-model';
 
 @Component({
   selector: 'app-vehicle',
@@ -18,7 +19,7 @@ export class VehicleComponent {
 
   serverErrors: IErrorModel[] = [];
   vehicleCares: IVehicleCareModel[] = [];
-  defaultVehicleCares: IVehicleCareModel = { isDeleted: false, company: { name: '' } };
+  defaultVehicleCare: IDefaultVehicleCareModel = { isDeleted: false, company: {} };
   editingVehicleCareId: string | undefined;
   editingCompanyId: number | undefined;
   langEvent: Subscription[] = [];
@@ -36,14 +37,28 @@ export class VehicleComponent {
    }
 
   save(model: IVehicleCareModel): void {
+
+    //no company selected
+    if (model.company?.name === undefined) {
+      model.company = undefined;
+    }
+
+    //changing existing vehicle
     if (this.editingVehicleCareId) {
       model.id = this.editingVehicleCareId;
       this.editingVehicleCareId = undefined;
     }
 
+    //changing existing company
     if (this.editingCompanyId) {
-      model.company.id = this.editingCompanyId;
+      (model as IDefaultVehicleCareModel).company.id = this.editingCompanyId;
       this.editingCompanyId = undefined;
+    }
+
+    //avoid empty strings for validated properties in the server 
+    if (model.company?.email === '' || model.company?.phoneNumber === '') {
+      model.company.email = undefined;
+      model.company.phoneNumber = undefined;
     }
 
     this.serverErrors = [] as IErrorModel[];
@@ -53,9 +68,10 @@ export class VehicleComponent {
         if (res > 0) {
           this.self();
         }
-        this.defaultVehicleCares = { isDeleted: false, company: { name: '' } };
+        this.defaultVehicleCare = { isDeleted: false, company: {} };
       },
       error: (err) => {
+        console.log(err.error.errors);
         (err?.error as []).forEach(e => {
           this.serverErrors.push(e);
         });
@@ -69,23 +85,27 @@ export class VehicleComponent {
         this.vehicleCares = (res as IVehicleCareModel[]).filter(x => x.isDeleted === false);
       },
       error: (err) => {
+        console.log(err.error.errors);
         (err?.error as []).forEach(e => {
           this.serverErrors.push(e);
         });
       }
-    });;
+    });
   }
   
-  remove(vehicleId: string | undefined): void {
+  remove(model: IVehicleCareModel): void {
     
-    const model: IVehicleCareModel = { isDeleted: true, id: vehicleId, company: { name: '' } };
+    model.isDeleted = true;
     this.save(model);
   }
   
   edit(model: IVehicleCareModel): void {
-    this.defaultVehicleCares = model;
+    if (model.company === null) {
+      model.company = { id: undefined };
+    }
+    this.defaultVehicleCare = (model as IDefaultVehicleCareModel);
     this.editingVehicleCareId = model.id;
-    this.editingCompanyId = model.company.id;
+    this.editingCompanyId = model.company?.id;
   }
   
   back(): void {
@@ -111,16 +131,4 @@ export class VehicleComponent {
       this.company = result.company;
     }))
   }
-
-    // byId(model: IVehicleCareModel): void {
-    //   this.vehicleService.byId(model).subscribe(res => {
-    //     console.log(res);
-    //   });;
-    // }
-  
-    // byUserId(model: IVehicleCareModel): void {
-    //   this.vehicleService.byUserId(model).subscribe(res => {
-    //     console.log(res);
-    //   });;
-    // }
 }

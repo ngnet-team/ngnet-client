@@ -10,7 +10,7 @@
                 <span>{{menu.for}}: {{vehicleCare.name}}</span>
                 <span class="manipulations">
                     <a class="button" (click)="edit(vehicleCare)">{{menu.edit}}</a>
-                    <a class="button" (click)="remove(vehicleCare.id)">{{menu.delete}}</a>
+                    <a class="button" (click)="remove(vehicleCare)">{{menu.delete}}</a>
                 </span>
             </div>
             <div *ngIf="vehicleCare.startDate">
@@ -32,20 +32,20 @@
                 <span>{{menu.notes}}:</span> {{vehicleCare.notes}}
             </div>
             <div *ngIf="vehicleCare.company">{{company.label}}</div>
-            <div *ngIf="vehicleCare.company.name">
-                <span>{{company.name}}:</span> {{vehicleCare.company.name}}
+            <div *ngIf="vehicleCare.company?.name">
+                <span>{{company.name}}:</span> {{vehicleCare.company?.name}}
             </div>
-            <div *ngIf="vehicleCare.company.phoneNumber">
-                <span>{{company.phoneNumber}}:</span> {{vehicleCare.company.phoneNumber}}
+            <div *ngIf="vehicleCare.company?.phoneNumber">
+                <span>{{company.phoneNumber}}:</span> {{vehicleCare.company?.phoneNumber}}
             </div>
-            <div *ngIf="vehicleCare.company.email">
-                <span>{{company.email}}:</span> {{vehicleCare.company.email}}
+            <div *ngIf="vehicleCare.company?.email">
+                <span>{{company.email}}:</span> {{vehicleCare.company?.email}}
             </div>
-            <div *ngIf="vehicleCare.company.webSite">
-                <span>{{company.webSite}}:</span> {{vehicleCare.company.webSite}}
+            <div *ngIf="vehicleCare.company?.webSite">
+                <span>{{company.webSite}}:</span> {{vehicleCare.company?.webSite}}
             </div>
-            <div *ngIf="vehicleCare.company.address">
-                <span>{{company.address}}:</span> {{vehicleCare.company.address}}
+            <div *ngIf="vehicleCare.company?.address">
+                <span>{{company.address}}:</span> {{vehicleCare.company?.address}}
             </div>
         </div>
         <div class="back">
@@ -57,14 +57,14 @@
             <form #veh="ngForm" (ngSubmit)="save(veh.value)">
                 <div class="main">
                     <div class="form-raw">
-                        <div>{{menu.for}} <span>{{menu.required}}</span></div>
+                        <div>{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
                         <div *ngIf="this.selectedLang === 'bg'">
-                            <select name="name" [(ngModel)]="defaultVehicleCares.name" required class="dropdown">
+                            <select name="name" [(ngModel)]="defaultVehicleCare.name" required>
                                 <option *ngFor="let name of names.bg" [value]="name">{{name}}</option>
                             </select>
                         </div>
                         <div *ngIf="this.selectedLang === 'en'">
-                            <select name="name" [(ngModel)]="defaultVehicleCares.name" required class="dropdown">
+                            <select name="name" [(ngModel)]="defaultVehicleCare.name" required>
                                 <option *ngFor="let name of names.en" [value]="name">{{name}}</option>
                             </select>
                         </div>
@@ -72,36 +72,32 @@
 
                     <div class="form-raw">
                         <div>{{menu.startDate}}</div>
-                        <input type="date" name="startDate"
-                            [(ngModel)]="defaultVehicleCares.startDate">
+                        <input type="date" name="startDate" [(ngModel)]="defaultVehicleCare.startDate">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.endDate}}</div>
-                        <input type="date" name="endDate"
-                            [(ngModel)]="defaultVehicleCares.endDate">
+                        <input type="date" name="endDate" [(ngModel)]="defaultVehicleCare.endDate">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.paidEndDate}}</div>
-                        <input type="date" name="paidEndDate"
-                            [(ngModel)]="defaultVehicleCares.paidEndDate">
+                        <input type="date" name="paidEndDate" [(ngModel)]="defaultVehicleCare.paidEndDate">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.reminder}}</div>
-                        <input type="date" name="reminder"
-                            [(ngModel)]="defaultVehicleCares.reminder">
+                        <input type="date" name="reminder" [(ngModel)]="defaultVehicleCare.reminder">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.price}}</div>
-                        <input type="number" name="price" [(ngModel)]="defaultVehicleCares.price">
+                        <input type="number" name="price" [(ngModel)]="defaultVehicleCare.price">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.notes}}</div>
-                        <input type="text" name="notes" [(ngModel)]="defaultVehicleCares.notes">
+                        <textarea type="text" name="notes" [(ngModel)]="defaultVehicleCare.notes"></textarea>
                     </div>
 
                     <div *ngIf="vehicleCares.length > 0">
@@ -111,7 +107,14 @@
                     </div>
 
                     <div>
-                        <button [disabled]="veh.invalid">{{menu.save}}</button>
+                        <button [disabled]="veh.invalid || (
+                        defaultVehicleCare.company.name === undefined && 
+                        ((defaultVehicleCare.company.phoneNumber !== undefined && defaultVehicleCare.company.phoneNumber !== '') ||
+                        (defaultVehicleCare.company.email !== undefined && defaultVehicleCare.company.email !== '') ||
+                        (defaultVehicleCare.company.webSite !== undefined && defaultVehicleCare.company.webSite !== '') ||
+                        (defaultVehicleCare.company.address !== undefined && defaultVehicleCare.company.address !== ''))
+                        )">{{menu.save}}
+                        </button>
                     </div>
                 </div>
                 <div class="company">
@@ -119,35 +122,41 @@
                         <div>{{company.label}}</div>
                         <div>{{company.name}}</div>
                         <div *ngIf="this.selectedLang === 'bg'">
-                            <select name="name" [(ngModel)]="defaultVehicleCares.company.name" ngModelGroup="company" class="dropdown">
-                                <option *ngFor="let companyName of companyNames.vehicle.bg" [value]="companyName">{{companyName}}</option>
+                            <select name="name" [(ngModel)]="defaultVehicleCare.company.name" ngModelGroup="company">
+                                <option *ngFor="let companyName of companyNames.vehicle.bg" [value]="companyName">
+                                    {{companyName}}</option>
                             </select>
                         </div>
                         <div *ngIf="this.selectedLang === 'en'">
-                            <select name="name" [(ngModel)]="defaultVehicleCares.company.name" ngModelGroup="company" class="dropdown">
-                                <option *ngFor="let companyName of companyNames.vehicle.en" [value]="companyName">{{companyName}}</option>
+                            <select name="name" [(ngModel)]="defaultVehicleCare.company.name" ngModelGroup="company">
+                                <option *ngFor="let companyName of companyNames.vehicle.en" [value]="companyName">
+                                    {{companyName}}</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-raw">
                         <div>{{company.phoneNumber}}</div>
-                        <input type="text" name="phoneNumber" [(ngModel)]="defaultVehicleCares.company.phoneNumber" ngModelGroup="company">
+                        <input type="text" name="phoneNumber" [(ngModel)]="defaultVehicleCare.company.phoneNumber"
+                            ngModelGroup="company">
                     </div>
 
                     <div class="form-raw">
                         <div>{{company.email}}</div>
-                        <input type="text" name="email" [(ngModel)]="defaultVehicleCares.company.email" ngModelGroup="company">
+                        <input type="text" name="email" [(ngModel)]="defaultVehicleCare.company.email"
+                            ngModelGroup="company">
                     </div>
 
                     <div class="form-raw">
                         <div>{{company.webSite}}</div>
-                        <input type="text" name="webSite" [(ngModel)]="defaultVehicleCares.company.webSite" ngModelGroup="company">
+                        <input type="text" name="webSite" [(ngModel)]="defaultVehicleCare.company.webSite"
+                            ngModelGroup="company">
                     </div>
 
                     <div class="form-raw">
                         <div>{{company.address}}</div>
-                        <input type="text" name="address" [(ngModel)]="defaultVehicleCares.company.address" ngModelGroup="company">
+                        <input type="text" name="address" [(ngModel)]="defaultVehicleCare.company.address"
+                            ngModelGroup="company">
                     </div>
 
                 </div>

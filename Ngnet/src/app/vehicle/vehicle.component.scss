@@ -55,6 +55,15 @@ form > div {
     margin-right: 30px;
 }
 
-.dropdown, input {
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+select, input, textarea {
     width: 150px;
+}
+
+.requiredInput {
+    color: rgb(230, 0, 0);
 }
