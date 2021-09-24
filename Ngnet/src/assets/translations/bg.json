@@ -49,7 +49,8 @@
         "save": "Запиши",
         "edit": "Промени",
         "delete": "Изтрий",
-        "back": "Назад"
+        "back": "Назад",
+        "required": " *"
     },
     "healthcare": {
         "for": "За",
@@ -60,7 +61,8 @@
         "save": "Запиши",
         "edit": "Промени",
         "delete": "Изтрий",
-        "back": "Назад"
+        "back": "Назад",
+        "required": " *"
     },
     "company": {
         "name": "Име",

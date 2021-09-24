@@ -42,3 +42,24 @@
 .back {
     margin-top: 5px;
 }
+
+form {
+    display: flex;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form > div {
+    margin-right: 30px;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+select, input, textarea {
+    width: 150px;
+}

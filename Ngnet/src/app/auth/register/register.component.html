@@ -1,27 +1,27 @@
 <div class="form">
     <form #reg="ngForm" (ngSubmit)="register(reg.value)">
         <div>
-            <div>{{menu.email}} <span>{{menu.required}}</span></div>
+            <div>{{menu.email}} <span class="requiredInput">{{menu.required}}</span></div>
             <input #emailInput="ngModel" type="text" name="email" ngModel required email>
             <p class="validation" *ngIf="emailInput.errors?.required && emailInput.touched">{{validations.requiredEmail}}</p>
             <p class="validation" *ngIf="emailInput.errors?.email && emailInput.touched">{{validations.invalidEmail}}</p>
         </div>
     
         <div>
-            <div>{{menu.username}} <span>{{menu.required}}</span></div>
+            <div>{{menu.username}} <span class="requiredInput">{{menu.required}}</span></div>
             <input #usernameInput="ngModel" type="text" name="username" ngModel required>
             <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">{{validations.requiredUsername}}</p>
         </div>
     
         <div>
-            <div>{{menu.password}} <span>{{menu.required}}</span></div>
+            <div>{{menu.password}} <span class="requiredInput">{{menu.required}}</span></div>
             <input #passwordInput="ngModel" type="password" name="password" ngModel required minlength="6">
             <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">{{validations.requiredPassword}}</p>
             <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">{{validations.passwordLength}}</p>
         </div>
     
         <div>
-            <div>{{menu.repeatPassword}} <span>{{menu.required}}</span></div>
+            <div>{{menu.repeatPassword}} <span class="requiredInput">{{menu.required}}</span></div>
             <input #repeatPasswordInput="ngModel" type="password" name="repeatPassword" ngModel required minlength="6">
             <p class="validation" *ngIf="repeatPasswordInput.errors?.required && repeatPasswordInput.touched">{{validations.requiredPassword}}</p>
             <p class="validation" *ngIf="repeatPasswordInput.errors?.minlength && repeatPasswordInput.touched">{{validations.passwordLength}}</p>
