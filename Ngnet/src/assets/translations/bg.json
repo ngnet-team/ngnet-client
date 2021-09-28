@@ -67,12 +67,13 @@
         "required": " *"
     },
     "company": {
-        "name": "Име",
+        "name": "Къде",
         "phoneNumber": "Телефонен номер",
         "email": "Имейл",
         "webSite": "Уеб сайт",
         "address": "Адрес",
-        "label": "Компания"
+        "label": "Компания",
+        "required": " *"
     },
     "manager": {
         "toVehicle": "Към мениджър коли",

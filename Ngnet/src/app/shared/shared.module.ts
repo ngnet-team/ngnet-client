@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerNotFoundComponent } from './server-not-found/server-not-found.component';
 import { PageComponent } from './page/page.component';
-import { PagerService } from '../services/pager.service';
+import { CompanyFormComponent } from './company-form/company-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -11,13 +12,16 @@ import { PagerService } from '../services/pager.service';
   declarations: [
     NotFoundComponent,
     ServerNotFoundComponent,
-    PageComponent
+    PageComponent,
+    CompanyFormComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
   ],
   exports: [
-    PageComponent
+    PageComponent,
+    CompanyFormComponent
   ]
 })
 export class SharedModule { }

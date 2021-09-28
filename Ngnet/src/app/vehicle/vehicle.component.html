@@ -29,7 +29,6 @@
             <div *ngIf="vehicleCare.notes">
                 <span>{{menu.notes}}:</span> {{vehicleCare.notes}}
             </div>
-            <div *ngIf="vehicleCare.company?.name">{{company.label}}</div>
             <div *ngIf="vehicleCare.company?.name">
                 <span>{{company.name}}:</span> {{vehicleCare.company?.name}}
             </div>
@@ -46,12 +45,12 @@
                 <span>{{company.address}}:</span> {{vehicleCare.company?.address}}
             </div>
         </div>
-
+            
+        <app-page *ngIf="vehicleCares.length > 0" class="pager-view" [pager]="pager"></app-page>
+        
         <div class="back">
             <a class="button" (click)="back()">{{menu.back}}</a>
         </div>
-
-        <app-page class="pager-view" [pager]="pager"></app-page>
 
     </div>
     <div class="creation">
@@ -119,75 +118,9 @@
                         </button>
                     </div>
                 </div>
-                <div class="company">
-                    <div class="form-raw">
-                        <div>{{company.label}}</div>
-                        <div>{{company.name}} 
-                            <span *ngIf="
-                        ((defaultVehicleCare.company.phoneNumber !== undefined && defaultVehicleCare.company.phoneNumber !== '') ||
-                        (defaultVehicleCare.company.email !== undefined && defaultVehicleCare.company.email !== '') ||
-                        (defaultVehicleCare.company.webSite !== undefined && defaultVehicleCare.company.webSite !== '') ||
-                        (defaultVehicleCare.company.address !== undefined && defaultVehicleCare.company.address !== ''))
-                            " class="requiredInput">{{menu.required}}</span>
-                        </div>
-                        <div *ngIf="this.selectedLang === 'bg'">
-                            <select name="name" [(ngModel)]="defaultVehicleCare.company.name" ngModelGroup="company">
-                                <option *ngFor="let companyName of companyNames.vehicle.bg" [value]="companyName">
-                                    {{companyName}}</option>
-                            </select>
-                        </div>
-                        <div *ngIf="this.selectedLang === 'en'">
-                            <select name="name" [(ngModel)]="defaultVehicleCare.company.name" ngModelGroup="company">
-                                <option *ngFor="let companyName of companyNames.vehicle.en" [value]="companyName">
-                                    {{companyName}}</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="form-raw">
-                        <div>{{company.phoneNumber}}</div>
-                        <input #phoneNumberInput="ngModel" type="text" name="phoneNumber" [(ngModel)]="defaultVehicleCare.company.phoneNumber" ngModelGroup="company">
-                        <p class="validation" *ngIf="phoneNumberInput.touched && 
-                        defaultVehicleCare.company.name === undefined && 
-                        defaultVehicleCare.company.phoneNumber != '' &&
-                        defaultVehicleCare.company.phoneNumber != undefined">
-                            {{validations.companyNameRequired}}</p>
-                    </div>
+                <app-company-form [company]="defaultVehicleCare.company" ngModelGroup="company"></app-company-form>
 
-                    <div class="form-raw">
-                        <div>{{company.email}}</div>
-                        <input #emailInput="ngModel" type="text" name="email" [(ngModel)]="defaultVehicleCare.company.email" ngModelGroup="company" email>
-                        <p class="validation" *ngIf="emailInput.touched && 
-                        emailInput?.errors?.email">
-                            {{validations.invalidEmail}}</p>
-                        <p class="validation" *ngIf="emailInput.touched && 
-                        defaultVehicleCare.company.name === undefined && 
-                        defaultVehicleCare.company.email != '' &&
-                        defaultVehicleCare.company.email != undefined">
-                            {{validations.companyNameRequired}}</p>
-                    </div>
-
-                    <div class="form-raw">
-                        <div>{{company.webSite}}</div>
-                        <input #webSiteInput="ngModel" type="text" name="webSite" [(ngModel)]="defaultVehicleCare.company.webSite" ngModelGroup="company">
-                        <p class="validation" *ngIf="webSiteInput.touched && 
-                        defaultVehicleCare.company.name === undefined && 
-                        defaultVehicleCare.company.webSite != '' &&
-                        defaultVehicleCare.company.webSite != undefined">
-                            {{validations.companyNameRequired}}</p>
-                    </div>
-
-                    <div class="form-raw">
-                        <div>{{company.address}}</div>
-                        <input #addressInput="ngModel" type="text" name="address" [(ngModel)]="defaultVehicleCare.company.address" ngModelGroup="company">
-                        <p class="validation" *ngIf="addressInput.touched && 
-                        defaultVehicleCare.company.name === undefined && 
-                        defaultVehicleCare.company.address != '' &&
-                        defaultVehicleCare.company.address != undefined">
-                            {{validations.companyNameRequired}}</p>
-                    </div>
-
-                </div>
             </form>
         </div>
     </div>

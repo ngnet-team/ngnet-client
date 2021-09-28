@@ -1,5 +1,6 @@
 .pagination {
     margin: 10px 25%;
+    color: black;
 }
 
 .content {
@@ -13,7 +14,10 @@ span {
 .page {
     text-decoration: none;
     margin: 0 5px;
-    color: black;
+}
+
+.selected {
+    font-weight: bolder;
 }
 
 .page-wrapper {
@@ -27,7 +31,6 @@ span {
 }
 
 //arrow
-
 .arrow {
     padding: 2px;
     text-decoration: none;
@@ -42,4 +45,10 @@ span {
 .arrow-wrapper:hover {
     border: 1px solid rgb(32, 190, 211);
     cursor: pointer;
+}
+
+
+.disabled:hover {
+    border: none;
+    cursor: context-menu;
 }

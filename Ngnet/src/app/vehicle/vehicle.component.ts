@@ -4,13 +4,12 @@ import { Subscription } from 'rxjs';
 import { ISimpleDropDownNames } from '../interfaces/simple-dropdown-names';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
-import { CompanyService } from '../services/company.service';
 import { LangService } from '../services/lang.service';
 import { VehicleService } from '../services/vehicle.service';
-import { ICompanyDropDownNames } from '../interfaces/company-dropdown';
 import { IDefaultVehicleCareModel } from '../interfaces/vehicle/default-vehicle-care-model';
 import { IPageModel } from '../interfaces/page-model';
 import { PagerService } from '../services/pager.service';
+import { ICompanyModel } from '../interfaces/company-model';
 
 @Component({
   selector: 'app-vehicle',
@@ -30,33 +29,32 @@ export class VehicleComponent {
   //language
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).vehiclecare;
-  company: any = this.langService.get(this.selectedLang).company;
   validations: any = this.langService.get(this.selectedLang).validations;
   //subscription
   subscription: Subscription[] = [];
   //dropdowns
   names: ISimpleDropDownNames = {};
-  companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
   //pager
   @Output() pager: IPageModel = this.pagerService.model;
   pagedVehicleCares: IVehicleCareModel[] = [];
+  //company
+  @Output() company: ICompanyModel = this.defaultVehicleCare.company;
 
-  constructor(private vehicleService: VehicleService, 
-    private langService: LangService, 
-    private route: Router, 
-    private companyService: CompanyService,
-    private pagerService: PagerService) { 
+  constructor(private vehicleService: VehicleService,
+    private langService: LangService,
+    private route: Router,
+    private pagerService: PagerService) {
     this.loadNames();
-    this.loadCompanyNames();
     this.listener();
     this.self();
-   }
+  }
 
   save(model: IVehicleCareModel): void {
-
-    //no company selected
-    if (model.company?.name === undefined) {
+    //company selected
+    if (this.defaultVehicleCare.company?.name === undefined) {
       model.company = undefined;
+    } else {
+      model.company = this.defaultVehicleCare.company;
     }
 
     //changing existing vehicle
@@ -72,13 +70,15 @@ export class VehicleComponent {
     }
 
     //avoid empty strings for validated properties in the server 
-    if (model.company?.email === '' || model.company?.phoneNumber === '') {
+    if (model.company?.email === '') {
       model.company.email = undefined;
+    } 
+    if (model.company?.phoneNumber === '') {
       model.company.phoneNumber = undefined;
     }
 
     this.serverErrors = [] as IErrorModel[];
-    
+
     this.vehicleService.save(model).subscribe({
       next: (res) => {
         if (res > 0) {
@@ -94,7 +94,7 @@ export class VehicleComponent {
       }
     });
   }
-  
+
   self(): void {
     this.vehicleService.self().subscribe({
       next: (res) => {
@@ -112,13 +112,13 @@ export class VehicleComponent {
       }
     });
   }
-  
+
   remove(model: IVehicleCareModel): void {
-    
+
     model.isDeleted = true;
     this.save(model);
   }
-  
+
   edit(model: IVehicleCareModel): void {
     if (model.company === null) {
       model.company = { id: undefined };
@@ -127,15 +127,9 @@ export class VehicleComponent {
     this.editingVehicleCareId = model.id;
     this.editingCompanyId = model.company?.id;
   }
-  
+
   back(): void {
     this.route.navigateByUrl("manager");
-  }
-
-  private loadCompanyNames(): void {
-    this.companyService.loadNames().subscribe(res => {
-      this.companyNames = res;
-    });
   }
 
   private loadNames(): void {
@@ -145,8 +139,8 @@ export class VehicleComponent {
   }
 
   private pagination() {
-     const { skip, take } = this.pagerService.skipTake(this.vehicleCares.length);
-     this.pagedVehicleCares = this.vehicleCares.slice(skip, take);
+    const { skip, take } = this.pagerService.skipTake(this.vehicleCares.length);
+    this.pagedVehicleCares = this.vehicleCares.slice(skip, take);
   }
 
   private listener(): void {
