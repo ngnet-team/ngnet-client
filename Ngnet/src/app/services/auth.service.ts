@@ -2,9 +2,10 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { ILoginModel } from '../interfaces/login-model';
-import { IRegisterModel } from '../interfaces/register-model';
+import { ILoginModel } from '../interfaces/auth/login-model';
+import { IRegisterModel } from '../interfaces/auth/register-model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IUserRequestModel } from '../interfaces/auth/user-request-model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,12 @@ export class AuthService {
 
   constructor(private http: HttpClient, private route: Router) { }
 
-  register(input: IRegisterModel): Observable<any> {
-    return this.http.post(this.authUrl + '/register', input)
+  register(request: IRegisterModel): Observable<any> {
+    return this.http.post(this.authUrl + '/register', request)
   }
 
-  login(input: ILoginModel): Observable<any> {
-    return this.http.post(this.authUrl + '/login', input)
+  login(request: ILoginModel): Observable<any> {
+    return this.http.post(this.authUrl + '/login', request)
   }
 
   logout(): void {
@@ -51,5 +52,9 @@ export class AuthService {
     }
 
     return requiredRole === currRole;
+  }
+
+  update(request: IUserRequestModel): Observable<any> {
+    return this.http.post(this.authUrl + '/update', request)
   }
 }
