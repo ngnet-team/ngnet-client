@@ -22,6 +22,7 @@ import { HealthComponent } from './health/health.component';
 import { HealthService } from './services/health.service';
 import { ManagerComponent } from './manager/manager.component';
 import { CompanyService } from './services/company.service';
+import { PagerService } from './services/pager.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CompanyService } from './services/company.service';
     HealthService,
     LangService,
     CompanyService,
+    PagerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

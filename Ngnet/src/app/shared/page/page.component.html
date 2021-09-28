@@ -1,0 +1,21 @@
+<div class="pagination">
+    <div class="content">
+        <span class="arrow-wrapper" (click)="pageClick(1)">
+            <a class="arrow">&laquo;</a>
+        </span>
+        <span class="arrow-wrapper" (click)="pageClick(pagerService.model.pageNumber - 1)">
+            <a class="arrow">&#8592;</a>
+        </span>
+    
+        <span class="page-wrapper" (click)="pageClick(page)" *ngFor="let page of pager.numbers">
+            <a class="page">{{page}}</a>
+        </span>
+    
+        <span class="arrow-wrapper" (click)="pageClick(pagerService.model.pageNumber + 1)">
+            <a class="arrow">&#8594;</a>
+        </span>
+        <span class="arrow-wrapper" (click)="pageClick(pagerService.model.totalPages)">
+            <a class="arrow">&raquo;</a>
+        </span>
+    </div>
+</div>

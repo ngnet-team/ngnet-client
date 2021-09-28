@@ -1,0 +1,28 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IPageModel } from 'src/app/interfaces/page-model';
+import { PagerService } from 'src/app/services/pager.service';
+
+@Component({
+  selector: 'app-page',
+  templateUrl: './page.component.html',
+  styleUrls: ['./page.component.scss']
+})
+export class PageComponent {
+
+  @Input() pager: IPageModel = { length: 0, numbers: [], perPage: 0, pageNumber: 0, totalPages: 0 };
+  @Output() pageSelect: number = 0;
+
+  constructor(public pagerService: PagerService) {}
+
+  pageClick(page: number) {
+    page = this.validatePage(page);
+    this.pagerService.pageClick(page);
+  }
+
+  private validatePage(page: number): number {
+    const start: number = 1;
+    const end: number = this.pagerService.model.totalPages;
+
+    return page < start ? start : page > end ? end : page;
+  }
+}

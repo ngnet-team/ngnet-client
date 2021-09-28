@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ISimpleDropDownNames } from '../interfaces/simple-dropdown-names';
@@ -9,6 +9,8 @@ import { LangService } from '../services/lang.service';
 import { VehicleService } from '../services/vehicle.service';
 import { ICompanyDropDownNames } from '../interfaces/company-dropdown';
 import { IDefaultVehicleCareModel } from '../interfaces/vehicle/default-vehicle-care-model';
+import { IPageModel } from '../interfaces/page-model';
+import { PagerService } from '../services/pager.service';
 
 @Component({
   selector: 'app-vehicle',
@@ -26,19 +28,27 @@ export class VehicleComponent {
   editingCompanyId: number | undefined;
   saveClicked: boolean = this.defaultVehicleCare.company == {};
   //language
-  langEvent: Subscription[] = [];
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).vehiclecare;
   company: any = this.langService.get(this.selectedLang).company;
   validations: any = this.langService.get(this.selectedLang).validations;
+  //subscription
+  subscription: Subscription[] = [];
   //dropdowns
   names: ISimpleDropDownNames = {};
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
+  //pager
+  @Output() pager: IPageModel = this.pagerService.model;
+  pagedVehicleCares: IVehicleCareModel[] = [];
 
-  constructor(private vehicleService: VehicleService, private langService: LangService, private route: Router, private companyService: CompanyService) { 
+  constructor(private vehicleService: VehicleService, 
+    private langService: LangService, 
+    private route: Router, 
+    private companyService: CompanyService,
+    private pagerService: PagerService) { 
     this.loadNames();
     this.loadCompanyNames();
-    this.langListener();
+    this.listener();
     this.self();
    }
 
@@ -89,6 +99,10 @@ export class VehicleComponent {
     this.vehicleService.self().subscribe({
       next: (res) => {
         this.vehicleCares = (res as IVehicleCareModel[]).filter(x => x.isDeleted === false);
+        //pager view
+        this.pagerService.model.totalPages = this.pagerService.setPageNumbers(this.vehicleCares.length);
+        //results view
+        this.pagination();
       },
       error: (err) => {
         console.log(err.error.errors);
@@ -130,12 +144,22 @@ export class VehicleComponent {
     });
   }
 
-  private langListener(): void {
-    this.langEvent.push(this.langService.langEvent.subscribe(result => {
+  private pagination() {
+     const { skip, take } = this.pagerService.skipTake(this.vehicleCares.length);
+     this.pagedVehicleCares = this.vehicleCares.slice(skip, take);
+  }
+
+  private listener(): void {
+    this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.selectedLang = result.language;
       this.menu = result.vehiclecare;
       this.company = result.company;
       this.validations = result.validations;
+    }))
+
+    this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
+      this.pager.pageNumber = pageNumber;
+      this.pagination();
     }))
   }
 }

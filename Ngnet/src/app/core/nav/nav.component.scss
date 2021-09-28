@@ -2,17 +2,29 @@
     display: flex;
     justify-content: space-around;
     background-color: rgb(173, 194, 211);
-    padding: 10px 50px;
+    padding: 5px 50px;
 }
 
-.nav div a {
-    margin: 0 10px;
-    text-decoration: none;
+.nav > div {
+    margin: 5px 10px -5px 10px;
     cursor: pointer;
 }
 
-.nav div a:hover{
+.item {
+    text-decoration: none;
+    padding: 5px 7px;
+}
+
+.item:hover{
     border: 2px solid rgba(0, 0, 0, 0.363);
     border-radius: 5px;
-    padding: 5px 2px;
+    
+}
+
+.logo {
+    width: 25px;
+}
+
+.logo img {
+    width: 100%;
 }

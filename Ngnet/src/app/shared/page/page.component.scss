@@ -1,0 +1,45 @@
+.pagination {
+    margin: 10px 25%;
+}
+
+.content {
+    text-align: center;
+}
+
+span {
+    margin: 0 1px;
+}
+
+.page {
+    text-decoration: none;
+    margin: 0 5px;
+    color: black;
+}
+
+.page-wrapper {
+   padding: 2px;
+   background-color: rgb(216, 248, 252);
+}
+
+.page-wrapper:hover {
+    background-color: rgb(32, 190, 211);
+    cursor: pointer;
+}
+
+//arrow
+
+.arrow {
+    padding: 2px;
+    text-decoration: none;
+    margin: 0 5px;
+    color: black;
+}
+
+.arrow-wrapper {
+   padding: 2px;
+}
+
+.arrow-wrapper:hover {
+    border: 1px solid rgb(32, 190, 211);
+    cursor: pointer;
+}

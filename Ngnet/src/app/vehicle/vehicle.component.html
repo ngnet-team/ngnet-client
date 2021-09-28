@@ -3,7 +3,7 @@
         <div class="no-self" *ngIf="vehicleCares.length === 0">
             <p>{{validations.noVehicleCaresFound}}</p>
         </div>
-        <div class="self" *ngFor="let vehicleCare of vehicleCares">
+        <div class="self" *ngFor="let vehicleCare of pagedVehicleCares">
             <div *ngIf="vehicleCare.name">
                 <span>{{menu.for}}: {{vehicleCare.name}}</span>
                 <span class="manipulations">
@@ -46,9 +46,13 @@
                 <span>{{company.address}}:</span> {{vehicleCare.company?.address}}
             </div>
         </div>
+
         <div class="back">
             <a class="button" (click)="back()">{{menu.back}}</a>
         </div>
+
+        <app-page class="pager-view" [pager]="pager"></app-page>
+
     </div>
     <div class="creation">
         <div class="form">
@@ -188,5 +192,3 @@
         </div>
     </div>
 </div>
-
-{{saveClicked}}
