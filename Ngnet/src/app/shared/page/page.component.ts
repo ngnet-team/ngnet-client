@@ -16,6 +16,11 @@ export class PageComponent {
 
   pageClick(page: number) {
     page = this.validatePage(page);
+
+    if (page === 0) {
+      return;
+    }
+
     this.pagerService.pageClick(page);
   }
 
@@ -23,6 +28,6 @@ export class PageComponent {
     const start: number = 1;
     const end: number = this.pagerService.model.totalPages;
 
-    return page < start ? start : page > end ? end : page;
+    return page < start ? 0 : page > end ? 0 : page;
   }
 }

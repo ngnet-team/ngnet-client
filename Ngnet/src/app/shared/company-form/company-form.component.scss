@@ -1,0 +1,40 @@
+.company {
+    border: 1px solid black;
+    padding: 10px 30px;
+    background-color: rgb(173, 194, 211);
+    text-align: center;
+}
+
+.field {
+    margin-bottom: 3%;
+}
+
+.title {
+    margin-bottom: 5%;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.label {
+    margin-bottom: 2%;
+}
+
+form {
+    display: flex;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form > div {
+    margin-right: 30px;
+}
+
+select, input, textarea {
+    width: 200px;
+}
+
+.requiredInput, .validation {
+    color: rgb(230, 0, 0);
+}

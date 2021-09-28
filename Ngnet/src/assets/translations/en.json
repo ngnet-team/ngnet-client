@@ -67,12 +67,13 @@
         "required": " *"
     },
     "company": {
-        "name": "Name",
+        "name": "In",
         "phoneNumber": "Phone number",
         "email": "Email",
         "webSite": "Web site",
         "address": "Address",
-        "label": "Company"
+        "label": "Company",
+        "required": " *"
     },
     "manager": {
         "toVehicle": "To vehicle manager",
