@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { LangService } from 'src/app/services/lang.service';
-import { IRegisterModel } from '../../interfaces/register-model';
+import { IRegisterModel } from '../../interfaces/auth/register-model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({

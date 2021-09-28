@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IUserResponseModel } from 'src/app/interfaces/user-response-model';
+import { IUserRequestModel } from 'src/app/interfaces/auth/user-request-model';
+import { IUserResponseModel } from 'src/app/interfaces/auth/user-response-model';
+import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 
@@ -11,6 +13,7 @@ import { LangService } from 'src/app/services/lang.service';
 })
 export class ProfileComponent {
 
+  serverErrors: IErrorModel[] = [];
   user: IUserResponseModel = {};
   langEvent: Subscription[] = [];
   selectedLang: string = this.langService.langState;
@@ -31,5 +34,18 @@ export class ProfileComponent {
     this.langEvent.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.profile;
     }))
+  }
+
+  update(input: IUserRequestModel): void {
+    this.authService.update(input).subscribe({
+      next: (res) => {
+        //success
+      },
+      error: (err) => {
+        (err?.error as []).forEach(e => {
+          this.serverErrors.push(e);
+        });
+      }
+    });
   }
 }
