@@ -78,5 +78,10 @@
     "manager": {
         "toVehicle": "To vehicle manager",
         "toHealth": "To health manager"
+    },
+    "dropdown": {
+        "manager": "Manager",
+        "vehiclecare": "Vehicle Care Manager",
+        "healthcare": "Health Care Manager"
     }
 }

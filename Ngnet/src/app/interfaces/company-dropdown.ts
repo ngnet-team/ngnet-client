@@ -1,6 +1,6 @@
-import { ISimpleDropDownNames } from "./simple-dropdown-names";
+import { IDropDownModel } from "./dropdown-model";
 
 export interface ICompanyDropDownNames {
-    vehicle: ISimpleDropDownNames,
-    health: ISimpleDropDownNames,
+    vehicle: IDropDownModel,
+    health: IDropDownModel,
 }

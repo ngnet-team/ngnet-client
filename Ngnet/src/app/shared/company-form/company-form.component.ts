@@ -13,7 +13,6 @@ import { LangService } from 'src/app/services/lang.service';
 export class CompanyFormComponent {
 
   @Input() @Output() company: ICompanyModel = {};
-  // @Output() companyInputs: ICompanyModel = {};
   //language
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).company;

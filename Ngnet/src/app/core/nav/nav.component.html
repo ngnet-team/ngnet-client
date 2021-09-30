@@ -6,6 +6,7 @@
     </div>
     <div *ngIf="isLogged" class="logged">
         <a routerLink="/manager" class="manager item">{{menu.manager}}</a>
+        <app-dropdown></app-dropdown>
         <a routerLink="/profile" class="profile item">{{menu.profile}}</a>
         <a (click)="logout()" class="logout item">{{menu.logout}}</a>
     </div>

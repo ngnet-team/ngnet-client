@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ISimpleDropDownNames } from '../interfaces/simple-dropdown-names';
+import { IDropDownModel } from '../interfaces/dropdown-model';
 import { IHealthCareModel } from '../interfaces/health/health-care-model';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { HealthService } from '../services/health.service';
@@ -25,7 +25,7 @@ export class HealthComponent {
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).healthcare;
   company: any = this.langService.get(this.selectedLang).company;
-  names: ISimpleDropDownNames = {};
+  names: IDropDownModel = {};
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
 
   constructor(private healthService: HealthService, private langService: LangService, private route: Router, private companyService: CompanyService) { 

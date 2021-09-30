@@ -23,6 +23,9 @@ import { HealthService } from './services/health.service';
 import { ManagerComponent } from './manager/manager.component';
 import { CompanyService } from './services/company.service';
 import { PagerService } from './services/pager.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,10 @@ import { PagerService } from './services/pager.service';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NoopAnimationsModule,
+    //custom
     SharedModule,
     CoreModule,
     AuthModule,
@@ -62,6 +69,7 @@ import { PagerService } from './services/pager.service';
       multi: true
     },
   ],
+  exports: [ MatFormFieldModule, MatInputModule ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
