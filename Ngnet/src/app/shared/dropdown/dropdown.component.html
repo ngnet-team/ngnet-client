@@ -1,20 +1,12 @@
-
-<span class="dropdown">
-    <mat-label>{{dropdown.title}}</mat-label>
-    <div *ngIf="selectedLang === 'bg'">
-      <select>
-        <mat-option *ngFor="let option of dropdown.bg" [value]="option">
-          {{option}}
-        </mat-option>
-      </select>
-    </div>
-    <div *ngIf="selectedLang === 'en'">
-      <select>
-        <mat-option *ngFor="let option of dropdown.en" [value]="option">
-          {{option}}
-        </mat-option>
-      </select>
-    </div>
-</span>
-{{dropdown.bg}}
-{{dropdown.en}}
+<div class="dropdown">
+  <div>
+    <mat-label>{{dropdown?.title}}</mat-label>
+  </div>
+  <div>
+    <mat-select>
+      <mat-option *ngFor="let option of dropdown?.options" [value]="option?.name" (click)="click(option)">
+        {{option?.name}}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>

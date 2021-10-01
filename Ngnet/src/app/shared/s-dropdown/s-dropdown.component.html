@@ -1,0 +1,12 @@
+<div class="s-dropdown" *ngIf="selectedLang === 'bg'">
+    <select name="name" [(ngModel)]="input.name" required>
+        <option *ngFor="let option of dropdown.bg" [value]="option">{{option}}
+        </option>
+    </select>
+</div>
+<div class="s-dropdown" *ngIf="selectedLang === 'en'">
+    <select name="name" [(ngModel)]="input.name" required>
+        <option *ngFor="let option of dropdown.en" [value]="option">{{option}}
+        </option>
+    </select>
+</div>

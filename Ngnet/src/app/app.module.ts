@@ -20,7 +20,6 @@ import { VehicleService } from './services/vehicle.service';
 import { LangService } from './services/lang.service';
 import { HealthComponent } from './health/health.component';
 import { HealthService } from './services/health.service';
-import { ManagerComponent } from './manager/manager.component';
 import { CompanyService } from './services/company.service';
 import { PagerService } from './services/pager.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,7 +33,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AdminComponent,
     VehicleComponent,
     HealthComponent,
-    ManagerComponent,
   ],
   imports: [
     BrowserModule,

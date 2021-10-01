@@ -1,16 +1,14 @@
 <div class="container">
     <div class="selfs">
         <div class="no-self" *ngIf="healthCares.length === 0">
-            <div *ngFor="let error of serverErrors">
-                <p>{{error.description}}</p>
-            </div>
+            <p>{{validations.noHealthCaresFound}}</p>
         </div>
-        <div class="self" *ngFor="let healthCare of healthCares">
+        <div class="self" *ngFor="let healthCare of pagedHealthCares">
             <div *ngIf="healthCare.name">
                 <span>{{menu.for}}: {{healthCare.name}}</span>
                 <span class="manipulations">
                     <a class="button" (click)="edit(healthCare)">{{menu.edit}}</a>
-                    <a class="button" (click)="remove(healthCare.id)">{{menu.delete}}</a>
+                    <a class="button" (click)="remove(healthCare)">{{menu.delete}}</a>
                 </span>
             </div>
             <div *ngIf="healthCare.date">
@@ -25,40 +23,43 @@
             <div *ngIf="healthCare.notes">
                 <span>{{menu.notes}}:</span> {{healthCare.notes}}
             </div>
-            <div *ngIf="healthCare.company">{{company.label}}</div>
-            <div *ngIf="healthCare.company.name">
-                <span>{{company.name}}:</span> {{healthCare.company.name}}
+            <div *ngIf="healthCare.company?.name">
+                <span>{{company.name}}:</span> {{healthCare.company?.name}}
             </div>
-            <div *ngIf="healthCare.company.phoneNumber">
-                <span>{{company.phoneNumber}}:</span> {{healthCare.company.phoneNumber}}
+            <div *ngIf="healthCare.company?.phoneNumber">
+                <span>{{company.phoneNumber}}:</span> {{healthCare.company?.phoneNumber}}
             </div>
-            <div *ngIf="healthCare.company.email">
-                <span>{{company.email}}:</span> {{healthCare.company.email}}
+            <div *ngIf="healthCare.company?.email">
+                <span>{{company.email}}:</span> {{healthCare.company?.email}}
             </div>
-            <div *ngIf="healthCare.company.webSite">
-                <span>{{company.webSite}}:</span> {{healthCare.company.webSite}}
+            <div *ngIf="healthCare.company?.webSite">
+                <span>{{company.webSite}}:</span> {{healthCare.company?.webSite}}
             </div>
-            <div *ngIf="healthCare.company.address">
-                <span>{{company.address}}:</span> {{healthCare.company.address}}
+            <div *ngIf="healthCare.company?.address">
+                <span>{{company.address}}:</span> {{healthCare.company?.address}}
             </div>
         </div>
-        <div class="back">
+
+        <app-page *ngIf="healthCares.length > 0" class="pager-view" [pager]="pager"></app-page>
+
+        <!-- <div class="back">
             <a class="button" (click)="back()">{{menu.back}}</a>
-        </div>
+        </div> -->
+
     </div>
     <div class="creation">
         <div class="form">
-            <form #veh="ngForm" (ngSubmit)="save(veh.value)">
+            <form #health="ngForm" (ngSubmit)="save(health.value)">
                 <div class="main">
                     <div class="form-raw">
-                        <div>{{menu.for}} <span>{{menu.required}}</span></div>
+                        <div>{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
                         <div *ngIf="this.selectedLang === 'bg'">
-                            <select name="name" [(ngModel)]="defaultHealthCares.name">
+                            <select name="name" [(ngModel)]="defaultHealthCare.name" required>
                                 <option *ngFor="let name of names.bg" [value]="name">{{name}}</option>
                             </select>
                         </div>
                         <div *ngIf="this.selectedLang === 'en'">
-                            <select name="name" ngModel [(ngModel)]="defaultHealthCares.name">
+                            <select name="name" [(ngModel)]="defaultHealthCare.name" required>
                                 <option *ngFor="let name of names.en" [value]="name">{{name}}</option>
                             </select>
                         </div>
@@ -66,23 +67,22 @@
 
                     <div class="form-raw">
                         <div>{{menu.date}}</div>
-                        <input  type="date" name="date" [(ngModel)]="defaultHealthCares.date">
+                        <input type="date" name="date" [(ngModel)]="defaultHealthCare.date">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.reminder}}</div>
-                        <input type="date" name="reminder"
-                            [(ngModel)]="defaultHealthCares.reminder">
+                        <input type="date" name="reminder" [(ngModel)]="defaultHealthCare.reminder">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.price}}</div>
-                        <input type="number" name="price" [(ngModel)]="defaultHealthCares.price">
+                        <input type="number" name="price" [(ngModel)]="defaultHealthCare.price">
                     </div>
 
                     <div class="form-raw">
                         <div>{{menu.notes}}</div>
-                        <textarea type="text" name="notes" [(ngModel)]="defaultHealthCares.notes"></textarea>
+                        <textarea type="text" name="notes" [(ngModel)]="defaultHealthCare.notes"></textarea>
                     </div>
 
                     <div *ngIf="healthCares.length > 0">
@@ -92,54 +92,18 @@
                     </div>
 
                     <div>
-                        <button [disabled]="veh.invalid">{{menu.save}}</button>
+                        <button [disabled]="health.invalid || (
+                            defaultHealthCare.company.name === undefined && 
+                        ((defaultHealthCare.company.phoneNumber !== undefined && defaultHealthCare.company.phoneNumber !== '') ||
+                        (defaultHealthCare.company.email !== undefined && defaultHealthCare.company.email !== '') ||
+                        (defaultHealthCare.company.webSite !== undefined && defaultHealthCare.company.webSite !== '') ||
+                        (defaultHealthCare.company.address !== undefined && defaultHealthCare.company.address !== ''))
+                        )">{{menu.save}}
+                        </button>
                     </div>
                 </div>
-                <div class="company">
-                    <div class="form-raw">
-                        <div>{{company.label}}</div>
-                        <div>{{company.name}}</div>
-                        <div *ngIf="this.selectedLang === 'bg'">
-                            <select name="name" [(ngModel)]="defaultHealthCares.company.name" ngModelGroup="company"
-                                class="dropdown">
-                                <option *ngFor="let companyName of companyNames.vehicle.bg" [value]="companyName">
-                                    {{companyName}}</option>
-                            </select>
-                        </div>
-                        <div *ngIf="this.selectedLang === 'en'">
-                            <select name="name" [(ngModel)]="defaultHealthCares.company.name" ngModelGroup="company"
-                                class="dropdown">
-                                <option *ngFor="let companyName of companyNames.vehicle.en" [value]="companyName">
-                                    {{companyName}}</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="form-raw">
-                        <div>{{company.phoneNumber}}</div>
-                        <input type="text" name="phoneNumber" [(ngModel)]="defaultHealthCares.company.phoneNumber"
-                            ngModelGroup="company">
-                    </div>
-
-                    <div class="form-raw">
-                        <div>{{company.email}}</div>
-                        <input type="text" name="email" [(ngModel)]="defaultHealthCares.company.email"
-                            ngModelGroup="company">
-                    </div>
-
-                    <div class="form-raw">
-                        <div>{{company.webSite}}</div>
-                        <input type="text" name="webSite" [(ngModel)]="defaultHealthCares.company.webSite"
-                            ngModelGroup="company">
-                    </div>
-
-                    <div class="form-raw">
-                        <div>{{company.address}}</div>
-                        <input type="text" name="address" [(ngModel)]="defaultHealthCares.company.address"
-                            ngModelGroup="company">
-                    </div>
-
-                </div>
+                <app-company-form [company]="defaultHealthCare.company" ngModelGroup="company"></app-company-form>
             </form>
         </div>
     </div>

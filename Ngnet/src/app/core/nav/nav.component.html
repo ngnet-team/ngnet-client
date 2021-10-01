@@ -5,14 +5,23 @@
         </a>
     </div>
     <div *ngIf="isLogged" class="logged">
-        <a routerLink="/manager" class="manager item">{{menu.manager}}</a>
-        <app-dropdown></app-dropdown>
-        <a routerLink="/profile" class="profile item">{{menu.profile}}</a>
-        <a (click)="logout()" class="logout item">{{menu.logout}}</a>
+        <div class="item dropdown">
+            <app-dropdown [input]="dropdown"></app-dropdown>
+        </div>
+        <div class="item">
+            <a routerLink="/profile" class="profile">{{menu.profile}}</a>
+        </div>
+        <div class="item">
+            <a (click)="logout()" class="logout">{{menu.logout}}</a>
+        </div>
     </div>
     <div *ngIf="!isLogged" class="not-logged">
-        <a routerLink="/login" class="login item">{{menu.login}}</a>
-        <a routerLink="/register" class="register item">{{menu.register}}</a>
+        <div class="item">
+            <a routerLink="/login" class="login">{{menu.login}}</a>
+        </div>
+        <div class="item">
+            <a routerLink="/register" class="register">{{menu.register}}</a>
+        </div>
     </div>
     <div class="lang">
         <a class="item" (click)="changeLang()" >{{selectedLang.toUpperCase()}}</a>

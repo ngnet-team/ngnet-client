@@ -9,6 +9,9 @@
         (company.address !== undefined && company.address !== ''))
             " class="requiredInput">{{menu.required}}</span>
         </div>
+        <!-- <div>
+            <app-s-dropdown [input]="dropdown"></app-s-dropdown>
+        </div> -->
         <div *ngIf="this.selectedLang === 'bg'">
             <select name="name" [(ngModel)]="company.name">
                 <option *ngFor="let companyName of companyNames.vehicle.bg" [value]="companyName">

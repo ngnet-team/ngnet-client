@@ -9,6 +9,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SDropdownComponent } from './s-dropdown/s-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MatInputModule } from '@angular/material/input';
     ServerNotFoundComponent,
     PageComponent,
     CompanyFormComponent,
-    DropdownComponent
+    DropdownComponent,
+    SDropdownComponent
   ],
   imports: [
     CommonModule,
