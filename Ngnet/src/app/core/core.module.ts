@@ -4,6 +4,7 @@ import { NavComponent } from './nav/nav.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { UserRoutingModule } from '../auth/auth-routing.module';
 import { AuthModule } from '../auth/auth.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -16,6 +17,7 @@ import { AuthModule } from '../auth/auth.module';
     CommonModule,
     AppRoutingModule,
     UserRoutingModule,
+    SharedModule,
   ],
   exports: [
     NavComponent

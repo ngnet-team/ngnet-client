@@ -38,7 +38,8 @@
         "requiredPassword": "Паролата е задължителна!",
         "passwordLength": "Паролата трябва да бъде минимум 6 символа!",
         "companyNameRequired": "Името на компанията е задължително!",
-        "noVehicleCaresFound": "Няма намерени записи за моторни превозни средства."
+        "noVehicleCaresFound": "Няма намерени записи за моторни превозни средства.",
+        "noHealthCaresFound": "Няма намерени записи за здраве."
     }, 
     "vehiclecare": {
         "for": "За",
@@ -78,5 +79,20 @@
     "manager": {
         "toVehicle": "Към мениджър коли",
         "toHealth": "Към мениджър здраве"
+    },
+    "dropdown": {
+        "manager": {
+            "title": "Мениджър",
+            "options": [
+                {
+                    "name": "Мениджър коли",
+                    "url": "/vehiclecare"
+                },
+                {
+                    "name": "Мениджър здраве",
+                    "url": "/healthcare"
+                }
+            ]
+        }
     }
 }

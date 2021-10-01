@@ -38,7 +38,8 @@
         "requiredPassword": "The password is required!",
         "passwordLength": "The password should be at least 6 characters!",
         "companyNameRequired": "The company name is required!",
-        "noVehicleCaresFound": "There are no vehicle care records."
+        "noVehicleCaresFound": "There are no vehicle care records.",
+        "noHealthCaresFound": "There are no health care records."
     },
     "vehiclecare": {
         "for": "For",
@@ -78,5 +79,20 @@
     "manager": {
         "toVehicle": "To vehicle manager",
         "toHealth": "To health manager"
+    },
+    "dropdown": {
+        "manager": {
+            "title": "Manager",
+            "options": [
+                {
+                    "name": "Vehicle Care Manager",
+                    "url": "/vehiclecare"
+                },
+                {
+                    "name": "Health Care Manager",
+                    "url": "/healthcare"
+                }
+            ]
+        }
     }
 }

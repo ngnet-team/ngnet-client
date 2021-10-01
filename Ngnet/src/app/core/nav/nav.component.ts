@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 export class NavComponent {
 
   @Input() isLogged: boolean = this.authService.isLogged;
+  @Output() dropdown: { field: string, fieldUrl: string } = { field: 'manager', fieldUrl: '' };
   loggingEvent: Subscription[] = [];
   selectedLang: string = environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;

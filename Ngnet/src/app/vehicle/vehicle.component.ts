@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ISimpleDropDownNames } from '../interfaces/simple-dropdown-names';
+import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
 import { LangService } from '../services/lang.service';
@@ -33,7 +33,7 @@ export class VehicleComponent {
   //subscription
   subscription: Subscription[] = [];
   //dropdowns
-  names: ISimpleDropDownNames = {};
+  names: IDropDownModel = {};
   //pager
   @Output() pager: IPageModel = this.pagerService.model;
   pagedVehicleCares: IVehicleCareModel[] = [];

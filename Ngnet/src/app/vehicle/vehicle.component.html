@@ -48,9 +48,9 @@
             
         <app-page *ngIf="vehicleCares.length > 0" class="pager-view" [pager]="pager"></app-page>
         
-        <div class="back">
+        <!-- <div class="back">
             <a class="button" (click)="back()">{{menu.back}}</a>
-        </div>
+        </div> -->
 
     </div>
     <div class="creation">
@@ -120,7 +120,6 @@
                 </div>
 
                 <app-company-form [company]="defaultVehicleCare.company" ngModelGroup="company"></app-company-form>
-
             </form>
         </div>
     </div>

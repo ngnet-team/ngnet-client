@@ -8,6 +8,7 @@
 }
 
 .self {
+    margin-bottom: 5px;
     width: 100%;
     border: 2px solid black;
     position: relative;
@@ -62,4 +63,8 @@ textarea {
 
 select, input, textarea {
     width: 150px;
+}
+
+.requiredInput, .validation {
+    color: rgb(230, 0, 0);
 }
