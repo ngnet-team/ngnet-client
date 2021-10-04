@@ -86,13 +86,13 @@
                     </div>
 
                     <div *ngIf="healthCares.length > 0">
-                        <div *ngFor="let error of serverErrors">
-                            <p>{{error.description}}</p>
+                        <div *ngFor="let error of errors">
+                            <p class="validation">{{error}}</p>
                         </div>
                     </div>
 
                     <div>
-                        <button [disabled]="health.invalid || (
+                        <button class="button" [disabled]="health.invalid || (
                             defaultHealthCare.company.name === undefined && 
                         ((defaultHealthCare.company.phoneNumber !== undefined && defaultHealthCare.company.phoneNumber !== '') ||
                         (defaultHealthCare.company.email !== undefined && defaultHealthCare.company.email !== '') ||

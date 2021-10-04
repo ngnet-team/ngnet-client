@@ -18,7 +18,8 @@ import { ICompanyModel } from '../interfaces/company-model';
 })
 export class VehicleComponent {
 
-  serverErrors: IErrorModel[] = [];
+  serverErrors: IErrorModel = {};
+  errors: string[] | undefined;
   //models
   vehicleCares: IVehicleCareModel[] = [];
   defaultVehicleCare: IDefaultVehicleCareModel = { isDeleted: false, company: {} };
@@ -77,7 +78,7 @@ export class VehicleComponent {
       model.company.phoneNumber = undefined;
     }
 
-    this.serverErrors = [] as IErrorModel[];
+    this.serverErrors = {} as IErrorModel;
 
     this.vehicleService.save(model).subscribe({
       next: (res) => {
@@ -87,10 +88,12 @@ export class VehicleComponent {
         this.defaultVehicleCare = { isDeleted: false, company: {} };
       },
       error: (err) => {
-        console.log(err.error.errors);
-        (err?.error as []).forEach(e => {
-          this.serverErrors.push(e);
-        });
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
       }
     });
   }
@@ -105,10 +108,12 @@ export class VehicleComponent {
         this.pagination();
       },
       error: (err) => {
-        console.log(err.error.errors);
-        (err?.error as []).forEach(e => {
-          this.serverErrors.push(e);
-        });
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
       }
     });
   }
@@ -130,6 +135,16 @@ export class VehicleComponent {
 
   back(): void {
     this.route.navigateByUrl("manager");
+  }
+
+  private unhandledServerError(errors: any) {
+    for (const key in errors) {
+      this.errors = errors[key];
+    }
+  }
+
+  private setServerError() {
+    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
   }
 
   private loadNames(): void {

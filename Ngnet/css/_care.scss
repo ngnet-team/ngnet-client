@@ -1,0 +1,51 @@
+@import url(../css/_button.scss);
+
+.container {
+    display: flex;
+}
+
+.container > div {
+    margin: 2% 2%;
+    width: 50%;
+}
+
+.self {
+    margin-bottom: 5px;
+    width: 100%;
+    border: 2px solid black;
+    position: relative;
+}
+
+.self > div {
+    display: flex;
+    margin: 5px;
+}
+
+.self > div:first-child {
+    
+    justify-content: space-between;
+}
+
+.form-field {
+    margin-bottom: 2%;
+}
+
+.back {
+    margin-top: 5px;
+}
+
+form {
+    display: flex;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form > div {
+    margin-right: 30px;
+}
+
+.requiredInput, .validation {
+    color: rgb(230, 0, 0);
+}

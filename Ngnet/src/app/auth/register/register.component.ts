@@ -13,35 +13,44 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponent {
 
-  serverErrors: IErrorModel[] = [];
   langEvent: Subscription[] = [];
+  serverErrors: IErrorModel = {};
+  //language
   selectedLang: string = this.langService.langState;
+  errors: string[] | undefined;
   menu: any = this.langService.get(this.selectedLang).register;
   validations: any = this.langService.get(this.selectedLang).validations;
 
   constructor(private authService: AuthService, private route: Router, private langService: LangService) {
     this.langListener();
-   }
+  }
 
   register(input: IRegisterModel): void {
-    this.serverErrors = [] as IErrorModel[];
+    this.serverErrors = {} as IErrorModel;
 
     this.authService.register(input).subscribe({
       next: () => {
         this.route.navigateByUrl('login');
-      }, 
+      },
       error: (err) => {
-        (err?.error as []).forEach(e => {
-          this.serverErrors.push(e);
-        });
+        if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
       }
     });
   }
 
+  private setServerError() {
+    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
+  }
+
   private langListener(): void {
     this.langEvent.push(this.langService.langEvent.subscribe(result => {
+      this.selectedLang = this.langService.langState;
       this.menu = result.register;
       this.validations = result.validations;
+      this.setServerError();
     }))
   }
 }

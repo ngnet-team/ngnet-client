@@ -13,9 +13,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
 
-  serverErrors: IErrorModel[] = [];
   langEvent: Subscription[] = [];
+  serverErrors: IErrorModel = {};
+  //language
   selectedLang: string = this.langService.langState;
+  errors: string[] | undefined;
   menu: any = this.langService.get(this.selectedLang).login;
   validations: any = this.langService.get(this.selectedLang).validations;
 
@@ -24,7 +26,7 @@ export class LoginComponent {
    }
 
   login(input: ILoginModel): void {
-    this.serverErrors = [] as IErrorModel[];
+    this.serverErrors = {} as IErrorModel;
 
     this.authService.login(input).subscribe({
       next: (res) => {
@@ -35,17 +37,24 @@ export class LoginComponent {
         this.route.navigateByUrl('profile');
       },
       error: (err) => {
-        (err?.error as []).forEach(e => {
-          this.serverErrors.push(e);
-        });
+        if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
       }
     });
   }
 
+  private setServerError() {
+    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
+  }
+
   private langListener(): void {
     this.langEvent.push(this.langService.langEvent.subscribe(result => {
+      this.selectedLang = this.langService.langState;
       this.menu = result.login;
       this.validations = result.validations;
+      this.setServerError();
     }))
   }
 }
