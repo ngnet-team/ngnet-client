@@ -13,8 +13,8 @@
             <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">{{validations.passwordLength}}</p>
         </div>
 
-        <div *ngFor="let error of serverErrors">
-            <p class="validation">{{error.description}}</p>
+        <div *ngFor="let error of errors">
+            <p class="validation">{{error}}</p>
         </div>
 
         <div>
@@ -22,3 +22,5 @@
         </div>
     </form>
 </div>
+
+{{errors?.length}}

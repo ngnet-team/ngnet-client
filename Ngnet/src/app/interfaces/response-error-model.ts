@@ -1,3 +1,4 @@
 export interface IErrorModel {
-    description: string,
+    bg?: string[],
+    en?: string[],
 }

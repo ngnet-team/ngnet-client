@@ -19,4 +19,12 @@ export class LangService {
 
     return result;
   }
+
+  setLocalStorage(language: string): void {
+    localStorage.setItem('language', language);
+  }
+
+  getLocalStorage(language: string): string | null {
+    return localStorage.getItem('language');
+  }
 }

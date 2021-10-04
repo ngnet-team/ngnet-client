@@ -20,7 +20,8 @@ import { PagerService } from '../services/pager.service';
 })
 export class HealthComponent {
 
-  serverErrors: IErrorModel[] = [];
+  serverErrors: IErrorModel = {};
+  errors: string[] | undefined;
   //models
   healthCares: IHealthCareModel[] = [];
   defaultHealthCare: IDefaultHealthCareModel = { isDeleted: false, company: {} };
@@ -79,7 +80,7 @@ export class HealthComponent {
       model.company.phoneNumber = undefined;
     }
 
-    this.serverErrors = [] as IErrorModel[];
+    this.serverErrors = {} as IErrorModel;
 
     this.healthService.save(model).subscribe({
       next: (res) => {
@@ -89,10 +90,10 @@ export class HealthComponent {
         this.defaultHealthCare = { isDeleted: false, company: {} };
       },
       error: (err) => {
-        console.log(err.error.errors);
-        (err?.error as []).forEach(e => {
-          this.serverErrors.push(e);
-        });
+        if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
       }
     });
   }
@@ -107,10 +108,10 @@ export class HealthComponent {
         this.pagination();
       },
       error: (err) => {
-        console.log(err.error.errors);
-        (err?.error as []).forEach(e => {
-          this.serverErrors.push(e);
-        });
+        if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
       }
     });
   }
@@ -132,6 +133,10 @@ export class HealthComponent {
 
   back(): void {
     this.route.navigateByUrl("manager");
+  }
+
+  private setServerError() {
+    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
   }
 
   private loadNames(): void {
