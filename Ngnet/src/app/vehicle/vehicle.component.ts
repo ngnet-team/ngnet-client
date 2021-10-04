@@ -88,7 +88,9 @@ export class VehicleComponent {
         this.defaultVehicleCare = { isDeleted: false, company: {} };
       },
       error: (err) => {
-        if (err?.error) {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
           this.serverErrors = err?.error;
           this.setServerError();
         };
@@ -106,7 +108,9 @@ export class VehicleComponent {
         this.pagination();
       },
       error: (err) => {
-        if (err?.error) {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
           this.serverErrors = err?.error;
           this.setServerError();
         };
@@ -131,6 +135,12 @@ export class VehicleComponent {
 
   back(): void {
     this.route.navigateByUrl("manager");
+  }
+
+  private unhandledServerError(errors: any) {
+    for (const key in errors) {
+      this.errors = errors[key];
+    }
   }
 
   private setServerError() {
