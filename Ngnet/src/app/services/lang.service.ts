@@ -10,7 +10,13 @@ import { ILangModel } from '../interfaces/lang-model';
 export class LangService {
 
   langEvent: EventEmitter<any> = new EventEmitter();
-  langState: string = environment.lang.default;
+  langState: string = this.getLocalStorage() ?? environment.lang.default;
+
+  constructor() {
+    if (!this.getLocalStorage()) {
+      this.setLocalStorage(environment.lang.default);
+    }
+  }
 
   get(language: string): ILangModel {
     this.langState = language;
@@ -24,7 +30,7 @@ export class LangService {
     localStorage.setItem('language', language);
   }
 
-  getLocalStorage(language: string): string | null {
+  getLocalStorage(): string | null {
     return localStorage.getItem('language');
   }
 }

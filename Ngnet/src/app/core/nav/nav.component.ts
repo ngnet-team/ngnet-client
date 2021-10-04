@@ -14,7 +14,7 @@ export class NavComponent {
   @Input() isLogged: boolean = this.authService.isLogged;
   @Output() dropdown: { field: string, fieldUrl: string } = { field: 'manager', fieldUrl: '' };
   loggingEvent: Subscription[] = [];
-  selectedLang: string = environment.lang.default;
+  selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;
 
 
@@ -35,6 +35,7 @@ export class NavComponent {
 
   changeLang(): void {
     this.selectedLang = this.selectedLang === environment.lang.bg ? environment.lang.en : environment.lang.bg;
+    this.langService.setLocalStorage(this.selectedLang);
     this.menu = this.langService.get(this.selectedLang).navMenu;
   }
 }
