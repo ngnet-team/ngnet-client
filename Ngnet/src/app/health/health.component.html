@@ -92,7 +92,7 @@
                     </div>
 
                     <div>
-                        <button [disabled]="health.invalid || (
+                        <button class="button" [disabled]="health.invalid || (
                             defaultHealthCare.company.name === undefined && 
                         ((defaultHealthCare.company.phoneNumber !== undefined && defaultHealthCare.company.phoneNumber !== '') ||
                         (defaultHealthCare.company.email !== undefined && defaultHealthCare.company.email !== '') ||

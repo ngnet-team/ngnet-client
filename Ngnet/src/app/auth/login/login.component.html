@@ -1,12 +1,12 @@
 <div class="form">
     <form #log="ngForm" (ngSubmit)="login(log.value)">
-        <div>
+        <div class="form-field">
             <div>{{menu.username}}</div>
             <input #usernameInput="ngModel" type="text" name="username" ngModel required>
             <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">{{validations.requiredUsername}}</p>
         </div>
     
-        <div>
+        <div class="form-field">
             <div>{{menu.password}}</div>
             <input #passwordInput="ngModel" type="password" name="password" ngModel required minlength="6">
             <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">{{validations.requiredPassword}}</p>
@@ -18,7 +18,7 @@
         </div>
 
         <div>
-            <button [disabled]="log.invalid">{{menu.signIn}}</button>
+            <button class="button" [disabled]="log.invalid">{{menu.signIn}}</button>
         </div>
     </form>
 </div>

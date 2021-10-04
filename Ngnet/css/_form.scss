@@ -1,10 +1,12 @@
+@import url(../css/_button.scss);
+
 .form {
     display: flex;
     justify-content: center;
     margin: 5% 0;
 }
 
-form div {
+.form-field {
     margin: 5% 1%;
 }
 

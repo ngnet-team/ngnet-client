@@ -1,3 +1,5 @@
+@import url(../css/_button.scss);
+
 .container {
     display: flex;
 }
@@ -24,19 +26,7 @@
     justify-content: space-between;
 }
 
-.button {
-    margin: 0 10px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.button:hover{
-    border: 2px solid rgba(0, 0, 0, 0.363);
-    border-radius: 5px;
-    padding: 2px;
-}
-
-.form-raw {
+.form-field {
     margin-bottom: 2%;
 }
 
@@ -54,15 +44,6 @@ form div {
 
 form > div {
     margin-right: 30px;
-}
-
-textarea {
-    resize: none;
-    height: 100px;
-}
-
-select, input, textarea {
-    width: 150px;
 }
 
 .requiredInput, .validation {

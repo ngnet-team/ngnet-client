@@ -7,8 +7,8 @@
             <div *ngIf="vehicleCare.name">
                 <span>{{menu.for}}: {{vehicleCare.name}}</span>
                 <span class="manipulations">
-                    <a class="button" (click)="edit(vehicleCare)">{{menu.edit}}</a>
-                    <a class="button" (click)="remove(vehicleCare)">{{menu.delete}}</a>
+                    <div class="button" (click)="edit(vehicleCare)">{{menu.edit}}</div>
+                    <div class="button" (click)="remove(vehicleCare)">{{menu.delete}}</div>
                 </span>
             </div>
             <div *ngIf="vehicleCare.startDate">
@@ -57,7 +57,7 @@
         <div class="form">
             <form #veh="ngForm" (ngSubmit)="save(veh.value)">
                 <div class="main">
-                    <div class="form-raw">
+                    <div class="form-field">
                         <div>{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
                         <div *ngIf="this.selectedLang === 'bg'">
                             <select name="name" [(ngModel)]="defaultVehicleCare.name" required>
@@ -71,32 +71,32 @@
                         </div>
                     </div>
 
-                    <div class="form-raw">
+                    <div class="form-field">
                         <div>{{menu.startDate}}</div>
                         <input type="date" name="startDate" [(ngModel)]="defaultVehicleCare.startDate">
                     </div>
 
-                    <div class="form-raw">
+                    <div class="form-field">
                         <div>{{menu.endDate}}</div>
                         <input type="date" name="endDate" [(ngModel)]="defaultVehicleCare.endDate">
                     </div>
 
-                    <div class="form-raw">
+                    <div class="form-field">
                         <div>{{menu.paidEndDate}}</div>
                         <input type="date" name="paidEndDate" [(ngModel)]="defaultVehicleCare.paidEndDate">
                     </div>
 
-                    <div class="form-raw">
+                    <div class="form-field">
                         <div>{{menu.reminder}}</div>
                         <input type="date" name="reminder" [(ngModel)]="defaultVehicleCare.reminder">
                     </div>
 
-                    <div class="form-raw">
+                    <div class="form-field">
                         <div>{{menu.price}}</div>
                         <input type="number" name="price" [(ngModel)]="defaultVehicleCare.price">
                     </div>
 
-                    <div class="form-raw">
+                    <div class="form-field">
                         <div>{{menu.notes}}</div>
                         <textarea type="text" name="notes" [(ngModel)]="defaultVehicleCare.notes"></textarea>
                     </div>
@@ -108,7 +108,7 @@
                     </div>
 
                     <div>
-                        <button [disabled]="veh.invalid || (
+                        <button class="button" [disabled]="veh.invalid || (
                         defaultVehicleCare.company.name === undefined && 
                         ((defaultVehicleCare.company.phoneNumber !== undefined && defaultVehicleCare.company.phoneNumber !== '') ||
                         (defaultVehicleCare.company.email !== undefined && defaultVehicleCare.company.email !== '') ||

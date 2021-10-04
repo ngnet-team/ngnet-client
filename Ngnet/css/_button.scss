@@ -1,0 +1,19 @@
+.button {
+    background-color: rgb(7, 103, 192);
+    color: rgb(214, 223, 231);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 7px;
+}
+
+.button:hover {
+    background-color: rgb(185, 211, 236);
+    box-shadow: 2px 2px 2px 2px rgb(223, 227, 231);
+    color: rgb(7, 121, 228);
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.button:disabled {
+    cursor: no-drop;
+}
