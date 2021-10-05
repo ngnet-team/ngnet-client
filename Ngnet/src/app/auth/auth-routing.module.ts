@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from '../services/auth-guard.service';
+import { AuthGuardService } from '../services/guard/auth-guard.service';
 import { ProfileResolverService } from '../services/profile-resolver.service';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';

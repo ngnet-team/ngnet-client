@@ -5,25 +5,25 @@
         </a>
     </div>
     <div *ngIf="isLogged" class="logged">
-        <div class="item dropdown">
-            <app-dropdown [input]="dropdown"></app-dropdown>
+        <div class="tab dropdown">
+            <app-dropdown [input]="managerDropdown"></app-dropdown>
         </div>
-        <div class="item">
+        <div class="tab">
             <a routerLink="/profile" class="profile">{{menu.profile}}</a>
         </div>
-        <div class="item">
+        <div class="tab">
             <a (click)="logout()" class="logout">{{menu.logout}}</a>
         </div>
     </div>
     <div *ngIf="!isLogged" class="not-logged">
-        <div class="item">
+        <div class="tab">
             <a routerLink="/login" class="login">{{menu.login}}</a>
         </div>
-        <div class="item">
+        <div class="tab">
             <a routerLink="/register" class="register">{{menu.register}}</a>
         </div>
     </div>
-    <div class="lang">
-        <a class="item" (click)="changeLang()" >{{selectedLang.toUpperCase()}}</a>
+    <div class="tab dropdown">
+        <app-dropdown [input]="languageDropdown" ></app-dropdown>
     </div>
 </div>

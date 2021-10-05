@@ -46,7 +46,7 @@ export class LoginComponent {
   }
 
   private setServerError() {
-    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
+    this.errors = this.selectedLang === 'bg' ? this.serverErrors?.bg : this.serverErrors?.en;
   }
 
   private langListener(): void {

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
+import { IVehicleCareModel } from '../../interfaces/vehicle/vehicle-care-model';
 
 @Injectable({
   providedIn: 'root'

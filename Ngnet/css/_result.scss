@@ -1,0 +1,21 @@
+.results {
+    padding: 10px;
+    background-color: rgb(173, 194, 211);
+}
+
+.item {
+    margin-bottom: 5px;
+    width: 100%;
+    position: relative;
+    background-color: rgb(217, 224, 226);
+}
+
+.item-field {
+    display: flex;
+    margin: 5px;
+}
+
+.item-field:first-child {
+    
+    justify-content: space-between;
+}

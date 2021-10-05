@@ -93,6 +93,19 @@
                     "url": "/healthcare"
                 }
             ]
+        },
+        "language": {
+            "title": "Език",
+            "options": [
+                {
+                    "name": "Български",
+                    "url": "bg"
+                },
+                {
+                    "name": "Английски",
+                    "url": "en"
+                }
+            ]
         }
     }
 }

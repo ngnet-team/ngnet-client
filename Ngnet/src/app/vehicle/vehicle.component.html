@@ -1,126 +1,125 @@
 <div class="container">
-    <div class="selfs">
-        <div class="no-self" *ngIf="vehicleCares.length === 0">
+    <div class="results">
+        <div class="no-items" *ngIf="vehicleCares.length === 0">
             <p>{{validations.noVehicleCaresFound}}</p>
         </div>
-        <div class="self" *ngFor="let vehicleCare of pagedVehicleCares">
-            <div *ngIf="vehicleCare.name">
+        <div class="item" *ngFor="let vehicleCare of pagedVehicleCares">
+            <div class="item-field" *ngIf="vehicleCare.name">
                 <span>{{menu.for}}: {{vehicleCare.name}}</span>
                 <span class="manipulations">
                     <div class="button" (click)="edit(vehicleCare)">{{menu.edit}}</div>
                     <div class="button" (click)="remove(vehicleCare)">{{menu.delete}}</div>
                 </span>
             </div>
-            <div *ngIf="vehicleCare.startDate">
+            <div class="item-field" *ngIf="vehicleCare.startDate">
                 <span>{{menu.startDate}}:</span> {{vehicleCare.startDate}}
             </div>
-            <div *ngIf="vehicleCare.endDate">
+            <div class="item-field" *ngIf="vehicleCare.endDate">
                 <span>{{menu.endDate}}:</span> {{vehicleCare.endDate}}
             </div>
-            <div *ngIf="vehicleCare.paidEndDate">
+            <div class="item-field" *ngIf="vehicleCare.paidEndDate">
                 <span>{{menu.paidEndDate}}:</span> {{vehicleCare.paidEndDate}}
             </div>
-            <div *ngIf="vehicleCare.reminder">
+            <div class="item-field" *ngIf="vehicleCare.reminder">
                 <span>{{menu.reminder}}:</span> {{vehicleCare.reminder}}
             </div>
-            <div *ngIf="vehicleCare.price">
+            <div class="item-field" *ngIf="vehicleCare.price">
                 <span>{{menu.price}}:</span> {{vehicleCare.price}}
             </div>
-            <div *ngIf="vehicleCare.notes">
+            <div class="item-field" *ngIf="vehicleCare.notes">
                 <span>{{menu.notes}}:</span> {{vehicleCare.notes}}
             </div>
-            <div *ngIf="vehicleCare.company?.name">
+            <div class="item-field" *ngIf="vehicleCare.company?.name">
                 <span>{{company.name}}:</span> {{vehicleCare.company?.name}}
             </div>
-            <div *ngIf="vehicleCare.company?.phoneNumber">
+            <div class="item-field" *ngIf="vehicleCare.company?.phoneNumber">
                 <span>{{company.phoneNumber}}:</span> {{vehicleCare.company?.phoneNumber}}
             </div>
-            <div *ngIf="vehicleCare.company?.email">
+            <div class="item-field" *ngIf="vehicleCare.company?.email">
                 <span>{{company.email}}:</span> {{vehicleCare.company?.email}}
             </div>
-            <div *ngIf="vehicleCare.company?.webSite">
+            <div class="item-field" *ngIf="vehicleCare.company?.webSite">
                 <span>{{company.webSite}}:</span> {{vehicleCare.company?.webSite}}
             </div>
-            <div *ngIf="vehicleCare.company?.address">
+            <div class="item-field" *ngIf="vehicleCare.company?.address">
                 <span>{{company.address}}:</span> {{vehicleCare.company?.address}}
             </div>
         </div>
-            
+
         <app-page *ngIf="vehicleCares.length > 0" class="pager-view" [pager]="pager"></app-page>
-        
+
         <!-- <div class="back">
             <a class="button" (click)="back()">{{menu.back}}</a>
         </div> -->
 
     </div>
     <div class="creation">
-        <div class="form">
-            <form #veh="ngForm" (ngSubmit)="save(veh.value)">
-                <div class="main">
-                    <div class="form-field">
-                        <div>{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
-                        <div *ngIf="this.selectedLang === 'bg'">
-                            <select name="name" [(ngModel)]="defaultVehicleCare.name" required>
-                                <option *ngFor="let name of names.bg" [value]="name">{{name}}</option>
-                            </select>
-                        </div>
-                        <div *ngIf="this.selectedLang === 'en'">
-                            <select name="name" [(ngModel)]="defaultVehicleCare.name" required>
-                                <option *ngFor="let name of names.en" [value]="name">{{name}}</option>
-                            </select>
-                        </div>
+        <form class="form" #veh="ngForm" (ngSubmit)="save(veh.value)">
+            <div class="main">
+                <div class="form-field">
+                    <div class="label">{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
+                    <div *ngIf="this.selectedLang === 'bg'">
+                        <select name="name" [(ngModel)]="defaultVehicleCare.name" required>
+                            <option *ngFor="let name of names.bg" [value]="name">{{name}}</option>
+                        </select>
                     </div>
-
-                    <div class="form-field">
-                        <div>{{menu.startDate}}</div>
-                        <input type="date" name="startDate" [(ngModel)]="defaultVehicleCare.startDate">
+                    <div *ngIf="this.selectedLang === 'en'">
+                        <select name="name" [(ngModel)]="defaultVehicleCare.name" required>
+                            <option *ngFor="let name of names.en" [value]="name">{{name}}</option>
+                        </select>
                     </div>
+                </div>
 
-                    <div class="form-field">
-                        <div>{{menu.endDate}}</div>
-                        <input type="date" name="endDate" [(ngModel)]="defaultVehicleCare.endDate">
+                <div class="form-field">
+                    <div class="label">{{menu.startDate}}</div>
+                    <input type="date" name="startDate" [(ngModel)]="defaultVehicleCare.startDate">
+                </div>
+
+                <div class="form-field">
+                    <div class="label">{{menu.endDate}}</div>
+                    <input type="date" name="endDate" [(ngModel)]="defaultVehicleCare.endDate">
+                </div>
+
+                <div class="form-field">
+                    <div class="label">{{menu.paidEndDate}}</div>
+                    <input type="date" name="paidEndDate" [(ngModel)]="defaultVehicleCare.paidEndDate">
+                </div>
+
+                <div class="form-field">
+                    <div class="label">{{menu.reminder}}</div>
+                    <input type="date" name="reminder" [(ngModel)]="defaultVehicleCare.reminder">
+                </div>
+
+                <div class="form-field">
+                    <div class="label">{{menu.price}}</div>
+                    <input type="number" name="price" [(ngModel)]="defaultVehicleCare.price">
+                </div>
+
+                <div class="form-field">
+                    <div class="label">{{menu.notes}}</div>
+                    <textarea type="text" name="notes" [(ngModel)]="defaultVehicleCare.notes"></textarea>
+                </div>
+
+                <div *ngIf="vehicleCares.length > 0">
+                    <div *ngFor="let error of errors">
+                        <p class="validation">{{error}}</p>
                     </div>
+                </div>
 
-                    <div class="form-field">
-                        <div>{{menu.paidEndDate}}</div>
-                        <input type="date" name="paidEndDate" [(ngModel)]="defaultVehicleCare.paidEndDate">
-                    </div>
-
-                    <div class="form-field">
-                        <div>{{menu.reminder}}</div>
-                        <input type="date" name="reminder" [(ngModel)]="defaultVehicleCare.reminder">
-                    </div>
-
-                    <div class="form-field">
-                        <div>{{menu.price}}</div>
-                        <input type="number" name="price" [(ngModel)]="defaultVehicleCare.price">
-                    </div>
-
-                    <div class="form-field">
-                        <div>{{menu.notes}}</div>
-                        <textarea type="text" name="notes" [(ngModel)]="defaultVehicleCare.notes"></textarea>
-                    </div>
-
-                    <div *ngIf="vehicleCares.length > 0">
-                        <div *ngFor="let error of errors">
-                            <p class="validation">{{error}}</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button class="button" [disabled]="veh.invalid || (
+                <div>
+                    <button class="button" [disabled]="veh.invalid || (
                         defaultVehicleCare.company.name === undefined && 
                         ((defaultVehicleCare.company.phoneNumber !== undefined && defaultVehicleCare.company.phoneNumber !== '') ||
                         (defaultVehicleCare.company.email !== undefined && defaultVehicleCare.company.email !== '') ||
                         (defaultVehicleCare.company.webSite !== undefined && defaultVehicleCare.company.webSite !== '') ||
                         (defaultVehicleCare.company.address !== undefined && defaultVehicleCare.company.address !== ''))
                         )">{{menu.save}}
-                        </button>
-                    </div>
+                    </button>
                 </div>
+            </div>
 
-                <app-company-form [company]="defaultVehicleCare.company" ngModelGroup="company"></app-company-form>
-            </form>
-        </div>
+            <app-company-form [company]="defaultVehicleCare.company" ngModelGroup="company"></app-company-form>
+
+        </form>
     </div>
 </div>

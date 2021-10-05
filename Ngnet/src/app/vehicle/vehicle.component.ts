@@ -5,7 +5,7 @@ import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
 import { LangService } from '../services/lang.service';
-import { VehicleService } from '../services/vehicle.service';
+import { VehicleService } from '../services/care/vehicle.service';
 import { IDefaultVehicleCareModel } from '../interfaces/vehicle/default-vehicle-care-model';
 import { IPageModel } from '../interfaces/page-model';
 import { PagerService } from '../services/pager.service';

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IHealthCareModel } from '../interfaces/health/health-care-model';
 import { IErrorModel } from '../interfaces/response-error-model';
-import { HealthService } from '../services/health.service';
+import { HealthService } from '../services/care/health.service';
 import { LangService } from '../services/lang.service';
 import { ICompanyDropDownNames } from '../interfaces/dropdown/company-dropdown';
 import { CompanyService } from '../services/company.service';
