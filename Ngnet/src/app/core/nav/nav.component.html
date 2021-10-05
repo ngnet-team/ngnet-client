@@ -27,3 +27,7 @@
         <app-dropdown [input]="languageDropdown" ></app-dropdown>
     </div>
 </div>
+<div *ngIf="message" class='message'>
+    <div class="content">{{message}}</div>
+</div>
+<a *ngIf="message" class="remove" (click)="removeMessage()">x</a>

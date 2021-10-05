@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { LangService } from 'src/app/services/lang.service';
+import { MessageService } from 'src/app/services/message.service';
 import { ILoginModel } from '../../interfaces/auth/login-model';
 import { AuthService } from '../../services/auth.service';
 
@@ -20,8 +21,9 @@ export class LoginComponent {
   errors: string[] | undefined;
   menu: any = this.langService.get(this.selectedLang).login;
   validations: any = this.langService.get(this.selectedLang).validations;
+  successMessages: any = this.langService.get(this.selectedLang).successMessages;
 
-  constructor(private authService: AuthService, private route: Router, private langService: LangService) {
+  constructor(private authService: AuthService, private route: Router, private langService: LangService, private messageService: MessageService) {
     this.langListener();
    }
 
@@ -33,6 +35,7 @@ export class LoginComponent {
         if (res.token) {
           this.authService.setToken(res.token);
         }
+        this.messageService.event.emit(this.successMessages.logged);
         this.authService.logginEvent.emit(true);
         this.route.navigateByUrl('profile');
       },
@@ -54,6 +57,7 @@ export class LoginComponent {
       this.selectedLang = this.langService.langState;
       this.menu = result.login;
       this.validations = result.validations;
+      this.successMessages = result.successMessages;
       this.setServerError();
     }))
   }

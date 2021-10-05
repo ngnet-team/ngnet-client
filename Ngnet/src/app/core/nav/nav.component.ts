@@ -2,6 +2,7 @@ import { Component, DoCheck, Input, OnChanges, Output, SimpleChanges } from '@an
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
+import { MessageService } from 'src/app/services/message.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,16 +12,17 @@ import { environment } from 'src/environments/environment';
 })
 export class NavComponent implements DoCheck {
 
+  message: string = '';
+  
   @Input() isLogged: boolean = this.authService.isLogged;
-
   @Output() managerDropdown: { field: string, type: string } = { field: 'manager', type: 'route' };
   @Output() languageDropdown: { field: string, type: string, value: string } = { field: 'language', type: 'state', value: '' };
 
-  loggingEvent: Subscription[] = [];
+  event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;
 
-  constructor(private authService: AuthService, private langService: LangService) {
+  constructor(private authService: AuthService, private langService: LangService, private messageService: MessageService) {
     this.subscriptionListener();
   }
 
@@ -35,10 +37,17 @@ export class NavComponent implements DoCheck {
     this.authService.logout();
   };
 
+  removeMessage() {
+    this.message = '';
+  }
+
   private subscriptionListener(): void {
-    this.loggingEvent.push(this.authService.logginEvent.subscribe(isLogged => {
+    this.event.push(this.authService.logginEvent.subscribe(isLogged => {
       this.isLogged = isLogged;
-    }))
+    }));
+    this.event.push(this.messageService.event.subscribe(message => {
+      this.message = message;
+    }));
   }
 
   changeLang(language: string): void {

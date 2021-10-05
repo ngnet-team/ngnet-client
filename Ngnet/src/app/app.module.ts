@@ -25,6 +25,7 @@ import { PagerService } from './services/pager.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     LangService,
     CompanyService,
     PagerService,
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

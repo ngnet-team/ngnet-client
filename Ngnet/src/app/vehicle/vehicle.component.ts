@@ -10,6 +10,7 @@ import { IDefaultVehicleCareModel } from '../interfaces/vehicle/default-vehicle-
 import { IPageModel } from '../interfaces/page-model';
 import { PagerService } from '../services/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-vehicle',
@@ -31,6 +32,7 @@ export class VehicleComponent {
   selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).vehiclecare;
   validations: any = this.langService.get(this.selectedLang).validations;
+  successMessages: any = this.langService.get(this.selectedLang).successMessages;
   //subscription
   subscription: Subscription[] = [];
   //dropdowns
@@ -44,7 +46,8 @@ export class VehicleComponent {
   constructor(private vehicleService: VehicleService,
     private langService: LangService,
     private route: Router,
-    private pagerService: PagerService) {
+    private pagerService: PagerService, 
+    private messageService: MessageService) {
     this.loadNames();
     this.listener();
     this.self();
@@ -83,6 +86,8 @@ export class VehicleComponent {
     this.vehicleService.save(model).subscribe({
       next: (res) => {
         if (res > 0) {
+          console.log(res);
+          this.messageService.event.emit(this.successMessages.addedItem);
           this.self();
         }
         this.defaultVehicleCare = { isDeleted: false, company: {} };
@@ -164,6 +169,7 @@ export class VehicleComponent {
       this.menu = result.vehiclecare;
       this.company = result.company;
       this.validations = result.validations;
+      this.successMessages = result.successMessages;
     }))
 
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
