@@ -13,6 +13,7 @@ export class LangService {
   langState: string = this.getLocalStorage() ?? environment.lang.default;
 
   constructor() {
+    console.log(this.getLocalStorage());
     if (!this.getLocalStorage()) {
       this.setLocalStorage(environment.lang.default);
     }
@@ -20,17 +21,17 @@ export class LangService {
 
   get(language: string): ILangModel {
     this.langState = language;
-    const result = language === "en" ? en : bg;
+    const result = language === environment.lang.en ? en : bg;
     this.langEvent.emit(result);
 
     return result;
   }
 
   setLocalStorage(language: string): void {
-    localStorage.setItem('language', language);
+    localStorage.setItem(environment.lang.title, language);
   }
 
   getLocalStorage(): string | null {
-    return localStorage.getItem('language');
+    return localStorage.getItem(environment.lang.title);
   }
 }

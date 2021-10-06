@@ -40,11 +40,6 @@
         "companyNameRequired": "Името на компанията е задължително!",
         "noVehicleCaresFound": "Няма намерени записи за моторни превозни средства.",
         "noHealthCaresFound": "Няма намерени записи за здраве."
-    }, 
-    "successMessages": {
-        "logged": "Вписахте се успешно.",
-        "registered": "Регистрирахте се успешно.",
-        "addedItem": "Успешно добавен запис."
     },
     "vehiclecare": {
         "for": "За",

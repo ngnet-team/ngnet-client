@@ -41,11 +41,6 @@
         "noVehicleCaresFound": "There are no vehicle care records.",
         "noHealthCaresFound": "There are no health care records."
     },
-    "successMessages": {
-        "logged": "You have logged succesfully.",
-        "registered": "You have registered succesfully.",
-        "addedItem": "Item has been added successfully."
-    },
     "vehiclecare": {
         "for": "For",
         "startDate": "Start date",

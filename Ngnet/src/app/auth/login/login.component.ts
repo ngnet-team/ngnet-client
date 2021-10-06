@@ -21,7 +21,6 @@ export class LoginComponent {
   errors: string[] | undefined;
   menu: any = this.langService.get(this.selectedLang).login;
   validations: any = this.langService.get(this.selectedLang).validations;
-  successMessages: any = this.langService.get(this.selectedLang).successMessages;
 
   constructor(private authService: AuthService, private route: Router, private langService: LangService, private messageService: MessageService) {
     this.langListener();
@@ -35,7 +34,8 @@ export class LoginComponent {
         if (res.token) {
           this.authService.setToken(res.token);
         }
-        this.messageService.event.emit(this.successMessages.logged);
+        const msg = this.messageService.getMsg(res.responseMessage, this.selectedLang);
+        this.messageService.event.emit(msg);
         this.authService.logginEvent.emit(true);
         this.route.navigateByUrl('profile');
       },
@@ -57,7 +57,6 @@ export class LoginComponent {
       this.selectedLang = this.langService.langState;
       this.menu = result.login;
       this.validations = result.validations;
-      this.successMessages = result.successMessages;
       this.setServerError();
     }))
   }

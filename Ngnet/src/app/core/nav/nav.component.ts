@@ -27,7 +27,8 @@ export class NavComponent implements DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.languageDropdown.value !== this.selectedLang) {
+    //change language only the value is different and existing one
+    if (this.languageDropdown.value !== this.selectedLang && this.languageDropdown.value) {
       this.changeLang(this.languageDropdown.value);
     }
   }

@@ -12,6 +12,8 @@ import { IDefaultHealthCareModel } from '../interfaces/health/default-health-car
 import { IPageModel } from '../interfaces/page-model';
 import { ICompanyModel } from '../interfaces/company-model';
 import { PagerService } from '../services/pager.service';
+import { environment } from 'src/environments/environment';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-health',
@@ -46,7 +48,8 @@ export class HealthComponent {
   constructor(private healthService: HealthService,
     private langService: LangService,
     private route: Router,
-    private pagerService: PagerService) {
+    private pagerService: PagerService, 
+    private messageService: MessageService) {
     this.loadNames();
     this.listener();
     this.self();
@@ -84,7 +87,9 @@ export class HealthComponent {
 
     this.healthService.save(model).subscribe({
       next: (res) => {
-        if (res > 0) {
+        if (res) {
+          const msg = this.messageService.getMsg(res, this.selectedLang);
+          this.messageService.event.emit(msg);
           this.self();
         }
         this.defaultHealthCare = { isDeleted: false, company: {} };
@@ -136,7 +141,7 @@ export class HealthComponent {
   }
 
   private setServerError() {
-    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
+    this.errors = this.selectedLang === environment.lang.bg ? this.serverErrors.bg : this.serverErrors.en;
   }
 
   private loadNames(): void {
