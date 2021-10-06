@@ -1,6 +1,6 @@
 <div class="company">
     <div class="title">{{menu.label}}</div>
-    <div class="field">
+    <div class="from-field">
         <div class="label">{{menu.name}} 
             <span *ngIf="
         ((company.phoneNumber !== undefined && company.phoneNumber !== '') ||
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="field">
+    <div class="from-field">
         <div class="label">{{menu.phoneNumber}}</div>
         <input #phoneNumberInput="ngModel" type="text" name="phoneNumber" [(ngModel)]="company.phoneNumber">
         <p class="validation" *ngIf="phoneNumberInput.touched && 
@@ -36,7 +36,7 @@
             {{validations.companyNameRequired}}</p>
     </div>
 
-    <div class="field">
+    <div class="from-field">
         <div class="label">{{menu.email}}</div>
         <input #emailInput="ngModel" type="text" name="email" [(ngModel)]="company.email" email>
         <p class="validation" *ngIf="emailInput.touched && 
@@ -49,7 +49,7 @@
             {{validations.companyNameRequired}}</p>
     </div>
 
-    <div class="field">
+    <div class="from-field">
         <div class="label">{{menu.webSite}}</div>
         <input #webSiteInput="ngModel" type="text" name="webSite" [(ngModel)]="company.webSite">
         <p class="validation" *ngIf="webSiteInput.touched && 
@@ -59,7 +59,7 @@
             {{validations.companyNameRequired}}</p>
     </div>
 
-    <div class="field">
+    <div class="from-field">
         <div class="label">{{menu.address}}</div>
         <input #addressInput="ngModel" type="text" name="address" [(ngModel)]="company.address">
         <p class="validation" *ngIf="addressInput.touched && 

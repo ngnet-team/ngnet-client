@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
@@ -13,11 +13,8 @@ import { LangService } from 'src/app/services/lang.service';
 })
 export class DropdownComponent implements OnChanges {
 
-  @Input() input: { field: string, fieldUrl: string } = 
-  {
-    field: 'manager',
-    fieldUrl: ''
-  };
+  @Input() input: { field: string, type: string, value?: string } = { field: '', type: '' };
+
   //language
   selectedLang: string = this.langService.langState;
   jsonDropdown: any = this.langService.get(this.selectedLang).dropdown;
@@ -34,7 +31,11 @@ export class DropdownComponent implements OnChanges {
   }
 
   click(option: IDropDownOptionModel) {
-    this.route.navigateByUrl(option.url ?? 'not-found');
+    if (this.input.type === 'route') {
+      this.route.navigateByUrl(option.url ?? 'not-found');
+    } else if (this.input.type === 'state') {
+      this.input.value = option.url;
+    }
   }
 
   private listener(): void {

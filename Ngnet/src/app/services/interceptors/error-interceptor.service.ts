@@ -12,10 +12,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
 
   constructor(private route: Router) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<IErrorModel[]>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<IErrorModel>> {
     return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse) => {
+          console.log(error);
           if (error.status === 0) {
             this.route.navigateByUrl("server-not-found");
           }

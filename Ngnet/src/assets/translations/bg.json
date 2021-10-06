@@ -40,7 +40,7 @@
         "companyNameRequired": "Името на компанията е задължително!",
         "noVehicleCaresFound": "Няма намерени записи за моторни превозни средства.",
         "noHealthCaresFound": "Няма намерени записи за здраве."
-    }, 
+    },
     "vehiclecare": {
         "for": "За",
         "startDate": "Начална дата",
@@ -91,6 +91,19 @@
                 {
                     "name": "Мениджър здраве",
                     "url": "/healthcare"
+                }
+            ]
+        },
+        "language": {
+            "title": "Език",
+            "options": [
+                {
+                    "name": "Български",
+                    "url": "bg"
+                },
+                {
+                    "name": "Английски",
+                    "url": "en"
                 }
             ]
         }

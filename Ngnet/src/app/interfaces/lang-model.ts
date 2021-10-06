@@ -4,7 +4,7 @@ export interface ILangModel {
     profile?: {},
     login?: {},
     register?: {},
-    validations?: {}, 
+    validations?: {},
     vehiclecare?: {},
     healthcare?: {},
     manager?: {},

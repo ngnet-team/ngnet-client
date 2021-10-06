@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services/guard/auth-guard.service';
 import { ErrorInterceptorService } from './services/interceptors/error-interceptor.service';
 import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
 import { SharedModule } from './shared/shared.module';
@@ -16,15 +16,16 @@ import { HomeComponent } from './home/home.component';
 import { ProfileResolverService } from './services/profile-resolver.service';
 import { AdminComponent } from './admin/admin.component';
 import { VehicleComponent } from './vehicle/vehicle.component';
-import { VehicleService } from './services/vehicle.service';
+import { VehicleService } from './services/care/vehicle.service';
 import { LangService } from './services/lang.service';
 import { HealthComponent } from './health/health.component';
-import { HealthService } from './services/health.service';
+import { HealthService } from './services/care/health.service';
 import { CompanyService } from './services/company.service';
 import { PagerService } from './services/pager.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     LangService,
     CompanyService,
     PagerService,
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

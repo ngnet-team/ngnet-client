@@ -5,11 +5,13 @@ import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { IVehicleCareModel } from '../interfaces/vehicle/vehicle-care-model';
 import { LangService } from '../services/lang.service';
-import { VehicleService } from '../services/vehicle.service';
+import { VehicleService } from '../services/care/vehicle.service';
 import { IDefaultVehicleCareModel } from '../interfaces/vehicle/default-vehicle-care-model';
 import { IPageModel } from '../interfaces/page-model';
 import { PagerService } from '../services/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
+import { MessageService } from '../services/message.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-vehicle',
@@ -44,7 +46,8 @@ export class VehicleComponent {
   constructor(private vehicleService: VehicleService,
     private langService: LangService,
     private route: Router,
-    private pagerService: PagerService) {
+    private pagerService: PagerService, 
+    private messageService: MessageService) {
     this.loadNames();
     this.listener();
     this.self();
@@ -82,7 +85,9 @@ export class VehicleComponent {
 
     this.vehicleService.save(model).subscribe({
       next: (res) => {
-        if (res > 0) {
+        if (res) {
+          const msg = this.messageService.getMsg(res, this.selectedLang);
+          this.messageService.event.emit(msg);
           this.self();
         }
         this.defaultVehicleCare = { isDeleted: false, company: {} };
@@ -144,7 +149,7 @@ export class VehicleComponent {
   }
 
   private setServerError() {
-    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
+    this.errors = this.selectedLang === environment.lang.bg ? this.serverErrors.bg : this.serverErrors.en;
   }
 
   private loadNames(): void {

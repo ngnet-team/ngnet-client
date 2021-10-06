@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { LangService } from 'src/app/services/lang.service';
+import { MessageService } from 'src/app/services/message.service';
 import { IRegisterModel } from '../../interfaces/auth/register-model';
 import { AuthService } from '../../services/auth.service';
 
@@ -21,7 +22,7 @@ export class RegisterComponent {
   menu: any = this.langService.get(this.selectedLang).register;
   validations: any = this.langService.get(this.selectedLang).validations;
 
-  constructor(private authService: AuthService, private route: Router, private langService: LangService) {
+  constructor(private authService: AuthService, private route: Router, private langService: LangService, private messageService: MessageService) {
     this.langListener();
   }
 
@@ -29,7 +30,9 @@ export class RegisterComponent {
     this.serverErrors = {} as IErrorModel;
 
     this.authService.register(input).subscribe({
-      next: () => {
+      next: (res) => {
+        const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
         this.route.navigateByUrl('login');
       },
       error: (err) => {
