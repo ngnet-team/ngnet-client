@@ -1,12 +1,9 @@
-<div class="dropdown">
-  <div>
-    <mat-label>{{dropdown?.title}}</mat-label>
-  </div>
-  <div>
-    <mat-select>
-      <mat-option *ngFor="let option of dropdown?.options" [value]="option?.name" (click)="click(option)">
-        {{option?.name}}
-      </mat-option>
-    </mat-select>
-  </div>
+<div class="title" (mouseover)="toggle()">
+  {{dropdown?.title}}
+  <fa-icon [icon]="icon"></fa-icon>
 </div>
+<ul class="options" *ngIf="showOptions" (mouseleave)="toggle()">
+  <li class="option" *ngFor="let option of dropdown?.options" (click)="click(option)">
+    {{option?.name}}
+  </li>
+</ul>

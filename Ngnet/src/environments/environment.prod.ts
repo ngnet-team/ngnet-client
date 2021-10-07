@@ -3,6 +3,7 @@ export const environment = {
   appName: "Ngnet",
   serverUrl: "https://localhost:5001/",
   lang: {
+    title: 'language',
     default: "bg",
     en: "en",
     bg: "bg"

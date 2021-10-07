@@ -3,12 +3,7 @@
     text-align: center;
 }
 
-.tab:hover{
-    border: 2px solid rgba(0, 0, 0, 0.363);
-    border-radius: 5px;
-}
-
-.dropdown:hover {
-    border: none;
-    cursor: auto;
+.tab:hover {
+    cursor: pointer;
+    border-bottom: 3px solid rgb(0, 46, 110);
 }

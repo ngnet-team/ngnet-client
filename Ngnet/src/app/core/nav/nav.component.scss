@@ -2,15 +2,19 @@
 @import url(../../../../css/_message.scss);
 
 .nav {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
     display: flex;
     justify-content: space-around;
-    background-color: rgb(173, 194, 211);
-    padding: 10px 50px 5px 50px;
+    background-color: rgb(212, 206, 171);
+    padding: 10px 50px;
+    margin: 5px 0;
+    max-height: 28px;
+    color: rgb(0, 46, 110);
 }
 
 .nav > div {
     margin: 0 10px;
-    cursor: pointer;
 }
 
 .logged, .not-logged {
@@ -23,4 +27,12 @@
 
 .logo img {
     width: 100%;
+}
+
+.dropdown:hover {
+    cursor: context-menu;
+}
+
+a {
+    color: rgb(0, 46, 110);;
 }

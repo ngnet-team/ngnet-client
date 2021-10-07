@@ -26,6 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from './services/message.service';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MessageService } from './services/message.service';
     SharedModule,
     CoreModule,
     AuthModule,
+    // FontAwesomeModule,
   ],
   providers: [
     AuthService,
