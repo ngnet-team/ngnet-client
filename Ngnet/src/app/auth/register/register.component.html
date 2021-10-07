@@ -1,53 +1,65 @@
-<div class="form">
-    <form #reg="ngForm" (ngSubmit)="register(reg.value)">
-        <div class="form-field">
-            <div>{{menu.email}} <span class="requiredInput">{{menu.required}}</span></div>
-            <input #emailInput="ngModel" type="text" name="email" ngModel required email>
-            <p class="validation" *ngIf="emailInput.errors?.required && emailInput.touched">{{validations.requiredEmail}}</p>
-            <p class="validation" *ngIf="emailInput.errors?.email && emailInput.touched">{{validations.invalidEmail}}</p>
-        </div>
-    
-        <div class="form-field">
-            <div>{{menu.username}} <span class="requiredInput">{{menu.required}}</span></div>
-            <input #usernameInput="ngModel" type="text" name="username" ngModel required>
-            <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">{{validations.requiredUsername}}</p>
-        </div>
-    
-        <div class="form-field">
-            <div>{{menu.password}} <span class="requiredInput">{{menu.required}}</span></div>
-            <input #passwordInput="ngModel" type="password" name="password" ngModel required minlength="6">
-            <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">{{validations.requiredPassword}}</p>
-            <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">{{validations.passwordLength}}</p>
-        </div>
-    
-        <div class="form-field">
-            <div>{{menu.repeatPassword}} <span class="requiredInput">{{menu.required}}</span></div>
-            <input #repeatPasswordInput="ngModel" type="password" name="repeatPassword" ngModel required minlength="6">
-            <p class="validation" *ngIf="repeatPasswordInput.errors?.required && repeatPasswordInput.touched">{{validations.requiredPassword}}</p>
-            <p class="validation" *ngIf="repeatPasswordInput.errors?.minlength && repeatPasswordInput.touched">{{validations.passwordLength}}</p>
-        </div>
-    
-        <div class="form-field">
-            <div>{{menu.firstName}}</div>
-            <input #firstNameInput="ngModel" type="text" name="firstName" ngModel>
-        </div>
-    
-        <div class="form-field">
-            <div>{{menu.lastName}}</div>
-            <input #lastNameInput="ngModel" type="text" name="lastName" ngModel>
-        </div>
-    
-        <div class="form-field">
-            <div>{{menu.age}}</div>
-            <input #ageInput="ngModel" type="number" name="age" [ngModel]="null">
-        </div>
+<div class="container">
+    <div class="form">
+        <form #reg="ngForm" (ngSubmit)="register(reg.value)">
+            <div class="title">{{menu.title}}</div>
+            <div class="form-field">
+                <div class="label">{{menu.email}} <span class="requiredInput">{{menu.required}}</span></div>
+                <input #emailInput="ngModel" type="text" name="email" ngModel required email>
+                <p class="validation" *ngIf="emailInput.errors?.required && emailInput.touched">
+                    {{validations.requiredEmail}}</p>
+                <p class="validation" *ngIf="emailInput.errors?.email && emailInput.touched">
+                    {{validations.invalidEmail}}
+                </p>
+            </div>
 
-        <div *ngFor="let error of errors">
-            <p class="validation">{{error}}</p>
-        </div>
+            <div class="form-field">
+                <div class="label">{{menu.username}} <span class="requiredInput">{{menu.required}}</span></div>
+                <input #usernameInput="ngModel" type="text" name="username" ngModel required>
+                <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">
+                    {{validations.requiredUsername}}</p>
+            </div>
 
-        <div>
-            <button class="button" [disabled]="reg.invalid">{{menu.signUp}}</button>
-        </div>
-    </form>
+            <div class="form-field">
+                <div class="label">{{menu.password}} <span class="requiredInput">{{menu.required}}</span></div>
+                <input #passwordInput="ngModel" type="password" name="password" ngModel required minlength="6">
+                <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">
+                    {{validations.requiredPassword}}</p>
+                <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">
+                    {{validations.passwordLength}}</p>
+            </div>
+
+            <div class="form-field">
+                <div class="label">{{menu.repeatPassword}} <span class="requiredInput">{{menu.required}}</span></div>
+                <input #repeatPasswordInput="ngModel" type="password" name="repeatPassword" ngModel required
+                    minlength="6">
+                <p class="validation" *ngIf="repeatPasswordInput.errors?.required && repeatPasswordInput.touched">
+                    {{validations.requiredPassword}}</p>
+                <p class="validation" *ngIf="repeatPasswordInput.errors?.minlength && repeatPasswordInput.touched">
+                    {{validations.passwordLength}}</p>
+            </div>
+
+            <div class="form-field">
+                <div class="label">{{menu.firstName}}</div>
+                <input #firstNameInput="ngModel" type="text" name="firstName" ngModel>
+            </div>
+
+            <div class="form-field">
+                <div class="label">{{menu.lastName}}</div>
+                <input #lastNameInput="ngModel" type="text" name="lastName" ngModel>
+            </div>
+
+            <div class="form-field">
+                <div class="label">{{menu.age}}</div>
+                <input #ageInput="ngModel" type="number" name="age" [ngModel]="null">
+            </div>
+
+            <div *ngFor="let error of errors">
+                <p class="validation">{{error}}</p>
+            </div>
+
+            <div>
+                <button class="button" [disabled]="reg.invalid">{{menu.signUp}}</button>
+            </div>
+        </form>
+    </div>
 </div>

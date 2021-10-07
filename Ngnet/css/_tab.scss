@@ -4,6 +4,9 @@
 }
 
 .tab:hover {
-    cursor: pointer;
     border-bottom: 3px solid rgb(0, 46, 110);
+}
+
+.element:hover {
+    cursor: pointer;
 }

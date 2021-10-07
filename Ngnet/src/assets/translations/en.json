@@ -16,11 +16,13 @@
         "role": "Role"
     },
     "login": {
+        "title": "Sign in",
         "username": "Username",
         "password": "Password",
         "signIn": "Sign in"
     },
     "register": {
+        "title": "Sign up",
         "email": "Email",
         "username": "Username",
         "password": "Password",

@@ -1,5 +1,19 @@
 @import url(../../../../css/_form.scss);
 
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: 200px;
+    grid-template-areas:
+      ". a a ."
+      ". a a ."
+      ". a a ."
+      ". a a .";
+}
 .form {
-    margin: 5% 42%;
+    margin-top: min(110px);
+    grid-area: a;
+    align-self: center;
+    justify-self: center;
 }
