@@ -44,6 +44,7 @@
         "noHealthCaresFound": "There are no health care records."
     },
     "vehiclecare": {
+        "title": "Vehicle Care",
         "for": "For",
         "startDate": "Start date",
         "endDate": "End date",
@@ -58,6 +59,7 @@
         "required": " *"
     },
     "healthcare": {
+        "title": "Health Care",
         "for": "For",
         "date": "Date",
         "reminder": "Reminder",

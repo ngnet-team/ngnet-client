@@ -48,14 +48,11 @@
 
         <app-page *ngIf="vehicleCares.length > 0" class="pager-view" [pager]="pager"></app-page>
 
-        <!-- <div class="back">
-            <a class="button" (click)="back()">{{menu.back}}</a>
-        </div> -->
-
     </div>
     <div class="creation">
         <form class="form" #veh="ngForm" (ngSubmit)="save(veh.value)">
             <div class="main">
+                <div class="title">{{menu.title}}</div>
                 <div class="form-field">
                     <div class="label">{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
                     <div *ngIf="this.selectedLang === 'bg'">
@@ -118,8 +115,8 @@
                 </div>
             </div>
 
-            <app-company-form [company]="defaultVehicleCare.company" ngModelGroup="company"></app-company-form>
-
+            <app-company-form [company]="defaultVehicleCare.company" ngModelGroup="company" class="company"></app-company-form>
+            
         </form>
     </div>
 </div>

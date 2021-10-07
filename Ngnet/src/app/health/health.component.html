@@ -42,14 +42,11 @@
 
         <app-page *ngIf="healthCares.length > 0" class="pager-view" [pager]="pager"></app-page>
 
-        <!-- <div class="back">
-            <a class="button" (click)="back()">{{menu.back}}</a>
-        </div> -->
-
     </div>
     <div class="creation">
         <form class="form" #health="ngForm" (ngSubmit)="save(health.value)">
             <div class="main">
+                <div class="title">{{menu.title}}</div>
                 <div class="form-field">
                     <div class="label">{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
                     <div *ngIf="this.selectedLang === 'bg'">
@@ -102,7 +99,7 @@
                 </div>
             </div>
 
-            <app-company-form [company]="defaultHealthCare.company" ngModelGroup="company"></app-company-form>
+            <app-company-form [company]="defaultHealthCare.company" ngModelGroup="company" class="company"></app-company-form>
 
         </form>
     </div>

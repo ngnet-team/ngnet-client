@@ -44,6 +44,7 @@
         "noHealthCaresFound": "Няма намерени записи за здраве."
     },
     "vehiclecare": {
+        "title": "Грижа за колата",
         "for": "За",
         "startDate": "Начална дата",
         "endDate": "Крайна дата",
@@ -58,6 +59,7 @@
         "required": " *"
     },
     "healthcare": {
+        "title": "Здравна грижа",
         "for": "За",
         "date": "Дата",
         "reminder": "Напомняне",
