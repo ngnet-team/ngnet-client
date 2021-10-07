@@ -1,8 +1,11 @@
 @import url(../../../../css/_form.scss);
 
 .company {
-    border: 1px solid black;
     padding: 10px 30px;
-    background-color: rgb(173, 194, 211);
+    background-color: rgb(240, 237, 227);
     text-align: center;
+}
+
+select, input, textarea {
+    border: 1px solid rgb(170, 162, 122);
 }

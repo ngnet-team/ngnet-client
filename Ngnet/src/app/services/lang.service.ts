@@ -13,7 +13,6 @@ export class LangService {
   langState: string = this.getLocalStorage() ?? environment.lang.default;
 
   constructor() {
-    console.log(this.getLocalStorage());
     if (!this.getLocalStorage()) {
       this.setLocalStorage(environment.lang.default);
     }

@@ -5,11 +5,20 @@ textarea {
 
 select, input, textarea {
     width: 170px;
-    background-color: rgb(252, 252, 252);
-    border: 1px solid lightskyblue;
+    background-color: rgb(248, 247, 242);
+    border: none;
+}
+
+select {
+    border-radius: 7px;
 }
 
 a {
     text-decoration: none;
     color: black;
+}
+
+li {
+    list-style: none;
+    text-align: left;
 }

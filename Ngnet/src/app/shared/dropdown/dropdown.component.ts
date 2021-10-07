@@ -5,6 +5,7 @@ import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-optio
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
 import { DropdownService } from 'src/app/services/dropdown.service';
 import { LangService } from 'src/app/services/lang.service';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dropdown',
@@ -21,6 +22,8 @@ export class DropdownComponent implements OnChanges {
   dropdown: IJsonDropDownModel = {};
   //subscription
   subscription: Subscription[] = [];
+  icon = faCaretDown;
+  showOptions: boolean = false;
 
   constructor(private route: Router, private langService: LangService, private dropdownService: DropdownService) {
     this.listener();
@@ -31,11 +34,17 @@ export class DropdownComponent implements OnChanges {
   }
 
   click(option: IDropDownOptionModel) {
+    this.toggle();
+    
     if (this.input.type === 'route') {
       this.route.navigateByUrl(option.url ?? 'not-found');
     } else if (this.input.type === 'state') {
       this.input.value = option.url;
     }
+  }
+
+  toggle() {
+    this.showOptions = !this.showOptions;
   }
 
   private listener(): void {
