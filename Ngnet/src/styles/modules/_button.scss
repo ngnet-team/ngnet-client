@@ -1,0 +1,23 @@
+@import '../base/api';
+
+.button {
+    display: inline-block;
+    background-color: getParam(colors, action, back);
+    color: getParam(colors, action, fore);
+    padding: getParam(paddings, small) getParam(paddings, large);
+    border-radius: getParam(borders, action, rounding);
+    margin: getParam(paddings, small);
+    font-size: getParam(fonts, size, small);
+}
+
+.button:hover {
+    background-color: getParam(colors, action, hover, back);
+    color: getParam(colors, action, hover, fore);
+    box-shadow: 2px 2px 2px 2px rgb(205, 216, 226);
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.button:disabled {
+    cursor: no-drop;
+}

@@ -1,0 +1,15 @@
+@use "sass:map";
+@import 'configuration';
+
+@function getParam($area, $field, $value: null, $nested-value: null) {
+
+    @if($nested-value) {
+        @return map.get($options, $area, $field, $value, $nested-value);
+    };
+
+    @if($value) {
+        @return map.get($options, $area, $field, $value);
+    };
+
+    @return map.get($options, $area, $field);
+};

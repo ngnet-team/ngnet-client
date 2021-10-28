@@ -1,5 +1,5 @@
-@import url(../../../../css/_tab.scss);
-@import url(../../../../css/_message.scss);
+@import '../../../styles/modules/tab';
+@import '../../../styles/modules/message';
 
 .nav {
     font-family: 'Roboto', sans-serif;
@@ -11,7 +11,7 @@
     margin: 10px 15px;
     max-height: 28px;
     color: rgb(0, 46, 110);
-    box-shadow:1px 1px 4px 4px rgb(173, 167, 130);
+    box-shadow:1px 1px 4px 4px rgb(235, 227, 175);
 }
 
 .nav > div {

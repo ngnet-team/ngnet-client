@@ -1,0 +1,32 @@
+@import 'button';
+
+.form {
+    background-color: getParam(colors, field, back);
+    color: getParam(colors, field, fore);
+    box-shadow:1px 1px 4px 4px rgb(173, 167, 130);
+    display: inline-block;
+    text-align: center;
+    font-size: getParam(fonts, size, normal);
+    padding: 1rem 5rem 2.5rem 5rem;
+    max-width: 11rem;
+}
+
+.form-field {
+    margin: getParam(margins, normal) getParam(margins, tiny);
+}
+
+.title {
+    margin-bottom: getParam(margins, huge);
+    text-align: center;
+    font-size: getParam(fonts, size, large);
+}
+
+.label {
+    margin-bottom: getParam(margins, small);
+}
+
+.requiredInput, .validation {
+    margin-top: getParam(margins, small);
+    font-size: getParam(fonts, size, small);
+    color: getParam(constants, alertColor);
+}

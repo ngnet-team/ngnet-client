@@ -1,15 +1,1 @@
-.title {
-    max-width: max-content;
-}
-
-.options {
-    z-index: 1;
-    position: absolute;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 1px 1px 1px 1px rgb(179, 179, 179);
-}
-
-.option {
-    cursor: pointer;
-}
+@import '../../../styles/modules/dropdown';
