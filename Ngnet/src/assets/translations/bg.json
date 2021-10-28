@@ -16,11 +16,13 @@
         "role": "Роля"
     },
     "login": {
+        "title": "Вход",
         "username": "Потребителско име",
         "password": "Парола",
         "signIn": "Впиши ме"
     },
     "register": {
+        "title": "Регистрация",
         "email": "Имейл",
         "username": "Потребителско име",
         "password": "Парола",
@@ -42,6 +44,7 @@
         "noHealthCaresFound": "Няма намерени записи за здраве."
     },
     "vehiclecare": {
+        "title": "Грижа за колата",
         "for": "За",
         "startDate": "Начална дата",
         "endDate": "Крайна дата",
@@ -56,6 +59,7 @@
         "required": " *"
     },
     "healthcare": {
+        "title": "Здравна грижа",
         "for": "За",
         "date": "Дата",
         "reminder": "Напомняне",

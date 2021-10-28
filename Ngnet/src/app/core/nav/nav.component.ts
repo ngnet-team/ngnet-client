@@ -48,6 +48,10 @@ export class NavComponent implements DoCheck {
     }));
     this.event.push(this.messageService.event.subscribe(message => {
       this.message = message;
+
+      setTimeout(() => {
+        this.removeMessage();
+      }, 3000);
     }));
   }
 

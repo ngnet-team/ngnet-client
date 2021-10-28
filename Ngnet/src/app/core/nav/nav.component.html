@@ -6,25 +6,25 @@
     </div>
     <div *ngIf="isLogged" class="logged">
         <div class="tab dropdown">
-            <app-dropdown [input]="managerDropdown"></app-dropdown>
+            <app-dropdown [input]="managerDropdown" class="element"></app-dropdown>
         </div>
         <div class="tab">
-            <a routerLink="/profile" class="profile">{{menu.profile}}</a>
+            <a routerLink="/profile" class="profile element">{{menu.profile}}</a>
         </div>
         <div class="tab">
-            <a (click)="logout()" class="logout">{{menu.logout}}</a>
+            <a (click)="logout()" class="logout element">{{menu.logout}}</a>
         </div>
     </div>
     <div *ngIf="!isLogged" class="not-logged">
         <div class="tab">
-            <a routerLink="/login" class="login">{{menu.login}}</a>
+            <a routerLink="/login" class="login element">{{menu.login}}</a>
         </div>
         <div class="tab">
-            <a routerLink="/register" class="register">{{menu.register}}</a>
+            <a routerLink="/register" class="register element">{{menu.register}}</a>
         </div>
     </div>
     <div class="tab dropdown">
-        <app-dropdown [input]="languageDropdown" ></app-dropdown>
+        <app-dropdown [input]="languageDropdown" class="element"></app-dropdown>
     </div>
 </div>
 <div *ngIf="message" class='message'>

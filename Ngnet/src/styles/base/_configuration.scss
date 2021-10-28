@@ -1,0 +1,139 @@
+$options: (
+    colors: (
+        area: (
+            fore: #324a8a,
+            back: #eef0f3,
+            active:
+                (
+                    fore: #74b0c1,
+                    back: #eef0f3,
+                ),
+        ),
+        field: (
+            fore: rgb(99, 99, 99),
+            back: rgb(212, 206, 171),
+            active:
+                (
+                    fore: rgb(99, 99, 99),
+                    back: rgb(212, 206, 171),
+                ),
+            hover:
+                (
+                    fore: rgb(99, 99, 99),
+                    back: rgb(212, 206, 171),
+                ),
+        ),
+        action: (
+            fore: rgb(7, 121, 228),
+            back: rgb(185, 211, 236),
+            active:
+                (
+                    fore: #74b0c1,
+                    back: #fff,
+                ),
+            hover:
+                (
+                    fore: rgb(185, 211, 236),
+                    back: rgb(7, 121, 228),
+                ),
+        ),
+    ),
+    borders: (
+        area: (
+            thickness: 0,
+            style: solid,
+            color: #eef0f3,
+            rounding: 0.2rem,
+            hover:
+                (
+                    thickness: 0,
+                    style: solid,
+                    color: #eef0f3,
+                    rounding: 0.2rem,
+                ),
+        ),
+        field: (
+            thickness: 1px,
+            style: solid,
+            color: rgb(185, 211, 236),
+            rounding: 0.2rem,
+            hover:
+                (
+                    thickness: 1px,
+                    style: solid,
+                    color: rgb(185, 211, 236),
+                    rounding: 0.2rem,
+                ),
+        ),
+        action: (
+            thickness: 0px,
+            style: solid,
+            color: rgb(185, 211, 236),
+            rounding: 0.2rem,
+            hover:
+                (
+                    thickness: 0px,
+                    style: solid,
+                    color: rgb(185, 211, 236),
+                    rounding: 0.2rem,
+                ),
+        ),
+    ),
+    margins: (
+        tiny: 0.1rem,
+        small: 0.3rem,
+        normal: 0.5rem,
+        large: 1rem,
+        huge: 1.2rem,
+    ),
+    paddings: (
+        tiny: 0.1rem,
+        small: 0.3rem,
+        normal: 0.5rem,
+        large: 1rem,
+        huge: 1.2rem,
+    ),
+    shadows: (
+        offsetX: 0.0625rem,
+        offsetY: 0.0625rem,
+        blur: 0.3125rem,
+        spread: 0.08125rem,
+    ),
+    fonts: (
+        font-family: "Roboto sans-serif",
+        line-height: 1.5rem,
+        variation: (
+            lighter: (
+                style: normal,
+                weight: 400,
+            ),
+            normal: (
+                style: normal,
+                weight: normal,
+            ),
+            emphasize: (
+                style: italic,
+                weight: bold,
+            ),
+        ),
+        stretch: null,
+        size: (
+            tiny: 12px,
+            small: 14.4px,
+            normal: 16px,
+            big: 24px,
+            huge: 32px,
+        ),
+    ),
+    constants: (
+        textAreaHeight: 1.5rem,
+        textFieldHeight: 1.5rem,
+        textActionHeight: 1.5rem,
+        smallIconSize: 1rem,
+        normalIconSize: 1.25rem,
+        largeIconSize: 1.75rem,
+        factorIncreaseFontH1To6: 0.2rem,
+        alertColor: rgb(230, 0, 0),
+        successColor: cadetblue,
+    ),
+);

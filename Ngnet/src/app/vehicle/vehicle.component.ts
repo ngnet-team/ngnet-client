@@ -106,6 +106,7 @@ export class VehicleComponent {
   self(): void {
     this.vehicleService.self().subscribe({
       next: (res) => {
+        this.errors = [];
         this.vehicleCares = (res as IVehicleCareModel[]).filter(x => x.isDeleted === false);
         //pager view
         this.pagerService.model.totalPages = this.pagerService.setPageNumbers(this.vehicleCares.length);
