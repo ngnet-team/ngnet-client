@@ -24,6 +24,7 @@ export class DropdownComponent implements OnChanges {
   subscription: Subscription[] = [];
   icon = faCaretDown;
   showOptions: boolean = false;
+  timeOut: any;
 
   constructor(private route: Router, private langService: LangService, private dropdownService: DropdownService) {
     this.listener();
@@ -34,7 +35,7 @@ export class DropdownComponent implements OnChanges {
   }
 
   click(option: IDropDownOptionModel) {
-    this.toggle();
+    this.visible(false);
     
     if (this.input.type === 'route') {
       this.route.navigateByUrl(option.url ?? 'not-found');
@@ -43,8 +44,15 @@ export class DropdownComponent implements OnChanges {
     }
   }
 
-  toggle() {
-    this.showOptions = !this.showOptions;
+  visible(show: boolean) {
+    if (show === false) {
+      this.timeOut = setTimeout(() => {
+        this.showOptions = show;
+      }, 100);
+    } else {
+      clearTimeout(this.timeOut);
+      this.showOptions = show;
+    }
   }
 
   private listener(): void {
