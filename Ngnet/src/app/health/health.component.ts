@@ -106,6 +106,7 @@ export class HealthComponent {
   self(): void {
     this.healthService.self().subscribe({
       next: (res) => {
+        this.errors = [];
         this.healthCares = (res as IHealthCareModel[]).filter(x => x.isDeleted === false);
         //pager view
         this.pagerService.model.totalPages = this.pagerService.setPageNumbers(this.healthCares.length);

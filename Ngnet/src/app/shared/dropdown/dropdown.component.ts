@@ -35,7 +35,7 @@ export class DropdownComponent implements OnChanges {
   }
 
   click(option: IDropDownOptionModel) {
-    this.visible(false);
+    this.visible(false, 0);
     
     if (this.input.type === 'route') {
       this.route.navigateByUrl(option.url ?? 'not-found');
@@ -44,11 +44,11 @@ export class DropdownComponent implements OnChanges {
     }
   }
 
-  visible(show: boolean) {
+  visible(show: boolean, time: number = 100) {
     if (show === false) {
       this.timeOut = setTimeout(() => {
         this.showOptions = show;
-      }, 100);
+      }, time);
     } else {
       clearTimeout(this.timeOut);
       this.showOptions = show;
