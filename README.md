@@ -1,7 +1,7 @@
 # ngnet-client
 Angular
 
-Steps before launching:
+Launch guide:
 
   1. Once the repository is cloned open a cmd in /Ngnet directory.
   2. execute: 'npm install' and wait until node modules are installed (will take some time).
