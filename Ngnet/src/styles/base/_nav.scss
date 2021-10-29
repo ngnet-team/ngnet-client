@@ -1,7 +1,6 @@
 @import '../base/api';
 
 .nav {
-    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: space-around;
     font-size: getParam(fonts, size, normal);
@@ -11,6 +10,11 @@
     padding: getParam(paddings, normal) 3rem;
     margin: getParam(margins, normal) getParam(margins, large);
     max-height: 1.75rem;
+}
+
+.nav:hover {
+    background-color: getParam(colors, field, hover, back);
+    color: getParam(colors, field, hover, fore);
 }
 
 .nav > div {

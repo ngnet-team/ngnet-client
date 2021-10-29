@@ -1,4 +1,4 @@
-@import '../base/api';
+@import "../base/api";
 
 .pagination {
     margin: getParam(margins, large) 25%;
@@ -9,32 +9,35 @@
     text-align: center;
 }
 
-.page-wrapper, .arrow-wrapper {
+.page-wrapper,
+.arrow-wrapper {
     margin: 0 getParam(margins, small);
-}
-
-.page-wrapper {
-    border-radius: 38%;
 }
 
 .page {
     padding: 0 getParam(paddings, normal);
 }
 
-.selected {
-    font-weight: bolder;
-}
-
 .page-wrapper {
-   padding: getParam(paddings, tiny);
-   background-color: getParam(colors, action, back);
-   color: getParam(colors, action, fore);
+    border-radius: 40%;
+    padding: getParam(paddings, tiny);
+    background-color: getParam(colors, action, back);
+
+    a {
+        color: getParam(colors, action, fore);
+    }
 }
 
-.page-wrapper:hover {
+.page-wrapper:hover, .selected {
+    border-radius: 40%;
     background-color: getParam(colors, action, hover, back);
-    color: getParam(colors, action, hover, fore);
     cursor: pointer;
+    
+    a {
+        color: getParam(colors, action, hover, fore);
+    }
+
+    color: getParam(colors, action, hover, fore) !important;
 }
 
 .arrow {
@@ -45,14 +48,13 @@
 }
 
 .arrow-wrapper {
-   padding: getParam(paddings, tiny);
+    padding: getParam(paddings, tiny);
 }
 
 .arrow-wrapper:hover {
-    border: 2px solid rgb(220, 236, 238);
+    border: getBorder(action, getParam(colors, area, back));
     cursor: pointer;
 }
-
 
 .disabled:hover {
     border: none;

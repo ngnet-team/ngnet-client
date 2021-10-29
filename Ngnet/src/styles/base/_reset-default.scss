@@ -1,6 +1,7 @@
 @import '../base/api';
 
 body {
+    font-family: getParam(fonts, font-family);
     background-color: getParam(colors, area, back);
 }
 

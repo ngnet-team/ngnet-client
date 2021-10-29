@@ -19,7 +19,8 @@
         "title": "Sign in",
         "username": "Username",
         "password": "Password",
-        "signIn": "Sign in"
+        "signIn": "Sign in",
+        "notRegistered": "You don't have an account? Sign up."
     },
     "register": {
         "title": "Sign up",
@@ -31,7 +32,8 @@
         "firstName": "First name",
         "lastName": "Last name",
         "age": "Age",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "alreadyRegistered": "You already have an account? Sign in."
     },
     "validations": {
         "requiredEmail": "The email is required!",

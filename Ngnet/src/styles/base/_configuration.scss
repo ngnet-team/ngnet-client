@@ -17,16 +17,16 @@ $options: (
                     back: rgb(212, 206, 171),
                 ),
                 hover: (
-                    fore: rgb(99, 99, 99),
-                    back: rgb(190, 184, 146),
+                    fore: rgb(88, 88, 88),
+                    back: rgb(202, 197, 165),
                 ),
             ),
             action: (
                 fore: rgb(7, 121, 228),
                 back: rgb(185, 211, 236),
                 active: (
-                    fore: rgb(7, 121, 228),
-                    back: rgb(185, 211, 236),
+                    fore: rgb(9, 49, 87),
+                    back: rgb(233, 244, 255),
                 ),
                 hover: (
                     fore: rgb(185, 211, 236),
@@ -40,38 +40,32 @@ $options: (
     ),
     borders: (
         area: (
-            thickness: 0,
+            thickness: 0.15rem,
             style: solid,
-            color: rgb(185, 211, 236),
             rounding: 0.2rem,
             hover: (
                 thickness: 0,
                 style: solid,
-                color: rgb(185, 211, 236),
                 rounding: 0.2rem,
             ),
         ),
         field: (
-            thickness: 1px,
+            thickness: 0.1rem,
             style: solid,
-            color: rgb(185, 211, 236),
             rounding: 0.2rem,
             hover: (
                 thickness: 1px,
                 style: solid,
-                color: rgb(185, 211, 236),
                 rounding: 0.2rem,
             ),
         ),
         action: (
-            thickness: 0px,
+            thickness: 0.05rem,
             style: solid,
-            color: rgb(185, 211, 236),
             rounding: 0.2rem,
             hover: (
                 thickness: 0px,
                 style: solid,
-                color: rgb(185, 211, 236),
                 rounding: 0.2rem,
             ),
         ),
@@ -111,7 +105,7 @@ $options: (
         ),
     ),
     fonts: (
-        font-family: "Roboto sans-serif",
+        font-family: ""Roboto", "sans-serif"",
         line-height: 1.5rem,
         variation: (
             lighter: (

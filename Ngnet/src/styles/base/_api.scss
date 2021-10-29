@@ -20,3 +20,10 @@ $theme: 'primary';
             map.get($options, shadows, $position, spread)
             $color;
 }
+
+//border: [width] [style] [color]
+@function getBorder($position, $color) {
+    @return map.get($options, borders, $position, thickness) 
+            map.get($options, borders, $position, style)
+            $color;
+}

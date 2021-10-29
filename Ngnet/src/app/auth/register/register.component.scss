@@ -3,17 +3,23 @@
 .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    grid-auto-rows: 200px;
+    grid-auto-rows: 100%;
     grid-template-areas:
-      ". a a ."
-      ". a a ."
-      ". a a ."
       ". a a .";
 }
 .form {
-    margin-top: min(110px);
+    margin-top: min(50px);
     grid-area: a;
     align-self: center;
     justify-self: center;
+}
+
+.login {
+    margin-top: 1rem;
+    cursor: pointer;
+    font-size: getParam(fonts, size, tiny);
+}
+
+.login:hover {
+    font-weight: bolder;
 }

@@ -33,7 +33,7 @@ export class RegisterComponent {
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
-        this.route.navigateByUrl('login');
+        this.redirectToLogin();
       },
       error: (err) => {
         if (err?.error) {
@@ -55,5 +55,9 @@ export class RegisterComponent {
       this.validations = result.validations;
       this.setServerError();
     }))
+  }
+
+  redirectToLogin(): void {
+    this.route.navigateByUrl('login');
   }
 }

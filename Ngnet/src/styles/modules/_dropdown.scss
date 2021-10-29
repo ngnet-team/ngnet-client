@@ -2,6 +2,10 @@
 
 .title {
     max-width: max-content;
+
+    .icon {
+        font-size: getParam(constants, smallIconSize);
+    }
 }
 
 .options {
