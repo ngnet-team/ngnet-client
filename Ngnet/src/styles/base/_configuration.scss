@@ -1,82 +1,79 @@
 $options: (
     colors: (
-        area: (
-            fore: #324a8a,
-            back: #eef0f3,
-            active:
-                (
-                    fore: #74b0c1,
-                    back: #eef0f3,
+        primary: (
+            area: (
+                fore: rgb(20, 61, 61),
+                back: rgb(245, 244, 237),
+                active: (
+                    fore: rgb(20, 61, 61),
+                    back: rgb(245, 244, 237),
                 ),
-        ),
-        field: (
-            fore: rgb(99, 99, 99),
-            back: rgb(212, 206, 171),
-            active:
-                (
+            ),
+            field: (
+                fore: rgb(99, 99, 99),
+                back: rgb(212, 206, 171),
+                active: (
                     fore: rgb(99, 99, 99),
                     back: rgb(212, 206, 171),
                 ),
-            hover:
-                (
+                hover: (
                     fore: rgb(99, 99, 99),
-                    back: rgb(212, 206, 171),
+                    back: rgb(190, 184, 146),
                 ),
-        ),
-        action: (
-            fore: rgb(7, 121, 228),
-            back: rgb(185, 211, 236),
-            active:
-                (
-                    fore: #74b0c1,
-                    back: #fff,
+            ),
+            action: (
+                fore: rgb(7, 121, 228),
+                back: rgb(185, 211, 236),
+                active: (
+                    fore: rgb(7, 121, 228),
+                    back: rgb(185, 211, 236),
                 ),
-            hover:
-                (
+                hover: (
                     fore: rgb(185, 211, 236),
                     back: rgb(7, 121, 228),
                 ),
+            ),
+        ),
+        secondary: (
+            //TODO
         ),
     ),
     borders: (
         area: (
             thickness: 0,
             style: solid,
-            color: #eef0f3,
+            color: rgb(185, 211, 236),
             rounding: 0.2rem,
-            hover:
-                (
-                    thickness: 0,
-                    style: solid,
-                    color: #eef0f3,
-                    rounding: 0.2rem,
-                ),
+            hover: (
+                thickness: 0,
+                style: solid,
+                color: rgb(185, 211, 236),
+                rounding: 0.2rem,
+            ),
         ),
         field: (
             thickness: 1px,
             style: solid,
             color: rgb(185, 211, 236),
             rounding: 0.2rem,
-            hover:
-                (
-                    thickness: 1px,
-                    style: solid,
-                    color: rgb(185, 211, 236),
-                    rounding: 0.2rem,
-                ),
+            hover: (
+                thickness: 1px,
+                style: solid,
+                color: rgb(185, 211, 236),
+                rounding: 0.2rem,
+            ),
         ),
         action: (
             thickness: 0px,
             style: solid,
             color: rgb(185, 211, 236),
             rounding: 0.2rem,
-            hover:
-                (
-                    thickness: 0px,
-                    style: solid,
-                    color: rgb(185, 211, 236),
-                    rounding: 0.2rem,
-                ),
+            hover: (
+                thickness: 0px,
+                style: solid,
+                color: rgb(185, 211, 236),
+                rounding: 0.2rem,
+            ),
         ),
     ),
     margins: (
@@ -94,10 +91,24 @@ $options: (
         huge: 1.2rem,
     ),
     shadows: (
-        offsetX: 0.0625rem,
-        offsetY: 0.0625rem,
-        blur: 0.3125rem,
-        spread: 0.08125rem,
+        area: (
+            offsetX: 0.0625rem,
+            offsetY: 0.0625rem,
+            blur: 0.3125rem,
+            spread: 0.08125rem,
+        ),
+        field: (
+            offsetX: 0.2rem,
+            offsetY: 0.2rem,
+            blur: 0.3125rem,
+            spread: 0.08125rem,
+        ),
+        action: (
+            offsetX: 0.15rem,
+            offsetY: 0.15rem,
+            blur: 0.3125rem,
+            spread: 0.08125rem,
+        ),
     ),
     fonts: (
         font-family: "Roboto sans-serif",
@@ -134,6 +145,9 @@ $options: (
         largeIconSize: 1.75rem,
         factorIncreaseFontH1To6: 0.2rem,
         alertColor: rgb(230, 0, 0),
-        successColor: cadetblue,
+        successColor: (
+            back: cadetblue,
+            fore: whitesmoke,
+        ),
     ),
 );

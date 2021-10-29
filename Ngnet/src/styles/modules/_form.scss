@@ -3,7 +3,7 @@
 .form {
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
-    box-shadow:1px 1px 4px 4px rgb(173, 167, 130);
+    box-shadow: getShadow(field, getParam(colors, field, hover, back));
     display: inline-block;
     text-align: center;
     font-size: getParam(fonts, size, normal);

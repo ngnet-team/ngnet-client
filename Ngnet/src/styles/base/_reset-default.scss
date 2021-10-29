@@ -1,32 +1,39 @@
+@import '../base/api';
+
 body {
-    background-color: rgb(245, 244, 237);
+    background-color: getParam(colors, area, back);
 }
 
 textarea {
     resize: none;
-    height: 100px;
+    height: 6.25rem;
 }
 
 select, input, textarea {
-    width: 170px;
-    background-color: rgb(248, 247, 242);
+    width: 10.6rem;
+    background-color:  getParam(colors, area, back);
+    color: getParam(colors, area, fore);
     border: none;
 }
 
 input {
-    height: 2em;
+    height: 1.7rem;
 }
 
 select {
-    border-radius: 7px;
+    border-radius: 0.6rem;
 }
 
 a {
     text-decoration: none;
-    color: black;
+    color: getParam(colors, area, fore);
 }
 
 li {
     list-style: none;
     text-align: left;
+}
+
+button {
+    border: none;
 }

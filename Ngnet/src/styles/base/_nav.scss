@@ -1,0 +1,38 @@
+@import '../base/api';
+
+.nav {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: space-around;
+    font-size: getParam(fonts, size, normal);
+    background-color: getParam(colors, field, back);
+    color: getParam(colors, field, fore);
+    box-shadow: getShadow(field, getParam(colors, field, back));
+    padding: getParam(paddings, normal) 3rem;
+    margin: getParam(margins, normal) getParam(margins, large);
+    max-height: 1.75rem;
+}
+
+.nav > div {
+    margin: 0 getParam(margins, huge);
+}
+
+.logged, .not-logged {
+    display: flex;
+}
+
+.logo {
+    width: 2.5rem;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.dropdown:hover {
+    cursor: context-menu;
+}
+
+a {
+    color: getParam(colors, area, fore);
+}

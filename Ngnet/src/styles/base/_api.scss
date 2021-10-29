@@ -1,15 +1,22 @@
 @use "sass:map";
 @import 'configuration';
 
-@function getParam($area, $field, $value: null, $nested-value: null) {
+//themes: primary, secondary
+$theme: 'primary';
 
-    @if($nested-value) {
-        @return map.get($options, $area, $field, $value, $nested-value);
+@function getParam($type, $position, $value...) {
+    @if($type == 'colors') {
+        @return map.get($options, $type, $theme, $position, $value...);
     };
 
-    @if($value) {
-        @return map.get($options, $area, $field, $value);
-    };
-
-    @return map.get($options, $area, $field);
+    @return map.get($options, $type, $position, $value...);
 };
+
+//box-shadow: [offsetX] [offsetY] [blur] [optional spread] [color]
+@function getShadow($position, $color) {
+    @return map.get($options, shadows, $position, offsetX) 
+            map.get($options, shadows, $position, offsetY)
+            map.get($options, shadows, $position, blur)
+            map.get($options, shadows, $position, spread)
+            $color;
+}
