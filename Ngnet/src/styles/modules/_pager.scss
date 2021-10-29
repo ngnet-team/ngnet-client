@@ -1,57 +1,60 @@
+@import "../base/api";
+
 .pagination {
-    margin: 10px 25%;
-    color: rgb(32, 5, 5);
-    font-size: 20px;
+    margin: getParam(margins, large) 25%;
+    font-size: getParam(fonts, size, normal);
 }
 
 .content {
     text-align: center;
 }
 
-.page-wrapper, .arrow-wrapper {
-    margin: 0 1px;
-    
-    margin: 0 3px;
-}
-
-.page-wrapper {
-    border-radius: 38%;
+.page-wrapper,
+.arrow-wrapper {
+    margin: 0 getParam(margins, small);
 }
 
 .page {
-    padding: 0 7px;
-}
-
-.selected {
-    font-weight: bolder;
+    padding: 0 getParam(paddings, normal);
 }
 
 .page-wrapper {
-   padding: 2px;
-   background-color: rgb(240, 237, 227);
+    border-radius: 40%;
+    padding: getParam(paddings, tiny);
+    background-color: getParam(colors, action, back);
+
+    a {
+        color: getParam(colors, action, fore);
+    }
 }
 
-.page-wrapper:hover {
-    background-color: rgb(196, 189, 165);
+.page-wrapper:hover, .selected {
+    border-radius: 40%;
+    background-color: getParam(colors, action, hover, back);
     cursor: pointer;
+    
+    a {
+        color: getParam(colors, action, hover, fore);
+    }
+
+    color: getParam(colors, action, hover, fore) !important;
 }
 
 .arrow {
-    padding: 3px 7px;
+    padding: getParam(paddings, small) getParam(paddings, normal);
     text-decoration: none;
-    margin: 0 5px;
-    color: black;
+    margin: 0 getParam(margins, normal);
+    color: getParam(colors, action, fore);
 }
 
 .arrow-wrapper {
-   padding: 2px;
+    padding: getParam(paddings, tiny);
 }
 
 .arrow-wrapper:hover {
-    border: 2px solid rgb(220, 236, 238);
+    border: getBorder(action, getParam(colors, area, back));
     cursor: pointer;
 }
-
 
 .disabled:hover {
     border: none;

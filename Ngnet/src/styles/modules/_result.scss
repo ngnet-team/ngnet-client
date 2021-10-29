@@ -1,24 +1,25 @@
+@import '../base/api';
+
 .results {
-    padding: 10px;
-    background-color: rgb(212, 206, 171);
-    box-shadow: 1px 1px 2px 2px rgb(161, 155, 121);
+    padding: getParam(paddings, normal);
+    background-color: getParam(colors, field, back);
+    box-shadow: getShadow(field, getParam(colors, field, back));
     max-width: 35%;
 }
 
 .item {
-    margin-bottom: 5px;
+    margin-bottom: getParam(margins, small);
     width: 100%;
     position: relative;
-    background-color: rgb(240, 237, 227);
-    box-shadow: 2px 2px 3px 3px rgb(187, 183, 167);
+    background-color: getParam(colors, area, back);
+    box-shadow: getShadow(field, getParam(colors, field, back));
 }
 
 .item-field {
     display: flex;
-    margin: 5px;
+    margin: getParam(margins, small);
 }
 
 .item-field:first-child {
-    
     justify-content: space-between;
 }

@@ -1,13 +1,19 @@
+@import '../base/api';
+
 .title {
     max-width: max-content;
+
+    .icon {
+        font-size: getParam(constants, smallIconSize);
+    }
 }
 
 .options {
     z-index: 1;
     position: absolute;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 1px 1px 1px 1px rgb(179, 179, 179);
+    background-color: rgb(245, 244, 237, 0.8);
+    padding: 0.625rem;
+    box-shadow: getShadow(field, getParam(colors, field, back));
 }
 
 .option {

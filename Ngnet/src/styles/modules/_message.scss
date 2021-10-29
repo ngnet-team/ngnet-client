@@ -1,13 +1,15 @@
+@import '../base/api';
+
 .message {
     text-align: center;
-    padding: 5px 0;
-    background-color: cadetblue;
-    color: whitesmoke;
-    font-size: 17px;
+    padding: getParam(paddings, small) 0;
+    background-color: getParam(constants, successColor, back);
+    color: getParam(constants, successColor, fore);
+    font-size: getParam(fonts, size, normal);
 }
 
 .content {
-    margin: 0 10px;
+    margin: 0 getParam(margins, normal);
 }
 
 .remove {
@@ -15,5 +17,9 @@
     position: relative;
     left: 98.5%;
     bottom: 2.8%;
-    font-size: 15px;
+    font-size: getParam(fonts, size, normal);
+}
+
+.remove:hover {
+    color: getParam(constants, successColor, fore);
 }

@@ -37,7 +37,7 @@ export class LoginComponent {
         const msg = this.messageService.getMsg(res.responseMessage, this.selectedLang);
         this.messageService.event.emit(msg);
         this.authService.logginEvent.emit(true);
-        this.route.navigateByUrl('profile');
+        this.redirect('profile');
       },
       error: (err) => {
         if (err?.error) {
@@ -59,5 +59,10 @@ export class LoginComponent {
       this.validations = result.validations;
       this.setServerError();
     }))
+  }
+
+  
+  redirect(path: string): void {
+    this.route.navigateByUrl(path);
   }
 }
