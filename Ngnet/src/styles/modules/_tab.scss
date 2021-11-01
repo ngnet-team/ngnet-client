@@ -1,13 +1,13 @@
 @import '../base/api';
 
 .tab {
-    color: getParam(colors, area, fore);
+    color: getParam(colors, field, fore);
     padding: getParam(paddings, small) getParam(paddings, normal);
     text-align: center;
 }
 
 .tab:hover {
-    border-bottom: 3px solid getParam(colors, area, fore);
+    border-bottom: 3px solid getParam(colors, field, fore);
 }
 
 .element:hover {
