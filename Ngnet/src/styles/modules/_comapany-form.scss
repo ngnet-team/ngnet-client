@@ -2,7 +2,8 @@
 
 .company {
     padding: getParam(paddings, normal) getParam(paddings, huge);
-    background-color: rgb(240, 237, 227);
+    background-color: getParam(colors, field, back);
+    color: getParam(colors, field, fore);
     text-align: center;
     box-shadow: getShadow(field, getParam(colors, field, back));
 }

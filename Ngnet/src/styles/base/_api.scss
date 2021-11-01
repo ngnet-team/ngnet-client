@@ -1,8 +1,8 @@
 @use "sass:map";
 @import 'configuration';
 
-//themes: primary, secondary
-$theme: 'primary';
+//themes: forest, ice, jungle, show
+$theme: 'jungle';
 
 @function getParam($type, $position, $value...) {
     @if($type == 'colors') {

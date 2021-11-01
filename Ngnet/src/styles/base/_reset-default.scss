@@ -2,7 +2,13 @@
 
 body {
     font-family: getParam(fonts, font-family);
-    background-color: getParam(colors, area, back);
+
+    background: getParam(colors, backgroundImage);
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-position: center;
+
+    height: 99%;
 }
 
 textarea {
@@ -27,7 +33,7 @@ select {
 
 a {
     text-decoration: none;
-    color: getParam(colors, area, fore);
+    color: getParam(colors, field, fore);
 }
 
 li {
