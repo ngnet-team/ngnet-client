@@ -1,14 +1,14 @@
 @import '../base/api';
 
 .results {
-    padding: getParam(paddings, normal);
+    padding: getParam(paddings, large);
     background-color: getParam(colors, field, back);
     box-shadow: getShadow(field, getParam(colors, field, back));
     max-width: 35%;
 }
 
 .item {
-    margin-bottom: getParam(margins, small);
+    margin-bottom: getParam(margins, normal);
     width: 100%;
     position: relative;
     background-color: getParam(colors, area, back);

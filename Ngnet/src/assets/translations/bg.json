@@ -9,11 +9,23 @@
         "manager": "Мениджър"
     },
     "profile": {
+        "title": "Твоят Профил",
+        "subTitle": "Редактирай профила си",
+        "details": "Детайли за вашия профил",
+        "firstName": "Име",
+        "lastName": "Фамилия",
         "email": "Имейл",
         "username": "Потребителско име",
-        "fullName": "Име",
+        "password": "Парола",
+        "gender": {
+            "title": "Пол",
+            "male": "Мъж",
+            "female": "Жена",
+            "unspecified": "Неотрален"
+        },
         "age": "Години",
-        "role": "Роля"
+        "role": "Роля",
+        "change": "Промени"
     },
     "login": {
         "title": "Вход",

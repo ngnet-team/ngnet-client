@@ -34,4 +34,5 @@
     margin-top: getParam(margins, small);
     font-size: getParam(fonts, size, small);
     color: getParam(constants, alertColor);
+    font-weight: bolder;
 }

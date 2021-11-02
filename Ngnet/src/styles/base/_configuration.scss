@@ -2,6 +2,7 @@ $options: (
     colors: (
         forest: (
             backgroundImage: url(../../assets/images/foster-lake.jpg) no-repeat,
+            opacity: 1,
             area: (
                 fore: rgb(77, 73, 58),
                 back: rgb(255, 255, 255),
@@ -37,6 +38,7 @@ $options: (
         ),
         ice: (
             backgroundImage: url(../../assets/images/ice.jpg) no-repeat,
+            opacity: 0.85,
             area: (
                 fore: rgb(21, 32, 64),
                 back: rgb(226, 244, 255),
@@ -50,11 +52,11 @@ $options: (
                 back: rgb(21, 32, 64),
                 active: (
                     fore: whitesmoke,
-                    back: rgb(21, 32, 64),
+                    back: rgb(29, 43, 85),
                 ),
                 hover: (
                     fore: whitesmoke,
-                    back: rgba(34,21,64,255),
+                    back: rgb(29, 43, 85),
                 ),
             ),
             action: (
@@ -72,6 +74,7 @@ $options: (
         ),
         jungle: (
             backgroundImage: url(../../assets/images/jungle.jpg) no-repeat,
+            opacity: 1,
             area: (
                 fore: rgb(21, 32, 64),
                 back: rgb(226, 244, 255),
@@ -107,12 +110,13 @@ $options: (
         ),
         show: (
             backgroundImage: url(../../assets/images/snow.jpg) no-repeat,
+            opacity: 0.9,
             area: (
                 fore: rgb(21, 32, 64),
-                back: rgb(226, 244, 255),
+                back: rgb(248, 252, 255),
                 active: (
                     fore: rgb(21, 32, 64),
-                    back: rgb(226, 244, 255),
+                    back: rgb(248, 252, 255),
                 ),
             ),
             field: (
@@ -241,7 +245,7 @@ $options: (
         normalIconSize: 1.25rem,
         largeIconSize: 1.75rem,
         factorIncreaseFontH1To6: 0.2rem,
-        alertColor: rgb(230, 0, 0),
+        alertColor: rgb(236, 67, 67),
         successColor: (
             back: cadetblue,
             fore: whitesmoke,

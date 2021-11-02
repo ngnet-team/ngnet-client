@@ -2,7 +2,7 @@
 @import 'configuration';
 
 //themes: forest, ice, jungle, show
-$theme: 'jungle';
+$theme: 'show';
 
 @function getParam($type, $position, $value...) {
     @if($type == 'colors') {

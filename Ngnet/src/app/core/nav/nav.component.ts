@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
 import { environment } from 'src/environments/environment';
+import { faRegistered } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav',
@@ -21,6 +22,8 @@ export class NavComponent implements DoCheck {
   event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;
+
+  registerIcon = faRegistered;
 
   constructor(private authService: AuthService, private langService: LangService, private messageService: MessageService) {
     this.subscriptionListener();

@@ -9,11 +9,23 @@
         "manager": "Manager"
     },
     "profile": {
-        "email": "Email",
+        "title": "Your Account",
+        "subTitle": "Updating your profile",
+        "details": "Your Personal Details",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email Address",
         "username": "Username",
-        "fullName": "Name",
+        "password": "Password",
+        "gender": {
+            "title": "Gender",
+            "male": "Male",
+            "female": "Female",
+            "unspecified": "Unspecified"
+        },
         "age": "Age",
-        "role": "Role"
+        "role": "Role",
+        "change": "Change"
     },
     "login": {
         "title": "Sign in",

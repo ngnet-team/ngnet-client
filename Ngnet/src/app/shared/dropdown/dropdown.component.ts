@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
