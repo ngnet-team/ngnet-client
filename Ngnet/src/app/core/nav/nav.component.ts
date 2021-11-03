@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';

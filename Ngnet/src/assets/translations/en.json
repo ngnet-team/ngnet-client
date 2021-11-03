@@ -26,7 +26,8 @@
         "age": "Age",
         "role": "Role",
         "change": "Change",
-        "required": " *"
+        "required": " *",
+        "submit": "Submit"
     },
     "login": {
         "title": "Sign in",
