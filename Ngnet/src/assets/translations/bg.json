@@ -26,7 +26,8 @@
         "age": "Години",
         "role": "Роля",
         "change": "Промени",
-        "required": " *"
+        "required": " *",
+        "submit": "Запиши"
     },
     "login": {
         "title": "Вход",

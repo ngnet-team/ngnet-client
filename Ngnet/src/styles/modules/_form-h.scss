@@ -34,11 +34,12 @@
             .change {
                 display: block;
                 text-align: right;
-                color: getParam(constants, alertColor);
+                color: getParam(colors, field, back);
                 font-size: getParam(fonts, size, normal);
             }
 
             a:hover {
+                color: getParam(colors, header, back);
                 cursor: pointer;
                 font-weight: bolder;
             }
@@ -64,7 +65,7 @@
         margin-top: getParam(margins, huge);
 
         button {
-            padding: getParam(paddings, large) 7rem;
+            padding: getParam(paddings, large) 5rem;
             background-color: getParam(colors, field, back);
             color: getParam(colors, field, fore);
         }
@@ -80,5 +81,5 @@
     margin-top: getParam(margins, small);
     font-size: getParam(fonts, size, small);
     color: getParam(constants, alertColor);
-    font-weight: bolder;
+    font-style: italic;
 }

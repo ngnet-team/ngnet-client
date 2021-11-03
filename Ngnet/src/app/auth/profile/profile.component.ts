@@ -1,33 +1,29 @@
 import { Component, DoCheck, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { IUserRequestModel } from 'src/app/interfaces/auth/user-request-model';
 import { IUserResponseModel } from 'src/app/interfaces/auth/user-response-model';
 import { IChangePopup } from 'src/app/interfaces/change-popup';
-import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
+import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements DoCheck {
+export class ProfileComponent extends ServerErrorsBase implements DoCheck {
   @Output() popup: IChangePopup = { visible: false };
 
-  serverErrors: IErrorModel = {};
   user: IUserResponseModel = {};
+
   //language
-  langEvent: Subscription[] = [];
-  errors: string[] | undefined;
-  selectedLang: string = this.langService.langState;
   menu: any = this.langService.get(this.selectedLang).profile;
   validations: any = this.langService.get(this.selectedLang).validations;
 
-  constructor(private authService: AuthService, private langService: LangService, private messageService: MessageService) {
+  constructor(private authService: AuthService, langService: LangService, private messageService: MessageService) {
+    super(langService);
     this.getProfile();
-    this.langListener();
   }
 
   ngDoCheck(): void {
@@ -44,8 +40,8 @@ export class ProfileComponent implements DoCheck {
     });
   }
 
-  private langListener(): void {
-    this.langEvent.push(this.langService.langEvent.subscribe(result => {
+  override listener(): void {
+    this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.profile;
     }))
   }
@@ -75,9 +71,5 @@ export class ProfileComponent implements DoCheck {
     this.popup.visible = true;
     this.popup.value = value.toLowerCase();
     this.popup.menu = menu.toLowerCase();
-  }
-
-  private setServerError() {
-    this.errors = this.selectedLang === 'bg' ? this.serverErrors?.bg : this.serverErrors?.en;
   }
 }

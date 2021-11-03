@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
+import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
 import { IRegisterModel } from '../../interfaces/auth/register-model';
 import { AuthService } from '../../services/auth.service';
 
@@ -12,18 +12,14 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent extends ServerErrorsBase {
 
-  langEvent: Subscription[] = [];
-  serverErrors: IErrorModel = {};
   //language
-  selectedLang: string = this.langService.langState;
-  errors: string[] | undefined;
   menu: any = this.langService.get(this.selectedLang).register;
   validations: any = this.langService.get(this.selectedLang).validations;
 
-  constructor(private authService: AuthService, private route: Router, private langService: LangService, private messageService: MessageService) {
-    this.langListener();
+  constructor(private authService: AuthService, private route: Router, langService: LangService, private messageService: MessageService) {
+    super(langService);
   }
 
   register(input: IRegisterModel): void {
@@ -44,13 +40,8 @@ export class RegisterComponent {
     });
   }
 
-  private setServerError() {
-    this.errors = this.selectedLang === 'bg' ? this.serverErrors.bg : this.serverErrors.en;
-  }
-
-  private langListener(): void {
-    this.langEvent.push(this.langService.langEvent.subscribe(result => {
-      this.selectedLang = this.langService.langState;
+  override listener(): void {
+    this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.register;
       this.validations = result.validations;
       this.setServerError();
