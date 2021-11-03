@@ -1,4 +1,4 @@
-<div class="profile">
+<div class="profile" [ngClass]="popup.visible ? 'blur' : ''">
     <div class="header">
         <div class="title">
             {{menu.title}}
@@ -22,32 +22,32 @@
                 <label class="label">{{menu.email}}</label>
                 <div class="data">
                     <div>{{user.email}}</div>
-                    <a class="change">{{menu.change}}</a>
+                    <a (click)="change(menu.email, 'email')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
                 <label class="label">{{menu.password}}</label>
                 <div class="data">
                     <div>********</div>
-                    <a class="change">{{menu.change}}</a>
+                    <a (click)="change(menu.password, 'password')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
                 <label class="label">{{menu.gender.title}}</label>
-               <div class="data" [(ngModel)]="user.gender">
-                   <div>
-                       <label class="gender-label">{{menu.gender.male}}</label>
-                       <input class="radio" type="radio" value="male" name="gender" [(ngModel)]="user.gender">
-                   </div>
-                   <div>
-                       <label class="gender-label">{{menu.gender.female}}</label>
-                       <input class="radio" type="radio" value="female" name="gender" [(ngModel)]="user.gender">
-                   </div>
-                   <div>
-                       <label class="gender-label">{{menu.gender.unspecified}}</label>
-                       <input class="radio" type="radio" value="unspecified" name="gender" [(ngModel)]="user.gender">
-                   </div>
-               </div>
+                <div class="data" [(ngModel)]="user.gender">
+                    <div>
+                        <label class="gender-label">{{menu.gender.male}}</label>
+                        <input class="radio" type="radio" value="male" name="gender" [(ngModel)]="user.gender">
+                    </div>
+                    <div>
+                        <label class="gender-label">{{menu.gender.female}}</label>
+                        <input class="radio" type="radio" value="female" name="gender" [(ngModel)]="user.gender">
+                    </div>
+                    <div>
+                        <label class="gender-label">{{menu.gender.unspecified}}</label>
+                        <input class="radio" type="radio" value="unspecified" name="gender" [(ngModel)]="user.gender">
+                    </div>
+                </div>
             </div>
             <div class="field">
                 <label class="label">{{menu.age}}</label>
@@ -61,26 +61,10 @@
             <div>
                 <button class="button" [disabled]="profile.invalid">Submit</button>
             </div>
-
-
-            <!-- <div class="form-field">
-                <div class="label">{{menu.username}}</div>
-                <input #usernameInput="ngModel" type="text" name="username" ngModel required>
-                <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">{{validations.requiredUsername}}</p>
-            </div>
-        
-            <div class="form-field">
-                <div class="label">{{menu.password}}</div>
-                <input #passwordInput="ngModel" type="password" name="password" ngModel required minlength="6">
-                <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">{{validations.requiredPassword}}</p>
-                <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">{{validations.passwordLength}}</p>
-            </div> -->
-    
-    
-           
         </form>
     </div>
-    <div class="details">
+</div>
 
-    </div>
+<div *ngIf="popup.visible">
+    <app-change-popup [input]="popup" class="popup"></app-change-popup>
 </div>

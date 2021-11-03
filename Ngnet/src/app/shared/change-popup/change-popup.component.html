@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="exit" (click)="exit()">
+        <fa-icon [icon]="closeIcon"></fa-icon>
+    </div>
+    <div class="content">
+        <div class="sub-title">
+            {{menu.title}} {{input.menu}}
+        </div>
+        <form class="form" #c="ngForm" (ngSubmit)="change(c.value)">
+            <div class="field">
+                <label class="label">{{menu.old}} {{input.menu}} <span class="requiredInput">{{menu.required}}</span></label>
+                <div>
+                    <input #oldInput="ngModel" type="text" name="old" [(ngModel)]="input.data" required>
+                    <p class="validation" *ngIf="oldInput.errors?.required && oldInput.touched">
+                    {{validations.requiredField}}</p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">{{menu.new}} {{input.menu}} <span class="requiredInput">{{menu.required}}</span></label>
+                <div>
+                    <input #newInput="ngModel" type="text" name="new" ngModel required>
+                    <p class="validation" *ngIf="newInput.errors?.required && newInput.touched">
+                    {{validations.requiredField}}</p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">{{menu.repeatNew}} {{input.menu}} <span class="requiredInput">{{menu.required}}</span></label>
+               <div>
+                <input #repeatNewInput="ngModel" type="text" name="repeatNew" ngModel required>
+                <p class="validation" *ngIf="repeatNewInput.errors?.required && repeatNewInput.touched">
+                    {{validations.requiredField}}</p>
+               </div>
+            </div>
+    
+            <div *ngFor="let error of errors">
+                <p class="validation">{{error}}</p>
+            </div>
+    
+            <div>
+                <button class="button" [disabled]="c.invalid">{{menu.button}} {{input.menu}}</button>
+            </div>
+        </form>
+    </div>
+</div>

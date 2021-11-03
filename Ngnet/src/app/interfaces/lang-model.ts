@@ -9,5 +9,6 @@ export interface ILangModel {
     healthcare?: {},
     manager?: {},
     company?: {},
-    dropdown?:{}
+    dropdown?: {},
+    change?: {},
 }

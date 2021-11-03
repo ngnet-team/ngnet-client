@@ -1,19 +1,14 @@
 @import "../../../styles/base/api";
 
-.profile {
-    margin: 0;
-    padding: 0;
-}
-
-.header {
-    margin: 3rem 0;
-
-    .title {
-        background-color: getParam(colors, field, back);
-        color: getParam(colors, field, fore);
-        padding: 4rem;
-        font-size: 70px;
-    }
+.container {
+    background-color: getParam(colors, field, back);
+    border-radius: 5px;
+    width: 700px;
+    padding: 1rem 0;
+    z-index: 9999;
+    position: absolute;
+    top: calc(50% - 200px); // half of width
+    left: calc(50% - 350px); // half of height
 }
 
 .content {
@@ -32,7 +27,7 @@
     .form {
         background-color: rgba(127, 199, 221, 0.9);
         color: getParam(colors, area, fore);
-        padding: 3rem 8rem;
+        padding: 2rem 6rem;
         text-align: left;
         font-size: 15px;
 
@@ -42,17 +37,17 @@
         }
 
         .field {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1.5fr 2fr;
+            column-gap: 10px;
             margin: 1rem 0;
 
             .label {
-                width: 25%;
-                margin-right: 10px;
+                width: 100%;
             }
 
-            .data {
-                display: flex;
-                width: 50%;
+            > * {
+                width: 100%;
 
                 > * {
                     width: 100%;
@@ -80,6 +75,10 @@
                     background-color: getParam(constants, alertColor);
                 }
             }
+
+            .single-row {
+                display: flex; 
+            }
         }
 
         //button
@@ -100,62 +99,31 @@
     }
 }
 
-.blur {
-    filter: blur(8px);
+.exit {
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    top: 10px; // half of width
+    right: 10px; // half of height
+    color: rgb(233, 106, 84);
 }
 
-//tablet
-@media screen and (max-width: 1000px) {
-    .content {
-        margin: 2rem 4rem;
+.exit:hover {
+    cursor: pointer;
+}
 
-        .form {
-            padding: 3rem 2rem;
-        }
+.content {
+    height: 100%;
+    margin: 2rem 4rem;
+
+    .form {
+        padding: 1rem 4rem;
     }
 }
 
-//mobile
-@media screen and (max-width: 600px) {
-    .header {
-        margin: 1rem 0;
-
-        .title {
-            padding: 2rem;
-            font-size: 30px;
-        }
-    }
-
-    .content {
-        margin: 1rem 2rem;
-
-        .form {
-            padding: 2rem 2rem;
-
-            .title {
-                margin-bottom: 1rem;
-                font-size: 20px;
-            }
-
-            .field {
-                .data {
-                    flex-direction: column;
-                    width: 60%;
-
-                    .change {
-                        text-align: left;
-                    }
-                }
-            }
-
-            //button
-            > :last-child {
-                margin-top: 1rem;
-
-                button {
-                    padding: 0.4rem 3rem;
-                }
-            }
-        }
-    }
+.requiredInput, .validation {
+    margin-top: getParam(margins, small);
+    font-size: getParam(fonts, size, small);
+    color: getParam(constants, alertColor);
+    font-weight: bolder;
 }

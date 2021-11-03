@@ -7,6 +7,7 @@ import { CompanyFormComponent } from './company-form/company-form.component';
 import { FormsModule } from '@angular/forms';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChangePopupComponent } from './change-popup/change-popup.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PageComponent,
     CompanyFormComponent,
     DropdownComponent,
+    ChangePopupComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CompanyFormComponent,
     DropdownComponent,
     FontAwesomeModule,
+    ChangePopupComponent,
   ]
 })
 export class SharedModule { }
