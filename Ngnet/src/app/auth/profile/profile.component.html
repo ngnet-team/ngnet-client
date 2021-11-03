@@ -5,11 +5,11 @@
         </div>
     </div>
     <div class="content">
-        <div class="sub-title">
+        <div class="title">
             {{menu.subTitle}}
         </div>
         <form class="form" #profile="ngForm" (ngSubmit)="update(profile.value)">
-            <div class="title">{{menu.details}}</div>
+            <div class="sub-title">{{menu.details}}</div>
             <div class="field">
                 <label class="label">{{menu.firstName}}</label>
                 <input class="single-row" #firstNameInput="ngModel" type="text" name="firstName" [(ngModel)]="user.firstName">
@@ -58,8 +58,8 @@
                 <p class="validation">{{error}}</p>
             </div>
 
-            <div>
-                <button class="button" [disabled]="profile.invalid">Submit</button>
+            <div class="button">
+                <button [disabled]="profile.invalid">Submit</button>
             </div>
         </form>
     </div>

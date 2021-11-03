@@ -12,8 +12,22 @@
     }
 }
 
+.content {
+    text-align: center;
+    margin: getParam(margins, huge) 25%;
+
+    .title {
+        font-size: getParam(fonts, size, big);
+        background-color: getParam(colors, header, back);
+        color: getParam(colors, header, fore);
+        text-align: left;
+        padding: getParam(paddings, normal) getParam(paddings, huge);
+        margin-bottom: getParam(margins, huge);
+    }
+}
+
 .blur {
-    filter: blur(8px);
+    filter: blur(8px); //no such configuration
 }
 
 //tablet - SHOULD BE EXTENDED
@@ -60,8 +74,7 @@
                 }
             }
 
-            //button
-            > :last-child {
+            .button {
                 margin-top: 1rem;
 
                 button {

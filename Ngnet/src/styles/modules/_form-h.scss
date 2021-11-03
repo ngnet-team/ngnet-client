@@ -1,90 +1,84 @@
 @import '../base/api';
+@import '../modules/popup';
 
-.content {
-    text-align: center;
-    margin: 2rem 25%;
+.form {
+    background-color: getParam(colors, field-sec, back);
+    opacity: getParam(colors, opacity);
+    color: getParam(colors, field-sec, fore);
+    padding: 2rem 6rem;
+    text-align: left;
+    font-size: getParam(fonts, size, normal);
 
     .sub-title {
-        font-size: 20px;
-        background-color: getParam(colors, header, back);
-        color: getParam(colors, header, fore);
-        text-align: left;
-        padding: 0.8rem 2rem;
         margin-bottom: 2rem;
+        font-size: getParam(fonts, size, big);
     }
 
-    .form {
-        background-color: getParam(colors, field-sec, back);
-        opacity: getParam(colors, opacity);
-        color: getParam(colors, field-sec, fore);
-        padding: 2rem 6rem;
-        text-align: left;
-        font-size: 15px;
+    .field {
+        display: grid;
+        grid-template-columns: 1.5fr 2fr;
+        column-gap: getParam(margins, normal);
+        margin: getParam(margins, large) 0;
 
-        .title {
-            margin-bottom: 2rem;
-            font-size: 25px;
+        .label {
+            width: 100%;
         }
 
-        .field {
-            display: grid;
-            grid-template-columns: 1.5fr 2fr;
-            column-gap: 10px;
-            margin: 1rem 0;
-
-            .label {
-                width: 100%;
-            }
+        > * {
+            width: 100%;
 
             > * {
                 width: 100%;
-
-                > * {
-                    width: 100%;
-                }
-
-                .change {
-                    display: block;
-                    text-align: right;
-                    color: getParam(constants, alertColor);
-                    font-size: 1.1em;
-                }
-
-                a:hover {
-                    cursor: pointer;
-                    font-weight: bolder;
-                }
-
-                .gender-label {
-                    display: block;
-                    text-align: center;
-                }
-
-                .radio {
-                    width: 100%;
-                    background-color: getParam(constants, alertColor);
-                }
             }
 
-            .single-row {
-                display: flex; 
+            .change {
+                display: block;
+                text-align: right;
+                color: getParam(constants, alertColor);
+                font-size: getParam(fonts, size, normal);
+            }
+
+            a:hover {
+                cursor: pointer;
+                font-weight: bolder;
+            }
+
+            .gender-label {
+                display: block;
+                text-align: center;
+            }
+
+            .radio {
+                width: 100%;
+                background-color: getParam(constants, alertColor);
             }
         }
 
-        //button
-        > :last-child {
-            text-align: center;
-            margin-top: 3rem;
-
-            button {
-                padding: getParam(paddings, large) 7rem;
-                background-color: getParam(colors, field, back);
-                color: getParam(colors, field, fore);
-            }
-
-            button:hover {
-                cursor: pointer;
-            }
+        .single-row {
+            display: flex; 
         }
     }
+
+    .button {
+        text-align: center;
+        margin-top: getParam(margins, huge);
+
+        button {
+            padding: getParam(paddings, large) 7rem;
+            background-color: getParam(colors, field, back);
+            color: getParam(colors, field, fore);
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+//validations
+.requiredInput, .validation {
+    margin-top: getParam(margins, small);
+    font-size: getParam(fonts, size, small);
+    color: getParam(constants, alertColor);
+    font-weight: bolder;
 }

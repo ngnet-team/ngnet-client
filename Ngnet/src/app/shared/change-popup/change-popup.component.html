@@ -3,7 +3,7 @@
         <fa-icon [icon]="closeIcon"></fa-icon>
     </div>
     <div class="content">
-        <div class="sub-title">
+        <div class="title">
             {{menu.title}} {{input.menu}}
         </div>
         <form class="form" #c="ngForm" (ngSubmit)="change(c.value)">
@@ -36,8 +36,8 @@
                 <p class="validation">{{error}}</p>
             </div>
     
-            <div>
-                <button class="button" [disabled]="c.invalid">{{menu.button}} {{input.menu}}</button>
+            <div class="button">
+                <button [disabled]="c.invalid">{{menu.button}} {{input.menu}}</button>
             </div>
         </form>
     </div>
