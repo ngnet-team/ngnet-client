@@ -12,29 +12,33 @@
             <div class="title">{{menu.details}}</div>
             <div class="field">
                 <label class="label">{{menu.firstName}}</label>
-                <input class="data" #firstNameInput="ngModel" type="text" name="firstName" [(ngModel)]="user.firstName">
+                <input class="single-row" #firstNameInput="ngModel" type="text" name="firstName" [(ngModel)]="user.firstName">
             </div>
             <div class="field">
                 <label class="label">{{menu.lastName}}</label>
-                <input class="data" #lastNameInput="ngModel" type="text" name="lastName" [(ngModel)]="user.lastName">
+                <input class="single-row" #lastNameInput="ngModel" type="text" name="lastName" [(ngModel)]="user.lastName">
+            </div>
+            <div class="field">
+                <label class="label">{{menu.age}}</label>
+                <input class="single-row" #ageInput="ngModel" type="number" name="age" [(ngModel)]="user.age">
             </div>
             <div class="field">
                 <label class="label">{{menu.email}}</label>
-                <div class="data">
+                <div class="single-row">
                     <div>{{user.email}}</div>
                     <a (click)="change(menu.email, 'email')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
                 <label class="label">{{menu.password}}</label>
-                <div class="data">
+                <div class="single-row">
                     <div>********</div>
                     <a (click)="change(menu.password, 'password')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
                 <label class="label">{{menu.gender.title}}</label>
-                <div class="data" [(ngModel)]="user.gender">
+                <div class="single-row" [(ngModel)]="user.gender">
                     <div>
                         <label class="gender-label">{{menu.gender.male}}</label>
                         <input class="radio" type="radio" value="male" name="gender" [(ngModel)]="user.gender">
@@ -48,10 +52,6 @@
                         <input class="radio" type="radio" value="unspecified" name="gender" [(ngModel)]="user.gender">
                     </div>
                 </div>
-            </div>
-            <div class="field">
-                <label class="label">{{menu.age}}</label>
-                <input class="data" #ageInput="ngModel" type="number" name="age" [(ngModel)]="user.age">
             </div>
 
             <div *ngFor="let error of errors">

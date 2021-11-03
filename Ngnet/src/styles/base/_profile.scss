@@ -1,0 +1,73 @@
+@import 'api';
+@import '../modules/form-h';
+
+.header {
+    margin: 3rem 0;
+
+    .title {
+        background-color: getParam(colors, field, back);
+        color: getParam(colors, field, fore);
+        padding: 4rem;
+        font-size: 4rem;
+    }
+}
+
+.blur {
+    filter: blur(8px);
+}
+
+//tablet - SHOULD BE EXTENDED
+@media screen and (max-width: 1000px) {
+    .content {
+        margin: 2rem 4rem;
+
+        .form {
+            padding: 3rem 2rem;
+        }
+    }
+}
+
+//mobile - SHOULD BE EXTENDED
+@media screen and (max-width: 600px) {
+    .header {
+        margin: 1rem 0;
+
+        .title {
+            padding: 2rem;
+            font-size: 30px;
+        }
+    }
+
+    .content {
+        margin: 1rem 2rem;
+
+        .form {
+            padding: 2rem 2rem;
+
+            .title {
+                margin-bottom: 1rem;
+                font-size: 20px;
+            }
+
+            .field {
+                .data {
+                    flex-direction: column;
+                    width: 60%;
+
+                    .change {
+                        text-align: left;
+                    }
+                }
+            }
+
+            //button
+            > :last-child {
+                margin-top: 1rem;
+
+                button {
+                    padding: 0.4rem 3rem;
+                }
+            }
+        }
+    }
+}

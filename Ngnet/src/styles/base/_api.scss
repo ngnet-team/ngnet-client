@@ -1,14 +1,14 @@
 @use "sass:map";
 @import 'configuration';
-
-//themes: forest, ice, jungle, show
-$theme: 'show';
+@import 'themes';
 
 @function getParam($type, $position, $value...) {
+    //get value from theme
     @if($type == 'colors') {
-        @return map.get($options, $type, $theme, $position, $value...);
+        @return map.get($theme, $position, $value...);
     };
 
+    //get value from configuration
     @return map.get($options, $type, $position, $value...);
 };
 
