@@ -6,11 +6,9 @@ import { PageComponent } from './page/page.component';
 import { CompanyFormComponent } from './company-form/company-form.component';
 import { FormsModule } from '@angular/forms';
 import { DropdownComponent } from './dropdown/dropdown.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { SDropdownComponent } from './s-dropdown/s-dropdown.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChangePopupComponent } from './change-popup/change-popup.component';
+import { ConfirmPopupComponent } from './confirm-popup/confirm-popup.component';
 
 @NgModule({
   declarations: [
@@ -19,21 +17,21 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PageComponent,
     CompanyFormComponent,
     DropdownComponent,
-    SDropdownComponent
+    ChangePopupComponent,
+    ConfirmPopupComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
     FontAwesomeModule,
   ],
   exports: [
     PageComponent,
     CompanyFormComponent,
     DropdownComponent,
-    MatFormFieldModule, MatInputModule
+    FontAwesomeModule,
+    ChangePopupComponent,
+    ConfirmPopupComponent,
   ]
 })
 export class SharedModule { }

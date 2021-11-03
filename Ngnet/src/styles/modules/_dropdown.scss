@@ -12,11 +12,15 @@
     z-index: 1;
     position: absolute;
     background-color: rgb(245, 244, 237, 0.8);
-    padding: 0.625rem;
+    padding: 0.8rem;
     box-shadow: getShadow(field, getParam(colors, field, back));
     color: getParam(colors, area, fore);
 
     > .option {
         cursor: pointer;
+    }
+
+    > .option:hover {
+        border-bottom: getBorder(area, getParam(colors, field, back));
     }
 }

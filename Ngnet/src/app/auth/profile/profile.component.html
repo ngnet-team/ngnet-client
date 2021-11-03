@@ -1,7 +1,70 @@
-<div class="profile">
-    <div>{{menu.email}}: {{user.email}}</div>
-    <div>{{menu.username}}: {{user.userName}}
-    <div>{{menu.fullName}}: {{user.firstName}} {{user.lastName}}</div>
-    <div *ngIf="user.age">{{menu.age}}: {{user.age}}</div>
-    <div>{{menu.role}}: {{user.roleName}}</div>
+<div class="profile" [ngClass]="popup.visible ? 'blur' : ''">
+    <div class="header">
+        <div class="title">
+            {{menu.title}}
+        </div>
+    </div>
+    <div class="content">
+        <div class="title">
+            {{menu.subTitle}}
+        </div>
+        <form class="form" #profile="ngForm" (ngSubmit)="update(profile.value)">
+            <div class="sub-title">{{menu.details}}</div>
+            <div class="field">
+                <label class="label">{{menu.firstName}}</label>
+                <input class="single-row" #firstNameInput="ngModel" type="text" name="firstName" [(ngModel)]="user.firstName">
+            </div>
+            <div class="field">
+                <label class="label">{{menu.lastName}}</label>
+                <input class="single-row" #lastNameInput="ngModel" type="text" name="lastName" [(ngModel)]="user.lastName">
+            </div>
+            <div class="field">
+                <label class="label">{{menu.age}}</label>
+                <input class="single-row" #ageInput="ngModel" type="number" name="age" [(ngModel)]="user.age">
+            </div>
+            <div class="field">
+                <label class="label">{{menu.email}}</label>
+                <div class="single-row">
+                    <div>{{user.email}}</div>
+                    <a (click)="change(menu.email, 'email')" class="change">{{menu.change}}</a>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">{{menu.password}}</label>
+                <div class="single-row">
+                    <div>********</div>
+                    <a (click)="change(menu.password, 'password')" class="change">{{menu.change}}</a>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">{{menu.gender.title}}</label>
+                <div class="single-row" [(ngModel)]="user.gender">
+                    <div>
+                        <label class="gender-label">{{menu.gender.male}}</label>
+                        <input class="radio" type="radio" value="male" name="gender" [(ngModel)]="user.gender">
+                    </div>
+                    <div>
+                        <label class="gender-label">{{menu.gender.female}}</label>
+                        <input class="radio" type="radio" value="female" name="gender" [(ngModel)]="user.gender">
+                    </div>
+                    <div>
+                        <label class="gender-label">{{menu.gender.unspecified}}</label>
+                        <input class="radio" type="radio" value="unspecified" name="gender" [(ngModel)]="user.gender">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngFor="let error of errors">
+                <p class="validation">{{error}}</p>
+            </div>
+
+            <div class="button">
+                <button [disabled]="profile.invalid">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="popup.visible">
+    <app-change-popup [input]="popup" class="popup"></app-change-popup>
 </div>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SDropdownComponent } from './s-dropdown.component';
+import { ChangePopupComponent } from './change-popup.component';
 
-describe('SDropdownComponent', () => {
-  let component: SDropdownComponent;
-  let fixture: ComponentFixture<SDropdownComponent>;
+describe('ChangePopupComponent', () => {
+  let component: ChangePopupComponent;
+  let fixture: ComponentFixture<ChangePopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SDropdownComponent ]
+      declarations: [ ChangePopupComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SDropdownComponent);
+    fixture = TestBed.createComponent(ChangePopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

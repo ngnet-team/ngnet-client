@@ -3,6 +3,7 @@ export interface IUserResponseModel {
     userName?: string,
     firstName?: string,
     lastName?: string,
+    gender?: number,
     age?: number,
     roleName?: string
 }

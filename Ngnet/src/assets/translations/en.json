@@ -9,11 +9,24 @@
         "manager": "Manager"
     },
     "profile": {
-        "email": "Email",
+        "title": "Your Account",
+        "subTitle": "Updating your profile",
+        "details": "Your Personal Details",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email Address",
         "username": "Username",
-        "fullName": "Name",
+        "password": "Password",
+        "gender": {
+            "title": "Gender",
+            "male": "Male",
+            "female": "Female",
+            "unspecified": "Unspecified"
+        },
         "age": "Age",
-        "role": "Role"
+        "role": "Role",
+        "change": "Change",
+        "required": " *"
     },
     "login": {
         "title": "Sign in",
@@ -43,7 +56,8 @@
         "passwordLength": "The password should be at least 6 characters!",
         "companyNameRequired": "The company name is required!",
         "noVehicleCaresFound": "There are no vehicle care records.",
-        "noHealthCaresFound": "There are no health care records."
+        "noHealthCaresFound": "There are no health care records.",
+        "requiredField": "The field is required."
     },
     "vehiclecare": {
         "title": "Vehicle Care",
@@ -112,6 +126,20 @@
                     "url": "en"
                 }
             ]
+        }
+    },
+    "change": {
+        "title": "Changing your ",
+        "old": "Old ",
+        "new": "New ",
+        "repeatNew": "Repeat new ",
+        "button": "Change ",
+        "required": " *"
+    },
+    "popup": {
+        "confirm": {
+            "title": "Are you sure?",
+            "button": "Confirm"
         }
     }
 }

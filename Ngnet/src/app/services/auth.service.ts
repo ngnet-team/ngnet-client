@@ -6,6 +6,7 @@ import { ILoginModel } from '../interfaces/auth/login-model';
 import { IRegisterModel } from '../interfaces/auth/register-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUserRequestModel } from '../interfaces/auth/user-request-model';
+import { IChangeModel } from '../interfaces/change-model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,10 @@ export class AuthService {
   }
 
   update(request: IUserRequestModel): Observable<any> {
-    return this.http.post(this.authUrl + '/update', request)
+    return this.http.post(this.authUrl + '/update', request);
+  }
+
+  change(request: IChangeModel): Observable<any> {
+    return this.http.post(this.authUrl + '/change', request);
   }
 }
