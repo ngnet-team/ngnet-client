@@ -135,5 +135,11 @@
         "repeatNew": "Repeat new ",
         "button": "Change ",
         "required": " *"
+    },
+    "popup": {
+        "confirm": {
+            "title": "Are you sure?",
+            "button": "Confirm"
+        }
     }
 }

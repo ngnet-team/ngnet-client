@@ -11,4 +11,5 @@ export interface ILangModel {
     company?: {},
     dropdown?: {},
     change?: {},
+    popup?:{}
 }

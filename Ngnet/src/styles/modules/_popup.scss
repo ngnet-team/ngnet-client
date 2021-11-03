@@ -1,0 +1,53 @@
+@import '../base/api';
+
+.container {
+    background-color: getParam(colors, field, back);
+    border-radius: 5px;
+    width: 700px;
+    padding: 1rem 0;
+    z-index: 9999;
+    position: absolute;
+    top: calc(50% - 200px); // half of width
+    left: calc(50% - 350px); // half of height
+}
+
+.exit {
+    position: absolute;
+    top: getParam(fonts, size, tiny);
+    right: getParam(fonts, size, tiny);
+    color: getParam(colors, header, back);
+    font-size: getParam(fonts, size, huge);
+}
+
+.exit:hover {
+    cursor: pointer;
+}
+
+.content {
+    height: 100%;
+    margin: 2rem 4rem;
+
+    .title {
+        font-size: 20px;
+        background-color: getParam(colors, header, back);
+        color: getParam(colors, header, fore);
+        text-align: left;
+        padding: 0.8rem 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .button {
+        text-align: center;
+        margin-top: 3rem;
+
+        button {
+            padding: getParam(paddings, large) 7rem;
+            background-color: getParam(colors, header, back);
+            color: getParam(colors, field, fore);
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+}

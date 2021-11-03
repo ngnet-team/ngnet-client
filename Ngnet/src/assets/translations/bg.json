@@ -135,5 +135,11 @@
         "repeatNew": "Повтори нова ",
         "button": "Промени ",
         "required": " *"
+    },
+    "popup": {
+        "confirm": {
+            "title": "Сигурни ли сте?",
+            "button": "Потвърди"
+        }
     }
 }

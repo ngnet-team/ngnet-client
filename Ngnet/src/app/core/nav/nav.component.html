@@ -30,4 +30,10 @@
 <div *ngIf="message" class='message'>
     <div class="content">{{message}}</div>
 </div>
+
+<!-- -------------- popup items -------------- -->
 <a *ngIf="message" class="remove" (click)="removeMessage()">x</a>
+
+<div *ngIf="confirmPopup.visible">
+    <app-confirm-popup [input]="confirmPopup"></app-confirm-popup>
+</div>
