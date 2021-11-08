@@ -9,21 +9,30 @@ export class ServerErrorsBase extends LangBase {
     serverErrors: IErrorModel = {};
     errors: string[] | undefined;
 
+    longError: number = 50;
+    defaultMsg: string = 'This error is too long to be displayed. Please check the console for more information.';
+
     constructor(langService: LangService) {
         super(langService);
     }
 
-    protected setServerError() {
+    protected setServerError(): void {
         if (typeof this.serverErrors === 'string') {
-            this.errors = [this.serverErrors];
+
+            if ((this.serverErrors as string).length > this.longError) {
+                this.errors = [ this.defaultMsg ];
+                return;
+            }
+
+            this.errors?.push(this.serverErrors);
         } else {
             this.errors = this.selectedLang === environment.lang.bg ? this.serverErrors?.bg : this.serverErrors?.en;
         }
     }
 
-    protected unhandledServerError(errors: any) {
+    protected unhandledServerError(errors: any): void {
         for (const key in errors) {
-            this.errors = errors[key];
+            this.errors = [ errors[key] ];
         }
     }
 }

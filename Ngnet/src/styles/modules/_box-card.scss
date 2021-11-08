@@ -1,0 +1,34 @@
+@import '../base/api';
+
+.box-card {
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: getParam(margins, normal);
+
+    background-color: getParam(colors, area, back);
+    border-radius: getParam(borders, area, rounding);
+    padding: getParam(paddings, large);
+    position: relative;
+
+    .title {
+        display: flex;
+        justify-content: center;
+
+        label {
+            margin-right: getParam(margins, normal);
+        }
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto 1fr;
+    }
+
+    .field {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: getParam(margins, normal);
+    }
+}

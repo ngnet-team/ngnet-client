@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPageModel } from 'src/app/interfaces/page-model';
 import { PagerService } from 'src/app/services/pager.service';
+import { faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-page',
@@ -11,6 +12,8 @@ export class PageComponent {
 
   @Input() pager: IPageModel = { length: 0, numbers: [], perPage: 0, pageNumber: 0, totalPages: 0 };
   @Output() pageSelect: number = 0;
+
+  arrows: any = { leftDouble: faAngleDoubleLeft, left: faAngleLeft ,right: faAngleRight, rightDouble: faAngleDoubleRight }
 
   constructor(public pagerService: PagerService) {}
 

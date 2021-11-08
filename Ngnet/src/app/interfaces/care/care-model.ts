@@ -1,12 +1,14 @@
 import { ICompanyModel } from "../company-model";
 
-export interface IDefaultHealthCareModel {
+export interface ICareModel {
     id?: string,
     name?: string,
-    date?: Date,
+    startDate?: Date,
+    endDate?: Date,
+    paidEndDate?: Date,
     reminder?: Date,
     price?: number,
-    company: ICompanyModel,
+    company?: ICompanyModel,
     notes?: string,
     userId?: string,
     isDeleted: boolean,

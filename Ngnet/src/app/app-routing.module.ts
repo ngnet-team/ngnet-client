@@ -1,12 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
-import { HealthComponent } from './health/health.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { ProfileResolverService } from './services/profile-resolver.service';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { ServerNotFoundComponent } from './shared/server-not-found/server-not-found.component';
-import { VehicleComponent } from './vehicle/vehicle.component';
+import { CareComponent } from './care/care.component';
 
 const routes: Routes = [
     {
@@ -34,7 +33,7 @@ const routes: Routes = [
     {
         path: 'vehiclecare',
         pathMatch: 'full',
-        component: VehicleComponent,
+        component: CareComponent,
         canActivate: [AuthGuardService],
         data: {
             authRequired: true,
@@ -43,7 +42,7 @@ const routes: Routes = [
     {
         path: 'healthcare',
         pathMatch: 'full',
-        component: HealthComponent,
+        component: CareComponent,
         canActivate: [AuthGuardService],
         data: {
             authRequired: true,

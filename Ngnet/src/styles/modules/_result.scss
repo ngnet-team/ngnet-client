@@ -1,25 +1,14 @@
 @import '../base/api';
+@import './box-card';
 
 .results {
     padding: getParam(paddings, large);
     background-color: getParam(colors, field, back);
     box-shadow: getShadow(field, getParam(colors, field, back));
-    max-width: 35%;
 }
 
-.item {
-    margin-bottom: getParam(margins, normal);
-    width: 100%;
-    position: relative;
-    background-color: getParam(colors, area, back);
-    box-shadow: getShadow(field, getParam(colors, field, back));
-}
-
-.item-field {
-    display: flex;
-    margin: getParam(margins, small);
-}
-
-.item-field:first-child {
-    justify-content: space-between;
+.items {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: getParam(margins, small);
 }

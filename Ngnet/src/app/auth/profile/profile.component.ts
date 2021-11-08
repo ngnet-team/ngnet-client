@@ -40,7 +40,7 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     });
   }
 
-  override listener(): void {
+  override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.profile;
     }))

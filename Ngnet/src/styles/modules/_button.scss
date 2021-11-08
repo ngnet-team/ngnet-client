@@ -16,6 +16,7 @@
     box-shadow: getShadow(action, getParam(colors, action, hover, back));
     cursor: pointer;
     font-weight: bolder;
+    margin-right: getParam(paddings, tiny);
 }
 
 .button:disabled {

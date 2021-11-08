@@ -44,7 +44,7 @@ export class LoginComponent extends ServerErrorsBase {
     });
   }
 
-  override listener(): void {
+  override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.login;
       this.validations = result.validations;

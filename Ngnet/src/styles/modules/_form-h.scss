@@ -5,7 +5,7 @@
     background-color: getParam(colors, field-sec, back);
     opacity: getParam(colors, opacity);
     color: getParam(colors, field-sec, fore);
-    padding: 2rem 6rem;
+    padding: 2rem 4rem;
     text-align: left;
     font-size: getParam(fonts, size, normal);
 
@@ -16,7 +16,7 @@
 
     .field {
         display: grid;
-        grid-template-columns: 1.5fr 2fr;
+        grid-template-columns: 1.3fr 2fr;
         column-gap: getParam(margins, normal);
         margin: getParam(margins, large) 0;
 

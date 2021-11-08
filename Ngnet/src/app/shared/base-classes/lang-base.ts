@@ -7,10 +7,10 @@ export class LangBase {
   subscription: Subscription[] = [];
 
   constructor(protected langService: LangService) {
-    this.listener();
+    this.langListener();
   }
 
-  protected listener(): void {
+  protected langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.selectedLang = result.language;
     }));
