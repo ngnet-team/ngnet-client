@@ -38,7 +38,9 @@ export class CareComponent extends PagerBase {
   @Output() company: ICompanyModel = this.defaultCare.company;
 
   careType: string = this.route.url.slice(1);
+  //labels
   noCares: string = this.menu[this.careType].noCaresFound;
+  title: string = this.menu[this.careType].title;
 
   constructor(
     langService: LangService,
@@ -46,10 +48,10 @@ export class CareComponent extends PagerBase {
     private careService: CareService,
     private route: Router,
     private messageService: MessageService
-    ) {
-      super(pagerService, langService);
-      this.loadNames();
-      this.self();
+  ) {
+    super(pagerService, langService);
+    this.loadNames();
+    this.self();
   }
 
   save(model: ICareModel): void {
@@ -111,6 +113,11 @@ export class CareComponent extends PagerBase {
         this.pagerService.model.totalPages = this.pagerService.setPageNumbers(this.cares.length);
         //results view
         this.pagedCares = this.pagination();
+
+        //no items in the page
+        if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
+          //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
+        }
       },
       error: (err) => {
         if (err?.error?.errors) {
@@ -155,6 +162,11 @@ export class CareComponent extends PagerBase {
       this.menu = result.care;
       this.company = result.company;
       this.validations = result.validations;
+
+      if (this.careType) {
+        this.noCares = this.menu[this.careType].noCaresFound;
+        this.title = this.menu[this.careType].title;
+      }
     }));
   }
 

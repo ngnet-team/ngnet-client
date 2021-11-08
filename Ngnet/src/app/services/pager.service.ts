@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { IPageModel } from '../interfaces/page-model';
 
 @Injectable({
@@ -6,7 +7,14 @@ import { IPageModel } from '../interfaces/page-model';
 })
 export class PagerService {
 
-  model: IPageModel = { length: 0, perPage: 5, pageNumber: 1, numbers: [], totalPages: 0 };
+  model: IPageModel = { 
+    length: 0, 
+    perPage: environment.pagination.itemsPerPage, 
+    pageNumber: 1, 
+    numbers: [], 
+    totalPages: 0 
+  };
+  
   @Output() pageSelect: EventEmitter<number> = new EventEmitter();
   
   constructor() { }

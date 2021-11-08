@@ -11,24 +11,15 @@
     padding: getParam(paddings, large);
     position: relative;
 
-    .title {
-        display: flex;
-        justify-content: center;
-
-        label {
-            margin-right: getParam(margins, normal);
-        }
-    }
-
-    .buttons {
-        display: grid;
-        grid-template-columns: auto;
-        grid-template-rows: auto auto 1fr;
-    }
-
     .field {
         display: grid;
         grid-template-columns: auto 1fr;
         column-gap: getParam(margins, normal);
+    }
+    
+    .buttons {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto 1fr;
     }
 }

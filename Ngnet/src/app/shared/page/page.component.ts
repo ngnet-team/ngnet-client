@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, DoCheck, Input, Output } from '@angular/core';
 import { IPageModel } from 'src/app/interfaces/page-model';
 import { PagerService } from 'src/app/services/pager.service';
 import { faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
@@ -8,14 +8,20 @@ import { faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight } from
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss']
 })
-export class PageComponent {
+export class PageComponent implements DoCheck {
 
   @Input() pager: IPageModel = { length: 0, numbers: [], perPage: 0, pageNumber: 0, totalPages: 0 };
   @Output() pageSelect: number = 0;
 
-  arrows: any = { leftDouble: faAngleDoubleLeft, left: faAngleLeft ,right: faAngleRight, rightDouble: faAngleDoubleRight }
+  hide: boolean = this.pager.numbers.length <= 1;
+
+  arrows: any = { leftDouble: faAngleDoubleLeft, left: faAngleLeft, right: faAngleRight, rightDouble: faAngleDoubleRight }
 
   constructor(public pagerService: PagerService) {}
+
+  ngDoCheck(): void {
+    this.hide = this.pager.numbers.length <= 1;
+  }
 
   pageClick(page: number) {
     page = this.validatePage(page);

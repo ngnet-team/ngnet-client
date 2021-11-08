@@ -1,4 +1,4 @@
-<div class="pagination">
+<div class="pagination" [class.hide]="hide">
 
     <a [class.disabled]="pagerService.model.pageNumber === 1" class="arrow" (click)="pageClick(1)">
         <fa-icon [icon]="arrows.leftDouble"></fa-icon>

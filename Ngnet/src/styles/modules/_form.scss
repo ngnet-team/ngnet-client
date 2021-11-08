@@ -15,7 +15,7 @@
         font-size: getParam(fonts, size, large);
     }
 
-    .form-field {
+    .field {
         margin: getParam(margins, normal) getParam(margins, tiny);
 
         .label {
@@ -31,6 +31,10 @@
 
     .double-width {
         * {
+            width: 99%;
+        }
+
+        select {
             width: 99%;
         }
     }

@@ -68,9 +68,9 @@
     <div class="creation">
         <form class="form" #veh="ngForm" (ngSubmit)="save(veh.value)">
             <div class="main">
-                <div class="title">{{menu.title}}</div>
+                <div class="title">{{title}}</div>
                 <div class="single-row">
-                    <div class="form-field">
+                    <div class="field">
                         <div class="label">{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
                         <div *ngIf="this.selectedLang === 'bg'">
                             <select name="name" [(ngModel)]="defaultCare.name" required>
@@ -83,36 +83,36 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-field">
+                    <div class="field">
                         <div class="label">{{menu.price}}</div>
                         <input type="number" name="price" [(ngModel)]="defaultCare.price">
                     </div>
                 </div>
 
                 <div class="single-row">
-                    <div class="form-field">
+                    <div class="field">
                         <div class="label">{{menu.startDate}}</div>
                         <input type="date" name="startDate" [(ngModel)]="defaultCare.startDate">
                     </div>
-                    <div class="form-field">
+                    <div class="field">
                         <div class="label">{{menu.endDate}}</div>
                         <input type="date" name="endDate" [(ngModel)]="defaultCare.endDate">
                     </div>
                 </div>
 
                 <div class="single-row">
-                    <div class="form-field">
+                    <div class="field">
                         <div class="label">{{menu.paidEndDate}}</div>
                         <input type="date" name="paidEndDate" [(ngModel)]="defaultCare.paidEndDate">
                     </div>
-                    <div class="form-field">
+                    <div class="field">
                         <div class="label">{{menu.reminder}}</div>
                         <input type="date" name="reminder" [(ngModel)]="defaultCare.reminder">
                     </div>
                 </div>
 
                 <div class="double-width">
-                    <div class="form-field">
+                    <div class="field">
                         <div class="label">{{menu.notes}}</div>
                         <textarea type="text" name="notes" [(ngModel)]="defaultCare.notes"></textarea>
                     </div>
