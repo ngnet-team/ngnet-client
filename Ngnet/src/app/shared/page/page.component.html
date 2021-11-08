@@ -1,21 +1,27 @@
 <div class="pagination">
-    <div class="content">
-        <span [class.disabled]="pagerService.model.pageNumber === 1" class="arrow-wrapper" (click)="pageClick(1)">
-            <a class="arrow">&laquo;</a>
-        </span>
-        <span [class.disabled]="pagerService.model.pageNumber === 1" class="arrow-wrapper" (click)="pageClick(pagerService.model.pageNumber - 1)">
-            <a class="arrow">&#8592;</a>
-        </span>
-    
-        <span class="page-wrapper" (click)="pageClick(page)" *ngFor="let page of pager.numbers">
-            <a [class.selected]="page === pagerService.model.pageNumber" class="page">{{page}}</a>
-        </span>
-    
-        <span [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow-wrapper" (click)="pageClick(pagerService.model.pageNumber + 1)">
-            <a class="arrow">&#8594;</a>
-        </span>
-        <span  [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages"class="arrow-wrapper" (click)="pageClick(pagerService.model.totalPages)">
-            <a class="arrow">&raquo;</a>
-        </span>
+
+    <a [class.disabled]="pagerService.model.pageNumber === 1" class="arrow" (click)="pageClick(1)">
+        <fa-icon [icon]="arrows.leftDouble"></fa-icon>
+    </a>
+
+    <a [class.disabled]="pagerService.model.pageNumber === 1" class="arrow"
+        (click)="pageClick(pagerService.model.pageNumber - 1)">
+        <fa-icon [icon]="arrows.left"></fa-icon>
+    </a>
+
+    <div class="pages">
+        <a [class.selected]="page === pagerService.model.pageNumber" class="page" (click)="pageClick(page)"
+            *ngFor="let page of pager.numbers">{{page}}</a>
     </div>
+
+    <a [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow"
+        (click)="pageClick(pagerService.model.pageNumber + 1)">
+        <fa-icon [icon]="arrows.right"></fa-icon>
+    </a>
+
+    <a [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow"
+        (click)="pageClick(pagerService.model.totalPages)">
+        <fa-icon [icon]="arrows.rightDouble"></fa-icon>
+    </a>
+
 </div>

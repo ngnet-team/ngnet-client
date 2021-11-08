@@ -40,7 +40,7 @@ export class RegisterComponent extends ServerErrorsBase {
     });
   }
 
-  override listener(): void {
+  override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.register;
       this.validations = result.validations;

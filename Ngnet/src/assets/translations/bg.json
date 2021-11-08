@@ -56,12 +56,9 @@
         "requiredPassword": "Паролата е задължителна!",
         "passwordLength": "Паролата трябва да бъде минимум 6 символа!",
         "companyNameRequired": "Името на компанията е задължително!",
-        "noVehicleCaresFound": "Няма намерени записи за моторни превозни средства.",
-        "noHealthCaresFound": "Няма намерени записи за здраве.",
         "requiredField": "Полето е задължително."
     },
-    "vehiclecare": {
-        "title": "Грижа за колата",
+    "care": {
         "for": "За",
         "startDate": "Начална дата",
         "endDate": "Крайна дата",
@@ -73,20 +70,15 @@
         "edit": "Промени",
         "delete": "Изтрий",
         "back": "Назад",
-        "required": " *"
-    },
-    "healthcare": {
-        "title": "Здравна грижа",
-        "for": "За",
-        "date": "Дата",
-        "reminder": "Напомняне",
-        "price": "Цена",
-        "notes": "Бележки",
-        "save": "Запиши",
-        "edit": "Промени",
-        "delete": "Изтрий",
-        "back": "Назад",
-        "required": " *"
+        "required": " *",
+        "vehiclecare": {
+            "title": "Грижа за колата",
+            "noCaresFound": "Няма намерени записи за моторни превозни средства."
+        },
+        "healthcare": {
+            "title": "Здравна грижа",
+            "noCaresFound": "Няма намерени записи за здраве."
+        }
     },
     "company": {
         "name": "Къде",

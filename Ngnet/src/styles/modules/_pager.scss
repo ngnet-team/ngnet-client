@@ -1,62 +1,48 @@
 @import "../base/api";
 
 .pagination {
-    margin: getParam(margins, large) 25%;
-    font-size: getParam(fonts, size, normal);
-}
+    display: grid;
+    // ------------------ left left pages right right
+    grid-template-columns: auto auto auto auto auto;
+    column-gap: getParam(margins, small);
 
-.content {
-    text-align: center;
-}
+    margin: getParam(margins, large) getParam(margins, normal);
+    font-size: getParam(fonts, size, big);
 
-.page-wrapper,
-.arrow-wrapper {
-    margin: 0 getParam(margins, small);
-}
-
-.page {
-    padding: 0 getParam(paddings, normal);
-}
-
-.page-wrapper {
-    border-radius: 40%;
-    padding: getParam(paddings, tiny);
-    background-color: getParam(colors, action, back);
-
-    a {
-        color: getParam(colors, action, fore);
-    }
-}
-
-.page-wrapper:hover, .selected {
-    border-radius: 40%;
-    background-color: getParam(colors, action, hover, back);
-    cursor: pointer;
-    
-    a {
-        color: getParam(colors, action, hover, fore);
-    }
-
-    color: getParam(colors, action, hover, fore) !important;
-}
-
-.arrow {
-    padding: getParam(paddings, small) getParam(paddings, normal);
-    text-decoration: none;
-    margin: 0 getParam(margins, normal);
     color: getParam(colors, action, fore);
-}
 
-.arrow-wrapper {
-    padding: getParam(paddings, tiny);
-}
+    .arrow {
+        text-align: center;
+        padding: getParam(paddings, small) getParam(paddings, normal);
+        background-color: getParam(colors, field, hover, back);
+        color: getParam(colors, field, hover, fore);
+    }
 
-.arrow-wrapper:hover {
-    border: getBorder(action, getParam(colors, area, back));
-    cursor: pointer;
-}
+    .pages {
+        display: grid;
+        grid-auto-flow: column;
+        column-gap: getParam(margins, small);
+    }
 
-.disabled:hover {
-    border: none;
-    cursor: no-drop;
+    .page {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        padding: getParam(paddings, tiny);
+        padding-top: getParam(paddings, normal);
+        background-color: getParam(colors, field, hover, back);
+        color: getParam(colors, field, hover, fore);
+    }
+
+    .page:hover,
+    .arrow:hover {
+        cursor: pointer;
+        background-color: getParam(colors, field, hover, fore);
+        color: getParam(colors, field, hover, back);
+    }
+
+    .disabled:hover {
+        border: none;
+        cursor: no-drop;
+    }
 }

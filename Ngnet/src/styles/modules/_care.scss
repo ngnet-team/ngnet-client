@@ -3,27 +3,13 @@
 @import 'result';
 
 .container {
-    display: flex;
-}
+    .no-items {
+        color: getParam(colors, field, fore);
+        font-size: getParam(font, size, normal);
+    }
 
-.container > div {
-    margin: getParam(margins, huge) getParam(margins, large);
-    width: 50%;
-}
-
-.form {
-    display: flex;
-}
-
-form > div {
-    margin-right: 1.8rem;
-}
-
-.company {
-    position: relative;
-    left: 6.25rem;
-}
-
-.title {
-    font-size: getParam(fonts, size, large);
+    margin: getParam(margins, huge) getParam(margins, large);;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: getParam(margins, large);
 }

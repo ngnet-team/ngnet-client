@@ -50,7 +50,7 @@ export class ChangePopupComponent extends ServerErrorsBase  {
     this.input.visible = false;
   }
 
-  override listener(): void {
+  override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.change;
       this.validations = result.validations;

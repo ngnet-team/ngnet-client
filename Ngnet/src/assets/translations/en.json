@@ -56,12 +56,9 @@
         "requiredPassword": "The password is required!",
         "passwordLength": "The password should be at least 6 characters!",
         "companyNameRequired": "The company name is required!",
-        "noVehicleCaresFound": "There are no vehicle care records.",
-        "noHealthCaresFound": "There are no health care records.",
         "requiredField": "The field is required."
     },
-    "vehiclecare": {
-        "title": "Vehicle Care",
+    "care": {
         "for": "For",
         "startDate": "Start date",
         "endDate": "End date",
@@ -73,20 +70,15 @@
         "edit": "Edit",
         "delete": "Delete",
         "back": "Back",
-        "required": " *"
-    },
-    "healthcare": {
-        "title": "Health Care",
-        "for": "For",
-        "date": "Date",
-        "reminder": "Reminder",
-        "price": "Price",
-        "notes": "Notes",
-        "save": "Save",
-        "edit": "Edit",
-        "delete": "Delete",
-        "back": "Back",
-        "required": " *"
+        "required": " *",
+        "vehiclecare": {
+            "title": "Vehicle Care",
+            "noCaresFound": "There are no vehicle care records."
+        },
+        "healthcare": {
+            "title": "Health Care",
+            "noCaresFound": "There are no health care records."
+        }
     },
     "company": {
         "name": "In",

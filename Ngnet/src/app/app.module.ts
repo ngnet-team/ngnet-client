@@ -15,11 +15,9 @@ import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ProfileResolverService } from './services/profile-resolver.service';
 import { AdminComponent } from './admin/admin.component';
-import { VehicleComponent } from './vehicle/vehicle.component';
-import { VehicleService } from './services/care/vehicle.service';
+import { CareComponent } from './care/care.component';
+import { CareService } from './services/care/care.service';
 import { LangService } from './services/lang.service';
-import { HealthComponent } from './health/health.component';
-import { HealthService } from './services/care/health.service';
 import { CompanyService } from './services/company.service';
 import { PagerService } from './services/pager.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,8 +28,7 @@ import { MessageService } from './services/message.service';
     AppComponent,
     HomeComponent,
     AdminComponent,
-    VehicleComponent,
-    HealthComponent,
+    CareComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,8 +45,7 @@ import { MessageService } from './services/message.service';
     AuthService,
     AuthGuardService,
     ProfileResolverService,
-    VehicleService,
-    HealthService,
+    CareService,
     LangService,
     CompanyService,
     PagerService,

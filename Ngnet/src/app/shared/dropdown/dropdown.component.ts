@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
-import { DropdownService } from 'src/app/services/dropdown.service';
 import { LangService } from 'src/app/services/lang.service';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { LangBase } from '../base-classes/lang-base';
@@ -53,7 +52,7 @@ export class DropdownComponent extends LangBase implements OnChanges {
     }
   }
 
-  override listener(): void {
+  override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.jsonDropdown = result.dropdown;
       this.dropdown = this.jsonDropdown[this.input.field];

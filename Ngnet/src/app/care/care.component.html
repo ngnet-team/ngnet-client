@@ -1,0 +1,144 @@
+<div class="container">
+    <div class="results">
+        <div class="no-items" *ngIf="cares.length === 0">
+            <p>{{noCares}}</p>
+        </div>
+        <div class="items">
+            <div class="box-card" *ngFor="let care of pagedCares">
+                <div class="content">
+                    <div class="field" *ngIf="care.name">
+                        <label>{{menu.for}}:</label>
+                        <div>{{care.name}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.startDate">
+                        <label>{{menu.startDate}}:</label>
+                        <div>{{care.startDate}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.endDate">
+                        <label>{{menu.endDate}}:</label>
+                        <div>{{care.endDate}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.paidEndDate">
+                        <label>{{menu.paidEndDate}}:</label>
+                        <div>{{care.paidEndDate}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.reminder">
+                        <label>{{menu.reminder}}:</label>
+                        <div>{{care.reminder}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.price">
+                        <label>{{menu.price}}:</label>
+                        <div>{{care.price}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.notes">
+                        <label>{{menu.notes}}:</label>
+                        <div>{{care.notes}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.company?.name">
+                        <label>{{company.name}}:</label>
+                        <div>{{care.company?.name}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.company?.phoneNumber">
+                        <label>{{company.phoneNumber}}:</label>
+                        <div>{{care.company?.phoneNumber}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.company?.email">
+                        <label>{{company.email}}:</label>
+                        <div>{{care.company?.email}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.company?.webSite">
+                        <label>{{company.webSite}}:</label>
+                        <div>{{care.company?.webSite}}</div>
+                    </div>
+                    <div class="field" *ngIf="care.company?.address">
+                        <label>{{company.address}}:</label>
+                        <div>{{care.company?.address}}</div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="button" (click)="edit(care)">{{menu.edit}}</button>
+                    <button class="button" (click)="remove(care)">{{menu.delete}}</button>
+                </div>
+            </div>
+        </div>
+
+        <app-page *ngIf="cares.length > 0" class="pager-view" [pager]="pager"></app-page>
+
+    </div>
+    <div class="creation">
+        <form class="form" #veh="ngForm" (ngSubmit)="save(veh.value)">
+            <div class="main">
+                <div class="title">{{menu.title}}</div>
+                <div class="single-row">
+                    <div class="form-field">
+                        <div class="label">{{menu.for}} <span class="requiredInput">{{menu.required}}</span></div>
+                        <div *ngIf="this.selectedLang === 'bg'">
+                            <select name="name" [(ngModel)]="defaultCare.name" required>
+                                <option *ngFor="let name of names.bg" [value]="name">{{name}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="this.selectedLang === 'en'">
+                            <select name="name" [(ngModel)]="defaultCare.name" required>
+                                <option *ngFor="let name of names.en" [value]="name">{{name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="label">{{menu.price}}</div>
+                        <input type="number" name="price" [(ngModel)]="defaultCare.price">
+                    </div>
+                </div>
+
+                <div class="single-row">
+                    <div class="form-field">
+                        <div class="label">{{menu.startDate}}</div>
+                        <input type="date" name="startDate" [(ngModel)]="defaultCare.startDate">
+                    </div>
+                    <div class="form-field">
+                        <div class="label">{{menu.endDate}}</div>
+                        <input type="date" name="endDate" [(ngModel)]="defaultCare.endDate">
+                    </div>
+                </div>
+
+                <div class="single-row">
+                    <div class="form-field">
+                        <div class="label">{{menu.paidEndDate}}</div>
+                        <input type="date" name="paidEndDate" [(ngModel)]="defaultCare.paidEndDate">
+                    </div>
+                    <div class="form-field">
+                        <div class="label">{{menu.reminder}}</div>
+                        <input type="date" name="reminder" [(ngModel)]="defaultCare.reminder">
+                    </div>
+                </div>
+
+                <div class="double-width">
+                    <div class="form-field">
+                        <div class="label">{{menu.notes}}</div>
+                        <textarea type="text" name="notes" [(ngModel)]="defaultCare.notes"></textarea>
+                    </div>
+                </div>
+
+                <div *ngIf="cares.length > 0">
+                    <div *ngFor="let error of errors">
+                        <p class="validation">{{error}}</p>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="button" [disabled]="veh.invalid || (
+                        defaultCare.company.name === undefined && 
+                        ((defaultCare.company.phoneNumber !== undefined && defaultCare.company.phoneNumber !== '') ||
+                        (defaultCare.company.email !== undefined && defaultCare.company.email !== '') ||
+                        (defaultCare.company.webSite !== undefined && defaultCare.company.webSite !== '') ||
+                        (defaultCare.company.address !== undefined && defaultCare.company.address !== ''))
+                        )">{{menu.save}}
+                    </button>
+                </div>
+            </div>
+
+            <app-company-form [company]="defaultCare.company" ngModelGroup="company" class="company">
+            </app-company-form>
+
+        </form>
+    </div>
+</div>

@@ -31,7 +31,7 @@ export class ConfirmPopupComponent extends LangBase {
     this.input.visible = false;
   }
 
-  override listener(): void {
+  override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.menu = result.change;
     }));
