@@ -9,22 +9,26 @@
             <app-dropdown [input]="managerDropdown" class="element"></app-dropdown>
         </div>
         <div class="tab">
-            <a routerLink="/profile" class="profile element">{{menu.profile}}</a>
+            <a routerLink="/profile" class="profile element">{{menu.profile.name}}</a>
         </div>
         <div class="tab">
-            <a (click)="logout()" class="logout element">{{menu.logout}}</a>
+            <a (click)="logout()" class="logout element">{{menu.logout.name}}</a>
         </div>
     </div>
     <div *ngIf="!isLogged" class="not-logged">
         <div class="tab">
-            <a routerLink="/login" class="login element">{{menu.login}}</a>
+            <a routerLink="/login" class="login element">{{menu.login.name}}</a>
         </div>
         <div class="tab">
-            <a routerLink="/register" class="register element">{{menu.register}}</a>
+            <a routerLink="/register" class="register element">{{menu.register.name}}</a>
         </div>
     </div>
     <div class="tab dropdown">
         <app-dropdown [input]="languageDropdown" class="element"></app-dropdown>
+    </div>
+    <!-- mobile -->
+    <div class="hamburger" (click)="openTabMenu()">
+        <fa-icon class="icon" [icon]="hamburgerIcon"></fa-icon>
     </div>
 </div>
 <div *ngIf="message" class='message'>
@@ -34,6 +38,7 @@
 <!-- -------------- popup items -------------- -->
 <a *ngIf="message" class="remove" (click)="removeMessage()">x</a>
 
-<div *ngIf="confirmPopup.visible">
-    <app-confirm-popup [input]="confirmPopup"></app-confirm-popup>
-</div>
+<app-popup [input]="confirmPopup"></app-popup>
+
+<!-- TODO: needs to be displayed only in tablet or mobile mode -->
+<app-tab-menu [visible]="tabMenu" class="tab-menu"></app-tab-menu>

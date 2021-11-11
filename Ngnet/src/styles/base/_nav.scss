@@ -1,4 +1,4 @@
-@import 'api';
+@import "api";
 
 .nav {
     display: flex;
@@ -18,10 +18,12 @@
 }
 
 .nav > div {
-    margin: 0 getParam(margins, huge);
+    margin-left: getParam(margins, huge);
+    margin-right: getParam(margins, huge);
 }
 
-.logged, .not-logged {
+.logged,
+.not-logged {
     display: flex;
 }
 
@@ -39,4 +41,64 @@
 
 a {
     color: getParam(colors, field, fore);
+}
+
+.hamburger {
+    display: none;
+    font-size: getParam(fonts, size, huge);
+}
+
+// -------------------------- Laptop --------------------------
+
+@media only screen and (max-width: getParam(media, laptop)) {
+    .nav {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+// -------------------------- Tablet --------------------------
+
+@media only screen and (max-width: getParam(media, tablet, landscape)) {
+    .nav {
+        display: flex;
+        justify-content: center;
+        font-size: getParam(fonts, size, small);
+    }
+
+    .hamburger {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: getParam(media, tablet, portrait)) {
+    .tab {
+        display: none;
+    }
+
+    .hamburger {
+        display: inline-block;
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        padding: getParam(paddings, normal) 1rem;
+    }
+}
+
+// -------------------------- Smartphone --------------------------
+
+@media only screen and (max-width: getParam(media, smartphones, landscape)) {
+}
+
+@media only screen and (max-width: getParam(media, smartphones, portrait)) {
+}
+
+
+@media only screen and (min-width: 601px) {
+    .hamburger {
+        background-color: chocolate;
+        display: none;
+    }
 }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChangePopupComponent } from './change-popup.component';
+import { TabMenuComponent } from './tab-menu.component';
 
-describe('ChangePopupComponent', () => {
-  let component: ChangePopupComponent;
-  let fixture: ComponentFixture<ChangePopupComponent>;
+describe('TabMenuComponent', () => {
+  let component: TabMenuComponent;
+  let fixture: ComponentFixture<TabMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChangePopupComponent ]
+      declarations: [ TabMenuComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChangePopupComponent);
+    fixture = TestBed.createComponent(TabMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

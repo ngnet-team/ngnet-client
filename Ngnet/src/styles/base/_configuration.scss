@@ -91,6 +91,18 @@ $options: (
             huge: 32px,
         ),
     ),
+    media: (
+        smartphone: (
+            portrait: 320px,
+            landscape: 480px
+        ),
+        tablet: (
+            portrait: 600px,
+            landscape: 801px
+        ),
+        laptop: 1025px,
+        desktop: 1281px
+    ),
     constants: (
         textAreaHeight: 1.5rem,
         textFieldHeight: 1.5rem,

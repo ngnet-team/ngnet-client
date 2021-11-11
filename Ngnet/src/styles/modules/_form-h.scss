@@ -1,5 +1,4 @@
-@import '../base/api';
-@import '../modules/popup';
+@import "../base/api";
 
 .form {
     background-color: getParam(colors, field-sec, back);
@@ -72,6 +71,10 @@
 
         button:hover {
             cursor: pointer;
+        }
+
+        button:disabled {
+            cursor: no-drop;
         }
     }
 }

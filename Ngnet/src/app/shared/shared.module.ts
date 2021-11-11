@@ -7,8 +7,8 @@ import { CompanyFormComponent } from './company-form/company-form.component';
 import { FormsModule } from '@angular/forms';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ChangePopupComponent } from './change-popup/change-popup.component';
-import { ConfirmPopupComponent } from './confirm-popup/confirm-popup.component';
+import { TabMenuComponent } from './tab-menu/tab-menu.component';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +17,8 @@ import { ConfirmPopupComponent } from './confirm-popup/confirm-popup.component';
     PageComponent,
     CompanyFormComponent,
     DropdownComponent,
-    ChangePopupComponent,
-    ConfirmPopupComponent,
+    TabMenuComponent,
+    PopupComponent,
   ],
   imports: [
     CommonModule,
@@ -30,8 +30,8 @@ import { ConfirmPopupComponent } from './confirm-popup/confirm-popup.component';
     CompanyFormComponent,
     DropdownComponent,
     FontAwesomeModule,
-    ChangePopupComponent,
-    ConfirmPopupComponent,
+    TabMenuComponent,
+    PopupComponent,
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,24 @@
+<div class="container" *ngIf="visible">
+    <div *ngIf="!isLogged">
+        <div class="tab">
+            <a (click)="click(menu.login)" class="element">{{menu.login.name}}</a>
+        </div>
+        <div class="tab">
+            <a (click)="click(menu.register)" class="element">{{menu.register.name}}</a>
+        </div>
+    </div>
+    <div *ngIf="isLogged">
+        <div class="tab" *ngFor="let dropdown of dropdown.manager.options">
+            <a (click)="click(dropdown)" class="element">{{dropdown.name}}</a>
+        </div>
+        <div class="tab">
+            <a (click)="click(menu.profile)" class="element">{{menu.profile.name}}</a>
+        </div>
+        <div class="tab">
+            <a (click)="click(menu.logout)" class="element">{{menu.logout.name}}</a>
+        </div>
+    </div>
+    <div class="tab" *ngFor="let dropdown of dropdown.language.options">
+        <a (click)="click(dropdown)" class="element">{{dropdown.name}}</a>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, DoCheck, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IErrorModel } from '../interfaces/response-error-model';
@@ -11,6 +11,7 @@ import { PagerService } from '../services/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
 import { MessageService } from '../services/message.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
+import { IPopupModel } from '../interfaces/popup-model';
 
 @Component({
   selector: 'app-care',
@@ -36,6 +37,7 @@ export class CareComponent extends PagerBase {
   pagedCares: ICareModel[] = [];
   //company
   @Output() company: ICompanyModel = this.defaultCare.company;
+  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'care' } };
 
   careType: string = this.route.url.slice(1);
   //labels
@@ -131,7 +133,6 @@ export class CareComponent extends PagerBase {
   }
 
   remove(model: ICareModel): void {
-
     model.isDeleted = true;
     this.save(model);
   }

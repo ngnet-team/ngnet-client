@@ -1,15 +1,23 @@
-@import '../base/api';
+@import "../base/api";
 
 .tab {
     color: getParam(colors, field, fore);
     padding: getParam(paddings, small) getParam(paddings, normal);
     text-align: center;
+
+    .element:hover {
+        cursor: pointer;
+    }
 }
 
 .tab:hover {
     border-bottom: 3px solid getParam(colors, field, fore);
 }
 
-.element:hover {
-    cursor: pointer;
+// -------------------------- Tablet --------------------------
+
+@media only screen and (max-width: getParam(media, tablet, landscape)) {
+    .tab {
+        font-size: getParam(fonts, size, small);
+    }
 }
