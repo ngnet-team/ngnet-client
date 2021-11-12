@@ -11,7 +11,7 @@
 
     <div class="pages">
         <a [class.selected]="page === pagerService.model.pageNumber" class="page" (click)="pageClick(page)"
-            *ngFor="let page of pager.numbers">{{page}}</a>
+            *ngFor="let page of pagesView()">{{page}}</a>
     </div>
 
     <a [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow"

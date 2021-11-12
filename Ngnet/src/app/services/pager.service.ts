@@ -14,6 +14,8 @@ export class PagerService {
     numbers: [], 
     totalPages: 0 
   };
+
+  scope: number = 2;
   
   @Output() pageSelect: EventEmitter<number> = new EventEmitter();
   
@@ -42,5 +44,12 @@ export class PagerService {
   pageClick(page: number) {
     this.model.pageNumber = page;
     this.pageSelect.emit(page)
+  }
+  
+  public validatePage(page: number): number | null {
+    const start: number | null = 1;
+    const end: number | null = this.model.totalPages;
+
+    return page < start ? null : page > end ? null : page;
   }
 }

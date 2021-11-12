@@ -13,8 +13,4 @@
     grid-template-columns: auto 1fr;
     grid-template-rows: 100%;
     column-gap: getParam(margins, large);
-
-    .company {
-        margin-top: getParam(margins, large);
-    }
 }
