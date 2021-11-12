@@ -38,17 +38,17 @@
             width: 99%;
         }
     }
-}
 
-.form:hover {
-    background-color: getParam(colors, field, hover, back);
-    color: getParam(colors, field, hover, fore);
+    &:hover {
+        background-color: getParam(colors, field, hover, back);
+        color: getParam(colors, field, hover, fore);
+    }
 }
 
 //validations
 .requiredInput,
 .validation {
-    margin-top: getParam(margins, small);
+    margin-top: getParam(margins, tiny);
     font-size: getParam(fonts, size, small);
     color: getParam(constants, alertColor);
     font-style: italic

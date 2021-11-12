@@ -9,6 +9,6 @@ export const environment = {
     bg: "bg"
   },
   pagination: {
-    itemsPerPage: 1,
+    itemsPerPage: 4,
   }
 };
