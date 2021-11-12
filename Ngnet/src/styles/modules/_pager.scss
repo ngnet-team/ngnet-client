@@ -1,5 +1,7 @@
 @import "../base/api";
 
+$box: getParam(fonts, size, huge);
+
 .pagination {
     display: grid;
     // ------------------ left left pages right right
@@ -12,10 +14,13 @@
     color: getParam(colors, action, fore);
 
     .arrow {
-        text-align: center;
-        padding: getParam(paddings, small) getParam(paddings, normal);
         background-color: getParam(colors, field, hover, back);
         color: getParam(colors, field, hover, fore);
+        width: $box;
+        height: $box;
+        //needs better positioning
+        text-align: center;
+        padding: getParam(paddings, small) getParam(paddings, tiny) 0 getParam(paddings, tiny);
     }
 
     .pages {
@@ -25,11 +30,13 @@
     }
 
     .page {
+        align-items: center;
+        width: $box;
+        height: $box;
         display: flex;
         justify-content: center;
         text-align: center;
         padding: getParam(paddings, tiny);
-        padding-top: getParam(paddings, normal);
         background-color: getParam(colors, field, hover, back);
         color: getParam(colors, field, hover, fore);
     }
@@ -45,8 +52,13 @@
         border: none;
         cursor: no-drop;
     }
+
+    .selected {
+        background-color: getParam(colors, field, hover, fore);
+        color: getParam(colors, field, hover, back);
+    }
 }
 
 .hide {
-       display: none; 
+    display: none;
 }
