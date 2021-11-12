@@ -2,13 +2,13 @@
     <div class="form">
         <form #log="ngForm" (ngSubmit)="login(log.value)">
             <div class="title">{{menu.title}}</div>
-            <div class="form-field">
+            <div class="field">
                 <div class="label">{{menu.username}}</div>
                 <input #usernameInput="ngModel" type="text" name="username" ngModel required>
                 <p class="validation" *ngIf="usernameInput.errors?.required && usernameInput.touched">{{validations.requiredUsername}}</p>
             </div>
         
-            <div class="form-field">
+            <div class="field">
                 <div class="label">{{menu.password}}</div>
                 <input #passwordInput="ngModel" type="password" name="password" ngModel required minlength="6">
                 <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">{{validations.requiredPassword}}</p>

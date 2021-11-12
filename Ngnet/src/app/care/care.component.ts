@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, DoCheck, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IErrorModel } from '../interfaces/response-error-model';
@@ -11,45 +11,61 @@ import { PagerService } from '../services/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
 import { MessageService } from '../services/message.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
+import { IPopupModel } from '../interfaces/popup-model';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-care',
   templateUrl: './care.component.html',
   styleUrls: ['./care.component.scss']
 })
-export class CareComponent extends PagerBase {
+export class CareComponent extends PagerBase implements DoCheck {
 
   //models
   cares: ICareModel[] = [];
   defaultCare: IDefaultCareModel = { isDeleted: false, company: {} };
+  pagedCares: ICareModel[] = [];
+  names: IDropDownModel = {};
+
+  @Output() pager: IPageModel = this.pagerService.model;
+  @Output() company: ICompanyModel = this.defaultCare.company;
+  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'care' } };
+  @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care' } };
   //temporary
+  deletingCare: ICareModel | undefined;
   editingCareId: string | undefined;
   editingCompanyId: number | undefined;
   saveClicked: boolean = this.defaultCare.company == {};
   //language
   menu: any = this.langService.get(this.selectedLang).care;
   validations: any = this.langService.get(this.selectedLang).validations;
-  //dropdowns
-  names: IDropDownModel = {};
-  //pager
-  @Output() pager: IPageModel = this.pagerService.model;
-  pagedCares: ICareModel[] = [];
-  //company
-  @Output() company: ICompanyModel = this.defaultCare.company;
-
+  //labels
   careType: string = this.route.url.slice(1);
   noCares: string = this.menu[this.careType].noCaresFound;
-
+  title: string = this.menu[this.careType].title;
+  plusIcon = faPlus;
+  
   constructor(
     langService: LangService,
     pagerService: PagerService,
     private careService: CareService,
     private route: Router,
     private messageService: MessageService
-    ) {
-      super(pagerService, langService);
-      this.loadNames();
-      this.self();
+  ) {
+    super(pagerService, langService);
+    this.loadNames();
+    this.self();
+  }
+
+  ngDoCheck(): void {
+    if (!this.confirmPopup.visible) {
+      // console.log('close it');
+    }
+
+    if (this.confirmPopup.confirmed) {
+      this.remove();
+      this.confirmPopup.confirmed = false;
+    }
   }
 
   save(model: ICareModel): void {
@@ -111,6 +127,11 @@ export class CareComponent extends PagerBase {
         this.pagerService.model.totalPages = this.pagerService.setPageNumbers(this.cares.length);
         //results view
         this.pagedCares = this.pagination();
+
+        //no items in the page
+        if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
+          //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
+        }
       },
       error: (err) => {
         if (err?.error?.errors) {
@@ -123,10 +144,24 @@ export class CareComponent extends PagerBase {
     });
   }
 
-  remove(model: ICareModel): void {
+  remove(): void {
+    const DeleteModel = (this.deletingCare as ICareModel)
+    if (this.confirmPopup.confirmed) {
+      DeleteModel.isDeleted = true;
+      this.save(DeleteModel);
+    }
+  }
 
-    model.isDeleted = true;
-    this.save(model);
+  openConfirmPopup(model: ICareModel): void {
+    this.deletingCare = model;
+    this.confirmPopup.visible = true;
+  };
+
+  openInfoPopup(model: ICareModel): void {
+    this.infoPopup.getData = {
+      content: model.notes,
+    };
+    this.infoPopup.visible = true;
   }
 
   edit(model: ICareModel): void {
@@ -155,6 +190,11 @@ export class CareComponent extends PagerBase {
       this.menu = result.care;
       this.company = result.company;
       this.validations = result.validations;
+
+      if (this.careType) {
+        this.noCares = this.menu[this.careType].noCaresFound;
+        this.title = this.menu[this.careType].title;
+      }
     }));
   }
 

@@ -1,0 +1,16 @@
+@import '../base/api';
+@import 'tab';
+
+
+.container {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: getParam(margins, normal);
+
+    background-color: getParam(colors, field, back);
+    color: getParam(colors, field, fore);
+    margin: 0 getParam(margins, large);
+    padding: 0 25%;
+    font-size: getParam(fonts, size, normal);
+    box-shadow: getShadow(field, getParam(colors, field, back));
+}

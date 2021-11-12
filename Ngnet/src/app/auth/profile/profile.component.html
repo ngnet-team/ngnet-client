@@ -26,14 +26,14 @@
                 <label class="label">{{menu.email}}</label>
                 <div class="single-row">
                     <div>{{user.email}}</div>
-                    <a (click)="change(menu.email, 'email')" class="change">{{menu.change}}</a>
+                    <a (click)="openPopup(menu.email, 'email')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
                 <label class="label">{{menu.password}}</label>
                 <div class="single-row">
                     <div>********</div>
-                    <a (click)="change(menu.password, 'password')" class="change">{{menu.change}}</a>
+                    <a (click)="openPopup(menu.password, 'password')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
@@ -65,6 +65,4 @@
     </div>
 </div>
 
-<div *ngIf="popup.visible">
-    <app-change-popup [input]="popup" class="popup"></app-change-popup>
-</div>
+<app-popup [input]="popup" class="popup"></app-popup>

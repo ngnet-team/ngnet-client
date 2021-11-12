@@ -8,4 +8,7 @@ export const environment = {
     en: "en",
     bg: "bg"
   },
+  pagination: {
+    itemsPerPage: 5,
+  }
 };

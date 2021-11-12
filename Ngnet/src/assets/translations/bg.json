@@ -1,12 +1,26 @@
 {
     "language": "bg",
     "navMenu": {
-        "logo": "Лого",
-        "login": "Вписване",
-        "register": "Регистрация",
-        "profile": "Профил",
-        "logout": "Отписване",
-        "manager": "Мениджър"
+        "logo": {
+            "name": "Лого",
+            "url": "/"
+        },
+        "login": {
+            "name": "Вписване",
+            "url": "/login"
+        },
+        "register": {
+            "name": "Регистрация",
+            "url": "/register"
+        },
+        "profile": {
+            "name": "Профил",
+            "url": "/profile"
+        },
+        "logout": {
+            "name": "Отписване",
+            "url": "logout"
+        }
     },
     "profile": {
         "title": "Твоят Профил",
@@ -121,18 +135,21 @@
             ]
         }
     },
-    "change": {
-        "title": "Промени си ",
-        "old": "Стара ",
-        "new": "Нова ",
-        "repeatNew": "Повтори нова ",
-        "button": "Промени ",
-        "required": " *"
-    },
     "popup": {
         "confirm": {
             "title": "Сигурни ли сте?",
             "button": "Потвърди"
+        },
+        "change": {
+            "title": "Промени си ",
+            "old": "Стара ",
+            "new": "Нова ",
+            "repeatNew": "Повтори нова ",
+            "button": "Промени ",
+            "required": " *"
+        },
+        "info": {
+            "title": "Повече информация"
         }
     }
 }

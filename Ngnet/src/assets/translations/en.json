@@ -1,12 +1,26 @@
 {
     "language": "en",
     "navMenu": {
-        "logo": "Logo",
-        "login": "Login",
-        "register": "Register",
-        "profile": "Profile",
-        "logout": "Logout",
-        "manager": "Manager"
+        "logo": {
+            "name": "Logo",
+            "url": "/"
+        },
+        "login": {
+            "name": "Login",
+            "url": "/login"
+        },
+        "register": {
+            "name": "Register",
+            "url": "/register"
+        },
+        "profile": {
+            "name": "Profile",
+            "url": "/profile"
+        },
+        "logout": {
+            "name": "Logout",
+            "url": "logout"
+        }
     },
     "profile": {
         "title": "Your Account",
@@ -121,18 +135,21 @@
             ]
         }
     },
-    "change": {
-        "title": "Changing your ",
-        "old": "Old ",
-        "new": "New ",
-        "repeatNew": "Repeat new ",
-        "button": "Change ",
-        "required": " *"
-    },
     "popup": {
         "confirm": {
             "title": "Are you sure?",
             "button": "Confirm"
+        },
+        "change": {
+            "title": "Changing your ",
+            "old": "Old ",
+            "new": "New ",
+            "repeatNew": "Repeat new ",
+            "button": "Change ",
+            "required": " *"
+        },
+        "info": {
+            "title": "More information"
         }
     }
 }

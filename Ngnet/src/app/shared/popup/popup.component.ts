@@ -1,22 +1,23 @@
 import { Component, Input } from '@angular/core';
 import { IChangeModel } from 'src/app/interfaces/change-model';
-import { IChangePopup } from 'src/app/interfaces/change-popup';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ServerErrorsBase } from '../base-classes/server-errors-base';
+import { IPopupModel } from 'src/app/interfaces/popup-model';
 
 @Component({
-  selector: 'app-change-popup',
-  templateUrl: './change-popup.component.html',
-  styleUrls: ['./change-popup.component.scss']
+  selector: 'app-popup',
+  templateUrl: './popup.component.html',
+  styleUrls: ['./popup.component.scss']
 })
-export class ChangePopupComponent extends ServerErrorsBase  {
-  @Input() input: IChangePopup = { visible: false };
+//popup types: confirm, change, info
+export class PopupComponent extends ServerErrorsBase  {
+  @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: {} };
 
   //language
-  menu: any = this.langService.get(this.selectedLang).change;
+  menu: any = this.langService.get(this.selectedLang).popup;
   validations: any = this.langService.get(this.selectedLang).validations;
 
   closeIcon: any = faTimesCircle;
@@ -26,24 +27,26 @@ export class ChangePopupComponent extends ServerErrorsBase  {
   }
 
   change(input: IChangeModel): void {
+    if (input.new !== input.repeatNew) {
+      return;
+    }
+    
+    this.input.returnData = {
+      old: input.old,
+      new: input.new,
+      repeatNew: input.repeatNew,
+    };
 
-    input.value = this.input.value;
+    this.exit();
+  }
 
-    this.authService.change(input).subscribe({
-      next: (res) => {
-        const msg = this.messageService.getMsg(res, this.selectedLang);
-        this.messageService.event.emit(msg);
-        this.exit();
-      },
-      error: (err) => {
-        if (err?.error?.errors) {
-          this.unhandledServerError(err?.error.errors);
-        } else if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
-        };
-      }
-    });
+  info(): void {
+
+  }
+
+  confirm(): void {
+    this.input.confirmed = true;
+    this.exit();
   }
 
   exit() {
@@ -52,7 +55,7 @@ export class ChangePopupComponent extends ServerErrorsBase  {
 
   override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.change;
+      this.menu = result.popup;
       this.validations = result.validations;
     }));
   }

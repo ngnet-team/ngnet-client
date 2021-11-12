@@ -1,0 +1,62 @@
+<div class="container" *ngIf="input.visible">
+    <div class="exit" (click)="exit()">
+        <fa-icon [icon]="closeIcon"></fa-icon>
+    </div>
+    <div class="content">
+        <div class="title">
+            {{menu[input.type].title}} {{input.getData?.label}}
+        </div>
+        <!-- ----------------- Change popup ----------------- -->
+        <div *ngIf="input.type === 'change'">
+            <form class="form" #c="ngForm" (ngSubmit)="change(c.value)">
+                <div class="field">
+                    <label class="label">{{menu[input.type].old}} {{input.getData?.label}} <span
+                            class="requiredInput">{{menu[input.type].required}}</span></label>
+                    <div>
+                        <input #oldInput="ngModel" type="text" name="old" [(ngModel)]="input.getData.value" required>
+                        <p class="validation" *ngIf="oldInput.errors?.required && oldInput.touched">
+                            {{validations.requiredField}}</p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">{{menu[input.type].new}} {{input.getData?.label}} <span
+                            class="requiredInput">{{menu[input.type].required}}</span></label>
+                    <div>
+                        <input #newInput="ngModel" type="text" name="new" ngModel required>
+                        <p class="validation" *ngIf="newInput.errors?.required && newInput.touched">
+                            {{validations.requiredField}}</p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">{{menu[input.type].repeatNew}} {{input.getData?.label}} <span
+                            class="requiredInput">{{menu[input.type].required}}</span></label>
+                    <div>
+                        <input #repeatNewInput="ngModel" type="text" name="repeatNew" ngModel required>
+                        <p class="validation" *ngIf="repeatNewInput.errors?.required && repeatNewInput.touched">
+                            {{validations.requiredField}}</p>
+                    </div>
+                </div>
+
+                <div *ngFor="let error of errors">
+                    <p class="validation">{{error}}</p>
+                </div>
+
+                <div class="button">
+                    <button [disabled]="c.invalid">{{menu[input.type].button}} {{input.getData?.label}}</button>
+                </div>
+            </form>
+        </div>
+        <!-- ----------------- Confirm popup ----------------- -->
+        <div *ngIf="input.type === 'confirm'">
+            <div class="button">
+                <button (click)="confirm()">{{menu.confirm.button}}</button>
+            </div>
+        </div>
+        <!-- ----------------- Info popup ----------------- -->
+        <div *ngIf="input.type === 'info'">
+            <div class="text">
+                {{input.getData.content}}
+            </div>
+        </div>
+    </div>
+</div>
