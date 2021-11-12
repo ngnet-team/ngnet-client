@@ -1,9 +1,16 @@
 @import "../base/api";
 
 .tab {
+    display: grid;
+    grid-template-columns: auto 1fr;
+
     color: getParam(colors, field, fore);
     padding: getParam(paddings, small) getParam(paddings, normal);
     text-align: center;
+
+    .icon {
+        margin-right: getParam(margins, small);
+    }
 
     .element:hover {
         cursor: pointer;

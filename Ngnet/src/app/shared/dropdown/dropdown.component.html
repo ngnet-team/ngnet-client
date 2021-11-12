@@ -1,9 +1,12 @@
 <div class="title" (mouseover)="visible(true)" (mouseleave)="visible(false)">
   {{dropdown?.title}}
-  <fa-icon class="icon" [icon]="icon"></fa-icon>
+  <fa-icon class="icon" [icon]="dropdownIcon"></fa-icon>
 </div>
 <ul class="options" *ngIf="showOptions" (mouseover)="visible(true)" (mouseleave)="visible(false)">
   <li class="option" *ngFor="let option of dropdown?.options" (click)="click(option)">
-    {{option?.name}}
-  </li>   
+    <fa-icon class="icon" [icon]="optionIcon"></fa-icon>
+    <div>
+      {{option?.name}}
+    </div>
+  </li>
 </ul>

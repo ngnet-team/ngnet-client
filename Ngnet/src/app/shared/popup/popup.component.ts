@@ -12,6 +12,7 @@ import { IPopupModel } from 'src/app/interfaces/popup-model';
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss']
 })
+//popup types: confirm, change, info
 export class PopupComponent extends ServerErrorsBase  {
   @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: {} };
 
@@ -39,13 +40,17 @@ export class PopupComponent extends ServerErrorsBase  {
     this.exit();
   }
 
-  exit() {
-    this.input.visible = false;
+  info(): void {
+
   }
 
   confirm(): void {
     this.input.confirmed = true;
     this.exit();
+  }
+
+  exit() {
+    this.input.visible = false;
   }
 
   override langListener(): void {

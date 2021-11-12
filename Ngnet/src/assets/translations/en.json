@@ -147,6 +147,9 @@
             "repeatNew": "Repeat new ",
             "button": "Change ",
             "required": " *"
+        },
+        "info": {
+            "title": "More information"
         }
     }
 }

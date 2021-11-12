@@ -12,12 +12,19 @@
     z-index: 1;
     position: absolute;
     background-color: rgb(245, 244, 237, 0.8);
-    padding: 0.8rem;
+    padding: getParam(paddings, normal);
     box-shadow: getShadow(field, getParam(colors, field, back));
     color: getParam(colors, area, fore);
 
     > .option {
+        display: grid;
+        grid-template-columns: auto 1fr;
+
         cursor: pointer;
+
+        .icon {
+            margin-right: getParam(margins, small);
+        }
     }
 
     > .option:hover {

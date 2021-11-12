@@ -6,25 +6,31 @@
     </div>
     <div *ngIf="isLogged" class="logged">
         <div class="tab dropdown">
-            <app-dropdown [input]="managerDropdown" class="element"></app-dropdown>
+            <fa-icon class="icon" [icon]="managerIcon"></fa-icon>
+            <app-dropdown class="element" [input]="managerDropdown"></app-dropdown>
         </div>
         <div class="tab">
-            <a routerLink="/profile" class="profile element">{{menu.profile.name}}</a>
+            <fa-icon class="icon" [icon]="userIcon"></fa-icon>
+            <a class="profile element" routerLink="/profile">{{menu.profile.name}}</a>
         </div>
         <div class="tab">
-            <a (click)="logout()" class="logout element">{{menu.logout.name}}</a>
+            <fa-icon class="icon" [icon]="logoutIcon"></fa-icon>
+            <a class="logout element" (click)="openConfirmPopup()">{{menu.logout.name}}</a>
         </div>
     </div>
     <div *ngIf="!isLogged" class="not-logged">
         <div class="tab">
-            <a routerLink="/login" class="login element">{{menu.login.name}}</a>
+            <fa-icon class="icon" [icon]="loginIcon"></fa-icon>
+            <a class="login element" routerLink="/login">{{menu.login.name}}</a>
         </div>
         <div class="tab">
-            <a routerLink="/register" class="register element">{{menu.register.name}}</a>
+            <fa-icon class="icon" [icon]="registerIcon"></fa-icon>
+            <a class="register element" routerLink="/register">{{menu.register.name}}</a>
         </div>
     </div>
     <div class="tab dropdown">
-        <app-dropdown [input]="languageDropdown" class="element"></app-dropdown>
+        <fa-icon class="icon" [icon]="languageIcon"></fa-icon>
+        <app-dropdown class="element" [input]="languageDropdown"></app-dropdown>
     </div>
     <!-- mobile -->
     <div class="hamburger" (click)="openTabMenu()">

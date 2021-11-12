@@ -32,7 +32,9 @@
                     </div>
                     <div class="field" *ngIf="care.notes">
                         <label>{{menu.notes}}:</label>
-                        <div>{{care.notes}}</div>
+                        <div>
+                            <fa-icon class="icon" [icon]="plusIcon" (click)="openInfoPopup(care)"></fa-icon>
+                        </div>
                     </div>
                     <div class="field" *ngIf="care.company?.name">
                         <label>{{company.name}}:</label>
@@ -57,7 +59,7 @@
                 </div>
                 <div class="buttons">
                     <button class="button" (click)="edit(care)">{{menu.edit}}</button>
-                    <button class="button" (click)="remove(care)">{{menu.delete}}</button>
+                    <button class="button" (click)="openConfirmPopup(care)">{{menu.delete}}</button>
                 </div>
             </div>
         </div>
@@ -142,5 +144,8 @@
         </form>
     </div>
 </div>
+
+<!-- -------------- popup items -------------- -->
+<app-popup [input]="infoPopup"></app-popup>
 
 <app-popup [input]="confirmPopup"></app-popup>

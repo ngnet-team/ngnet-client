@@ -7,6 +7,7 @@
     column-gap: getParam(margins, normal);
 
     background-color: getParam(colors, area, back);
+    color: getParam(colors, area, fore);
     border-radius: getParam(borders, area, rounding);
     padding: getParam(paddings, large);
     position: relative;
@@ -15,11 +16,22 @@
         display: grid;
         grid-template-columns: auto 1fr;
         column-gap: getParam(margins, normal);
+        align-self: center;
     }
     
     .buttons {
         display: grid;
         grid-template-columns: auto;
         grid-template-rows: auto auto 1fr;
+    }
+
+    .icon {
+        color: getParam(colors, area, fore);
+        font-size: getParam(fonts, size, normal);;
+        cursor: pointer;
+
+        &:hover {
+            color: getParam(colors, area, hover, fore);
+        }
     }
 }

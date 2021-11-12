@@ -51,6 +51,11 @@
                 cursor: pointer;
             }
         }
+
+        .text {
+            padding: getParam(paddings, normal);
+            background-color: getParam(colors, area, back);
+        }
     }
 }
 
