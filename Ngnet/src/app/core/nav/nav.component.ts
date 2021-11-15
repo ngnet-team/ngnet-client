@@ -19,6 +19,7 @@ export class NavComponent implements DoCheck {
   message: string = '';
   @Input() tab: ITabModel = {};
   @Input() isLogged: boolean = this.authService.isLogged;
+  isAdmin: boolean = false;
 
   @Output() adminDropdown: { field: string, type: string } = { field: 'admin', type: 'route' };
   @Output() managerDropdown: { field: string, type: string } = { field: 'manager', type: 'route' };
@@ -39,6 +40,7 @@ export class NavComponent implements DoCheck {
     private iconService: IconService
     ) {
     this.subscriptionListener();
+    this.adminChecker();
   }
 
   ngDoCheck(): void {
@@ -73,9 +75,21 @@ export class NavComponent implements DoCheck {
     this.message = '';
   }
 
+  changeLang(language: string): void {
+    // this.selectedLang = this.selectedLang === environment.lang.bg ? environment.lang.en : environment.lang.bg;
+    this.selectedLang = language;
+    this.langService.setLocalStorage(this.selectedLang);
+    this.menu = this.langService.get(this.selectedLang).navMenu;
+  }
+
+  openTabMenu(): void {
+    this.tabMenu = !this.tabMenu;
+  }
+
   private subscriptionListener(): void {
     this.event.push(this.authService.logginEvent.subscribe(isLogged => {
       this.isLogged = isLogged;
+      this.adminChecker();
     }));
     this.event.push(this.messageService.event.subscribe(message => {
       this.message = message;
@@ -89,14 +103,9 @@ export class NavComponent implements DoCheck {
     }));
   }
 
-  changeLang(language: string): void {
-    // this.selectedLang = this.selectedLang === environment.lang.bg ? environment.lang.en : environment.lang.bg;
-    this.selectedLang = language;
-    this.langService.setLocalStorage(this.selectedLang);
-    this.menu = this.langService.get(this.selectedLang).navMenu;
-  }
-
-  openTabMenu(): void {
-    this.tabMenu = !this.tabMenu;
+  private adminChecker() {
+    this.authService.profile().subscribe(x => {
+      this.isAdmin = x.roleName === 'Admin';
+    });
   }
 }

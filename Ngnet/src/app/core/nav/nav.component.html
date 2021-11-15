@@ -6,7 +6,7 @@
     </div>
     <div *ngIf="isLogged" class="logged">
         <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
-        <div class="tab dropdown">
+        <div *ngIf="isAdmin" class="tab dropdown">
             <fa-icon class="icon" [icon]="icons.admin"></fa-icon>
             <app-dropdown class="element" [input]="adminDropdown" routerLink="/admin"></app-dropdown>
         </div>
