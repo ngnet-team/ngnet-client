@@ -11,6 +11,7 @@ import { PagerService } from '../services/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
 import { MessageService } from '../services/message.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
+import { faAmbulance, faCar } from '@fortawesome/free-solid-svg-icons';
 import { IPopupModel } from '../interfaces/popup-model';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -44,7 +45,8 @@ export class CareComponent extends PagerBase implements DoCheck {
   noCares: string = this.menu[this.careType].noCaresFound;
   title: string = this.menu[this.careType].title;
   plusIcon = faPlus;
-  
+  titleIcon: any = this.setTitleIcon();
+
   constructor(
     langService: LangService,
     pagerService: PagerService,
@@ -177,6 +179,14 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.careService.loadNames(this.careType).subscribe(res => {
       this.names = res;
     });
+  }
+
+  private setTitleIcon(): any {
+    if (this.careType === 'healthcare') {
+      return faAmbulance;
+    } else if (this.careType === 'vehiclecare') {
+      return faCar;
+    }
   }
 
   override pagination(): any {
