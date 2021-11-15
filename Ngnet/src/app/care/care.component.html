@@ -34,7 +34,7 @@
                     <div class="field" *ngIf="care.notes">
                         <label>{{menu.notes}}:</label>
                         <div>
-                            <fa-icon class="icon" [icon]="plusIcon" (click)="openInfoPopup(care)"></fa-icon>
+                            <fa-icon class="icon" [icon]="icons.more" (click)="openInfoPopup(care)"></fa-icon>
                         </div>
                     </div>
                     <div class="field" *ngIf="care.company?.name">
@@ -73,7 +73,7 @@
         <form class="form" #veh="ngForm" (ngSubmit)="save(veh.value)">
 
             <div class="title">
-                <fa-icon class="icon" [icon]="titleIcon"></fa-icon>
+                <fa-icon class="icon" [icon]="icons.title[careType]"></fa-icon>
                 {{title}}
             </div>
             <div class="single-row">

@@ -8,6 +8,7 @@ import { IPageModel } from '../interfaces/page-model';
 export class PagerService {
 
   model: IPageModel = { 
+    visible: false,
     length: 0, 
     perPage: environment.pagination.itemsPerPage, 
     pageNumber: 1, 
@@ -38,6 +39,8 @@ export class PagerService {
     for (let i = 1; i <= pages; i++) {
       this.model.numbers.push(i);
     }
+    //show pager
+    this.model.visible = this.model.numbers.length > 1 ? true : false;
     return this.model.numbers.length;
   }
 

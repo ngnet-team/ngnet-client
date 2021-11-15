@@ -4,10 +4,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
 import { environment } from 'src/environments/environment';
-import { faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing } from '@fortawesome/free-solid-svg-icons';
 import { TabService } from 'src/app/services/tab.service';
 import { ITabModel } from 'src/app/interfaces/tab-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
+import { IconService } from 'src/app/services/icon.service';
 
 @Component({
   selector: 'app-nav',
@@ -29,19 +29,16 @@ export class NavComponent implements DoCheck {
   event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;
-  //icons
-  adminIcon = faChessKing;
-  registerIcon = faUserPlus;
-  loginIcon = faSignInAlt;
-  logoutIcon = faSignOutAlt;
-  userIcon = faUser;
-  managerIcon = faPoll;
-  languageIcon = faLanguage;
-  hamburgerIcon = faBars;
+  icons: any = this.iconService.get('nav');
 
-  constructor(private authService: AuthService, private langService: LangService, private messageService: MessageService, private tabService: TabService) {
+  constructor(
+    private authService: AuthService, 
+    private langService: LangService, 
+    private messageService: MessageService, 
+    private tabService: TabService,
+    private iconService: IconService
+    ) {
     this.subscriptionListener();
-    console.log(this.menu);
   }
 
   ngDoCheck(): void {

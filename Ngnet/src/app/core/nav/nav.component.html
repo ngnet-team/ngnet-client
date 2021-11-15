@@ -7,40 +7,40 @@
     <div *ngIf="isLogged" class="logged">
         <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
         <div class="tab dropdown">
-            <fa-icon class="icon" [icon]="adminIcon"></fa-icon>
+            <fa-icon class="icon" [icon]="icons.admin"></fa-icon>
             <app-dropdown class="element" [input]="adminDropdown" routerLink="/admin"></app-dropdown>
         </div>
         <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
         <div class="tab dropdown">
-            <fa-icon class="icon" [icon]="managerIcon"></fa-icon>
+            <fa-icon class="icon" [icon]="icons.manager"></fa-icon>
             <app-dropdown class="element" [input]="managerDropdown"></app-dropdown>
         </div>
         <div class="tab">
-            <fa-icon class="icon" [icon]="userIcon"></fa-icon>
+            <fa-icon class="icon" [icon]="icons.profile"></fa-icon>
             <a class="profile element" routerLink="/profile">{{menu.profile.name}}</a>
         </div>
         <div class="tab">
-            <fa-icon class="icon" [icon]="logoutIcon"></fa-icon>
+            <fa-icon class="icon" [icon]="icons.logout"></fa-icon>
             <a class="logout element" (click)="openConfirmPopup()">{{menu.logout.name}}</a>
         </div>
     </div>
     <div *ngIf="!isLogged" class="not-logged">
         <div class="tab">
-            <fa-icon class="icon" [icon]="loginIcon"></fa-icon>
+            <fa-icon class="icon" [icon]="icons.login"></fa-icon>
             <a class="login element" routerLink="/login">{{menu.login.name}}</a>
         </div>
         <div class="tab">
-            <fa-icon class="icon" [icon]="registerIcon"></fa-icon>
+            <fa-icon class="icon" [icon]="icons.register"></fa-icon>
             <a class="register element" routerLink="/register">{{menu.register.name}}</a>
         </div>
     </div>
     <div class="tab dropdown">
-        <fa-icon class="icon" [icon]="languageIcon"></fa-icon>
+        <fa-icon class="icon" [icon]="icons.language"></fa-icon>
         <app-dropdown class="element" [input]="languageDropdown"></app-dropdown>
     </div>
     <!-- mobile -->
     <div class="hamburger" (click)="openTabMenu()">
-        <fa-icon class="icon" [icon]="hamburgerIcon"></fa-icon>
+        <fa-icon class="icon" [icon]="icons.hamburger"></fa-icon>
     </div>
 </div>
 <div *ngIf="message" class='message'>

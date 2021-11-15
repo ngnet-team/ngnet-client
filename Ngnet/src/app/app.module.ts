@@ -23,6 +23,7 @@ import { PagerService } from './services/pager.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from './services/message.service';
 import { TabService } from './services/tab.service';
+import { IconService } from './services/icon.service';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { TabService } from './services/tab.service';
     PagerService,
     MessageService,
     TabService,
+    IconService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

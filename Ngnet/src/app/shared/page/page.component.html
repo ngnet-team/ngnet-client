@@ -1,12 +1,12 @@
-<div class="pagination" [class.hide]="hide">
+<div class="pagination" *ngIf="pager.visible">
 
     <a [class.disabled]="pagerService.model.pageNumber === 1" class="arrow" (click)="pageClick(1)">
-        <fa-icon [icon]="arrows.leftDouble"></fa-icon>
+        <fa-icon [icon]="icons.doubleLeft"></fa-icon>
     </a>
 
     <a [class.disabled]="pagerService.model.pageNumber === 1" class="arrow"
         (click)="pageClick(pagerService.model.pageNumber - 1)">
-        <fa-icon [icon]="arrows.left"></fa-icon>
+        <fa-icon [icon]="icons.left"></fa-icon>
     </a>
 
     <div class="pages">
@@ -16,12 +16,12 @@
 
     <a [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow"
         (click)="pageClick(pagerService.model.pageNumber + 1)">
-        <fa-icon [icon]="arrows.right"></fa-icon>
+        <fa-icon [icon]="icons.right"></fa-icon>
     </a>
 
     <a [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow"
         (click)="pageClick(pagerService.model.totalPages)">
-        <fa-icon [icon]="arrows.rightDouble"></fa-icon>
+        <fa-icon [icon]="icons.doubleRight"></fa-icon>
     </a>
 
 </div>

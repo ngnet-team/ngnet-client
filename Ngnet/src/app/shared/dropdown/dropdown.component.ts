@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
 import { LangService } from 'src/app/services/lang.service';
-import { faCaretDown, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 import { LangBase } from '../base-classes/lang-base';
+import { IconService } from 'src/app/services/icon.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -18,14 +18,12 @@ export class DropdownComponent extends LangBase implements OnChanges {
   //language
   jsonDropdown: any = this.langService.get(this.selectedLang).dropdown;
   dropdown: IJsonDropDownModel = {};
-  //icons
-  dropdownIcon = faCaretDown;
-  optionIcon = faCheckDouble;
+  icons: any = this.iconService.get('dropdown');
   //temporary
   showOptions: boolean = false;
   timeOut: any;
 
-  constructor(private route: Router, langService: LangService) {
+  constructor(private route: Router, langService: LangService, private iconService: IconService) {
     super(langService);
   }
 
