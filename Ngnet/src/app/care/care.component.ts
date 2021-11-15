@@ -11,9 +11,8 @@ import { PagerService } from '../services/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
 import { MessageService } from '../services/message.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
-import { faAmbulance, faCar } from '@fortawesome/free-solid-svg-icons';
 import { IPopupModel } from '../interfaces/popup-model';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { IconService } from '../services/icon.service';
 
 @Component({
   selector: 'app-care',
@@ -44,15 +43,15 @@ export class CareComponent extends PagerBase implements DoCheck {
   careType: string = this.route.url.slice(1);
   noCares: string = this.menu[this.careType].noCaresFound;
   title: string = this.menu[this.careType].title;
-  plusIcon = faPlus;
-  titleIcon: any = this.setTitleIcon();
+  icons: any = this.iconService.get('care');
 
   constructor(
     langService: LangService,
     pagerService: PagerService,
     private careService: CareService,
     private route: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private iconService: IconService
   ) {
     super(pagerService, langService);
     this.loadNames();
@@ -129,7 +128,6 @@ export class CareComponent extends PagerBase implements DoCheck {
         this.pagerService.model.totalPages = this.pagerService.setPageNumbers(this.cares.length);
         //results view
         this.pagedCares = this.pagination();
-
         //no items in the page
         if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
           //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
@@ -179,14 +177,6 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.careService.loadNames(this.careType).subscribe(res => {
       this.names = res;
     });
-  }
-
-  private setTitleIcon(): any {
-    if (this.careType === 'healthcare') {
-      return faAmbulance;
-    } else if (this.careType === 'vehiclecare') {
-      return faCar;
-    }
   }
 
   override pagination(): any {
