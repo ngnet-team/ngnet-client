@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
 import { environment } from 'src/environments/environment';
-import { faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing } from '@fortawesome/free-solid-svg-icons';
 import { TabService } from 'src/app/services/tab.service';
 import { ITabModel } from 'src/app/interfaces/tab-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
@@ -20,9 +20,9 @@ export class NavComponent implements DoCheck {
   @Input() tab: ITabModel = {};
   @Input() isLogged: boolean = this.authService.isLogged;
 
+  @Output() adminDropdown: { field: string, type: string } = { field: 'admin', type: 'route' };
   @Output() managerDropdown: { field: string, type: string } = { field: 'manager', type: 'route' };
   @Output() languageDropdown: { field: string, type: string, value: string } = { field: 'language', type: 'state', value: '' };
-  // @Output() confirmPopup: IConfirmPopup = { visible: false, confirmed: false };
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'nav' } };
   @Output() tabMenu: boolean = false;
   //language
@@ -30,6 +30,7 @@ export class NavComponent implements DoCheck {
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;
   //icons
+  adminIcon = faChessKing;
   registerIcon = faUserPlus;
   loginIcon = faSignInAlt;
   logoutIcon = faSignOutAlt;
@@ -40,6 +41,7 @@ export class NavComponent implements DoCheck {
 
   constructor(private authService: AuthService, private langService: LangService, private messageService: MessageService, private tabService: TabService) {
     this.subscriptionListener();
+    console.log(this.menu);
   }
 
   ngDoCheck(): void {

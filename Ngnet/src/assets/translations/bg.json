@@ -133,6 +133,19 @@
                     "url": "en"
                 }
             ]
+        },
+        "admin": {
+            "title": "Админ",
+            "options": [
+                {
+                    "name": "Потребители",
+                    "url": "users"
+                },
+                {
+                    "name": "Задачи",
+                    "url": "tasks"
+                }
+            ]
         }
     },
     "popup": {
