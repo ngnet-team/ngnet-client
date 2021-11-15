@@ -5,6 +5,12 @@
         </a>
     </div>
     <div *ngIf="isLogged" class="logged">
+        <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
+        <div class="tab dropdown">
+            <fa-icon class="icon" [icon]="adminIcon"></fa-icon>
+            <app-dropdown class="element" [input]="adminDropdown" routerLink="/admin"></app-dropdown>
+        </div>
+        <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
         <div class="tab dropdown">
             <fa-icon class="icon" [icon]="managerIcon"></fa-icon>
             <app-dropdown class="element" [input]="managerDropdown"></app-dropdown>

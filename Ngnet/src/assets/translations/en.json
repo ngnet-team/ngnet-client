@@ -133,6 +133,19 @@
                     "url": "en"
                 }
             ]
+        },
+        "admin": {
+            "title": "Admin",
+            "options": [
+                {
+                    "name": "Users",
+                    "url": "users"
+                },
+                {
+                    "name": "Tasks",
+                    "url": "tasks"
+                }
+            ]
         }
     },
     "popup": {
