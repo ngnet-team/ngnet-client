@@ -1,12 +1,9 @@
 <div class="company form">
-    <div class="title">
-        <fa-icon class="icon" [icon]="icons.company"></fa-icon>
-        {{menu.label}}
-    </div>
-
     <div class="double-width">
         <div class="field">
             <div class="label">
+                <fa-icon class="icon" [icon]="icons.company"></fa-icon>
+                {{menu.label}}
                 <span *ngIf="
             ((company.phoneNumber !== undefined && company.phoneNumber !== '') ||
             (company.email !== undefined && company.email !== '') ||

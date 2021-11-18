@@ -1,23 +1,28 @@
 import { Component, DoCheck, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAdminUserResponseModel } from '../interfaces/admin/admin-user-response-model';
+import { IPageModel } from '../interfaces/page-model';
 import { IPopupModel } from '../interfaces/popup-model';
 import { ISideBarModel } from '../interfaces/side-bar-model';
 import { AdminService } from '../services/admin.service';
 import { AuthService } from '../services/auth.service';
 import { IconService } from '../services/icon.service';
 import { LangService } from '../services/lang.service';
-import { ServerErrorsBase } from '../shared/base-classes/server-errors-base';
+import { PagerService } from '../services/pager.service';
+import { PagerBase } from '../shared/base-classes/pager-base';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent extends ServerErrorsBase implements DoCheck {
+export class AdminComponent extends PagerBase implements DoCheck {
 
+  //models
   users: IAdminUserResponseModel[] = [];
+  pagedUsers: IAdminUserResponseModel[] = [];
 
+  @Output() pager: IPageModel = this.pagerService.model;
   @Output() sideMenu: ISideBarModel = { visible: false };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care', content: [] } };
 
@@ -29,9 +34,10 @@ export class AdminComponent extends ServerErrorsBase implements DoCheck {
     private route: Router,
     router: ActivatedRoute,
     langService: LangService,
+    pagerService: PagerService,
     private iconService: IconService
   ) {
-    super(langService);
+    super(pagerService, langService);
     if (!this.authService.accessWithRole(router)) {
       this.route.navigateByUrl('not-found');
     };
@@ -49,6 +55,12 @@ export class AdminComponent extends ServerErrorsBase implements DoCheck {
     this.adminService.getAllUsers().subscribe({
       next: (res) => {
         this.users = res;
+         //results view
+         this.pagedUsers = this.pagination(this.users);
+         //no items in the page
+         if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
+           //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
+         }
       },
       error: (err) => {
         console.log(err);
@@ -61,10 +73,10 @@ export class AdminComponent extends ServerErrorsBase implements DoCheck {
   }
 
   deleteUser(user: IAdminUserResponseModel) {
-    this.adminService.delete(user).subscribe(res => {
-      console.log(res);
-      this.getAllUsers();
-    });
+    // this.adminService.delete(user).subscribe(res => {
+    //   console.log(res);
+    //   this.getAllUsers();
+    // });
   }
 
   openMorePopup(user: IAdminUserResponseModel): void {
@@ -103,5 +115,12 @@ export class AdminComponent extends ServerErrorsBase implements DoCheck {
     });
 
     this.infoPopup.visible = true;
+  }
+  
+  override pagerListener(): void {
+    this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
+      this.pager.pageNumber = pageNumber;
+      this.pagedUsers = this.pagination(this.users);
+    }));
   }
 }

@@ -57,5 +57,9 @@ $dashboard-fore: getParam(colors, field, back);
                 text-align: center;
             }
         }
+
+        .pager-view {
+            width: 50%;
+        }
     }
 }

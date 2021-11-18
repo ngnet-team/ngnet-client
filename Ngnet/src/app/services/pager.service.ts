@@ -23,6 +23,8 @@ export class PagerService {
   constructor() { }
 
   skipTake(length: number): { skip: number, take: number } {
+    this.model.totalPages = this.setPageNumbers(length);
+
     const skip = (this.model.pageNumber - 1) * this.model.perPage;
     const take = this.model.pageNumber * this.model.perPage;
 

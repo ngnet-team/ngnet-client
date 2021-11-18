@@ -14,7 +14,7 @@
         <div>Actions</div>
     </div>
     <div class="content">
-        <div *ngFor="let user of users">
+        <div *ngFor="let user of pagedUsers">
             <div>{{user.id}}</div>
             <div>{{user.roleName}}</div>
             <div>{{user.userName}}</div>
@@ -34,6 +34,8 @@
                 <button class="button">Reset Password</button>
             </div>
         </div>
+
+        <app-page class="pager-view" [pager]="pager"></app-page>
     </div>
 </div>
 
