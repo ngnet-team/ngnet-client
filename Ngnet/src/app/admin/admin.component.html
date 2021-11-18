@@ -1,21 +1,33 @@
 <!-- <app-side-bar [model]="sideMenu"></app-side-bar> -->
 
+<!-- -------------- User Dashboard -------------- -->
+
 <div class="dashboard">
     <div class="header">
         <div>Id</div>
         <div>Role</div>
         <div>Username</div>
         <div>Email</div>
-        <div>Name</div>
+        <div class="center">More</div>
+        <div>Modified</div>
+        <div>Expiriance</div>
         <div>Actions</div>
     </div>
     <div class="content">
         <div *ngFor="let user of users">
-            <div>id</div>
+            <div>{{user.id}}</div>
             <div>{{user.roleName}}</div>
             <div>{{user.userName}}</div>
             <div>{{user.email}}</div>
-            <div>{{user.firstName}} {{user.lastName}}</div>
+            <div class="center">
+                <fa-icon class="more" [icon]="icons.more" (click)="openMorePopup(user)"></fa-icon>
+            </div>
+            <div class="center">
+                <fa-icon class="more" [icon]="icons.more" (click)="openModifiedPopup(user)"></fa-icon>
+            </div>
+            <div class="center">
+                <fa-icon class="more" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
+            </div>
             <div>
                 <button class="button">Edit</button>
                 <button class="button">Delete</button>
@@ -24,3 +36,6 @@
         </div>
     </div>
 </div>
+
+<!-- -------------- popup items -------------- -->
+<app-popup [input]="infoPopup"></app-popup>

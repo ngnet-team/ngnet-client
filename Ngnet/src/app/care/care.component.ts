@@ -158,9 +158,8 @@ export class CareComponent extends PagerBase implements DoCheck {
   };
 
   openInfoPopup(model: ICareModel): void {
-    this.infoPopup.getData = {
-      content: model.notes,
-    };
+    this.infoPopup.getData.content = [];
+    this.infoPopup.getData.content.push(model.notes);
     this.infoPopup.visible = true;
   }
 

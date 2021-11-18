@@ -1,22 +1,33 @@
 @import '../../styles/modules/button';
 
-$columns: 0.5fr 0.5fr 1fr 1.5fr 1fr 3fr;
+// ----- Id/Role/Username/Email/More/Modified/Experiance/Actions
+$columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.3fr 0.3fr 3fr;
+$dashboard-back: getParam(colors, field, fore);
+$dashboard-fore: getParam(colors, field, back);
 
 .dashboard {
 
-    margin: 100px;
-    padding: 20px;
+    margin: 6.25rem;
+    padding: getParam(paddings, huge);
 
-    background-color: cornsilk;
+    background-color: $dashboard-back;
+    color: getParam(colors, field, back);
+    box-shadow: getShadow(field, $dashboard-back);
+    font-size: getParam(fonts, size, small);
 
     .header {
         display: grid;
         grid-template-columns: $columns;
-        border-bottom: 1px solid black;
+        font-size: getParam(fonts, size, normal);
+        border-bottom: getBorder(field, $dashboard-fore);
 
         > div {
             text-align: left;
-            margin: 10px;
+            margin: getParam(paddings, small);
+        }
+        
+        > .center {
+            text-align: center;
         }
     }
 
@@ -25,11 +36,25 @@ $columns: 0.5fr 0.5fr 1fr 1.5fr 1fr 3fr;
         > div {
             display: grid;
             grid-template-columns: $columns;
-            border-bottom: 1px solid black;
+            border-bottom: getBorder(field, $dashboard-fore);
 
             > div {
                 text-align: left;
-                margin: 10px;
+                margin: getParam(paddings, small);
+
+                .more {
+                    color: getParam(colors, area, fore);
+                    font-size: getParam(fonts, size, normal);;
+                    cursor: pointer;
+            
+                    &:hover {
+                        color: getParam(colors, area, hover, fore);
+                    }
+                }
+            }
+
+            > .center {
+                text-align: center;
             }
         }
     }
