@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, DoCheck, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAdminUserResponseModel } from '../interfaces/admin/admin-user-response-model';
 import { IPopupModel } from '../interfaces/popup-model';
@@ -14,12 +14,12 @@ import { ServerErrorsBase } from '../shared/base-classes/server-errors-base';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent extends ServerErrorsBase {
+export class AdminComponent extends ServerErrorsBase implements DoCheck {
 
   users: IAdminUserResponseModel[] = [];
 
   @Output() sideMenu: ISideBarModel = { visible: false };
-  @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care' } };
+  @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care', content: [] } };
 
   icons: any = this.iconService.get('admin');
 
@@ -38,6 +38,13 @@ export class AdminComponent extends ServerErrorsBase {
     this.getAllUsers();
   }
 
+  ngDoCheck(): void {
+    //empty popup content when closed
+    if (!this.infoPopup.visible && this.infoPopup.getData.content.length !== 0) {
+      this.infoPopup.getData.content = [];
+    }
+  }
+
   getAllUsers() {
     this.adminService.getAllUsers().subscribe({
       next: (res) => {
@@ -54,30 +61,26 @@ export class AdminComponent extends ServerErrorsBase {
   }
 
   openMorePopup(user: IAdminUserResponseModel): void {
-    this.infoPopup.getData = {
-      content: user.firstName
-        ? user.firstName + ' ' + user.lastName
-        : 'There is no more information',
-    };
+    this.infoPopup.getData.content.push(user.firstName
+      ? user.firstName + ' ' + user.lastName
+      : 'There is no more information',
+    );
 
     this.infoPopup.visible = true;
   }
 
   openModifiedPopup(user: IAdminUserResponseModel): void {
-    this.infoPopup.getData = {
-      content: user.isDeleted
-        ? 'The user has been deleted on ' + user.deletedOn
-        : user.modifiedOn
-          ? 'The user is modified on ' + user.modifiedOn
-          : 'The User is created on ' + user.createdOn
-    };
+    this.infoPopup.getData.content.push(user.isDeleted
+      ? 'The user has been deleted on ' + user.deletedOn
+      : user.modifiedOn
+        ? 'The user is modified on ' + user.modifiedOn
+        : 'The User is created on ' + user.createdOn
+    );
 
     this.infoPopup.visible = true;
   }
 
   openExpiriancePopup(user: IAdminUserResponseModel) {
-
-    this.infoPopup.getData.content = [];
     this.infoPopup.getData.content.push('Entries: ' + user.experiances?.length ?? 0);
 
     user.experiances?.forEach(e => {

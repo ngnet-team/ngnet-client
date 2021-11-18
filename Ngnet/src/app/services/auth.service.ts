@@ -28,7 +28,9 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('auth-token');
+    this.http.get(this.authUrl + '/logout').subscribe(res => {
+      localStorage.removeItem('auth-token');
+    });
     this.route.navigateByUrl('');
   }
 

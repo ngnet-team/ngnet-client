@@ -104,8 +104,10 @@ export class NavComponent implements DoCheck {
   }
 
   private adminChecker() {
-    this.authService.profile().subscribe(x => {
-      this.isAdmin = x.roleName === 'Admin';
-    });
+    if (this.isLogged) {
+      this.authService.profile().subscribe(x => {
+        this.isAdmin = x.roleName === 'Admin';
+      });
+    }
   }
 }
