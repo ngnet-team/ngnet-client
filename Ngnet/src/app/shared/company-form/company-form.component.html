@@ -1,9 +1,12 @@
 <div class="company form">
-    <div class="title">{{menu.label}}</div>
+    <div class="title">
+        <fa-icon class="icon" [icon]="icons.company"></fa-icon>
+        {{menu.label}}
+    </div>
 
     <div class="double-width">
         <div class="field">
-            <div class="label">{{menu.name}}
+            <div class="label">
                 <span *ngIf="
             ((company.phoneNumber !== undefined && company.phoneNumber !== '') ||
             (company.email !== undefined && company.email !== '') ||
@@ -11,11 +14,11 @@
             (company.address !== undefined && company.address !== ''))
                 " class="requiredInput">{{menu.required}}</span>
             </div>
-
             <div *ngIf="this.selectedLang === 'bg'">
                 <select name="name" [(ngModel)]="company.name">
                     <option *ngFor="let companyName of companyNames.vehicle.bg" [value]="companyName">
-                        {{companyName}}</option>
+                        {{companyName}}
+                    </option>
                 </select>
             </div>
             <div *ngIf="this.selectedLang === 'en'">
@@ -29,7 +32,10 @@
 
     <div class="single-row">
         <div class="field">
-            <div class="label">{{menu.phoneNumber}}</div>
+            <div class="label">
+                <fa-icon class="icon" [icon]="icons.phoneNumber"></fa-icon>
+                {{menu.phoneNumber}}
+            </div>
             <input #phoneNumberInput="ngModel" type="text" name="phoneNumber" [(ngModel)]="company.phoneNumber">
             <p class="validation" *ngIf="phoneNumberInput.touched && 
             company.name === undefined && 
@@ -38,7 +44,10 @@
                 {{validations.companyNameRequired}}</p>
         </div>
         <div class="field">
-            <div class="label">{{menu.email}}</div>
+            <div class="label">
+                <fa-icon class="icon" [icon]="icons.email"></fa-icon>
+                {{menu.email}}
+            </div>
             <input #emailInput="ngModel" type="text" name="email" [(ngModel)]="company.email" email>
             <p class="validation" *ngIf="emailInput.touched && 
             emailInput?.errors?.email">
@@ -53,7 +62,10 @@
 
     <div class="single-row">
         <div class="field">
-            <div class="label">{{menu.webSite}}</div>
+            <div class="label">
+                <fa-icon class="icon" [icon]="icons.webSite"></fa-icon>
+                {{menu.webSite}}
+            </div>
             <input #webSiteInput="ngModel" type="text" name="webSite" [(ngModel)]="company.webSite">
             <p class="validation" *ngIf="webSiteInput.touched && 
         company.name === undefined && 
@@ -62,7 +74,10 @@
                 {{validations.companyNameRequired}}</p>
         </div>
         <div class="field">
-            <div class="label">{{menu.address}}</div>
+            <div class="label">
+                <fa-icon class="icon" [icon]="icons.address"></fa-icon>
+                {{menu.address}}
+            </div>
             <input #addressInput="ngModel" type="text" name="address" [(ngModel)]="company.address">
             <p class="validation" *ngIf="addressInput.touched && 
         company.name === undefined && 
