@@ -76,6 +76,13 @@ export class IconService {
         address: faAddressCard
       },
     },
+    {
+      field: 'admin',
+      icons:
+      {
+        more: faPlus,
+      },
+    },
   ];
 
   constructor() { }

@@ -1,0 +1,25 @@
+@import '../base/api';
+
+.container {
+
+    width: 50px;
+    height: 250px;
+
+    display: grid;
+    grid-template-columns: auto;
+    background-color: getParam(colors, field, back);
+
+    padding: 10px;
+
+    .switcher {
+        grid-column: 2;
+        cursor: pointer;
+        color: getParam(colors, field, fore);
+        width: 10px;
+    }
+
+    .content {
+        grid-column: 1;
+        background-color: orange;
+    }
+}

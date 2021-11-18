@@ -55,7 +55,9 @@
         <!-- ----------------- Info popup ----------------- -->
         <div *ngIf="input.type === 'info'">
             <div class="text">
-                {{input.getData.content}}
+                <div *ngFor="let text of input.getData.content">
+                    {{text}}
+                </div>
             </div>
         </div>
     </div>

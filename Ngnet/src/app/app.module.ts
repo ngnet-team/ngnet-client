@@ -24,6 +24,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from './services/message.service';
 import { TabService } from './services/tab.service';
 import { IconService } from './services/icon.service';
+import { AdminService } from './services/admin.service';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { IconService } from './services/icon.service';
     MessageService,
     TabService,
     IconService,
+    AdminService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

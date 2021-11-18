@@ -25,7 +25,7 @@
         grid-template-rows: auto auto 1fr;
     }
 
-    .icon {
+    .more {
         color: getParam(colors, area, fore);
         font-size: getParam(fonts, size, normal);;
         cursor: pointer;

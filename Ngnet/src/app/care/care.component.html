@@ -34,7 +34,7 @@
                     <div class="field" *ngIf="care.notes">
                         <label>{{menu.notes}}:</label>
                         <div>
-                            <fa-icon class="icon" [icon]="icons.more" (click)="openInfoPopup(care)"></fa-icon>
+                            <fa-icon class="more" [icon]="icons.more" (click)="openInfoPopup(care)"></fa-icon>
                         </div>
                     </div>
                     <div class="field" *ngIf="care.company?.name">

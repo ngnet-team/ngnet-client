@@ -1,4 +1,4 @@
-@import '../base/api';
+@import "../base/api";
 
 .button {
     display: inline-block;
@@ -8,17 +8,26 @@
     border-radius: getParam(borders, action, rounding);
     margin: getParam(paddings, small);
     font-size: getParam(fonts, size, small);
-}
 
-.button:hover {
-    background-color: getParam(colors, action, hover, back);
-    color: getParam(colors, action, hover, fore);
-    box-shadow: getShadow(action, getParam(colors, action, hover, back));
-    cursor: pointer;
-    font-weight: bolder;
-    margin-right: getParam(paddings, tiny);
-}
+    .icon {
+        margin-right: getParam(paddings, small);
+        color: getParam(colors, field, back);
+    }
 
-.button:disabled {
-    cursor: no-drop;
+    &:hover {
+        background-color: getParam(colors, action, hover, back);
+        color: getParam(colors, action, hover, fore);
+        box-shadow: getShadow(action, getParam(colors, action, hover, back));
+        cursor: pointer;
+        font-weight: bolder;
+        margin-right: getParam(paddings, tiny);
+
+        .icon {
+            color: getParam(colors, action, hover, fore);
+        }
+    }
+
+    &:disabled {
+        cursor: no-drop;
+    }
 }

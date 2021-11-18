@@ -13,6 +13,10 @@
         margin-bottom: getParam(margins, huge);
         text-align: center;
         font-size: getParam(fonts, size, large);
+
+        .icon {
+            margin-right: getParam(paddings, normal);
+        }
     }
 
     .field {
