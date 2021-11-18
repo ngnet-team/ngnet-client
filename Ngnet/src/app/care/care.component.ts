@@ -124,10 +124,8 @@ export class CareComponent extends PagerBase implements DoCheck {
       next: (res) => {
         this.errors = [];
         this.cares = (res as ICareModel[]).filter(x => x.isDeleted === false);
-        //pager view
-        this.pagerService.model.totalPages = this.pagerService.setPageNumbers(this.cares.length);
         //results view
-        this.pagedCares = this.pagination();
+        this.pagedCares = this.pagination(this.cares);
         //no items in the page
         if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
           //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
@@ -178,11 +176,6 @@ export class CareComponent extends PagerBase implements DoCheck {
     });
   }
 
-  override pagination(): any {
-    const { skip, take } = this.pagerService.skipTake(this.cares.length);
-    return this.cares.slice(skip, take);
-  }
-
   override langListener(): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.selectedLang = result.language
@@ -200,7 +193,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   override pagerListener(): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;
-      this.pagedCares = this.pagination();
+      this.pagedCares = this.pagination(this.cares);
     }));
   }
 }

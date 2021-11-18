@@ -1,14 +1,15 @@
 @import "../base/api";
 
 $box: getParam(fonts, size, huge);
+$box-gap: getParam(margins, small);
 
 .pagination {
     display: grid;
     // ------------------ left left pages right right
     grid-template-columns: auto auto auto auto auto;
-    column-gap: getParam(margins, small);
+    column-gap: $box-gap;
 
-    margin: getParam(margins, large) getParam(margins, normal);
+    margin: getParam(margins, large) getParam(margins, small);
     font-size: getParam(fonts, size, big);
 
     color: getParam(colors, action, fore);

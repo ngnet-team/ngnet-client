@@ -1,7 +1,7 @@
 @import '../../styles/modules/button';
 
 // ----- Id/Role/Username/Email/More/Modified/Experiance/Actions
-$columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.3fr 0.3fr 3fr;
+$columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr;
 $dashboard-back: getParam(colors, field, fore);
 $dashboard-fore: getParam(colors, field, back);
 
@@ -56,6 +56,10 @@ $dashboard-fore: getParam(colors, field, back);
             > .center {
                 text-align: center;
             }
+        }
+
+        .pager-view {
+            width: 50%;
         }
     }
 }

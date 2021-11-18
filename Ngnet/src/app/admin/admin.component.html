@@ -9,12 +9,12 @@
         <div>Username</div>
         <div>Email</div>
         <div class="center">More</div>
-        <div>Modified</div>
-        <div>Expiriance</div>
+        <div class="center">Modified</div>
+        <div class="center">Expiriance</div>
         <div>Actions</div>
     </div>
     <div class="content">
-        <div *ngFor="let user of users">
+        <div *ngFor="let user of pagedUsers">
             <div>{{user.id}}</div>
             <div>{{user.roleName}}</div>
             <div>{{user.userName}}</div>
@@ -30,10 +30,12 @@
             </div>
             <div>
                 <button class="button">Edit</button>
-                <button class="button">Delete</button>
+                <button class="button" (click)="deleteUser(user)">Delete</button>
                 <button class="button">Reset Password</button>
             </div>
         </div>
+
+        <app-page class="pager-view" [pager]="pager"></app-page>
     </div>
 </div>
 

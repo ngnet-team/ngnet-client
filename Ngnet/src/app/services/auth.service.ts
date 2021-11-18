@@ -7,6 +7,7 @@ import { IRegisterModel } from '../interfaces/auth/register-model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUserRequestModel } from '../interfaces/auth/user-request-model';
 import { IChangeModel } from '../interfaces/change-model';
+import { IAdminUserResponseModel } from '../interfaces/admin/admin-user-response-model';
 
 @Injectable({
   providedIn: 'root'

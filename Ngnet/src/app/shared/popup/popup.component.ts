@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
@@ -15,14 +15,18 @@ import { IconService } from 'src/app/services/icon.service';
 //popup types: confirm, change, info
 export class PopupComponent extends ServerErrorsBase  {
   @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: {} };
-
   //language
   menu: any = this.langService.get(this.selectedLang).popup;
   validations: any = this.langService.get(this.selectedLang).validations;
 
   icons: any = this.iconService.get('popup');
 
-  constructor(langService: LangService, private authService: AuthService, private messageService: MessageService, private iconService: IconService) {
+  constructor(
+    langService: LangService, 
+    private authService: AuthService, 
+    private messageService: MessageService, 
+    private iconService: IconService
+    ) {
     super(langService);
   }
 
