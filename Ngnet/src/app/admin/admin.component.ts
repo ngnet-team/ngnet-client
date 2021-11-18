@@ -60,6 +60,13 @@ export class AdminComponent extends ServerErrorsBase implements DoCheck {
     });
   }
 
+  deleteUser(user: IAdminUserResponseModel) {
+    this.adminService.delete(user).subscribe(res => {
+      console.log(res);
+      this.getAllUsers();
+    });
+  }
+
   openMorePopup(user: IAdminUserResponseModel): void {
     this.infoPopup.getData.content.push(user.firstName
       ? user.firstName + ' ' + user.lastName
@@ -82,8 +89,16 @@ export class AdminComponent extends ServerErrorsBase implements DoCheck {
 
   openExpiriancePopup(user: IAdminUserResponseModel) {
     this.infoPopup.getData.content.push('Entries: ' + user.experiances?.length ?? 0);
-
+    let enter = true;
     user.experiances?.forEach(e => {
+      if (e.loggedIn && enter) {
+        enter = false;
+        this.infoPopup.getData.content.push('----------------------------------------------------');
+      } else if (e.loggedOut && !enter) {
+        enter = true;
+        this.infoPopup.getData.content.push('----------------------------------------------------');
+      }
+
       this.infoPopup.getData.content.push(e.loggedIn ? 'Login: ' + e.loggedIn : 'LogOut: ' + e.loggedOut);
     });
 

@@ -76,7 +76,6 @@ export class NavComponent implements DoCheck {
   }
 
   changeLang(language: string): void {
-    // this.selectedLang = this.selectedLang === environment.lang.bg ? environment.lang.en : environment.lang.bg;
     this.selectedLang = language;
     this.langService.setLocalStorage(this.selectedLang);
     this.menu = this.langService.get(this.selectedLang).navMenu;
