@@ -4,6 +4,7 @@ import { ICompanyModel } from 'src/app/interfaces/company-model';
 import { CompanyService } from 'src/app/services/company.service';
 import { LangService } from 'src/app/services/lang.service';
 import { LangBase } from '../base-classes/lang-base';
+import { IconService } from '../../services/icon.service';
 
 @Component({
   selector: 'app-company-form',
@@ -19,8 +20,14 @@ export class CompanyFormComponent extends LangBase implements OnChanges {
   validations: any = this.langService.get(this.selectedLang).validations;
   //dropdowns
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
+  //icons
+  icons: any = this.iconService.get('companyForm');
 
-  constructor(public companyService: CompanyService, langService: LangService) {
+  constructor(
+    public companyService: CompanyService,
+    langService: LangService,
+    private iconService: IconService
+  ) {
     super(langService);
     this.loadNames();
   }
