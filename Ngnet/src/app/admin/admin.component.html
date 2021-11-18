@@ -1,1 +1,26 @@
-<p>admin works!</p>
+<!-- <app-side-bar [model]="sideMenu"></app-side-bar> -->
+
+<div class="dashboard">
+    <div class="header">
+        <div>Id</div>
+        <div>Role</div>
+        <div>Username</div>
+        <div>Email</div>
+        <div>Name</div>
+        <div>Actions</div>
+    </div>
+    <div class="content">
+        <div *ngFor="let user of users">
+            <div>id</div>
+            <div>{{user.roleName}}</div>
+            <div>{{user.userName}}</div>
+            <div>{{user.email}}</div>
+            <div>{{user.firstName}} {{user.lastName}}</div>
+            <div>
+                <button class="button">Edit</button>
+                <button class="button">Delete</button>
+                <button class="button">Reset Password</button>
+            </div>
+        </div>
+    </div>
+</div>

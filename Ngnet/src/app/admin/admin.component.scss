@@ -1,0 +1,36 @@
+@import '../../styles/modules/button';
+
+$columns: 0.5fr 0.5fr 1fr 1.5fr 1fr 3fr;
+
+.dashboard {
+
+    margin: 100px;
+    padding: 20px;
+
+    background-color: cornsilk;
+
+    .header {
+        display: grid;
+        grid-template-columns: $columns;
+        border-bottom: 1px solid black;
+
+        > div {
+            text-align: left;
+            margin: 10px;
+        }
+    }
+
+    .content {
+
+        > div {
+            display: grid;
+            grid-template-columns: $columns;
+            border-bottom: 1px solid black;
+
+            > div {
+                text-align: left;
+                margin: 10px;
+            }
+        }
+    }
+}
