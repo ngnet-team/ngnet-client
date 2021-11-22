@@ -140,11 +140,28 @@
             "options": [
                 {
                     "name": "Потребители",
-                    "url": "users"
+                    "url": "/users"
                 },
                 {
                     "name": "Задачи",
-                    "url": "tasks"
+                    "url": "/tasks"
+                }
+            ]
+        },
+        "filter": {
+            "title": "Филтър",
+            "options": [
+                {
+                    "name": "Всички",
+                    "url": "all"
+                },
+                {
+                    "name": "Променени",
+                    "url": "modified"
+                },
+                {
+                    "name": "Изтрити",
+                    "url": "deleted"
                 }
             ]
         }

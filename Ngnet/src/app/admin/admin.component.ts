@@ -21,6 +21,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
   //models
   users: IAdminUserModel[] = [];
+  filteredUsers: IAdminUserModel[] = [];
   pagedUsers: IAdminUserModel[] = [];
   deletingUser: IAdminUserModel = {};
 
@@ -28,8 +29,10 @@ export class AdminComponent extends PagerBase implements DoCheck {
   @Output() sideMenu: ISideBarModel = { visible: false };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'admin', content: [] } };
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin', switcher: false, label: 'Permanent' } };
+  @Output() filterDropdown: { field: string, type: string, value: string } = { field: 'filter', type: 'state', value: '' };
 
   icons: any = this.iconService.get('admin');
+  filteredBy: string = 'all';
 
   constructor(
     private adminService: AdminService,
@@ -59,21 +62,28 @@ export class AdminComponent extends PagerBase implements DoCheck {
       this.delete();
       this.confirmPopup.confirmed = false;
     }
+
+    //change filter only the value is different and existing one
+    if (this.filterDropdown.value && this.filterDropdown.value !== this.filteredBy) {
+      this.filteredBy = this.filterDropdown.value;
+      this.filter();
+    }
   }
 
   getAllUsers() {
     this.adminService.getAllUsers().subscribe({
       next: (res) => {
         this.users = res;
+        this.filter();
         //results view
-        this.pagedUsers = this.pagination(this.users);
+        this.pagedUsers = this.pagination(this.filteredUsers);
         //no items in the page
         if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
-          //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
+          //TODO 
+          console.log('re-render results when the last item is deleted in current page to show previus one if avaliable');
         }
       },
       error: (err) => {
-        console.log(err);
         if (err?.error) {
           this.serverErrors = err?.error;
           this.setServerError();
@@ -145,10 +155,34 @@ export class AdminComponent extends PagerBase implements DoCheck {
     this.infoPopup.visible = true;
   }
 
+  private filter() {
+    switch (this.filteredBy) {
+      case 'all':
+        this.filteredUsers = this.users;
+        break;
+      case 'modified':
+        this.filteredUsers = this.users.filter(u => u.modifiedOn);
+        break;
+      case 'deleted':
+        this.filteredUsers = this.users.filter(u => u.isDeleted);
+        break;
+      default:
+        this.filteredUsers = this.users;
+        break;
+    }
+
+    this.pagedUsers = this.pagination(this.filteredUsers);
+    //no items in the page
+    if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
+      //TODO 
+      console.log('re-render results when the last item is deleted in current page to show previus one if avaliable');
+    }
+  }
+
   override pagerListener(): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;
-      this.pagedUsers = this.pagination(this.users);
+      this.pagedUsers = this.pagination(this.filteredUsers);
     }));
   }
 }
