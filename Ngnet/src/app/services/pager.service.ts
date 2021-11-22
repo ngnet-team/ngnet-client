@@ -10,7 +10,7 @@ export class PagerService {
   model: IPageModel = { 
     visible: false,
     length: 0, 
-    perPage: environment.pagination.itemsPerPage, 
+    perPage: environment.pagination.countsPerPage, 
     pageNumber: 1, 
     numbers: [], 
     totalPages: 0 
@@ -20,7 +20,7 @@ export class PagerService {
   
   @Output() pageSelect: EventEmitter<number> = new EventEmitter();
   
-  constructor() { }
+  constructor() {}
 
   skipTake(length: number): { skip: number, take: number } {
     this.model.totalPages = this.setPageNumbers(length);
@@ -56,5 +56,11 @@ export class PagerService {
     const end: number | null = this.model.totalPages;
 
     return page < start ? null : page > end ? null : page;
+  }
+
+  setPerPage(counts: number) {
+    if (counts > 0) {
+      this.model.perPage = counts;
+    }
   }
 }

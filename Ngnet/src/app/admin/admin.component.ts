@@ -1,6 +1,6 @@
 import { Component, DoCheck, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IAdminUserResponseModel } from '../interfaces/admin/admin-user-response-model';
+import { IAdminUserModel } from '../interfaces/admin/admin-user-model';
 import { IPageModel } from '../interfaces/page-model';
 import { IPopupModel } from '../interfaces/popup-model';
 import { ISideBarModel } from '../interfaces/side-bar-model';
@@ -8,6 +8,7 @@ import { AdminService } from '../services/admin.service';
 import { AuthService } from '../services/auth.service';
 import { IconService } from '../services/icon.service';
 import { LangService } from '../services/lang.service';
+import { MessageService } from '../services/message.service';
 import { PagerService } from '../services/pager.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
 
@@ -19,12 +20,14 @@ import { PagerBase } from '../shared/base-classes/pager-base';
 export class AdminComponent extends PagerBase implements DoCheck {
 
   //models
-  users: IAdminUserResponseModel[] = [];
-  pagedUsers: IAdminUserResponseModel[] = [];
+  users: IAdminUserModel[] = [];
+  pagedUsers: IAdminUserModel[] = [];
+  deletingUser: IAdminUserModel = {};
 
   @Output() pager: IPageModel = this.pagerService.model;
   @Output() sideMenu: ISideBarModel = { visible: false };
-  @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care', content: [] } };
+  @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'admin', content: [] } };
+  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin', switcher: false, label: 'Permanent' } };
 
   icons: any = this.iconService.get('admin');
 
@@ -35,6 +38,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
     router: ActivatedRoute,
     langService: LangService,
     pagerService: PagerService,
+    private messageService: MessageService,
     private iconService: IconService
   ) {
     super(pagerService, langService);
@@ -42,6 +46,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
       this.route.navigateByUrl('not-found');
     };
     this.getAllUsers();
+    this.pagerService.setPerPage(10);
   }
 
   ngDoCheck(): void {
@@ -49,18 +54,23 @@ export class AdminComponent extends PagerBase implements DoCheck {
     if (!this.infoPopup.visible && this.infoPopup.getData.content.length !== 0) {
       this.infoPopup.getData.content = [];
     }
+
+    if (this.confirmPopup.confirmed) {
+      this.delete();
+      this.confirmPopup.confirmed = false;
+    }
   }
 
   getAllUsers() {
     this.adminService.getAllUsers().subscribe({
       next: (res) => {
         this.users = res;
-         //results view
-         this.pagedUsers = this.pagination(this.users);
-         //no items in the page
-         if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
-           //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
-         }
+        //results view
+        this.pagedUsers = this.pagination(this.users);
+        //no items in the page
+        if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
+          //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
+        }
       },
       error: (err) => {
         console.log(err);
@@ -72,14 +82,32 @@ export class AdminComponent extends PagerBase implements DoCheck {
     });
   }
 
-  deleteUser(user: IAdminUserResponseModel) {
-    // this.adminService.delete(user).subscribe(res => {
-    //   console.log(res);
-    //   this.getAllUsers();
-    // });
+  delete(permanent: boolean = false) {
+    this.deletingUser.isDeleted = true;
+    this.deletingUser.permanentDeletion = permanent;
+    this.adminService.update(this.deletingUser).subscribe({
+      next: (res) => {
+        const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
+        this.getAllUsers();
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
   }
 
-  openMorePopup(user: IAdminUserResponseModel): void {
+  openConfirmPopup(user: IAdminUserModel): void {
+    this.deletingUser = user;
+    this.confirmPopup.visible = true;
+  };
+
+  openMorePopup(user: IAdminUserModel): void {
     this.infoPopup.getData.content.push(user.firstName
       ? user.firstName + ' ' + user.lastName
       : 'There is no more information',
@@ -88,7 +116,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
     this.infoPopup.visible = true;
   }
 
-  openModifiedPopup(user: IAdminUserResponseModel): void {
+  openModifiedPopup(user: IAdminUserModel): void {
     this.infoPopup.getData.content.push(user.isDeleted
       ? 'The user has been deleted on ' + user.deletedOn
       : user.modifiedOn
@@ -99,7 +127,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
     this.infoPopup.visible = true;
   }
 
-  openExpiriancePopup(user: IAdminUserResponseModel) {
+  openExpiriancePopup(user: IAdminUserModel) {
     this.infoPopup.getData.content.push('Entries: ' + user.experiances?.length ?? 0);
     let enter = true;
     user.experiances?.forEach(e => {
@@ -116,7 +144,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
     this.infoPopup.visible = true;
   }
-  
+
   override pagerListener(): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;

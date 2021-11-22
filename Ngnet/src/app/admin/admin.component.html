@@ -14,7 +14,7 @@
         <div>Actions</div>
     </div>
     <div class="content">
-        <div *ngFor="let user of pagedUsers">
+        <div *ngFor="let user of pagedUsers" [ngClass]="user.isDeleted ? 'deleted' : user.modifiedOn ? 'modified' : ''">
             <div>{{user.id}}</div>
             <div>{{user.roleName}}</div>
             <div>{{user.userName}}</div>
@@ -30,14 +30,16 @@
             </div>
             <div>
                 <button class="button">Edit</button>
-                <button class="button" (click)="deleteUser(user)">Delete</button>
+                <button class="button" (click)="openConfirmPopup(user)">Delete</button>
                 <button class="button">Reset Password</button>
             </div>
         </div>
 
-        <app-page class="pager-view" [pager]="pager"></app-page>
+        <app-page [pager]="pager"></app-page>
     </div>
 </div>
 
 <!-- -------------- popup items -------------- -->
 <app-popup [input]="infoPopup"></app-popup>
+
+<app-popup [input]="confirmPopup"></app-popup>

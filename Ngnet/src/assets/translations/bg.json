@@ -70,7 +70,8 @@
         "requiredPassword": "Паролата е задължителна!",
         "passwordLength": "Паролата трябва да бъде минимум 6 символа!",
         "companyNameRequired": "Името на компанията е задължително!",
-        "requiredField": "Полето е задължително."
+        "requiredField": "Полето е задължително.",
+        "forbiddenField": "Полето е забранено."
     },
     "care": {
         "for": "За",

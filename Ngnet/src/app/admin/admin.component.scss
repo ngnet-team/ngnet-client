@@ -58,8 +58,12 @@ $dashboard-fore: getParam(colors, field, back);
             }
         }
 
-        .pager-view {
-            width: 50%;
+        .deleted {
+            color: getParam(constants, alertColor);
+        }
+
+        .modified {
+            color: getParam(constants, successColor, back);
         }
     }
 }

@@ -4,14 +4,15 @@ $box: getParam(fonts, size, huge);
 $box-gap: getParam(margins, small);
 
 .pagination {
+    width: max-content;
+
     display: grid;
     // ------------------ left left pages right right
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: $box $box 1fr $box $box;
     column-gap: $box-gap;
 
     margin: getParam(margins, large) getParam(margins, small);
     font-size: getParam(fonts, size, big);
-
     color: getParam(colors, action, fore);
 
     .arrow {
