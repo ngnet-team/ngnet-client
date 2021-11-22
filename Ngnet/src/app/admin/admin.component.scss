@@ -43,7 +43,7 @@ $dashboard-fore: getParam(colors, field, back);
 
     .content {
 
-        > div {
+        > .user {
             display: grid;
             grid-template-columns: $columns;
             border-bottom: getBorder(field, $dashboard-fore);
@@ -53,6 +53,16 @@ $dashboard-fore: getParam(colors, field, back);
                 margin: getParam(paddings, small);
 
                 .more {
+                    color: getParam(colors, area, fore);
+                    font-size: getParam(fonts, size, normal);;
+                    cursor: pointer;
+            
+                    &:hover {
+                        color: getParam(colors, area, hover, fore);
+                    }
+                }
+
+                .pencil {
                     color: getParam(colors, area, fore);
                     font-size: getParam(fonts, size, normal);;
                     cursor: pointer;

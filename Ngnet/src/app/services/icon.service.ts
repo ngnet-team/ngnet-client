@@ -5,7 +5,8 @@ import {
   faCaretDown, faCheckDouble, //dropdown
   faTimesCircle, //popup
   faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight, //pager
-  faBuilding, faPhone, faAddressCard, faSitemap, faEnvelopeOpen //companyForm
+  faBuilding, faPhone, faAddressCard, faSitemap, faEnvelopeOpen, //companyForm
+  faPencilAlt, //admin
 } from '@fortawesome/free-solid-svg-icons';
 import { IIconModel } from '../interfaces/icon-model';
 
@@ -81,6 +82,7 @@ export class IconService {
       icons:
       {
         more: faPlus,
+        edit: faPencilAlt,
       },
     },
   ];
