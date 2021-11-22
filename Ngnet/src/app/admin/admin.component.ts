@@ -1,6 +1,7 @@
 import { Component, DoCheck, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAdminUserModel } from '../interfaces/admin/admin-user-model';
+import { IChangeModel } from '../interfaces/change-model';
 import { IPageModel } from '../interfaces/page-model';
 import { IPopupModel } from '../interfaces/popup-model';
 import { ISideBarModel } from '../interfaces/side-bar-model';
@@ -29,10 +30,13 @@ export class AdminComponent extends PagerBase implements DoCheck {
   @Output() sideMenu: ISideBarModel = { visible: false };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'admin', content: [] } };
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin', switcher: false, label: 'Permanent' } };
+  @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'admin' } };
   @Output() filterDropdown: { field: string, type: string, value: string } = { field: 'filter', type: 'state', value: '' };
 
   icons: any = this.iconService.get('admin');
+  //temporary
   filteredBy: string = 'all';
+  changingUserId: string | undefined;
 
   constructor(
     private adminService: AdminService,
@@ -68,6 +72,20 @@ export class AdminComponent extends PagerBase implements DoCheck {
       this.filteredBy = this.filterDropdown.value;
       this.filter();
     }
+
+    // get the returned new value when popup is closed
+    if (this.changePopup.returnData && !this.changePopup.visible) {
+
+      const changeModel = {
+        old: this.changePopup.returnData.old,
+        new: this.changePopup.returnData.new,
+        repeatNew: this.changePopup.returnData.repeatNew,
+        value: this.changePopup.getData.type,
+      } as IChangeModel;
+
+      this.change(changeModel);
+      this.changePopup.returnData = undefined;
+    }
   }
 
   getAllUsers() {
@@ -90,6 +108,45 @@ export class AdminComponent extends PagerBase implements DoCheck {
         };
       }
     });
+  }
+
+  change(input: IChangeModel): void {
+    if (!this.changingUserId) {
+      return;
+    }
+    input.userId = this.changingUserId;
+    this.authService.change(input).subscribe({
+      next: (res) => {
+        const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
+        this.getAllUsers();
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
+  openChangePopup(label: string, type: string, user: IAdminUserModel) {
+    this.changingUserId = user.id;
+
+    this.changePopup.getData = {
+      label: label.toLowerCase(),
+      type: type,
+    };
+
+    if (type === 'email') {
+      this.changePopup.getData.value = user.email;
+    }
+
+    this.changePopup.type = 'change';
+    this.changePopup.visible = true;
+    this.errors = [];
   }
 
   delete(permanent: boolean = false) {
