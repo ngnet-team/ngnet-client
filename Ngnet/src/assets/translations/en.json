@@ -70,7 +70,8 @@
         "requiredPassword": "The password is required!",
         "passwordLength": "The password should be at least 6 characters!",
         "companyNameRequired": "The company name is required!",
-        "requiredField": "The field is required."
+        "requiredField": "The field is required.",
+        "forbiddenField": "The field is forbidden."
     },
     "care": {
         "for": "For",
@@ -139,11 +140,28 @@
             "options": [
                 {
                     "name": "Users",
-                    "url": "users"
+                    "url": "/users"
                 },
                 {
                     "name": "Tasks",
-                    "url": "tasks"
+                    "url": "/tasks"
+                }
+            ]
+        },
+        "filter": {
+            "title": "Filter",
+            "options": [
+                {
+                    "name": "All",
+                    "url": "all"
+                },
+                {
+                    "name": "Modified",
+                    "url": "modified"
+                },
+                {
+                    "name": "Deleted",
+                    "url": "deleted"
                 }
             ]
         }

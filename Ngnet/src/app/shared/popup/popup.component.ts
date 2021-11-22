@@ -14,7 +14,7 @@ import { IconService } from 'src/app/services/icon.service';
 })
 //popup types: confirm, change, info
 export class PopupComponent extends ServerErrorsBase  {
-  @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: {} };
+  @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: undefined };
   //language
   menu: any = this.langService.get(this.selectedLang).popup;
   validations: any = this.langService.get(this.selectedLang).validations;
@@ -48,7 +48,12 @@ export class PopupComponent extends ServerErrorsBase  {
 
   }
 
-  confirm(): void {
+  confirm(switcher: boolean = false): void {
+    if (switcher) {
+      return;
+      this.input.getData.switcher = switcher;
+    }
+
     this.input.confirmed = true;
     this.exit();
   }

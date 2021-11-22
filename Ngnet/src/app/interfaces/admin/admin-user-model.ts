@@ -1,6 +1,6 @@
 import { IUserExperianceModel } from "./user-experiance-model";
 
-export interface IAdminUserResponseModel {
+export interface IAdminUserModel {
     id?: string,
     email?: string,
     userName?: string,
@@ -13,5 +13,6 @@ export interface IAdminUserResponseModel {
     modifiedOn?: string,
     deletedOn?: string,
     isDeleted?: boolean
-    experiances?: IUserExperianceModel[]
+    experiances?: IUserExperianceModel[],
+    permanentDeletion?: boolean
 }

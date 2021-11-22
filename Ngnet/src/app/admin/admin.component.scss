@@ -1,5 +1,15 @@
 @import '../../styles/modules/button';
 
+.admin {
+    position: relative;
+}
+
+.filter {
+    position: absolute;
+    top: getParam(margins, normal);
+    left: getParam(margins, normal);
+}
+
 // ----- Id/Role/Username/Email/More/Modified/Experiance/Actions
 $columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr;
 $dashboard-back: getParam(colors, field, fore);
@@ -58,8 +68,12 @@ $dashboard-fore: getParam(colors, field, back);
             }
         }
 
-        .pager-view {
-            width: 50%;
+        .deleted {
+            color: getParam(constants, alertColor);
+        }
+
+        .modified {
+            color: getParam(constants, successColor, back);
         }
     }
 }

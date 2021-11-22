@@ -24,8 +24,6 @@ export class PageComponent implements DoCheck {
     if (!this.pagerService.validatePage(page)) { return; };
     
     this.pageSelect = page;
-    
-    console.log(this.pageSelect);
     this.pagerService.pageClick(page);
   }
 

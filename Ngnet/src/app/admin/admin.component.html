@@ -1,43 +1,50 @@
 <!-- <app-side-bar [model]="sideMenu"></app-side-bar> -->
 
-<!-- -------------- User Dashboard -------------- -->
+<div class="admin">
+    <app-dropdown class="filter" [input]="filterDropdown"></app-dropdown>
 
-<div class="dashboard">
-    <div class="header">
-        <div>Id</div>
-        <div>Role</div>
-        <div>Username</div>
-        <div>Email</div>
-        <div class="center">More</div>
-        <div class="center">Modified</div>
-        <div class="center">Expiriance</div>
-        <div>Actions</div>
-    </div>
-    <div class="content">
-        <div *ngFor="let user of pagedUsers">
-            <div>{{user.id}}</div>
-            <div>{{user.roleName}}</div>
-            <div>{{user.userName}}</div>
-            <div>{{user.email}}</div>
-            <div class="center">
-                <fa-icon class="more" [icon]="icons.more" (click)="openMorePopup(user)"></fa-icon>
-            </div>
-            <div class="center">
-                <fa-icon class="more" [icon]="icons.more" (click)="openModifiedPopup(user)"></fa-icon>
-            </div>
-            <div class="center">
-                <fa-icon class="more" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
-            </div>
-            <div>
-                <button class="button">Edit</button>
-                <button class="button" (click)="deleteUser(user)">Delete</button>
-                <button class="button">Reset Password</button>
-            </div>
+    <!-- -------------- User Dashboard -------------- -->
+
+    <div class="dashboard">
+        <div class="header">
+            <div>Id</div>
+            <div>Role</div>
+            <div>Username</div>
+            <div>Email</div>
+            <div class="center">More</div>
+            <div class="center">Modified</div>
+            <div class="center">Expiriance</div>
+            <div>Actions</div>
         </div>
+        <div class="content">
+            <div *ngFor="let user of pagedUsers"
+                [ngClass]="user.isDeleted ? 'deleted' : user.modifiedOn ? 'modified' : ''">
+                <div>{{user.id}}</div>
+                <div>{{user.roleName}}</div>
+                <div>{{user.userName}}</div>
+                <div>{{user.email}}</div>
+                <div class="center">
+                    <fa-icon class="more" [icon]="icons.more" (click)="openMorePopup(user)"></fa-icon>
+                </div>
+                <div class="center">
+                    <fa-icon class="more" [icon]="icons.more" (click)="openModifiedPopup(user)"></fa-icon>
+                </div>
+                <div class="center">
+                    <fa-icon class="more" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
+                </div>
+                <div>
+                    <button class="button">Edit</button>
+                    <button class="button" (click)="openConfirmPopup(user)">Delete</button>
+                    <button class="button">Reset Password</button>
+                </div>
+            </div>
 
-        <app-page class="pager-view" [pager]="pager"></app-page>
+            <app-page [pager]="pager"></app-page>
+        </div>
     </div>
 </div>
 
 <!-- -------------- popup items -------------- -->
 <app-popup [input]="infoPopup"></app-popup>
+
+<app-popup [input]="confirmPopup"></app-popup>

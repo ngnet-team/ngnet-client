@@ -56,6 +56,7 @@ export class CareComponent extends PagerBase implements DoCheck {
     super(pagerService, langService);
     this.loadNames();
     this.self();
+    this.pagerService.setPerPage(4);
   }
 
   ngDoCheck(): void {
