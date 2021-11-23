@@ -57,82 +57,46 @@ export class AdminComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    //empty popup content when closed
+    //INFO popup: empty popup content when closed
     if (!this.infoPopup.visible && this.infoPopup.getData.content.length !== 0) {
       this.infoPopup.getData.content = [];
     }
 
+    //CONFIRM popup
     if (this.confirmPopup.confirmed) {
       this.delete();
       this.confirmPopup.confirmed = false;
     }
 
-    //change filter only the value is different and existing one
+    //DROPDOWN input: change filter only the value is different and existing one
     if (this.filterDropdown.value && this.filterDropdown.value !== this.filteredBy) {
       this.filteredBy = this.filterDropdown.value;
       this.filter();
     }
 
-    // get the returned new value when popup is closed
+    //CHANGE popup: get the returned new value when popup is closed
     if (this.changePopup.returnData && !this.changePopup.visible) {
 
-      const changeModel = {
-        old: this.changePopup.returnData.old,
-        new: this.changePopup.returnData.new,
-        repeatNew: this.changePopup.returnData.repeatNew,
-        value: this.changePopup.getData.type,
-      } as IChangeModel;
+      if (this.changePopup.getData.type === 'role') {
+        this.changeRole(this.changePopup.returnData.new);
+      } else {
+        
+        const changeModel = {
+          old: this.changePopup.returnData.old,
+          new: this.changePopup.returnData.new,
+          repeatNew: this.changePopup.returnData.repeatNew,
+          value: this.changePopup.getData.type,
+        } as IChangeModel;
+  
+        this.change(changeModel);
+      }
 
-      this.change(changeModel);
       this.changePopup.returnData = undefined;
     }
   }
 
-  getAllUsers() {
-    this.adminService.getAllUsers().subscribe({
-      next: (res) => {
-        this.users = res;
-        this.filter();
-        //results view
-        this.pagedUsers = this.pagination(this.filteredUsers);
-        //no items in the page
-        if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
-          //TODO 
-          console.log('re-render results when the last item is deleted in current page to show previus one if avaliable');
-        }
-      },
-      error: (err) => {
-        if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
-        };
-      }
-    });
-  }
-
-  change(input: IChangeModel): void {
-    if (!this.changingUserId) {
-      return;
-    }
-    input.userId = this.changingUserId;
-    this.authService.change(input).subscribe({
-      next: (res) => {
-        const msg = this.messageService.getMsg(res, this.selectedLang);
-        this.messageService.event.emit(msg);
-        this.getAllUsers();
-      },
-      error: (err) => {
-        if (err?.error?.errors) {
-          this.unhandledServerError(err?.error.errors);
-        } else if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
-        };
-      }
-    });
-  }
-
-  openChangePopup(label: string, type: string, user: IAdminUserModel) {
+  // ------- Popups -------
+  openChangePopup(label: string, type: string, user: IAdminUserModel): void {
     this.changingUserId = user.id;
 
     this.changePopup.getData = {
@@ -142,37 +106,19 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
     if (type === 'email') {
       this.changePopup.getData.value = user.email;
+    } else if (type === 'role') {
+      this.changePopup.getData.value = user.roleName;
     }
 
     this.changePopup.type = 'change';
     this.changePopup.visible = true;
     this.errors = [];
   }
-
-  delete(permanent: boolean = false) {
-    this.deletingUser.isDeleted = true;
-    this.deletingUser.permanentDeletion = permanent;
-    this.adminService.update(this.deletingUser).subscribe({
-      next: (res) => {
-        const msg = this.messageService.getMsg(res, this.selectedLang);
-        this.messageService.event.emit(msg);
-        this.getAllUsers();
-      },
-      error: (err) => {
-        if (err?.error?.errors) {
-          this.unhandledServerError(err?.error.errors);
-        } else if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
-        };
-      }
-    });
-  }
-
+  
   openConfirmPopup(user: IAdminUserModel): void {
     this.deletingUser = user;
     this.confirmPopup.visible = true;
-  };
+  }
 
   openMorePopup(user: IAdminUserModel): void {
     this.infoPopup.getData.content.push(user.firstName
@@ -194,7 +140,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
     this.infoPopup.visible = true;
   }
 
-  openExpiriancePopup(user: IAdminUserModel) {
+  openExpiriancePopup(user: IAdminUserModel): void {
     this.infoPopup.getData.content.push('Entries: ' + user.experiances?.length ?? 0);
     let enter = true;
     user.experiances?.forEach(e => {
@@ -211,8 +157,96 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
     this.infoPopup.visible = true;
   }
+  // ------- Private -------
 
-  private filter() {
+  private getAllUsers(): void {
+    this.adminService.getAllUsers().subscribe({
+      next: (res) => {
+        this.users = res;
+        this.filter();
+        //results view
+        this.pagedUsers = this.pagination(this.filteredUsers);
+        //no items in the page
+        if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
+          //TODO 
+          console.log('re-render results when the last item is deleted in current page to show previus one if avaliable');
+        }
+      },
+      error: (err) => {
+        if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
+  private change(input: IChangeModel): void {
+    if (!this.changingUserId) {
+      return;
+    }
+    input.userId = this.changingUserId;
+    this.adminService.change(input).subscribe({
+      next: (res) => {
+        const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
+        this.getAllUsers();
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
+  private changeRole(newRole: string): void {
+    var user = {
+      id: this.changingUserId, 
+      roleName: newRole
+    } as IAdminUserModel;
+
+    this.adminService.changeRole(user).subscribe({
+      next: (res) => {
+        const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
+        this.getAllUsers();
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
+  private delete(permanent: boolean = false): void {
+    this.deletingUser.isDeleted = true;
+    this.deletingUser.permanentDeletion = permanent;
+    this.adminService.update(this.deletingUser).subscribe({
+      next: (res) => {
+        const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
+        this.getAllUsers();
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
+  private filter(): void {
     switch (this.filteredBy) {
       case 'all':
         this.filteredUsers = this.users;

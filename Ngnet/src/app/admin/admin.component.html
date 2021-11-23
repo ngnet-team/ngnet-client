@@ -20,7 +20,10 @@
             <div *ngFor="let user of pagedUsers" class="user"
                 [ngClass]="user.isDeleted ? 'deleted' : user.modifiedOn ? 'modified' : ''">
                 <div>{{user.id}}</div>
-                <div>{{user.roleName}}</div>
+                <div>
+                    {{user.roleName}}
+                    <fa-icon class="pencil" [icon]="icons.edit" (click)="openChangePopup('Role', 'role', user)"></fa-icon>
+                </div>
                 <div>{{user.userName}}</div>
                 <div>
                     {{user.email}}
@@ -36,10 +39,14 @@
                     <fa-icon class="more" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
                 </div>
                 <div>
-                    <button class="button">Edit</button>
                     <button class="button" (click)="openConfirmPopup(user)">Delete</button>
                     <button class="button">Reset Password</button>
                 </div>
+            </div>
+
+            <div *ngFor="let error of errors">
+                <div>Errors:</div>
+                <p class="validation">{{error}}</p>
             </div>
 
             <app-page [pager]="pager"></app-page>
