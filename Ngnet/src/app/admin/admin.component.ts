@@ -37,6 +37,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
   //temporary
   filteredBy: string = 'all';
   changingUserId: string | undefined;
+  info: string = '';
 
   constructor(
     private adminService: AdminService,
@@ -93,6 +94,26 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
       this.changePopup.returnData = undefined;
     }
+  }
+
+  resetPassword(user: IAdminUserModel): void {
+    this.adminService.resetPassword(user).subscribe({
+      next: (res) => {
+        const msg = this.messageService.getMsg(res?.msg, this.selectedLang);
+        this.info = ` Your new password is: ${res?.newPassword}.`;
+        console.log(this.info);
+        this.messageService.event.emit(msg);
+        this.getAllUsers();
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
   }
 
   // ------- Popups -------

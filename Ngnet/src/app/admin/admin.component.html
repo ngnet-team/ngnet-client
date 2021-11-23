@@ -13,7 +13,7 @@
             <div>Email</div>
             <div class="center">More</div>
             <div class="center">Modified</div>
-            <div class="center">Expiriance</div>
+            <div class="center">Experience</div>
             <div>Actions</div>
         </div>
         <div class="content">
@@ -40,13 +40,17 @@
                 </div>
                 <div>
                     <button class="button" (click)="openConfirmPopup(user)">Delete</button>
-                    <button class="button">Reset Password</button>
+                    <button class="button" (click)="resetPassword(user)">Reset Password</button>
                 </div>
             </div>
 
             <div *ngFor="let error of errors">
                 <div>Errors:</div>
                 <p class="validation">{{error}}</p>
+            </div>
+            <div *ngIf="info">
+                <span>Information:</span>
+                <p>{{info}}</p>
             </div>
 
             <app-page [pager]="pager"></app-page>

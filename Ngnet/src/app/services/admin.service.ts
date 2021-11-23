@@ -29,4 +29,8 @@ export class AdminService {
   changeRole(user: IAdminUserModel): Observable<any> {
     return this.http.post(this.adminUrl + '/changeRole', user);
   }
+
+  resetPassword(user: IAdminUserModel): Observable<any> {
+    return this.http.post(this.adminUrl + '/resetPassword', user);
+  }
 }
