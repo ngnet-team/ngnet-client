@@ -1,8 +1,6 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IChangeModel } from 'src/app/interfaces/change-model';
-import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
-import { MessageService } from 'src/app/services/message.service';
 import { ServerErrorsBase } from '../base-classes/server-errors-base';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
@@ -21,17 +19,12 @@ export class PopupComponent extends ServerErrorsBase  {
 
   icons: any = this.iconService.get('popup');
 
-  constructor(
-    langService: LangService, 
-    private authService: AuthService, 
-    private messageService: MessageService, 
-    private iconService: IconService
-    ) {
+  constructor(langService: LangService, private iconService: IconService) {
     super(langService);
   }
 
   change(input: IChangeModel): void {
-    if (input.new !== input.repeatNew) {
+    if (input.repeatNew && input.new !== input.repeatNew) {
       return;
     }
     

@@ -1,4 +1,4 @@
-<div class="profile" [ngClass]="popup.visible ? 'blur' : ''">
+<div class="profile" [ngClass]="changePopup.visible ? 'blur' : ''">
     <div class="header">
         <div class="title">
             {{menu.title}}
@@ -26,14 +26,14 @@
                 <label class="label">{{menu.email}}</label>
                 <div class="single-row">
                     <div>{{user.email}}</div>
-                    <a (click)="openPopup(menu.email, 'email')" class="change">{{menu.change}}</a>
+                    <a (click)="openChangePopup(menu.email, 'email')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
                 <label class="label">{{menu.password}}</label>
                 <div class="single-row">
                     <div>********</div>
-                    <a (click)="openPopup(menu.password, 'password')" class="change">{{menu.change}}</a>
+                    <a (click)="openChangePopup(menu.password, 'password')" class="change">{{menu.change}}</a>
                 </div>
             </div>
             <div class="field">
@@ -65,4 +65,4 @@
     </div>
 </div>
 
-<app-popup [input]="popup" class="popup"></app-popup>
+<app-popup [input]="changePopup" class="popup"></app-popup>

@@ -22,12 +22,12 @@
                 <div>{{user.id}}</div>
                 <div>
                     {{user.roleName}}
-                    <fa-icon class="pencil" [icon]="icons.edit" (click)="openChangePopup('Role', 'role', user)"></fa-icon>
+                    <fa-icon class="pencil" [icon]="icons.edit" (click)="openChangePopup('Role', user, 'role')"></fa-icon>
                 </div>
                 <div>{{user.userName}}</div>
                 <div>
                     {{user.email}}
-                    <fa-icon class="pencil" [icon]="icons.edit" (click)="openChangePopup('Email', 'email', user)"></fa-icon>
+                    <fa-icon class="pencil" [icon]="icons.edit" (click)="openChangePopup('Email', user, 'email', true)"></fa-icon>
                 </div>
                 <div class="center">
                     <fa-icon class="more" [icon]="icons.more" (click)="openMorePopup(user)"></fa-icon>
@@ -39,18 +39,22 @@
                     <fa-icon class="more" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
                 </div>
                 <div>
-                    <button class="button" (click)="openConfirmPopup(user)">Delete</button>
-                    <button class="button" (click)="resetPassword(user)">Reset Password</button>
+                    <button class="button" (click)="openConfirmPopup(user, true)">Delete</button>
+                    <button class="button" (click)="openConfirmPopup(user)">Reset Password</button>
                 </div>
             </div>
 
             <div *ngFor="let error of errors">
-                <div>Errors:</div>
-                <p class="validation">{{error}}</p>
+                <span>Error:</span>
+                <span class="validation">{{error}}</span>
             </div>
-            <div *ngIf="info">
-                <span>Information:</span>
-                <p>{{info}}</p>
+
+            <div *ngFor="let info of infos">
+                <span>Info:</span>
+                <span>{{info}}</span>
+            </div>
+            <div *ngIf="infos || errors">
+                <button class="button" (click)="clear()">Clear</button>
             </div>
 
             <app-page [pager]="pager"></app-page>

@@ -24,20 +24,19 @@ export class AdminComponent extends PagerBase implements DoCheck {
   users: IAdminUserModel[] = [];
   filteredUsers: IAdminUserModel[] = [];
   pagedUsers: IAdminUserModel[] = [];
-  deletingUser: IAdminUserModel = {};
+  updatingUser: IAdminUserModel = {};
 
   @Output() pager: IPageModel = this.pagerService.model;
   @Output() sideMenu: ISideBarModel = { visible: false };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'admin', content: [] } };
-  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin', switcher: false, label: 'Permanent' } };
+  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin' } };
   @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'admin' } };
   @Output() filterDropdown: { field: string, type: string, value: string } = { field: 'filter', type: 'state', value: '' };
 
   icons: any = this.iconService.get('admin');
   //temporary
   filteredBy: string = 'all';
-  changingUserId: string | undefined;
-  info: string = '';
+  infos: string[] | undefined;
 
   constructor(
     private adminService: AdminService,
@@ -64,9 +63,10 @@ export class AdminComponent extends PagerBase implements DoCheck {
     }
 
     //CONFIRM popup
-    if (this.confirmPopup.confirmed) {
+    if (this.confirmPopupChecker(this.confirmPopup).switcher) {
+      this.resetPassword();
+    } else if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
       this.delete();
-      this.confirmPopup.confirmed = false;
     }
 
     //DROPDOWN input: change filter only the value is different and existing one
@@ -75,69 +75,50 @@ export class AdminComponent extends PagerBase implements DoCheck {
       this.filter();
     }
 
-    //CHANGE popup: get the returned new value when popup is closed
-    if (this.changePopup.returnData && !this.changePopup.visible) {
-
-      if (this.changePopup.getData.type === 'role') {
-        this.changeRole(this.changePopup.returnData.new);
-      } else {
-        
-        const changeModel = {
-          old: this.changePopup.returnData.old,
-          new: this.changePopup.returnData.new,
-          repeatNew: this.changePopup.returnData.repeatNew,
-          value: this.changePopup.getData.type,
-        } as IChangeModel;
-  
-        this.change(changeModel);
-      }
-
-      this.changePopup.returnData = undefined;
+    //CHANGE popup
+    const changePopup = this.changePopupChecker(this.changePopup);
+    if (changePopup.repeat) {
+      this.change(changePopup.model);
+    } else if (changePopup.changed) {
+      this.changeRole(changePopup.model);
     }
   }
 
-  resetPassword(user: IAdminUserModel): void {
-    this.adminService.resetPassword(user).subscribe({
-      next: (res) => {
-        const msg = this.messageService.getMsg(res?.msg, this.selectedLang);
-        this.info = ` Your new password is: ${res?.newPassword}.`;
-        console.log(this.info);
-        this.messageService.event.emit(msg);
-        this.getAllUsers();
-      },
-      error: (err) => {
-        if (err?.error?.errors) {
-          this.unhandledServerError(err?.error.errors);
-        } else if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
-        };
-      }
-    });
+  clear() {
+    this.infos = undefined;
+    this.errors = undefined;
   }
 
   // ------- Popups -------
-  openChangePopup(label: string, type: string, user: IAdminUserModel): void {
-    this.changingUserId = user.id;
+  openChangePopup(label: string, user: IAdminUserModel, type: string, repeat: boolean = false): void {
+    this.updatingUser = user;
 
     this.changePopup.getData = {
       label: label.toLowerCase(),
-      type: type,
+      repeat: repeat
     };
 
-    if (type === 'email') {
+    if (repeat && type === 'email') {
       this.changePopup.getData.value = user.email;
-    } else if (type === 'role') {
+      this.changePopup.getData.type = type;
+    } else {
       this.changePopup.getData.value = user.roleName;
     }
 
     this.changePopup.type = 'change';
     this.changePopup.visible = true;
-    this.errors = [];
+    this.errors = undefined;
   }
   
-  openConfirmPopup(user: IAdminUserModel): void {
-    this.deletingUser = user;
+  openConfirmPopup(user: IAdminUserModel, switcher: boolean = false): void {
+    if (switcher) {
+      this.confirmPopup.getData.switcher = true;
+      this.confirmPopup.getData.label = 'Permanent';
+    } else {
+      this.confirmPopup.getData.switcher = false;
+    }
+
+    this.updatingUser = user;
     this.confirmPopup.visible = true;
   }
 
@@ -203,10 +184,10 @@ export class AdminComponent extends PagerBase implements DoCheck {
   }
 
   private change(input: IChangeModel): void {
-    if (!this.changingUserId) {
+    if (!this.updatingUser) {
       return;
     }
-    input.userId = this.changingUserId;
+    input.userId = this.updatingUser.id;
     this.adminService.change(input).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
@@ -224,10 +205,10 @@ export class AdminComponent extends PagerBase implements DoCheck {
     });
   }
 
-  private changeRole(newRole: string): void {
+  private changeRole(input: IChangeModel): void {
     var user = {
-      id: this.changingUserId, 
-      roleName: newRole
+      id: this.updatingUser.id, 
+      roleName: input.new
     } as IAdminUserModel;
 
     this.adminService.changeRole(user).subscribe({
@@ -248,11 +229,31 @@ export class AdminComponent extends PagerBase implements DoCheck {
   }
 
   private delete(permanent: boolean = false): void {
-    this.deletingUser.isDeleted = true;
-    this.deletingUser.permanentDeletion = permanent;
-    this.adminService.update(this.deletingUser).subscribe({
+    this.updatingUser.isDeleted = true;
+    this.updatingUser.permanentDeletion = permanent;
+    this.adminService.update(this.updatingUser).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
+        this.getAllUsers();
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
+  private resetPassword(): void {
+    this.adminService.resetPassword(this.updatingUser).subscribe({
+      next: (res) => {
+        const msg = this.messageService.getMsg(res?.msg, this.selectedLang);
+        this.infos = [];
+        this.infos.push(` Your new password is: ${res?.newPassword}.`);
         this.messageService.event.emit(msg);
         this.getAllUsers();
       },

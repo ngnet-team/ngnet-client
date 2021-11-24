@@ -60,13 +60,8 @@ export class CareComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    if (!this.confirmPopup.visible) {
-      // console.log('close it');
-    }
-
-    if (this.confirmPopup.confirmed) {
+    if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
       this.remove();
-      this.confirmPopup.confirmed = false;
     }
   }
 
@@ -145,10 +140,8 @@ export class CareComponent extends PagerBase implements DoCheck {
 
   remove(): void {
     const DeleteModel = (this.deletingCare as ICareModel)
-    if (this.confirmPopup.confirmed) {
-      DeleteModel.isDeleted = true;
-      this.save(DeleteModel);
-    }
+    DeleteModel.isDeleted = true;
+    this.save(DeleteModel);
   }
 
   openConfirmPopup(model: ICareModel): void {

@@ -24,7 +24,7 @@ export class NavComponent implements DoCheck {
   @Output() adminDropdown: { field: string, type: string } = { field: 'admin', type: 'route' };
   @Output() managerDropdown: { field: string, type: string } = { field: 'manager', type: 'route' };
   @Output() languageDropdown: { field: string, type: string, value: string } = { field: 'language', type: 'state', value: '' };
-  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'nav' } };
+  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'nav', switcher: false } };
   @Output() tabMenu: boolean = false;
   //language
   event: Subscription[] = [];
@@ -47,10 +47,6 @@ export class NavComponent implements DoCheck {
     //change language only the value is different and existing one
     if (this.languageDropdown.value !== this.selectedLang && this.languageDropdown.value) {
       this.changeLang(this.languageDropdown.value);
-    }
-
-    if (!this.confirmPopup.visible) {
-      // console.log('close it');
     }
 
     if (this.confirmPopup.confirmed) {
