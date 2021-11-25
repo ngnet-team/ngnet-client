@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
 import { LangService } from 'src/app/services/lang.service';
-import { LangBase } from '../base-classes/lang-base';
+import { Base } from '../base-classes/base';
 import { IconService } from 'src/app/services/icon.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { IconService } from 'src/app/services/icon.service';
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent extends LangBase implements OnChanges {
+export class DropdownComponent extends Base implements OnChanges {
 
   @Input() input: { field: string, type: string, value?: string } = { field: '', type: '' };
 

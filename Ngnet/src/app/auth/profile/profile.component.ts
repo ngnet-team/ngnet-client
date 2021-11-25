@@ -42,9 +42,9 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
   }
 
   update(input: IUserRequestModel): void {
-    console.log(input);
     this.authService.update(input).subscribe({
       next: (res) => {
+        console.log(res)
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
         this.getProfile();

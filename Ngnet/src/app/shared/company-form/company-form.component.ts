@@ -3,7 +3,7 @@ import { ICompanyDropDownNames } from 'src/app/interfaces/dropdown/company-dropd
 import { ICompanyModel } from 'src/app/interfaces/company-model';
 import { CompanyService } from 'src/app/services/company.service';
 import { LangService } from 'src/app/services/lang.service';
-import { LangBase } from '../base-classes/lang-base';
+import { Base } from '../base-classes/base';
 import { IconService } from '../../services/icon.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { IconService } from '../../services/icon.service';
   templateUrl: './company-form.component.html',
   styleUrls: ['./company-form.component.scss']
 })
-export class CompanyFormComponent extends LangBase implements OnChanges {
+export class CompanyFormComponent extends Base implements OnChanges {
 
   @Input() company: ICompanyModel = {};
   @Output() dropdown: { field: string, name?: string } = { field: 'names' };

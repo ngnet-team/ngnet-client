@@ -63,11 +63,9 @@ export class AdminComponent extends PagerBase implements DoCheck {
     }
 
     //CONFIRM popup
-    if (this.confirmPopupChecker(this.confirmPopup).switcher) {
-      this.resetPassword();
-    } else if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
-      this.delete();
-    }
+    const confirmPopup = this.confirmPopupChecker(this.confirmPopup);
+    if (confirmPopup.switcher) { this.delete(); } 
+    else if (confirmPopup.confirmed) { this.resetPassword(); }
 
     //DROPDOWN input: change filter only the value is different and existing one
     if (this.filterDropdown.value && this.filterDropdown.value !== this.filteredBy) {
@@ -77,11 +75,8 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
     //CHANGE popup
     const changePopup = this.changePopupChecker(this.changePopup);
-    if (changePopup.repeat) {
-      this.change(changePopup.model);
-    } else if (changePopup.changed) {
-      this.changeRole(changePopup.model);
-    }
+    if (changePopup.repeat) { this.change(changePopup.model); } 
+    else if (changePopup.changed) { this.changeRole(changePopup.model); }
   }
 
   clear() {

@@ -6,14 +6,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
 import { TabService } from 'src/app/services/tab.service';
 import { environment } from 'src/environments/environment';
-import { LangBase } from '../base-classes/lang-base';
+import { Base } from '../base-classes/base';
 
 @Component({
   selector: 'app-tab-menu',
   templateUrl: './tab-menu.component.html',
   styleUrls: ['./tab-menu.component.scss']
 })
-export class TabMenuComponent extends LangBase implements DoCheck {
+export class TabMenuComponent extends Base implements DoCheck {
 
   model: ITabModel = {};
 

@@ -1,9 +1,9 @@
 import { IErrorModel } from "src/app/interfaces/response-error-model";
 import { environment } from "src/environments/environment";
 import { LangService } from "../../services/lang.service";
-import { LangBase } from "./lang-base";
+import { Base } from "./base";
 
-export class ServerErrorsBase extends LangBase {
+export class ServerErrorsBase extends Base {
 
     serverErrors: IErrorModel = {};
     errors: string[] | undefined;
