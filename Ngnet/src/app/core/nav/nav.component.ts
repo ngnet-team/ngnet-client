@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
@@ -16,10 +16,8 @@ import { IconService } from 'src/app/services/icon.service';
 })
 export class NavComponent implements DoCheck {
 
-  message: string = '';
   @Input() tab: ITabModel = {};
   @Input() isLogged: boolean = this.authService.isLogged;
-  isAdmin: boolean = false;
 
   @Output() adminDropdown: { field: string, type: string } = { field: 'admin', type: 'route' };
   @Output() managerDropdown: { field: string, type: string } = { field: 'manager', type: 'route' };
@@ -31,6 +29,10 @@ export class NavComponent implements DoCheck {
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;
   icons: any = this.iconService.get('nav');
+  //temporary
+  message: string = '';
+  isAdmin: boolean = false;
+  notification: boolean = false;
 
   constructor(
     private authService: AuthService, 
@@ -75,6 +77,11 @@ export class NavComponent implements DoCheck {
     this.selectedLang = language;
     this.langService.setLocalStorage(this.selectedLang);
     this.menu = this.langService.get(this.selectedLang).navMenu;
+  }
+
+  notificationToggle(): void {
+    this.notification = !this.notification;
+    this.messageService.notificationEvent.emit(this.notification);
   }
 
   openTabMenu(): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing, //nav
+  faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing, faBell, //nav
   faPlus, faAmbulance, faCar, //care 
   faCaretDown, faCheckDouble, //dropdown
   faTimesCircle, //popup
@@ -28,6 +28,7 @@ export class IconService {
         login: faSignInAlt,
         register: faUserPlus,
         admin: faChessKing,
+        bell: faBell,
       },
     },
     {

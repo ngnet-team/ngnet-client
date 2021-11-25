@@ -5,12 +5,14 @@ import { AppRoutingModule } from '../app-routing.module';
 import { UserRoutingModule } from '../auth/auth-routing.module';
 import { AuthModule } from '../auth/auth.module';
 import { SharedModule } from '../shared/shared.module';
+import { NotificationComponent } from './notification/notification.component';
 
 
 
 @NgModule({
   declarations: [
-    NavComponent
+    NavComponent,
+    NotificationComponent
   ],
   imports: [
     AuthModule,
@@ -20,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
   ],
   exports: [
-    NavComponent
+    NavComponent,
+    NotificationComponent
   ]
 })
 export class CoreModule { }

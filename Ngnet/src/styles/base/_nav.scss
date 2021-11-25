@@ -1,5 +1,9 @@
 @import "api";
 
+$navHeight: 1.75rem;
+//needs to be adjusted
+$bellTop: calc((1.75rem + 0.7rem)  / 2);
+
 .nav {
     display: flex;
     justify-content: space-around;
@@ -9,7 +13,7 @@
     box-shadow: getShadow(field, getParam(colors, field, back));
     padding: getParam(paddings, normal) 3rem;
     margin: getParam(margins, normal) getParam(margins, large);
-    max-height: 1.75rem;
+    max-height: $navHeight;
 }
 
 .nav:hover {
@@ -41,6 +45,12 @@
 
 a {
     color: getParam(colors, field, fore);
+}
+
+.bell {
+    position: absolute;
+    top: $bellTop;
+    right: 10px;
 }
 
 .hamburger {

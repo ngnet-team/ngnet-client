@@ -1,0 +1,25 @@
+<div class="notification" *ngIf="visible">
+    <div class="header">
+        Notifications
+    </div>
+    <div class="messages">
+        <div *ngFor="let health of healthRems">
+            <div class="box-card">
+                <div class="content">
+                    <div class="field">
+                        <label>For:</label>
+                        <div>{{health.name}}</div>
+                    </div>
+                    <div class="field">
+                        <label>Reminder:</label>
+                        <div>{{health.reminder}}</div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="button">Demo</button>
+                    <button class="button">Test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

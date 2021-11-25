@@ -1,7 +1,6 @@
 @import '../base/api';
 
 .box-card {
-
     display: grid;
     grid-template-columns: 1fr auto;
     column-gap: getParam(margins, normal);

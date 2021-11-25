@@ -43,8 +43,14 @@
         <fa-icon class="icon" [icon]="icons.hamburger"></fa-icon>
     </div>
 </div>
+
+<!-- -------------- free items -------------- -->
 <div *ngIf="message" class='message'>
     <div class="content">{{message}}</div>
+</div>
+
+<div class="bell tab" (click)="notificationToggle()">
+    <fa-icon class="icon" [icon]="icons.bell"></fa-icon>
 </div>
 
 <!-- -------------- popup items -------------- -->
