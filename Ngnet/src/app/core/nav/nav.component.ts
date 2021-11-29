@@ -33,6 +33,7 @@ export class NavComponent implements DoCheck {
   message: string = '';
   isAdmin: boolean = false;
   notification: boolean = false;
+  notificationCount: number = 0;
 
   constructor(
     private authService: AuthService, 
@@ -81,7 +82,7 @@ export class NavComponent implements DoCheck {
 
   notificationToggle(): void {
     this.notification = !this.notification;
-    this.messageService.notificationEvent.emit(this.notification);
+    this.messageService.notificationVisibility.emit(this.notification);
   }
 
   openTabMenu(): void {
@@ -102,6 +103,9 @@ export class NavComponent implements DoCheck {
     }));
     this.event.push(this.tabService.event.subscribe(tab => {
       this.tab = tab;
+    }));
+    this.event.push(this.messageService.notificationCount.subscribe(count => {
+      this.notificationCount = count;
     }));
   }
 

@@ -3,21 +3,20 @@
         Notifications
     </div>
     <div class="messages">
-        <div *ngFor="let health of healthRems">
+        <div *ngFor="let care of careRems">
             <div class="box-card">
                 <div class="content">
                     <div class="field">
                         <label>For:</label>
-                        <div>{{health.name}}</div>
+                        <div>{{care.name}}</div>
                     </div>
                     <div class="field">
                         <label>Reminder:</label>
-                        <div>{{health.reminder}}</div>
+                        <div>{{care.reminder}}</div>
                     </div>
                 </div>
-                <div class="buttons">
-                    <button class="button">Demo</button>
-                    <button class="button">Test</button>
+                <div class="exit" (click)="exit(care)">
+                    <fa-icon [icon]="icons.close"></fa-icon>
                 </div>
             </div>
         </div>

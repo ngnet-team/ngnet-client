@@ -3,6 +3,7 @@
 .container {
     background-color: getParam(colors, field, back);
     border-radius: getParam(borders, field, rounding);
+    border: getBorder(field, getParam(colors, field, fore));
     width: 50%;
     max-width: 30rem;
     padding: getParam(paddings, large) 0;

@@ -17,7 +17,7 @@
     &:hover {
         background-color: getParam(colors, action, hover, back);
         color: getParam(colors, action, hover, fore);
-        box-shadow: getShadow(action, getParam(colors, action, hover, back));
+        box-shadow: getShadow(action, getParam(colors, action, active, back));
         cursor: pointer;
         font-weight: bolder;
         margin-right: getParam(paddings, tiny);

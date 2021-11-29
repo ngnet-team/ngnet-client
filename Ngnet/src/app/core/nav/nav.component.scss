@@ -1,3 +1,19 @@
-@import '../../../styles/modules/tab';
-@import '../../../styles/modules/message';
-@import '../../../styles/base/nav';
+@import "../../../styles/modules/tab";
+@import "../../../styles/modules/message";
+@import "../../../styles/base/nav";
+
+.icon[data-count]:after {
+  position: absolute;
+  right: 70%;
+  top: 1%;
+  content: attr(data-count);
+  font-size: 50%;
+  padding: 0.4em;
+  border-radius: 999px;
+  line-height: 0.75em;
+  color: white;
+  background: rgba(255, 0, 0, 0.85);
+  text-align: center;
+  min-width: 2em;
+  font-weight: bold;
+}

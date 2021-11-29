@@ -10,8 +10,10 @@ import { ITimeModel } from '../interfaces/time-model';
 export class MessageService {
 
   private msgUrl: string = environment.serverUrl + 'message';
+  //events
   event: EventEmitter<string> = new EventEmitter();
-  notificationEvent: EventEmitter<boolean> = new EventEmitter();
+  notificationVisibility: EventEmitter<boolean> = new EventEmitter();
+  notificationCount: EventEmitter<number> = new EventEmitter();
   
   constructor(private http: HttpClient) { }
 

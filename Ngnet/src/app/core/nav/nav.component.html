@@ -49,8 +49,9 @@
     <div class="content">{{message}}</div>
 </div>
 
-<div class="bell tab" (click)="notificationToggle()">
-    <fa-icon class="icon" [icon]="icons.bell"></fa-icon>
+<!-- bell -->
+<div class="bell tab borderless" (click)="notificationToggle()">
+    <fa-icon class="icon" [data-count]="notificationCount" [icon]="icons.bell"></fa-icon>
 </div>
 
 <!-- -------------- popup items -------------- -->

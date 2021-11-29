@@ -21,6 +21,11 @@
     border-bottom: 3px solid getParam(colors, field, fore);
 }
 
+.borderless:hover {
+    border-bottom: none;
+    color: getParam(colors, field, hover, fore);
+}
+
 // -------------------------- Tablet --------------------------
 
 @media only screen and (max-width: getParam(media, tablet, landscape)) {

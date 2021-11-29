@@ -1,14 +1,15 @@
 @import '../modules/box-card';
 @import '../modules/button';
 
-$navHeight: 1.75rem;
+$top: calc(1.75rem * 2);
 
 .notification {
     width: 25%;
     height: calc(100% - 5rem);
+    border: getBorder(field, getParam(colors, field, fore));
     position: absolute;
-    top: calc($navHeight);
-    right: 10px;
+    top: $top;
+    right: getParam(margins, large);
     z-index: 1;
 
     display: grid;
@@ -27,5 +28,9 @@ $navHeight: 1.75rem;
         > div {
             margin: getParam(margins, small) 0;
         }
+    }
+
+    &:hover {
+        color: getParam(colors, field, hover, fore);
     }
 }

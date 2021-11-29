@@ -3,7 +3,7 @@
 .form {
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
-    box-shadow: getShadow(field, getParam(colors, field, hover, back));
+    box-shadow: getShadow(field, getParam(colors, field, active, back));
     display: inline-block;
     text-align: center;
     font-size: getParam(fonts, size, normal);
@@ -43,10 +43,10 @@
         }
     }
 
-    &:hover {
-        background-color: getParam(colors, field, hover, back);
-        color: getParam(colors, field, hover, fore);
-    }
+    // &:hover {
+    //     background-color: getParam(colors, field, hover, back);
+    //     color: getParam(colors, field, hover, fore);
+    // }
 }
 
 //validations

@@ -4,7 +4,7 @@
 .results {
     padding: getParam(paddings, large);
     background-color: getParam(colors, field, back);
-    box-shadow: getShadow(field, getParam(colors, field, back));
+    box-shadow: getShadow(field, getParam(colors, field, active, back));
 }
 
 .items {

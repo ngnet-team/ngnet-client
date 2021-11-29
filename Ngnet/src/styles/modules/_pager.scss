@@ -1,6 +1,7 @@
 @import "../base/api";
 
 $box: getParam(fonts, size, huge);
+$arrow-box: $box + 4px;
 $box-gap: getParam(margins, small);
 
 .pagination {
@@ -8,7 +9,7 @@ $box-gap: getParam(margins, small);
 
     display: grid;
     // ------------------ left left pages right right
-    grid-template-columns: $box $box 1fr $box $box;
+    grid-template-columns: $arrow-box $arrow-box 1fr $arrow-box $arrow-box;
     column-gap: $box-gap;
 
     margin: getParam(margins, large) getParam(margins, small);
@@ -16,13 +17,18 @@ $box-gap: getParam(margins, small);
     color: getParam(colors, action, fore);
 
     .arrow {
-        background-color: getParam(colors, field, hover, back);
-        color: getParam(colors, field, hover, fore);
-        width: $box;
-        height: $box;
+        background-color: getParam(colors, action, back);
+        color: getParam(colors, action, fore);
+        width: $arrow-box;
+        height: $arrow-box;
         //needs better positioning
-        text-align: center;
-        padding: getParam(paddings, small) getParam(paddings, tiny) 0 getParam(paddings, tiny);
+        // text-align: center;
+        // padding-top: getParam(paddings, small);
+        > * {
+            position: relative;
+            top: 17%;
+            left: 20%;
+        }
     }
 
     .pages {
@@ -39,15 +45,15 @@ $box-gap: getParam(margins, small);
         justify-content: center;
         text-align: center;
         padding: getParam(paddings, tiny);
-        background-color: getParam(colors, field, hover, back);
-        color: getParam(colors, field, hover, fore);
+        background-color: getParam(colors, action, back);
+        color: getParam(colors, action, fore);
     }
 
     .page:hover,
     .arrow:hover {
         cursor: pointer;
-        background-color: getParam(colors, field, hover, fore);
-        color: getParam(colors, field, hover, back);
+        background-color: getParam(colors, action, hover, back);
+        color: getParam(colors, action, hover, fore);
     }
 
     .disabled:hover {
@@ -56,8 +62,8 @@ $box-gap: getParam(margins, small);
     }
 
     .selected {
-        background-color: getParam(colors, field, hover, fore);
-        color: getParam(colors, field, hover, back);
+        background-color: getParam(colors, action, hover, back);
+        color: getParam(colors, action, hover, fore);
     }
 }
 

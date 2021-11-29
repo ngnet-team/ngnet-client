@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './nav/nav.component';
 import { AppRoutingModule } from '../app-routing.module';
@@ -12,7 +12,10 @@ import { NotificationComponent } from './notification/notification.component';
 @NgModule({
   declarations: [
     NavComponent,
-    NotificationComponent
+    NotificationComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   imports: [
     AuthModule,

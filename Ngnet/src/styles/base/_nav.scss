@@ -2,7 +2,7 @@
 
 $navHeight: 1.75rem;
 //needs to be adjusted
-$bellTop: calc((1.75rem + 0.7rem)  / 2);
+$bellTop: calc((1.75rem + 0.3rem) / 2);
 
 .nav {
     display: flex;
@@ -10,37 +10,31 @@ $bellTop: calc((1.75rem + 0.7rem)  / 2);
     font-size: getParam(fonts, size, normal);
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
-    box-shadow: getShadow(field, getParam(colors, field, back));
+    box-shadow: getShadow(field, getParam(colors, field, active, back));
     padding: getParam(paddings, normal) 3rem;
     margin: getParam(margins, normal) getParam(margins, large);
     max-height: $navHeight;
-}
 
-.nav:hover {
-    background-color: getParam(colors, field, hover, back);
-    color: getParam(colors, field, hover, fore);
-}
+    > div {
+        margin-left: getParam(margins, huge);
+        margin-right: getParam(margins, huge);
+    }
 
-.nav > div {
-    margin-left: getParam(margins, huge);
-    margin-right: getParam(margins, huge);
-}
+    .logo {
+        width: 2.5rem;
+        img {
+            width: 100%;
+        }
+    }
 
-.logged,
-.not-logged {
-    display: flex;
-}
+    .logged,
+    .not-logged {
+        display: flex;
 
-.logo {
-    width: 2.5rem;
-}
-
-.logo img {
-    width: 100%;
-}
-
-.dropdown:hover {
-    cursor: context-menu;
+        .dropdown:hover {
+            cursor: context-menu;
+        }
+    }
 }
 
 a {
@@ -50,7 +44,8 @@ a {
 .bell {
     position: absolute;
     top: $bellTop;
-    right: 10px;
+    right: getParam(margins, large);
+    font-size: getParam(fonts, size, big);
 }
 
 .hamburger {
@@ -104,7 +99,6 @@ a {
 
 @media only screen and (max-width: getParam(media, smartphones, portrait)) {
 }
-
 
 @media only screen and (min-width: 601px) {
     .hamburger {

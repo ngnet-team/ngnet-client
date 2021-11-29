@@ -1,19 +1,23 @@
 @import '../../styles/modules/button';
 
+$dashboard-back: getParam(colors, field, fore);
+$dashboard-fore: getParam(colors, field, back);
+
 .admin {
     position: relative;
 }
 
 .filter {
     position: absolute;
-    top: getParam(margins, normal);
-    left: getParam(margins, normal);
+    top: 0;
+    left: getParam(margins, huge);
+    background-color: $dashboard-back;
+    color: getParam(colors, field, back);
+    padding: getParam(paddings, normal);
 }
 
 // ----- Id/Role/Username/Email/More/Modified/Experiance/Actions
 $columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr;
-$dashboard-back: getParam(colors, field, fore);
-$dashboard-fore: getParam(colors, field, back);
 
 .dashboard {
 
