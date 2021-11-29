@@ -1,8 +1,7 @@
 @import "api";
+@import "../modules/badge";
 
 $navHeight: 1.75rem;
-//needs to be adjusted
-$bellTop: calc((1.75rem + 0.3rem) / 2);
 
 .nav {
     display: flex;
@@ -37,15 +36,16 @@ $bellTop: calc((1.75rem + 0.3rem) / 2);
     }
 }
 
-a {
-    color: getParam(colors, field, fore);
-}
-
-.bell {
+.badge {
     position: absolute;
     top: $bellTop;
     right: getParam(margins, large);
     font-size: getParam(fonts, size, big);
+    color: getParam(colors, field, fore);
+}
+
+a {
+    color: getParam(colors, field, fore);
 }
 
 .hamburger {

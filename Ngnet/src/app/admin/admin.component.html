@@ -22,21 +22,21 @@
                 <div>{{user.id}}</div>
                 <div>
                     {{user.roleName}}
-                    <fa-icon class="pencil" [icon]="icons.edit" (click)="openChangePopup('Role', user, 'role')"></fa-icon>
+                    <fa-icon class="badge" [icon]="icons.edit" (click)="openChangePopup('Role', user, 'role')"></fa-icon>
                 </div>
                 <div>{{user.userName}}</div>
                 <div>
                     {{user.email}}
-                    <fa-icon class="pencil" [icon]="icons.edit" (click)="openChangePopup('Email', user, 'email', true)"></fa-icon>
+                    <fa-icon class="badge" [icon]="icons.edit" (click)="openChangePopup('Email', user, 'email', true)"></fa-icon>
                 </div>
                 <div class="center">
-                    <fa-icon class="more" [icon]="icons.more" (click)="openMorePopup(user)"></fa-icon>
+                    <fa-icon class="badge" [icon]="icons.more" (click)="openMorePopup(user)"></fa-icon>
                 </div>
                 <div class="center">
-                    <fa-icon class="more" [icon]="icons.more" (click)="openModifiedPopup(user)"></fa-icon>
+                    <fa-icon class="badge" [icon]="icons.more" (click)="openModifiedPopup(user)"></fa-icon>
                 </div>
                 <div class="center">
-                    <fa-icon class="more" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
+                    <fa-icon class="badge" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
                 </div>
                 <div>
                     <button class="button" (click)="openConfirmPopup(user, true)">Delete</button>

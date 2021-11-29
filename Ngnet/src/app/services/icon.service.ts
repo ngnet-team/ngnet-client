@@ -29,6 +29,7 @@ export class IconService {
         register: faUserPlus,
         admin: faChessKing,
         bell: faBell,
+        close: faTimesCircle,
       },
     },
     {

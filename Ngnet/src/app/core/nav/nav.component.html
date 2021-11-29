@@ -47,15 +47,17 @@
 <!-- -------------- free items -------------- -->
 <div *ngIf="message" class='message'>
     <div class="content">{{message}}</div>
+    <div *ngIf="message" class="remove" (click)="removeMessage()">
+        <fa-icon class="icon" [icon]="icons.close"></fa-icon>
+    </div>
 </div>
 
 <!-- bell -->
-<div class="bell tab borderless" (click)="notificationToggle()">
+<div class="badge tab borderless" (click)="notificationToggle()">
     <fa-icon class="icon" [data-count]="notificationCount" [icon]="icons.bell"></fa-icon>
 </div>
 
 <!-- -------------- popup items -------------- -->
-<a *ngIf="message" class="remove" (click)="removeMessage()">x</a>
 
 <app-popup [input]="confirmPopup"></app-popup>
 

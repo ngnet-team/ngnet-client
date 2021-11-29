@@ -1,4 +1,4 @@
-@import '../base/api';
+@import "../base/api";
 
 .message {
     text-align: center;
@@ -6,20 +6,22 @@
     background-color: getParam(constants, successColor, back);
     color: getParam(constants, successColor, fore);
     font-size: getParam(fonts, size, normal);
-}
-
-.content {
-    margin: 0 getParam(margins, normal);
-}
-
-.remove {
-    cursor: pointer;
     position: relative;
-    left: 98.5%;
-    bottom: 2.8%;
-    font-size: getParam(fonts, size, normal);
-}
 
-.remove:hover {
-    color: getParam(constants, successColor, fore);
+    .content {
+        margin: 0 getParam(margins, normal);
+    }
+
+    .remove {
+        cursor: pointer;
+        position: absolute;
+        top: getParam(margins, small);
+        right: getParam(margins, normal);
+        font-size: getParam(fonts, size, normal);
+        color: getParam(constants, successColor, fore);
+
+        &:hover {
+            color: getParam(constants, successColor, fore);
+        }
+    }
 }

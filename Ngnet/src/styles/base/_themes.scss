@@ -220,10 +220,14 @@ $dark: (
     ),
     opacity: 0.9,
     area: (
-        fore: rgb(21, 32, 64),
+        fore: #303030,
         back: rgb(248, 252, 255),
         active: (
             fore: rgb(21, 32, 64),
+            back: none,
+        ),
+        hover: (
+            fore: #414141,
             back: none,
         ),
     ),

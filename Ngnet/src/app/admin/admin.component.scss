@@ -1,7 +1,8 @@
 @import '../../styles/modules/button';
+@import '../../styles/modules/badge';
 
-$dashboard-back: getParam(colors, field, fore);
-$dashboard-fore: getParam(colors, field, back);
+$dashboard-back: getParam(colors, area, back);
+$dashboard-fore: getParam(colors, area, fore);
 
 .admin {
     position: relative;
@@ -12,7 +13,7 @@ $dashboard-fore: getParam(colors, field, back);
     top: 0;
     left: getParam(margins, huge);
     background-color: $dashboard-back;
-    color: getParam(colors, field, back);
+    color: $dashboard-fore;
     padding: getParam(paddings, normal);
 }
 
@@ -25,7 +26,7 @@ $columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr;
     padding: getParam(paddings, huge);
 
     background-color: $dashboard-back;
-    color: getParam(colors, field, back);
+    color: $dashboard-fore;
     box-shadow: getShadow(field, $dashboard-back);
     font-size: getParam(fonts, size, small);
 
@@ -55,26 +56,6 @@ $columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr;
             > div {
                 text-align: left;
                 margin: getParam(paddings, small);
-
-                .more {
-                    color: getParam(colors, area, fore);
-                    font-size: getParam(fonts, size, normal);;
-                    cursor: pointer;
-            
-                    &:hover {
-                        color: getParam(colors, area, hover, fore);
-                    }
-                }
-
-                .pencil {
-                    color: getParam(colors, area, fore);
-                    font-size: getParam(fonts, size, normal);;
-                    cursor: pointer;
-            
-                    &:hover {
-                        color: getParam(colors, area, hover, fore);
-                    }
-                }
             }
 
             > .center {
