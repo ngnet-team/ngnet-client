@@ -26,6 +26,10 @@
                     <div class="field" *ngIf="care.reminder">
                         <label>{{menu.reminder}}:</label>
                         <div>{{care.reminder}}</div>
+                        <label>Remind me:</label>
+                        <div>
+                            <fa-icon class="badge" [icon]="icons.more" (click)="remind(care)"></fa-icon>
+                        </div>
                     </div>
                     <div class="field" *ngIf="care.price">
                         <label>{{menu.price}}:</label>
@@ -34,7 +38,7 @@
                     <div class="field" *ngIf="care.notes">
                         <label>{{menu.notes}}:</label>
                         <div>
-                            <fa-icon class="more" [icon]="icons.more" (click)="openInfoPopup(care)"></fa-icon>
+                            <fa-icon class="badge" [icon]="icons.more" (click)="openInfoPopup(care)"></fa-icon>
                         </div>
                     </div>
                     <div class="field" *ngIf="care.company?.name">

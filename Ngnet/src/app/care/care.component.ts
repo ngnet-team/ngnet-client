@@ -65,6 +65,29 @@ export class CareComponent extends PagerBase implements DoCheck {
     }
   }
 
+  self(): void {
+    this.careService.self(this.careType).subscribe({
+      next: (res) => {
+        this.errors = [];
+        this.cares = (res as ICareModel[]).filter(x => x.isDeleted === false);
+        //results view
+        this.pagedCares = this.pagination(this.cares);
+        //no items in the page
+        if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
+          //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
+        }
+      },
+      error: (err) => {
+        if (err?.error?.errors) {
+          this.unhandledServerError(err?.error.errors);
+        } else if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
   save(model: ICareModel): void {
     //company selected
     if (this.defaultCare.company?.name === undefined) {
@@ -115,17 +138,27 @@ export class CareComponent extends PagerBase implements DoCheck {
     });
   }
 
-  self(): void {
-    this.careService.self(this.careType).subscribe({
+  remove(): void {
+    const DeleteModel = (this.deletingCare as ICareModel)
+    DeleteModel.isDeleted = true;
+    this.save(DeleteModel);
+  }
+
+  edit(model: ICareModel): void {
+    if (model.company === null) {
+      model.company = { id: undefined };
+    }
+    this.defaultCare = (model as IDefaultCareModel);
+    this.editingCareId = model.id;
+    this.editingCompanyId = model.company?.id;
+  }
+
+  remind(model: ICareModel): void {
+    this.careService.remind(model).subscribe({
       next: (res) => {
-        this.errors = [];
-        this.cares = (res as ICareModel[]).filter(x => x.isDeleted === false);
-        //results view
-        this.pagedCares = this.pagination(this.cares);
-        //no items in the page
-        if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
-          //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
-        }
+        const msg = this.messageService.getMsg(res, this.selectedLang);
+        this.messageService.event.emit(msg);
+        this.self();
       },
       error: (err) => {
         if (err?.error?.errors) {
@@ -138,12 +171,6 @@ export class CareComponent extends PagerBase implements DoCheck {
     });
   }
 
-  remove(): void {
-    const DeleteModel = (this.deletingCare as ICareModel)
-    DeleteModel.isDeleted = true;
-    this.save(DeleteModel);
-  }
-
   openConfirmPopup(model: ICareModel): void {
     this.deletingCare = model;
     this.confirmPopup.visible = true;
@@ -153,15 +180,6 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.infoPopup.getData.content = [];
     this.infoPopup.getData.content.push(model.notes);
     this.infoPopup.visible = true;
-  }
-
-  edit(model: ICareModel): void {
-    if (model.company === null) {
-      model.company = { id: undefined };
-    }
-    this.defaultCare = (model as IDefaultCareModel);
-    this.editingCareId = model.id;
-    this.editingCompanyId = model.company?.id;
   }
 
   private loadNames(): void {
