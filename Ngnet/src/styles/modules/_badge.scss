@@ -1,14 +1,17 @@
+@import '../base/api';
+
 //needs to be adjusted
 $bellTop: calc((1.75rem + 0.3rem) / 2);
 
 .badge {
     font-size: getParam(fonts, size, normal);
-    color: getParam(colors, area, fore);
+    color: getParam(colors, area, for);
 
     &:hover {
         color: getParam(colors, area, hover, fore);
     }
 
+    //not ready
     .icon[data-count]:after {
         position: absolute;
         right: 70%;
@@ -24,4 +27,8 @@ $bellTop: calc((1.75rem + 0.3rem) / 2);
         min-width: 2em;
         font-weight: bold;
     }
+}
+
+.toggle {
+    font-size: getParam(fonts, size, big);
 }

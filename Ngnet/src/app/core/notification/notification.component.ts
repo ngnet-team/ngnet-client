@@ -36,6 +36,7 @@ export class NotificationComponent {
       next: (res) => {
         if (res) {
           this.getReminders();
+          this.messageService.remindClicked.emit(true);
         }
       }
     });
@@ -44,6 +45,9 @@ export class NotificationComponent {
   private subscriptionListener(): void {
     this.event.push(this.messageService.notificationVisibility.subscribe(visible => {
       this.visible = visible;
+    }));
+    this.event.push(this.messageService.remindClicked.subscribe(click => {
+      this.getReminders();
     }));
   }
 }

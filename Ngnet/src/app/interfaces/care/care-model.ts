@@ -7,6 +7,7 @@ export interface ICareModel {
     endDate?: Date,
     paidEndDate?: Date,
     reminder?: Date,
+    remind?: boolean,
     price?: number,
     company?: ICompanyModel,
     notes?: string,

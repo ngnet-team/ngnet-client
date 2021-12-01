@@ -56,6 +56,7 @@ export class CareComponent extends PagerBase implements DoCheck {
     super(pagerService, langService);
     this.loadNames();
     this.self();
+    this.subscriptionListener();
     this.pagerService.setPerPage(4);
   }
 
@@ -158,6 +159,7 @@ export class CareComponent extends PagerBase implements DoCheck {
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
+        this.messageService.remindClicked.emit(true);
         this.self();
       },
       error: (err) => {
@@ -206,6 +208,12 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;
       this.pagedCares = this.pagination(this.cares);
+    }));
+  }
+
+  private subscriptionListener(): void {
+    this.subscription.push(this.messageService.remindClicked.subscribe(click => {
+      this.self();
     }));
   }
 }

@@ -14,6 +14,7 @@ export class MessageService {
   event: EventEmitter<string> = new EventEmitter();
   notificationVisibility: EventEmitter<boolean> = new EventEmitter();
   notificationCount: EventEmitter<number> = new EventEmitter();
+  remindClicked: EventEmitter<boolean> = new EventEmitter();
   
   constructor(private http: HttpClient) { }
 

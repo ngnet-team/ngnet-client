@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing, faBell, //nav
-  faPlus, faAmbulance, faCar, //care 
+  faPlus, faAmbulance, faCar, faToggleOn, faToggleOff, //care 
   faCaretDown, faCheckDouble, //dropdown
   faTimesCircle, //popup
   faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight, //pager
@@ -40,7 +40,9 @@ export class IconService {
         title: {
           healthcare: faAmbulance,
           vehiclecare: faCar,
-        }
+        },
+        toggleOn: faToggleOn,
+        toggleOff: faToggleOff,
       },
     },
     {

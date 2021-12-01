@@ -24,11 +24,15 @@
                         <div>{{care.paidEndDate}}</div>
                     </div>
                     <div class="field" *ngIf="care.reminder">
-                        <label>{{menu.reminder}}:</label>
+                        <label>
+                            {{menu.reminder}}:
+                        </label>
                         <div>{{care.reminder}}</div>
-                        <label>Remind me:</label>
-                        <div>
-                            <fa-icon class="badge" [icon]="icons.more" (click)="remind(care)"></fa-icon>
+                        <div *ngIf="care.remind">
+                            <fa-icon class="badge toggle" [icon]="icons.toggleOn" (click)="remind(care)"></fa-icon>
+                        </div>
+                        <div *ngIf="!care.remind">
+                            <fa-icon class="badge toggle" [icon]="icons.toggleOff" (click)="remind(care)"></fa-icon>
                         </div>
                     </div>
                     <div class="field" *ngIf="care.price">
