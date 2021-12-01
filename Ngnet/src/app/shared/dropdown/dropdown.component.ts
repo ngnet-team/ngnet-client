@@ -53,6 +53,7 @@ export class DropdownComponent extends Base implements OnChanges {
   }
 
   override langListener(): void {
+    super.langListener();
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.jsonDropdown = result.dropdown;
       this.dropdown = this.jsonDropdown[this.input.field];

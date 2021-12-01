@@ -20,7 +20,6 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
 
   //language
   menu: any = this.langService.get(this.selectedLang).profile;
-  validations: any = this.langService.get(this.selectedLang).validations;
 
   constructor(private authService: AuthService, langService: LangService, private messageService: MessageService) {
     super(langService);
@@ -33,12 +32,6 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     if (changePopup.repeat) {
       this.change(changePopup.model);
     }
-  }
-
-  override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.profile;
-    }))
   }
 
   update(input: IUserRequestModel): void {
@@ -99,5 +92,9 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
       this.user = res;
     });
     this.errors = [];
+  }
+
+  override langListener(): void {
+    super.langListener(this.component.profile);
   }
 }

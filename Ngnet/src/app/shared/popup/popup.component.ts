@@ -15,7 +15,6 @@ export class PopupComponent extends ServerErrorsBase  {
   @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: undefined };
   //language
   menu: any = this.langService.get(this.selectedLang).popup;
-  validations: any = this.langService.get(this.selectedLang).validations;
 
   icons: any = this.iconService.get('popup');
 
@@ -56,9 +55,6 @@ export class PopupComponent extends ServerErrorsBase  {
   }
 
   override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.popup;
-      this.validations = result.validations;
-    }));
+    super.langListener(this.component.popup);
   }
 }

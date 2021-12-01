@@ -38,7 +38,6 @@ export class CareComponent extends PagerBase implements DoCheck {
   saveClicked: boolean = this.defaultCare.company == {};
   //language
   menu: any = this.langService.get(this.selectedLang).care;
-  validations: any = this.langService.get(this.selectedLang).validations;
   //labels
   careType: string = this.route.url.slice(1);
   noCares: string = this.menu[this.careType].noCaresFound;
@@ -56,7 +55,7 @@ export class CareComponent extends PagerBase implements DoCheck {
     super(pagerService, langService);
     this.loadNames();
     this.self();
-    this.subscriptionListener();
+    this.listener();
     this.pagerService.setPerPage(4);
   }
 
@@ -191,11 +190,9 @@ export class CareComponent extends PagerBase implements DoCheck {
   }
 
   override langListener(): void {
+    super.langListener(this.component.care);
     this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.selectedLang = result.language
-      this.menu = result.care;
       this.company = result.company;
-      this.validations = result.validations;
 
       if (this.careType) {
         this.noCares = this.menu[this.careType].noCaresFound;
@@ -211,7 +208,7 @@ export class CareComponent extends PagerBase implements DoCheck {
     }));
   }
 
-  private subscriptionListener(): void {
+  private listener(): void {
     this.subscription.push(this.messageService.remindClicked.subscribe(click => {
       this.self();
     }));

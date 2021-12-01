@@ -4,16 +4,36 @@ import { LangService } from "../../services/lang.service";
 
 export class Base {
 
-  selectedLang: string = this.langService.langState;
   subscription: Subscription[] = [];
+  //language
+  selectedLang: string = this.langService.langState;
+  validations: any = this.langService.get(this.selectedLang).validations;
+  menu: any = this.langService.get(this.selectedLang);
+  //components
+  component: any = {
+    none: 'none',
+    admin: 'admin',
+    login: 'login',
+    register: 'register',
+    profile: 'profile',
+    care: 'care',
+    nav: 'nav',
+    notification: 'notification',
+    company: 'company',
+    dropdown: 'dropdown',
+    page: 'page',
+    popup: 'popup',
+  };
 
   constructor(protected langService: LangService) {
     this.langListener();
   }
 
-  protected langListener(): void {
+  public langListener(field: string = this.component.none): void {
     this.subscription.push(this.langService.langEvent.subscribe(result => {
       this.selectedLang = result.language;
+      this.validations = result.validations;
+      this.menu = result[field];
     }));
   }
 

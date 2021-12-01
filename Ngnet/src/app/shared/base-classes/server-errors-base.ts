@@ -19,7 +19,7 @@ export class ServerErrorsBase extends Base {
         if (typeof this.serverErrors === 'string') {
 
             if ((this.serverErrors as string).length > this.longError) {
-                this.errors = [ this.defaultMsg ];
+                this.errors = [this.defaultMsg];
                 return;
             }
 
@@ -31,7 +31,14 @@ export class ServerErrorsBase extends Base {
 
     protected unhandledServerError(errors: any): void {
         for (const key in errors) {
-            this.errors = [ errors[key] ];
+            this.errors = [errors[key]];
         }
+    }
+
+    override langListener(field: string = 'none'): void {
+        super.langListener(field);
+        this.subscription.push(this.langService.langEvent.subscribe(result => {
+            this.setServerError();
+        }))
     }
 }

@@ -17,7 +17,6 @@ export class CompanyFormComponent extends Base implements OnChanges {
   @Output() dropdown: { field: string, name?: string } = { field: 'names' };
   //language
   menu: any = this.langService.get(this.selectedLang).company;
-  validations: any = this.langService.get(this.selectedLang).validations;
   //dropdowns
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
   //icons
@@ -43,10 +42,6 @@ export class CompanyFormComponent extends Base implements OnChanges {
   }
 
   override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.selectedLang = result.language;
-      this.menu = result.company;
-      this.validations = result.validations;
-    }));
+    super.langListener(this.component.company);
   }
 }

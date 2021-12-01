@@ -16,7 +16,6 @@ export class RegisterComponent extends ServerErrorsBase {
 
   //language
   menu: any = this.langService.get(this.selectedLang).register;
-  validations: any = this.langService.get(this.selectedLang).validations;
 
   constructor(private authService: AuthService, private route: Router, langService: LangService, private messageService: MessageService) {
     super(langService);
@@ -41,14 +40,10 @@ export class RegisterComponent extends ServerErrorsBase {
   }
 
   override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.register;
-      this.validations = result.validations;
-      this.setServerError();
-    }))
+    super.langListener(this.component.register);
   }
 
   redirectToLogin(): void {
-    this.route.navigateByUrl('login');
+    this.route.navigateByUrl(this.component.login);
   }
 }
