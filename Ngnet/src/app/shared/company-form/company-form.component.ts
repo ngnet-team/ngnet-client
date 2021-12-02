@@ -3,7 +3,7 @@ import { ICompanyDropDownNames } from 'src/app/interfaces/dropdown/company-dropd
 import { ICompanyModel } from 'src/app/interfaces/company-model';
 import { CompanyService } from 'src/app/services/company.service';
 import { LangService } from 'src/app/services/lang.service';
-import { LangBase } from '../base-classes/lang-base';
+import { Base } from '../base-classes/base';
 import { IconService } from '../../services/icon.service';
 
 @Component({
@@ -11,13 +11,12 @@ import { IconService } from '../../services/icon.service';
   templateUrl: './company-form.component.html',
   styleUrls: ['./company-form.component.scss']
 })
-export class CompanyFormComponent extends LangBase implements OnChanges {
+export class CompanyFormComponent extends Base implements OnChanges {
 
   @Input() company: ICompanyModel = {};
   @Output() dropdown: { field: string, name?: string } = { field: 'names' };
   //language
   menu: any = this.langService.get(this.selectedLang).company;
-  validations: any = this.langService.get(this.selectedLang).validations;
   //dropdowns
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
   //icons
@@ -43,10 +42,6 @@ export class CompanyFormComponent extends LangBase implements OnChanges {
   }
 
   override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.selectedLang = result.language;
-      this.menu = result.company;
-      this.validations = result.validations;
-    }));
+    super.langListener(this.component.company);
   }
 }

@@ -14,13 +14,12 @@ import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent extends ServerErrorsBase implements DoCheck {
-  @Output() popup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'profile' } };
+  @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'profile' } };
 
   user: IUserResponseModel = {};
 
   //language
   menu: any = this.langService.get(this.selectedLang).profile;
-  validations: any = this.langService.get(this.selectedLang).validations;
 
   constructor(private authService: AuthService, langService: LangService, private messageService: MessageService) {
     super(langService);
@@ -28,31 +27,17 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    // get the returned new value when popup is closed
-    if (this.popup.returnData && !this.popup.visible) {
-
-      const changeModel = {
-        old: this.popup.returnData.old,
-        new: this.popup.returnData.new,
-        repeatNew: this.popup.returnData.repeatNew,
-        value: this.popup.getData.type,
-      } as IChangeModel;
-
-      this.change(changeModel);
-      this.popup.returnData = undefined;
+    //CHANGE popup
+    const changePopup = this.changePopupChecker(this.changePopup);
+    if (changePopup.repeat) {
+      this.change(changePopup.model);
     }
   }
 
-  override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.profile;
-    }))
-  }
-
   update(input: IUserRequestModel): void {
-    console.log(input);
     this.authService.update(input).subscribe({
       next: (res) => {
+        console.log(res)
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
         this.getProfile();
@@ -87,19 +72,19 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     });
   }
 
-  openPopup(label: string, type: string) {
-    this.popup.getData = {
+  openChangePopup(label: string, type: string) {
+    this.changePopup.getData = {
       label: label.toLowerCase(),
       type: type,
+      repeat: true,
     };
 
     if (type === 'email') {
-      this.popup.getData.value = this.user.email;
+      this.changePopup.getData.value = this.user.email;
     }
 
-    this.popup.type = 'change';
-    this.popup.visible = true;
-    this.errors = [];
+    this.changePopup.visible = true;
+    this.errors = undefined;
   }
 
   private getProfile(): void {
@@ -107,5 +92,9 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
       this.user = res;
     });
     this.errors = [];
+  }
+
+  override langListener(): void {
+    super.langListener(this.component.profile);
   }
 }

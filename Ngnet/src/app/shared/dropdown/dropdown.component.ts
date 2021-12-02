@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
 import { LangService } from 'src/app/services/lang.service';
-import { LangBase } from '../base-classes/lang-base';
+import { Base } from '../base-classes/base';
 import { IconService } from 'src/app/services/icon.service';
 
 @Component({
@@ -11,14 +11,14 @@ import { IconService } from 'src/app/services/icon.service';
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent extends LangBase implements OnChanges {
+export class DropdownComponent extends Base implements OnChanges {
 
   @Input() input: { field: string, type: string, value?: string } = { field: '', type: '' };
 
   //language
-  jsonDropdown: any = this.langService.get(this.selectedLang).dropdown;
-  dropdown: IJsonDropDownModel = {};
-  icons: any = this.iconService.get('dropdown');
+  menu: any = this.langService.get(this.selectedLang).dropdown;
+  dropdown: IJsonDropDownModel = { icon: '' };
+  icons: any = this.iconService.get(this.component.dropdown);
   //temporary
   showOptions: boolean = false;
   timeOut: any;
@@ -28,7 +28,7 @@ export class DropdownComponent extends LangBase implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dropdown = this.jsonDropdown[this.input.field];
+    this.dropdown = this.menu[this.input.field];
   }
 
   click(option: IDropDownOptionModel) {
@@ -53,9 +53,10 @@ export class DropdownComponent extends LangBase implements OnChanges {
   }
 
   override langListener(): void {
+    super.langListener();
     this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.jsonDropdown = result.dropdown;
-      this.dropdown = this.jsonDropdown[this.input.field];
+      this.menu = result.dropdown;
+      this.dropdown = this.menu[this.input.field];
     }));
   }
 }

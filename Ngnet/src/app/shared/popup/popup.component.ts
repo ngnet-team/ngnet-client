@@ -1,8 +1,6 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IChangeModel } from 'src/app/interfaces/change-model';
-import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
-import { MessageService } from 'src/app/services/message.service';
 import { ServerErrorsBase } from '../base-classes/server-errors-base';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
@@ -17,21 +15,15 @@ export class PopupComponent extends ServerErrorsBase  {
   @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: undefined };
   //language
   menu: any = this.langService.get(this.selectedLang).popup;
-  validations: any = this.langService.get(this.selectedLang).validations;
 
   icons: any = this.iconService.get('popup');
 
-  constructor(
-    langService: LangService, 
-    private authService: AuthService, 
-    private messageService: MessageService, 
-    private iconService: IconService
-    ) {
+  constructor(langService: LangService, private iconService: IconService) {
     super(langService);
   }
 
   change(input: IChangeModel): void {
-    if (input.new !== input.repeatNew) {
+    if (input.repeatNew && input.new !== input.repeatNew) {
       return;
     }
     
@@ -63,9 +55,6 @@ export class PopupComponent extends ServerErrorsBase  {
   }
 
   override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.popup;
-      this.validations = result.validations;
-    }));
+    super.langListener(this.component.popup);
   }
 }

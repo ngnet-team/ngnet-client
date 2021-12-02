@@ -1,42 +1,30 @@
 @import "api";
+@import "../modules/badge";
+
+$navHeight: 1.75rem;
 
 .nav {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    max-height: $navHeight;
     font-size: getParam(fonts, size, normal);
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
-    box-shadow: getShadow(field, getParam(colors, field, back));
-    padding: getParam(paddings, normal) 3rem;
+    box-shadow: getShadow(field, getParam(colors, field, active, back));
+    padding: getParam(paddings, normal);
     margin: getParam(margins, normal) getParam(margins, large);
-    max-height: 1.75rem;
-}
 
-.nav:hover {
-    background-color: getParam(colors, field, hover, back);
-    color: getParam(colors, field, hover, fore);
-}
+    > div {
+        display: flex;
+        justify-content: center;
+    }
 
-.nav > div {
-    margin-left: getParam(margins, huge);
-    margin-right: getParam(margins, huge);
-}
-
-.logged,
-.not-logged {
-    display: flex;
-}
-
-.logo {
-    width: 2.5rem;
-}
-
-.logo img {
-    width: 100%;
-}
-
-.dropdown:hover {
-    cursor: context-menu;
+    .logo {
+        width: 2.5rem;
+        img {
+            width: 100%;
+        }
+    }
 }
 
 a {
@@ -94,7 +82,6 @@ a {
 
 @media only screen and (max-width: getParam(media, smartphones, portrait)) {
 }
-
 
 @media only screen and (min-width: 601px) {
     .hamburger {

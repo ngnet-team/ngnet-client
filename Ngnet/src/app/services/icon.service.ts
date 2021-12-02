@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing, //nav
-  faPlus, faAmbulance, faCar, //care 
+  faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing, faBell, //nav
+  faPlus, faAmbulance, faCar, faToggleOn, faToggleOff, faPager, //care 
   faCaretDown, faCheckDouble, //dropdown
-  faTimesCircle, //popup
+  faTimesCircle, faMinus, //popup
   faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight, //pager
   faBuilding, faPhone, faAddressCard, faSitemap, faEnvelopeOpen, //companyForm
   faPencilAlt, //admin
@@ -28,6 +28,8 @@ export class IconService {
         login: faSignInAlt,
         register: faUserPlus,
         admin: faChessKing,
+        bell: faBell,
+        close: faTimesCircle,
       },
     },
     {
@@ -38,7 +40,10 @@ export class IconService {
         title: {
           healthcare: faAmbulance,
           vehiclecare: faCar,
-        }
+        },
+        toggleOn: faToggleOn,
+        toggleOff: faToggleOff,
+        pager: faPager,
       },
     },
     {
@@ -47,6 +52,10 @@ export class IconService {
       {
         dropdown: faCaretDown,
         option: faCheckDouble,
+        admin: faChessKing,
+        manager: faPoll,
+        language: faLanguage,
+        pager: faPager,
       },
     },
     {
@@ -83,6 +92,15 @@ export class IconService {
       {
         more: faPlus,
         edit: faPencilAlt,
+      },
+    },
+    {
+      field: 'notification',
+      icons:
+      {
+        more: faPlus,
+        less: faMinus,
+        close: faTimesCircle,
       },
     },
   ];

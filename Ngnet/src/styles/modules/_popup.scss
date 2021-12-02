@@ -3,13 +3,13 @@
 .container {
     background-color: getParam(colors, field, back);
     border-radius: getParam(borders, field, rounding);
-    width: 50%;
+    border: getBorder(field, getParam(colors, field, fore));
     max-width: 30rem;
     padding: getParam(paddings, large) 0;
-    z-index: 9999;
+    z-index: 4;
     position: absolute;
     top: 15%;
-    left: calc(25%);
+    left: calc(40%);
 
     .exit {
         position: absolute;

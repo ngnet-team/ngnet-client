@@ -3,7 +3,7 @@
 .tab {
     display: grid;
     grid-template-columns: auto 1fr;
-
+    
     color: getParam(colors, field, fore);
     padding: getParam(paddings, small) getParam(paddings, normal);
     text-align: center;
@@ -15,10 +15,10 @@
     .element:hover {
         cursor: pointer;
     }
-}
 
-.tab:hover {
-    border-bottom: 3px solid getParam(colors, field, fore);
+    &:hover {
+        color: getParam(colors, field, hover, fore);
+    }
 }
 
 // -------------------------- Tablet --------------------------

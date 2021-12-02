@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
+import { Base } from 'src/app/shared/base-classes/base';
 import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
 import { ILoginModel } from '../../interfaces/auth/login-model';
 import { AuthService } from '../../services/auth.service';
@@ -16,7 +17,6 @@ export class LoginComponent extends ServerErrorsBase {
 
   //language
   menu: any = this.langService.get(this.selectedLang).login;
-  validations: any = this.langService.get(this.selectedLang).validations;
 
   constructor(private authService: AuthService, private route: Router, langService: LangService, private messageService: MessageService) {
     super(langService);
@@ -33,6 +33,7 @@ export class LoginComponent extends ServerErrorsBase {
         const msg = this.messageService.getMsg(res.responseMessage, this.selectedLang);
         this.messageService.event.emit(msg);
         this.authService.logginEvent.emit(true);
+        this.messageService.remindClicked.emit(true);
         this.redirect('profile');
       },
       error: (err) => {
@@ -45,11 +46,7 @@ export class LoginComponent extends ServerErrorsBase {
   }
 
   override langListener(): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.login;
-      this.validations = result.validations;
-      this.setServerError();
-    }))
+    super.langListener(this.component.login);
   }
 
   

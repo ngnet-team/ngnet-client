@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
@@ -8,6 +8,7 @@ import { TabService } from 'src/app/services/tab.service';
 import { ITabModel } from 'src/app/interfaces/tab-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
+import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
 
 @Component({
   selector: 'app-nav',
@@ -16,21 +17,24 @@ import { IconService } from 'src/app/services/icon.service';
 })
 export class NavComponent implements DoCheck {
 
-  message: string = '';
   @Input() tab: ITabModel = {};
   @Input() isLogged: boolean = this.authService.isLogged;
-  isAdmin: boolean = false;
 
-  @Output() adminDropdown: { field: string, type: string } = { field: 'admin', type: 'route' };
-  @Output() managerDropdown: { field: string, type: string } = { field: 'manager', type: 'route' };
-  @Output() languageDropdown: { field: string, type: string, value: string } = { field: 'language', type: 'state', value: '' };
-  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'nav' } };
+  @Output() adminDropdown: IDropDownOutputModel = { field: 'admin', type: 'route' };
+  @Output() managerDropdown: IDropDownOutputModel = { field: 'manager', type: 'route' };
+  @Output() languageDropdown: IDropDownOutputModel = { field: 'language', type: 'state', value: '' };
+  @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'nav', switcher: false } };
   @Output() tabMenu: boolean = false;
   //language
   event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
   menu: any = this.langService.get(this.selectedLang).navMenu;
   icons: any = this.iconService.get('nav');
+  //temporary
+  message: string = '';
+  isAdmin: boolean = false;
+  notification: boolean = false;
+  notificationCount: number = 0;
 
   constructor(
     private authService: AuthService, 
@@ -49,11 +53,8 @@ export class NavComponent implements DoCheck {
       this.changeLang(this.languageDropdown.value);
     }
 
-    if (!this.confirmPopup.visible) {
-      // console.log('close it');
-    }
-
     if (this.confirmPopup.confirmed) {
+      this.messageService.remindClicked.emit(true);
       this.isLogged = false;
       this.authService.logout();
       this.confirmPopup.confirmed = false;
@@ -81,6 +82,11 @@ export class NavComponent implements DoCheck {
     this.menu = this.langService.get(this.selectedLang).navMenu;
   }
 
+  notificationToggle(): void {
+    this.notification = !this.notification;
+    this.messageService.notificationVisibility.emit(this.notification);
+  }
+
   openTabMenu(): void {
     this.tabMenu = !this.tabMenu;
   }
@@ -99,6 +105,9 @@ export class NavComponent implements DoCheck {
     }));
     this.event.push(this.tabService.event.subscribe(tab => {
       this.tab = tab;
+    }));
+    this.event.push(this.messageService.notificationCount.subscribe(count => {
+      this.notificationCount = count;
     }));
   }
 

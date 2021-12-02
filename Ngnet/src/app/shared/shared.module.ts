@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerNotFoundComponent } from './server-not-found/server-not-found.component';
@@ -19,6 +19,9 @@ import { PopupComponent } from './popup/popup.component';
     DropdownComponent,
     TabMenuComponent,
     PopupComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,35 @@
+<div class="notification" *ngIf="visible">
+    <div class="header">
+        <div class="title">
+            Notifications
+        </div>
+        <div>
+            Upcoming reminders until
+            <span class="days">
+                <fa-icon class="badge" [icon]="icons.less" (click)="changeTime(-1)"></fa-icon>
+                {{time.days}}
+                <fa-icon class="badge" [icon]="icons.more" (click)="changeTime(+1)"></fa-icon>
+            </span>
+            days.
+        </div>
+    </div>
+    <div class="messages">
+        <div *ngFor="let care of careRems">
+            <div class="box-card">
+                <div class="content">
+                    <div class="field">
+                        <label>For:</label>
+                        <div>{{care.name}}</div>
+                    </div>
+                    <div class="field">
+                        <label>Reminder:</label>
+                        <div>{{care.reminder}}</div>
+                    </div>
+                </div>
+                <div class="exit" (click)="exit(care)">
+                    <fa-icon [icon]="icons.close"></fa-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

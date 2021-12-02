@@ -1,0 +1,34 @@
+@import '../base/api';
+
+//needs to be adjusted
+$bellTop: calc((1.75rem + 0.3rem) / 2);
+
+.badge {
+    font-size: getParam(fonts, size, normal);
+    color: getParam(colors, area, for);
+
+    &:hover {
+        color: getParam(colors, area, hover, fore);
+    }
+
+    //not ready
+    .icon[data-count]:after {
+        position: absolute;
+        right: 70%;
+        top: 1%;
+        content: attr(data-count);
+        font-size: 50%;
+        padding: 0.4em;
+        border-radius: 999px;
+        line-height: 0.75em;
+        color: white;
+        background: rgba(255, 0, 0, 0.85);
+        text-align: center;
+        min-width: 2em;
+        font-weight: bold;
+    }
+}
+
+.toggle {
+    font-size: getParam(fonts, size, big);
+}

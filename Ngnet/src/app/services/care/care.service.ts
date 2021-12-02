@@ -11,6 +11,7 @@ import { ICareModel } from '../../interfaces/care/care-model';
 export class CareService {
 
   private serverUrl: string = environment.serverUrl;
+  private careBaseUrl: string = 'care';
 
   constructor(private http: HttpClient, private route: Router) { }
 
@@ -36,5 +37,9 @@ export class CareService {
 
   delete(model: ICareModel, careUrl: string): Observable<any> {
     return this.http.post(this.serverUrl + careUrl + '/delete', model);
+  }
+
+  remind(model: ICareModel): Observable<any> {
+    return this.http.post(this.serverUrl + this.careBaseUrl + '/remindtoggle', model);
   }
 }

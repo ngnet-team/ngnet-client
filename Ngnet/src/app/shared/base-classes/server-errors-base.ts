@@ -1,10 +1,9 @@
-import { Subscription } from "rxjs";
 import { IErrorModel } from "src/app/interfaces/response-error-model";
 import { environment } from "src/environments/environment";
 import { LangService } from "../../services/lang.service";
-import { LangBase } from "./lang-base";
+import { Base } from "./base";
 
-export class ServerErrorsBase extends LangBase {
+export class ServerErrorsBase extends Base {
 
     serverErrors: IErrorModel = {};
     errors: string[] | undefined;
@@ -20,7 +19,7 @@ export class ServerErrorsBase extends LangBase {
         if (typeof this.serverErrors === 'string') {
 
             if ((this.serverErrors as string).length > this.longError) {
-                this.errors = [ this.defaultMsg ];
+                this.errors = [this.defaultMsg];
                 return;
             }
 
@@ -32,7 +31,14 @@ export class ServerErrorsBase extends LangBase {
 
     protected unhandledServerError(errors: any): void {
         for (const key in errors) {
-            this.errors = [ errors[key] ];
+            this.errors = [errors[key]];
         }
+    }
+
+    override langListener(field: string = 'none'): void {
+        super.langListener(field);
+        this.subscription.push(this.langService.langEvent.subscribe(result => {
+            this.setServerError();
+        }))
     }
 }

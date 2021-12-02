@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { ErrorInterceptorService } from './services/interceptors/error-interceptor.service';
 import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
@@ -25,6 +24,7 @@ import { MessageService } from './services/message.service';
 import { TabService } from './services/tab.service';
 import { IconService } from './services/icon.service';
 import { AdminService } from './services/admin.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,9 @@ import { AdminService } from './services/admin.service';
     HomeComponent,
     AdminComponent,
     CareComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,7 @@
                             {{validations.requiredField}}</p>
                     </div>
                 </div>
-                <div class="field">
+                <div class="field" *ngIf="input.getData.repeat">
                     <label class="label">{{menu[input.type].repeatNew}} {{input.getData?.label}} <span
                             class="requiredInput">{{menu[input.type].required}}</span></label>
                     <div>
@@ -48,7 +48,7 @@
         </div>
         <!-- ----------------- Confirm popup ----------------- -->
         <div *ngIf="input.type === 'confirm'">
-            <div *ngIf="input.getData?.label" class="switcher">
+            <div *ngIf="input.getData?.switcher" class="switcher">
                 <label class="label">{{input.getData.label}}</label>
                 <input #checkBoxValue class="checkbox" type="checkbox">
                 <p class="validation" *ngIf="checkBoxValue.checked">{{validations.forbiddenField}}</p>
@@ -56,7 +56,7 @@
                     <button (click)="confirm(checkBoxValue.checked)">{{menu.confirm.button}}</button>
                 </div>
             </div>
-            <div *ngIf="!input.getData?.label" class="button">
+            <div *ngIf="!input.getData?.switcher" class="button">
                 <button (click)="confirm()">{{menu.confirm.button}}</button>
             </div>
         </div>

@@ -110,6 +110,7 @@
     },
     "dropdown": {
         "manager": {
+            "icon": "manager",
             "title": "Мениджър",
             "options": [
                 {
@@ -123,6 +124,7 @@
             ]
         },
         "language": {
+            "icon": "language",
             "title": "Език",
             "options": [
                 {
@@ -136,6 +138,7 @@
             ]
         },
         "admin": {
+            "icon": "admin",
             "title": "Админ",
             "options": [
                 {
@@ -149,6 +152,7 @@
             ]
         },
         "filter": {
+            "icon": "filter",
             "title": "Филтър",
             "options": [
                 {
@@ -162,6 +166,25 @@
                 {
                     "name": "Изтрити",
                     "url": "deleted"
+                }
+            ]
+        },
+        "pages": {
+            "small": true,
+            "icon": "pager",
+            "title": "",
+            "options": [
+                {
+                    "name": "3",
+                    "url": "3"
+                },
+                {
+                    "name": "4",
+                    "url": "4"
+                },
+                {
+                    "name": "5",
+                    "url": "5"
                 }
             ]
         }

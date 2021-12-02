@@ -212,6 +212,63 @@ $show: (
     ),
 );
 // ==================================================================
+$dark: (
+    backgroundImage: url(../../assets/images/matte-black.png) no-repeat,
+    header: (
+        fore: whitesmoke,
+        back: rgb(233, 106, 84),
+    ),
+    opacity: 1,
+    area: (
+        fore: #303030,
+        back: rgb(248, 252, 255),
+        active: (
+            fore: rgb(21, 32, 64),
+            back: none,
+        ),
+        hover: (
+            fore: #414141,
+            back: none,
+        ),
+    ),
+    field: (
+        fore: whitesmoke,
+        back: #555555,
+        active: (
+            fore: rgb(223, 223, 223),
+            back: none,
+        ),
+        hover: (
+            fore: rgb(223, 223, 223),
+            back: #555555,
+        ),
+    ),
+    field-sec: (
+        fore: rgb(21, 32, 64),
+        back: rgb(127, 199, 221),
+        active: (
+            fore: rgb(21, 32, 64),
+            back: rgb(127, 199, 221),
+        ),
+        hover: (
+            fore: rgb(21, 32, 64),
+            back: rgb(127, 199, 221),
+        ),
+    ),
+    action: (
+        fore: rgb(227, 242, 255),
+        back: rgb(27, 119, 42),
+        active: (
+            fore: rgb(227, 242, 255),
+            back: none,
+        ),
+        hover: (
+            fore: rgb(185, 211, 236),
+            back: rgb(84, 160, 97),
+        ),
+    ),
+);
+// ==================================================================
 
 //select theme from above
-$theme: $show;
+$theme: $dark;
