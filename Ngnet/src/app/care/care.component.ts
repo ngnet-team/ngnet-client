@@ -13,6 +13,7 @@ import { MessageService } from '../services/message.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
 import { IPopupModel } from '../interfaces/popup-model';
 import { IconService } from '../services/icon.service';
+import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
 
 @Component({
   selector: 'app-care',
@@ -31,6 +32,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   @Output() company: ICompanyModel = this.defaultCare.company;
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'care' } };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care' } };
+  @Output() pageDropdown: IDropDownOutputModel = { field: 'pages', type: 'state', value: '' };
   //temporary
   deletingCare: ICareModel | undefined;
   editingCareId: string | undefined;
@@ -62,6 +64,11 @@ export class CareComponent extends PagerBase implements DoCheck {
   ngDoCheck(): void {
     if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
       this.remove();
+    }
+    //change language only the value is different and existing one
+    if (this.pageDropdown.value !== this.selectedLang && this.pageDropdown.value) {
+      this.pagerService.setPerPage(+this.pageDropdown.value);
+      this.pagedCares = this.pagination(this.cares);
     }
   }
 
@@ -123,6 +130,7 @@ export class CareComponent extends PagerBase implements DoCheck {
         if (res) {
           const msg = this.messageService.getMsg(res, this.selectedLang);
           this.messageService.event.emit(msg);
+          this.messageService.remindClicked.emit(true);
           this.self();
         }
         this.defaultCare = { isDeleted: false, company: {} };

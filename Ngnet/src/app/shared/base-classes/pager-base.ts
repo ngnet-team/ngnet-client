@@ -6,21 +6,22 @@ import { ServerErrorsBase } from "./server-errors-base";
 export class PagerBase extends ServerErrorsBase {
 
   subscription: Subscription[] = [];
-  items: any;
+  //fake param
+  input: any;
 
   constructor(public pagerService: PagerService, langService: LangService) {
     super(langService);
-    this.pagerListener(this.items);
+    this.pagerListener(this.input);
   }
 
   protected pagerListener(pagedItems: any): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(result => {
-      pagedItems = this.pagination(this.items);
+      pagedItems = this.pagination(this.input);
     }));
   }
 
-  protected pagination(items: any): any {
-    const { skip, take } = this.pagerService.skipTake(items.length);
-    return items.slice(skip, take);
+  protected pagination(input: any): any {
+    const { skip, take } = this.pagerService.skipTake(input.length);
+    return input.slice(skip, take);
   }
 }

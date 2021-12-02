@@ -10,7 +10,7 @@ $top: calc(1.75rem * 2);
     position: absolute;
     top: $top;
     right: getParam(margins, large);
-    z-index: 1;
+    z-index: 2;
 
     display: grid;
     grid-template-rows: auto 1fr;
@@ -21,7 +21,18 @@ $top: calc(1.75rem * 2);
     .header {
         text-align: center;
         padding: getParam(paddings, normal);
-        font-size: getParam(fonts, size, big);
+        font-size: getParam(fonts, size, normal);
+        
+        .title {
+            font-size: getParam(fonts, size, big);
+            margin-bottom: getParam(paddings, large);
+        }
+
+        .days {
+            padding: getParam(paddings, tiny);
+            background-color: getParam(colors, field, fore);
+            color: getParam(colors, field, back);
+        }
     }
 
     .messages {

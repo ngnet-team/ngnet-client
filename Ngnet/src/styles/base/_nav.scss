@@ -4,19 +4,19 @@
 $navHeight: 1.75rem;
 
 .nav {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    max-height: $navHeight;
     font-size: getParam(fonts, size, normal);
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
     box-shadow: getShadow(field, getParam(colors, field, active, back));
-    padding: getParam(paddings, normal) 3rem;
+    padding: getParam(paddings, normal);
     margin: getParam(margins, normal) getParam(margins, large);
-    max-height: $navHeight;
 
     > div {
-        margin-left: getParam(margins, huge);
-        margin-right: getParam(margins, huge);
+        display: flex;
+        justify-content: center;
     }
 
     .logo {
@@ -25,23 +25,6 @@ $navHeight: 1.75rem;
             width: 100%;
         }
     }
-
-    .logged,
-    .not-logged {
-        display: flex;
-
-        .dropdown:hover {
-            cursor: context-menu;
-        }
-    }
-}
-
-.badge {
-    position: absolute;
-    top: $bellTop;
-    right: getParam(margins, large);
-    font-size: getParam(fonts, size, big);
-    color: getParam(colors, field, fore);
 }
 
 a {

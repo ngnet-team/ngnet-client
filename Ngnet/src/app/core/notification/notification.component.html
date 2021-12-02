@@ -1,6 +1,17 @@
 <div class="notification" *ngIf="visible">
     <div class="header">
-        Notifications
+        <div class="title">
+            Notifications
+        </div>
+        <div>
+            Upcoming reminders until
+            <span class="days">
+                <fa-icon class="badge" [icon]="icons.less" (click)="changeTime(-1)"></fa-icon>
+                {{time.days}}
+                <fa-icon class="badge" [icon]="icons.more" (click)="changeTime(+1)"></fa-icon>
+            </span>
+            days.
+        </div>
     </div>
     <div class="messages">
         <div *ngFor="let care of careRems">

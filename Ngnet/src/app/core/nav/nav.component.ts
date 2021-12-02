@@ -8,6 +8,7 @@ import { TabService } from 'src/app/services/tab.service';
 import { ITabModel } from 'src/app/interfaces/tab-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
+import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
 
 @Component({
   selector: 'app-nav',
@@ -19,9 +20,9 @@ export class NavComponent implements DoCheck {
   @Input() tab: ITabModel = {};
   @Input() isLogged: boolean = this.authService.isLogged;
 
-  @Output() adminDropdown: { field: string, type: string } = { field: 'admin', type: 'route' };
-  @Output() managerDropdown: { field: string, type: string } = { field: 'manager', type: 'route' };
-  @Output() languageDropdown: { field: string, type: string, value: string } = { field: 'language', type: 'state', value: '' };
+  @Output() adminDropdown: IDropDownOutputModel = { field: 'admin', type: 'route' };
+  @Output() managerDropdown: IDropDownOutputModel = { field: 'manager', type: 'route' };
+  @Output() languageDropdown: IDropDownOutputModel = { field: 'language', type: 'state', value: '' };
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'nav', switcher: false } };
   @Output() tabMenu: boolean = false;
   //language
@@ -53,6 +54,7 @@ export class NavComponent implements DoCheck {
     }
 
     if (this.confirmPopup.confirmed) {
+      this.messageService.remindClicked.emit(true);
       this.isLogged = false;
       this.authService.logout();
       this.confirmPopup.confirmed = false;

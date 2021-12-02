@@ -1,14 +1,46 @@
-@import '../base/api';
-@import './box-card';
+@import "../base/api";
+@import "box-card";
+@import "dropdown";
 
 .results {
-    padding: getParam(paddings, large);
-    background-color: getParam(colors, field, back);
-    box-shadow: getShadow(field, getParam(colors, field, active, back));
-}
-
-.items {
     display: grid;
-    grid-auto-flow: row;
+    grid-template-rows: auto 1fr auto;
     row-gap: getParam(margins, small);
+    background-color: getParam(colors, field, back);
+    color: getParam(colors, field, fore);
+    box-shadow: getShadow(field, getParam(colors, field, active, back));
+    padding: getParam(paddings, large);
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        background-color: getParam(colors, field, fore);
+        color: getParam(colors, field, back);
+        padding: getParam(paddings, small);
+
+        > div {
+            align-self: center;
+        }
+
+        .title {
+
+        }
+
+        .tab {
+            background-color: getParam(colors, field, fore);
+            color: getParam(colors, field, back);
+            font-size: getParam(fonts, size, big);
+        }
+    }
+
+    .items {
+        
+        > div {
+            margin: getParam(margins, small) 0;
+        }
+    }
+
+    .pager-view {
+        
+    }
 }

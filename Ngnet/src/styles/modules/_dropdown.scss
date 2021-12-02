@@ -1,16 +1,15 @@
 @import "../base/api";
 
-.title {
-    max-width: max-content;
-
-    .icon {
-        font-size: getParam(constants, smallIconSize);
-    }
+.header {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: getParam(margins, small);
 }
 
 .options {
-    z-index: 1;
     position: absolute;
+    top: 1.6rem;
+    z-index: 3;
     background-color: getParam(colors, area, back);
     opacity: getParam(colors, opacity);
     padding: getParam(paddings, normal);

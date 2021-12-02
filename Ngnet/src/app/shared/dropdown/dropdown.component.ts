@@ -16,9 +16,9 @@ export class DropdownComponent extends Base implements OnChanges {
   @Input() input: { field: string, type: string, value?: string } = { field: '', type: '' };
 
   //language
-  jsonDropdown: any = this.langService.get(this.selectedLang).dropdown;
-  dropdown: IJsonDropDownModel = {};
-  icons: any = this.iconService.get('dropdown');
+  menu: any = this.langService.get(this.selectedLang).dropdown;
+  dropdown: IJsonDropDownModel = { icon: '' };
+  icons: any = this.iconService.get(this.component.dropdown);
   //temporary
   showOptions: boolean = false;
   timeOut: any;
@@ -28,7 +28,7 @@ export class DropdownComponent extends Base implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dropdown = this.jsonDropdown[this.input.field];
+    this.dropdown = this.menu[this.input.field];
   }
 
   click(option: IDropDownOptionModel) {
@@ -55,8 +55,8 @@ export class DropdownComponent extends Base implements OnChanges {
   override langListener(): void {
     super.langListener();
     this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.jsonDropdown = result.dropdown;
-      this.dropdown = this.jsonDropdown[this.input.field];
+      this.menu = result.dropdown;
+      this.dropdown = this.menu[this.input.field];
     }));
   }
 }

@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/guard/auth-guard.service';
 import { ErrorInterceptorService } from './services/interceptors/error-interceptor.service';
 import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
@@ -25,6 +24,7 @@ import { MessageService } from './services/message.service';
 import { TabService } from './services/tab.service';
 import { IconService } from './services/icon.service';
 import { AdminService } from './services/admin.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [

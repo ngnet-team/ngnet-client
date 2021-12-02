@@ -1,6 +1,17 @@
 <div class="container">
     <!-- --------------------- Result Set  --------------------- -->
     <div class="results">
+        <div class="header">
+            <div class="title">
+                Results
+            </div>
+            <div>
+                <div class="dropdown">
+                    <app-dropdown class="element" [input]="pageDropdown"></app-dropdown>
+                </div>
+            </div>
+        </div>
+
         <div class="no-items" *ngIf="cares.length === 0">
             <p>{{noCares}}</p>
         </div>
@@ -138,7 +149,7 @@
                     <p class="validation">{{error}}</p>
                 </div>
             </div>
-            
+
             <div>
                 <button class="button" [disabled]="veh.invalid || (
                         defaultCare.company.name === undefined && 

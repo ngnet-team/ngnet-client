@@ -17,7 +17,7 @@ export class NotificationComponent {
   event: Subscription[] = [];
   time: ITimeModel = { days: 5 };
   careRems: ICareModel[] = [];
-  icons: any = this.iconService.get('popup');
+  icons: any = this.iconService.get('notification');
 
   constructor(private messageService: MessageService, private iconService: IconService, private careService: CareService) {
     this.subscriptionListener();
@@ -40,6 +40,11 @@ export class NotificationComponent {
         }
       }
     });
+  }
+
+  changeTime(num: number) {
+    this.time.days += num;
+    this.getReminders();
   }
 
   private subscriptionListener(): void {

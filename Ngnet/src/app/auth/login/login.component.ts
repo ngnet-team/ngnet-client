@@ -33,6 +33,7 @@ export class LoginComponent extends ServerErrorsBase {
         const msg = this.messageService.getMsg(res.responseMessage, this.selectedLang);
         this.messageService.event.emit(msg);
         this.authService.logginEvent.emit(true);
+        this.messageService.remindClicked.emit(true);
         this.redirect('profile');
       },
       error: (err) => {
