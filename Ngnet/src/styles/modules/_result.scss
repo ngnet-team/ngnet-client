@@ -16,20 +16,17 @@
         justify-content: space-between;
         background-color: getParam(colors, field, fore);
         color: getParam(colors, field, back);
-        padding: getParam(paddings, small);
+        padding: getParam(paddings, normal);
 
         > div {
             align-self: center;
+            font-size: getParam(fonts, size, normal);
         }
 
-        .title {
-
-        }
-
-        .tab {
-            background-color: getParam(colors, field, fore);
-            color: getParam(colors, field, back);
-            font-size: getParam(fonts, size, big);
+        .actions {
+            display: grid;
+            grid-auto-flow: column;
+            column-gap: getParam(margins, normal);
         }
     }
 
@@ -39,8 +36,8 @@
             margin: getParam(margins, small) 0;
         }
     }
+}
 
-    .pager-view {
-        
-    }
+.option {
+    font-size: getParam(fonts, size, small);
 }

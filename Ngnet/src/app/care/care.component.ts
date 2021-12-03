@@ -33,6 +33,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'care' } };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care' } };
   @Output() pageDropdown: IDropDownOutputModel = { field: 'pages', type: 'state', value: '' };
+  @Output() filterDropdown: IDropDownOutputModel = { field: 'filterCare', type: 'state', value: '' };
   //temporary
   deletingCare: ICareModel | undefined;
   editingCareId: string | undefined;
@@ -44,7 +45,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   careType: string = this.route.url.slice(1);
   noCares: string = this.menu[this.careType].noCaresFound;
   title: string = this.menu[this.careType].title;
-  icons: any = this.iconService.get('care');
+  icons: any = this.iconService.get(this.component.care);
 
   constructor(
     langService: LangService,
@@ -70,13 +71,17 @@ export class CareComponent extends PagerBase implements DoCheck {
       this.pagerService.setPerPage(+this.pageDropdown.value);
       this.pagedCares = this.pagination(this.cares);
     }
+    //DROPDOWN input: change filter only the value is different and existing one
+    if (this.filterDropdown.value) {
+      this.sort(this.filterDropdown.value);
+    }
   }
 
   self(): void {
     this.careService.self(this.careType).subscribe({
       next: (res) => {
         this.errors = [];
-        this.cares = (res as ICareModel[]).filter(x => x.isDeleted === false);
+        this.cares = res;
         //results view
         this.pagedCares = this.pagination(this.cares);
         //no items in the page
@@ -220,5 +225,21 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.subscription.push(this.messageService.remindClicked.subscribe(click => {
       this.self();
     }));
+  }
+
+  private sort(type: string = 'newest'): void {
+    switch (type) {
+      case 'oldest':
+        this.cares = this.cares
+          .sort((a, b) => Date.parse(a.createdOn.toString()) - Date.parse(b.createdOn.toString()));
+        break;
+      case 'newest':
+        this.cares = this.cares
+          .sort((a, b) => Date.parse(b.createdOn.toString()) - Date.parse(a.createdOn.toString()));
+        break;
+      default:
+        break;
+    }
+    this.pagedCares = this.pagination(this.cares);
   }
 }

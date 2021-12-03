@@ -16,7 +16,7 @@ export class PopupComponent extends ServerErrorsBase  {
   //language
   menu: any = this.langService.get(this.selectedLang).popup;
 
-  icons: any = this.iconService.get('popup');
+  icons: any = this.iconService.get(this.component.popup);
 
   constructor(langService: LangService, private iconService: IconService) {
     super(langService);

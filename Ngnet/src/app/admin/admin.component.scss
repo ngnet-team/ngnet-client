@@ -8,17 +8,8 @@ $dashboard-fore: getParam(colors, area, fore);
     position: relative;
 }
 
-.filter {
-    position: absolute;
-    top: 0;
-    left: getParam(margins, huge);
-    background-color: $dashboard-back;
-    color: $dashboard-fore;
-    padding: getParam(paddings, normal);
-}
-
-// ----- Id/Role/Username/Email/More/Modified/Experiance/Actions
-$columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr;
+// ----- Id/Role/Username/Email/More/Modified/Experiance/Actions/Filter
+$columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr 0.2fr;
 
 .dashboard {
 
@@ -43,6 +34,7 @@ $columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 0.5fr 2.5fr;
         
         > .center {
             text-align: center;
+            align-self: center;
         }
     }
 

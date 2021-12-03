@@ -5,7 +5,7 @@ $bellTop: calc((1.75rem + 0.3rem) / 2);
 
 .badge {
     font-size: getParam(fonts, size, normal);
-    color: getParam(colors, area, for);
+    color: getParam(colors, area, fore);
 
     &:hover {
         color: getParam(colors, area, hover, fore);
@@ -31,4 +31,8 @@ $bellTop: calc((1.75rem + 0.3rem) / 2);
 
 .toggle {
     font-size: getParam(fonts, size, big);
+}
+
+.on {
+    color: getParam(constants, successColor, back);
 }

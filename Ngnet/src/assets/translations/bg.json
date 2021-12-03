@@ -104,10 +104,6 @@
         "label": "Компания",
         "required": " *"
     },
-    "manager": {
-        "toVehicle": "Към мениджър коли",
-        "toHealth": "Към мениджър здраве"
-    },
     "dropdown": {
         "manager": {
             "icon": "manager",
@@ -151,7 +147,8 @@
                 }
             ]
         },
-        "filter": {
+        "filterAdmin": {
+            "small": true,
             "icon": "filter",
             "title": "Филтър",
             "options": [
@@ -166,6 +163,21 @@
                 {
                     "name": "Изтрити",
                     "url": "deleted"
+                }
+            ]
+        },
+        "filterCare": {
+            "small": true,
+            "icon": "filter",
+            "title": "",
+            "options": [
+                {
+                    "name": "Нови",
+                    "url": "oldest"
+                },
+                {
+                    "name": "Стари",
+                    "url": "newest"
                 }
             ]
         },

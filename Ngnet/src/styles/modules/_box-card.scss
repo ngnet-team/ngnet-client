@@ -17,6 +17,10 @@
         grid-template-columns: auto 1fr auto;
         column-gap: getParam(margins, small);
         align-self: center;
+
+        > * {
+            align-self: center;
+        }
     }
     
     .buttons {

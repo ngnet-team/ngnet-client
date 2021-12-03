@@ -1,8 +1,6 @@
 <!-- <app-side-bar [model]="sideMenu"></app-side-bar> -->
 
 <div class="admin">
-    <app-dropdown class="filter" [input]="filterDropdown"></app-dropdown>
-
     <!-- -------------- User Dashboard -------------- -->
 
     <div class="dashboard">
@@ -15,6 +13,7 @@
             <div class="center">Modified</div>
             <div class="center">Experience</div>
             <div>Actions</div>
+            <app-dropdown class="center" [input]="filterDropdown"></app-dropdown>
         </div>
         <div class="content">
             <div *ngFor="let user of pagedUsers" class="user"

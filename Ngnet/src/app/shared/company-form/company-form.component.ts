@@ -20,7 +20,7 @@ export class CompanyFormComponent extends Base implements OnChanges {
   //dropdowns
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
   //icons
-  icons: any = this.iconService.get('companyForm');
+  icons: any = this.iconService.get(this.component.company);
 
   constructor(
     public companyService: CompanyService,

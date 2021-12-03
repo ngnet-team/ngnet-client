@@ -5,9 +5,12 @@
             <div class="title">
                 Results
             </div>
-            <div>
+            <div class="actions">
                 <div class="dropdown">
                     <app-dropdown class="element" [input]="pageDropdown"></app-dropdown>
+                </div>
+                <div class="dropdown">
+                    <app-dropdown class="element" [input]="filterDropdown"></app-dropdown>
                 </div>
             </div>
         </div>
@@ -40,7 +43,7 @@
                         </label>
                         <div>{{care.reminder}}</div>
                         <div *ngIf="care.remind">
-                            <fa-icon class="badge toggle" [icon]="icons.toggleOn" (click)="remind(care)"></fa-icon>
+                            <fa-icon class="badge toggle on" [icon]="icons.toggleOn" (click)="remind(care)"></fa-icon>
                         </div>
                         <div *ngIf="!care.remind">
                             <fa-icon class="badge toggle" [icon]="icons.toggleOff" (click)="remind(care)"></fa-icon>

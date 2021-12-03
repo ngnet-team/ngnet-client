@@ -2,6 +2,7 @@ import { Component, DoCheck, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAdminUserModel } from '../interfaces/admin/admin-user-model';
 import { IChangeModel } from '../interfaces/change-model';
+import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
 import { IPageModel } from '../interfaces/page-model';
 import { IPopupModel } from '../interfaces/popup-model';
 import { ISideBarModel } from '../interfaces/side-bar-model';
@@ -31,9 +32,9 @@ export class AdminComponent extends PagerBase implements DoCheck {
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'admin', content: [] } };
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin' } };
   @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'admin' } };
-  @Output() filterDropdown: { field: string, type: string, value: string } = { field: 'filter', type: 'state', value: '' };
+  @Output() filterDropdown: IDropDownOutputModel = { field: 'filterAdmin', type: 'state', value: '' };
 
-  icons: any = this.iconService.get('admin');
+  icons: any = this.iconService.get(this.component.admin);
   //temporary
   filteredBy: string = 'all';
   infos: string[] | undefined;
