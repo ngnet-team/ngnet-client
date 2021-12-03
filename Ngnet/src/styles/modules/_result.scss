@@ -16,18 +16,17 @@
         justify-content: space-between;
         background-color: getParam(colors, field, fore);
         color: getParam(colors, field, back);
-        padding: getParam(paddings, small);
+        padding: getParam(paddings, normal);
 
         > div {
             align-self: center;
-            font-size: getParam(fonts, size, big);
+            font-size: getParam(fonts, size, normal);
         }
 
         .actions {
             display: grid;
             grid-auto-flow: column;
             column-gap: getParam(margins, normal);
-            font-size: getParam(fonts, size, normal);
         }
     }
 
@@ -37,4 +36,8 @@
             margin: getParam(margins, small) 0;
         }
     }
+}
+
+.option {
+    font-size: getParam(fonts, size, small);
 }

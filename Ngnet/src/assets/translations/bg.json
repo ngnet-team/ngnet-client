@@ -104,10 +104,6 @@
         "label": "Компания",
         "required": " *"
     },
-    "manager": {
-        "toVehicle": "Към мениджър коли",
-        "toHealth": "Към мениджър здраве"
-    },
     "dropdown": {
         "manager": {
             "icon": "manager",

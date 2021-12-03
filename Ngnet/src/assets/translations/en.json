@@ -104,10 +104,6 @@
         "label": "Company",
         "required": " *"
     },
-    "manager": {
-        "toVehicle": "To vehicle manager",
-        "toHealth": "To health manager"
-    },
     "dropdown": {
         "manager": {
             "icon": "manager",
