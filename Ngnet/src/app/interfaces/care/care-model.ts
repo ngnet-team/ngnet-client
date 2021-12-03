@@ -14,5 +14,6 @@ export interface ICareModel {
     userId?: string,
     isDeleted: boolean,
     deletedOn?: Date,
+    createdOn: Date,
     read?: boolean,
 }

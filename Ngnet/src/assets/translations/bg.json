@@ -151,7 +151,8 @@
                 }
             ]
         },
-        "filter": {
+        "filterAdmin": {
+            "small": true,
             "icon": "filter",
             "title": "Филтър",
             "options": [
@@ -166,6 +167,21 @@
                 {
                     "name": "Изтрити",
                     "url": "deleted"
+                }
+            ]
+        },
+        "filterCare": {
+            "small": true,
+            "icon": "filter",
+            "title": "",
+            "options": [
+                {
+                    "name": "Нови",
+                    "url": "oldest"
+                },
+                {
+                    "name": "Стари",
+                    "url": "newest"
                 }
             ]
         },

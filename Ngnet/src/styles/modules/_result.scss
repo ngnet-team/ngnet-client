@@ -20,16 +20,14 @@
 
         > div {
             align-self: center;
-        }
-
-        .title {
-
-        }
-
-        .tab {
-            background-color: getParam(colors, field, fore);
-            color: getParam(colors, field, back);
             font-size: getParam(fonts, size, big);
+        }
+
+        .actions {
+            display: grid;
+            grid-auto-flow: column;
+            column-gap: getParam(margins, normal);
+            font-size: getParam(fonts, size, normal);
         }
     }
 
@@ -38,9 +36,5 @@
         > div {
             margin: getParam(margins, small) 0;
         }
-    }
-
-    .pager-view {
-        
     }
 }

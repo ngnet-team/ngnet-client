@@ -151,9 +151,10 @@
                 }
             ]
         },
-        "filter": {
+        "filterAdmin": {
+            "small": true,
             "icon": "filter",
-            "title": "Filter",
+            "title": "",
             "options": [
                 {
                     "name": "All",
@@ -166,6 +167,21 @@
                 {
                     "name": "Deleted",
                     "url": "deleted"
+                }
+            ]
+        },
+        "filterCare": {
+            "small": true,
+            "icon": "filter",
+            "title": "",
+            "options": [
+                {
+                    "name": "Old",
+                    "url": "oldest"
+                },
+                {
+                    "name": "New",
+                    "url": "newest"
                 }
             ]
         },

@@ -1,33 +1,38 @@
 @import "../base/api";
 
-.header {
-    display: grid;
-    grid-auto-flow: column;
-    column-gap: getParam(margins, small);
-}
+.container {
+    position: relative;
 
-.options {
-    position: absolute;
-    top: 1.6rem;
-    z-index: 3;
-    background-color: getParam(colors, area, back);
-    opacity: getParam(colors, opacity);
-    padding: getParam(paddings, normal);
-    box-shadow: getShadow(field, getParam(colors, field, back));
-    color: getParam(colors, area, fore);
-
-    > .option {
+    .header {
         display: grid;
-        grid-template-columns: auto 1fr;
-
-        cursor: pointer;
-
-        .icon {
-            margin-right: getParam(margins, small);
-        }
+        grid-auto-flow: column;
+        column-gap: getParam(margins, small);
     }
-
-    > .option:hover {
-        border-bottom: getBorder(area, getParam(colors, field, back));
+    
+    .options {
+        position: absolute;
+        top: getParam(margins, small);
+        z-index: 3;
+        width: max-content;
+        opacity: getParam(colors, opacity);
+        background-color: getParam(colors, area, back);
+        color: getParam(colors, area, fore);
+        box-shadow: getShadow(field, getParam(colors, field, back));
+        padding: getParam(paddings, normal);
+    
+        > .option {
+            display: grid;
+            grid-template-columns: auto 1fr;
+    
+            cursor: pointer;
+    
+            .icon {
+                margin-right: getParam(margins, small);
+            }
+        }
+    
+        > .option:hover {
+            border-bottom: getBorder(area, getParam(colors, field, back));
+        }
     }
 }

@@ -1,114 +1,69 @@
 import { Injectable } from '@angular/core';
-import {
-  faBars, faLanguage, faPoll, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faChessKing, faBell, //nav
-  faPlus, faAmbulance, faCar, faToggleOn, faToggleOff, faPager, //care 
-  faCaretDown, faCheckDouble, //dropdown
-  faTimesCircle, faMinus, //popup
-  faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight, //pager
-  faBuilding, faPhone, faAddressCard, faSitemap, faEnvelopeOpen, //companyForm
-  faPencilAlt, //admin
-} from '@fortawesome/free-solid-svg-icons';
-import { IIconModel } from '../interfaces/icon-model';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IconService {
 
-  model: IIconModel[] = [
-    {
-      field: 'nav',
-      icons:
-      {
-        hamburger: faBars,
-        language: faLanguage,
-        manager: faPoll,
-        profile: faUser,
-        logout: faSignOutAlt,
-        login: faSignInAlt,
-        register: faUserPlus,
-        admin: faChessKing,
-        bell: faBell,
-        close: faTimesCircle,
-      },
+  model: any = {
+    nav: {
+        hamburger: fas.faBars,
+        profile: fas.faUser,
+        logout: fas.faSignOutAlt,
+        login: fas.faSignInAlt,
+        register: fas.faUserPlus,
+        bell: fas.faBell,
+        close: fas.faTimesCircle,
     },
-    {
-      field: 'care',
-      icons:
-      {
-        more: faPlus,
+    care: {
+        more: fas.faPlus,
         title: {
-          healthcare: faAmbulance,
-          vehiclecare: faCar,
+          healthcare: fas.faAmbulance,
+          vehiclecare: fas.faCar,
         },
-        toggleOn: faToggleOn,
-        toggleOff: faToggleOff,
-        pager: faPager,
-      },
+        toggleOn: fas.faToggleOn,
+        toggleOff: fas.faToggleOff,
     },
-    {
-      field: 'dropdown',
-      icons:
-      {
-        dropdown: faCaretDown,
-        option: faCheckDouble,
-        admin: faChessKing,
-        manager: faPoll,
-        language: faLanguage,
-        pager: faPager,
-      },
+    dropdown: {
+        dropdown: fas.faCaretDown,
+        option: fas.faCheck,
+        admin: fas.faChessKing,
+        manager: fas.faPoll,
+        language: fas.faGlobe,
+        pager: fas.faPager,
+        filter: fas.faFilter,
     },
-    {
-      field: 'popup',
-      icons:
-      {
-        close: faTimesCircle,
-      },
+    popup: {
+        close: fas.faTimesCircle,
     },
-    {
-      field: 'pager',
-      icons:
-      {
-        doubleLeft: faAngleDoubleLeft,
-        left: faAngleLeft,
-        right: faAngleRight,
-        doubleRight: faAngleDoubleRight,
-      },
+    pager: {
+        doubleLeft: fas.faAngleDoubleLeft,
+        left: fas.faAngleLeft,
+        right: fas.faAngleRight,
+        doubleRight: fas.faAngleDoubleRight,
     },
-    {
-      field: 'companyForm',
-      icons:
-      {
-        company: faBuilding,
-        phoneNumber: faPhone,
-        email: faEnvelopeOpen,
-        webSite: faSitemap,
-        address: faAddressCard
-      },
+    company: {
+        company: fas.faBuilding,
+        phoneNumber: fas.faPhone,
+        email: fas.faEnvelopeOpen,
+        webSite: fas.faSitemap,
+        address: fas.faAddressCard
     },
-    {
-      field: 'admin',
-      icons:
-      {
-        more: faPlus,
-        edit: faPencilAlt,
-      },
+    admin: {
+        more: fas.faPlus,
+        edit: fas.faPencilAlt,
     },
-    {
-      field: 'notification',
-      icons:
-      {
-        more: faPlus,
-        less: faMinus,
-        close: faTimesCircle,
-      },
+    notification: {
+        more: fas.faPlus,
+        less: fas.faMinus,
+        close: fas.faTimesCircle,
     },
-  ];
+  };
 
   constructor() { }
 
   get(field: string): any {
-    return Object.values(this.model)
-      .filter(x => x.field === field)[0].icons;
+    return this.model[field];
   }
 }
