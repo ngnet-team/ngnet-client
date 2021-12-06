@@ -1,7 +1,8 @@
 <div class="nav">
-    <div class="logo">
+    <div class="logo tab">
         <a routerLink="/" class="logo">
-            <img src="../../../assets/icons/logo.png" alt="{{menu.logo}}">
+            <!-- <img src="../../../assets/icons/logo.png" alt="{{menu.logo}}"> -->
+            {{menu.logo.name}}
         </a>
     </div>
     <div *ngIf="isLogged" class="logged">

@@ -5,6 +5,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { LangService } from 'src/app/services/lang.service';
 import { Base } from '../base-classes/base';
 import { IconService } from '../../services/icon.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-form',
@@ -15,19 +16,17 @@ export class CompanyFormComponent extends Base implements OnChanges {
 
   @Input() company: ICompanyModel = {};
   @Output() dropdown: { field: string, name?: string } = { field: 'names' };
-  //language
-  menu: any = this.langService.get(this.selectedLang).company;
   //dropdowns
   companyNames: ICompanyDropDownNames = { vehicle: {}, health: {} };
-  //icons
-  icons: any = this.iconService.get(this.component.company);
 
   constructor(
-    public companyService: CompanyService,
     langService: LangService,
-    private iconService: IconService
+    iconService: IconService,
+    route: Router,
+    public companyService: CompanyService,
   ) {
-    super(langService);
+    super(langService, iconService, route);
+    this.config(this.component.company);
     this.loadNames();
   }
 
@@ -39,9 +38,5 @@ export class CompanyFormComponent extends Base implements OnChanges {
     this.companyService.loadNames().subscribe(res => {
       this.companyNames = res;
     });
-  }
-
-  override langListener(): void {
-    super.langListener(this.component.company);
   }
 }

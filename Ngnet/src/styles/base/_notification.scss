@@ -1,14 +1,12 @@
 @import '../modules/box-card';
 @import '../modules/button';
 
-$top: calc(1.75rem * 2);
-
 .notification {
-    width: 25%;
+    min-width: $box-card-wrapper;
     height: calc(100% - 5rem);
     border: getBorder(field, getParam(colors, field, fore));
     position: absolute;
-    top: $top;
+    top: $notification-top;
     right: getParam(margins, large);
     z-index: 2;
 
@@ -37,7 +35,7 @@ $top: calc(1.75rem * 2);
 
     .messages {
         > div {
-            margin: getParam(margins, small) 0;
+            margin: $box-card-margin;
         }
     }
 

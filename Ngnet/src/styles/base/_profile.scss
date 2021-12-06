@@ -1,16 +1,6 @@
 @import 'api';
 @import '../modules/form-h';
-
-.header {
-    margin: 3rem 0;
-
-    .title {
-        background-color: getParam(colors, field, back);
-        color: getParam(colors, field, fore);
-        padding: 4rem;
-        font-size: 4rem;
-    }
-}
+@import '../modules/header';
 
 .content {
     text-align: center;

@@ -1,13 +1,15 @@
+@import "../base/variables";
 @import "../base/api";
 
 .button {
     display: inline-block;
+    min-width: $button-min-width;
     background-color: getParam(colors, action, back);
     color: getParam(colors, action, fore);
-    padding: getParam(paddings, small) getParam(paddings, large);
     border-radius: getParam(borders, action, rounding);
-    margin: getParam(paddings, small);
     font-size: getParam(fonts, size, small);
+    padding: getParam(paddings, small) $button-padding;
+    margin: $button-margin;
 
     .icon {
         margin-right: getParam(paddings, small);

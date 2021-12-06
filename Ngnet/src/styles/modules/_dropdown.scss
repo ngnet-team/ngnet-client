@@ -29,10 +29,10 @@
             .icon {
                 margin-right: getParam(margins, small);
             }
-        }
     
-        > .option:hover {
-            border-bottom: getBorder(area, getParam(colors, field, back));
+            &:hover {
+                border-bottom: getBorder(area, getParam(colors, field, back));
+            }
         }
     }
 }

@@ -1,30 +1,29 @@
+@import "variables";
 @import "api";
 @import "../modules/badge";
-
-$navHeight: 1.75rem;
 
 .nav {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    max-height: $navHeight;
+    max-height: $nav-height;
     font-size: getParam(fonts, size, normal);
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
     box-shadow: getShadow(field, getParam(colors, field, active, back));
-    padding: getParam(paddings, normal);
-    margin: getParam(margins, normal) getParam(margins, large);
+    padding: $nav-padding;
+    margin: $nav-margin;
 
     > div {
         display: flex;
         justify-content: center;
     }
 
-    .logo {
-        width: 2.5rem;
-        img {
-            width: 100%;
-        }
-    }
+    // .logo {
+    //     width: 2.5rem;
+    //     img {
+    //         width: 100%;
+    //     }
+    // }
 }
 
 .bell {

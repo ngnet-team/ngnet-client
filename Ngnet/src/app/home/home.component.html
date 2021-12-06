@@ -1,1 +1,40 @@
-<p>home works!</p>
+<div class="container">
+    <header>
+        <div class="title">
+            {{menu.title}}
+        </div>
+        <div class="sub-title">
+            <div *ngIf="isLogged">
+                {{menu.subTitle.logged}}
+            </div>
+            <div *ngIf="!isLogged">
+                {{menu.subTitle.notLogged}}
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="vehicle">
+            <div class="content">
+                <div class="text">
+                    {{menu.vehicle}}
+                </div>
+                <div class="button">
+                    <button (click)="redirect('vehiclecare')">{{menu.click}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="health">
+            <div class="content">
+                <div class="text">
+                    {{menu.health}}
+                </div>
+                <div class="button">
+                    <button (click)="redirect('healthcare')">{{menu.click}}</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+
+    </footer>
+</div>

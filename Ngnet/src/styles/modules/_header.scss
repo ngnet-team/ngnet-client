@@ -1,0 +1,22 @@
+@import "../base/variables";
+@import "../base/api";
+
+$header-height: 4rem;
+
+header {
+    margin: 3rem 0;
+    background-color: getParam(colors, field, back);
+    color: getParam(colors, field, fore);
+    padding-top: 4rem;
+    padding-left: 4rem;
+
+    .title {
+        height: $header-height;
+        font-size: 4rem;
+    }
+    
+    .sub-title {
+        font-size: 1rem;
+        padding-bottom: 4rem;
+    }
+}

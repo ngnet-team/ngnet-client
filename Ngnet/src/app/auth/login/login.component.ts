@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
+import { IconService } from 'src/app/services/icon.service';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
-import { Base } from 'src/app/shared/base-classes/base';
 import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
 import { ILoginModel } from '../../interfaces/auth/login-model';
 import { AuthService } from '../../services/auth.service';
@@ -15,12 +15,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent extends ServerErrorsBase {
 
-  //language
-  menu: any = this.langService.get(this.selectedLang).login;
-
-  constructor(private authService: AuthService, private route: Router, langService: LangService, private messageService: MessageService) {
-    super(langService);
-   }
+  constructor(
+    langService: LangService,
+    iconService: IconService,
+    router: Router,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {
+    super(langService, iconService, router);
+    this.config(this.component.login);
+  }
 
   login(input: ILoginModel): void {
     this.serverErrors = {} as IErrorModel;
@@ -43,14 +47,5 @@ export class LoginComponent extends ServerErrorsBase {
         };
       }
     });
-  }
-
-  override langListener(): void {
-    super.langListener(this.component.login);
-  }
-
-  
-  redirect(path: string): void {
-    this.route.navigateByUrl(path);
   }
 }

@@ -1,4 +1,6 @@
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { IconService } from "src/app/services/icon.service";
 import { LangService } from "src/app/services/lang.service";
 import { PagerService } from "src/app/services/pager.service";
 import { ServerErrorsBase } from "./server-errors-base";
@@ -9,8 +11,12 @@ export class PagerBase extends ServerErrorsBase {
   //fake param
   input: any;
 
-  constructor(public pagerService: PagerService, langService: LangService) {
-    super(langService);
+  constructor(
+    protected langService: LangService, 
+    protected iconService: IconService,
+    protected router: Router, 
+    protected pagerService: PagerService) {
+    super(langService, iconService, router);
     this.pagerListener(this.input);
   }
 

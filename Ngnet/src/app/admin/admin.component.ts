@@ -40,18 +40,19 @@ export class AdminComponent extends PagerBase implements DoCheck {
   infos: string[] | undefined;
 
   constructor(
+    langService: LangService,
+    iconService: IconService,
+    router: Router,
+    pagerService: PagerService,
+    private route: ActivatedRoute,
     private adminService: AdminService,
     private authService: AuthService,
-    private route: Router,
-    router: ActivatedRoute,
-    langService: LangService,
-    pagerService: PagerService,
     private messageService: MessageService,
-    private iconService: IconService
   ) {
-    super(pagerService, langService);
-    if (!this.authService.accessWithRole(router)) {
-      this.route.navigateByUrl('not-found');
+    super(langService, iconService, router, pagerService);
+    this.config(this.component.admin);
+    if (!this.authService.accessWithRole(this.route)) {
+      this.router.navigateByUrl('not-found');
     };
     this.getAllUsers();
     this.pagerService.setPerPage(10);

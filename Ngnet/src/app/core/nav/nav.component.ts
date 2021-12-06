@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
+import { Component, DoCheck, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
@@ -28,7 +28,7 @@ export class NavComponent implements DoCheck {
   //language
   event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
-  menu: any = this.langService.get(this.selectedLang).navMenu;
+  menu: any = this.langService.get(this.selectedLang).nav;
   icons: any = this.iconService.get('nav');
   //temporary
   message: string = '';
@@ -79,7 +79,7 @@ export class NavComponent implements DoCheck {
   changeLang(language: string): void {
     this.selectedLang = language;
     this.langService.setLocalStorage(this.selectedLang);
-    this.menu = this.langService.get(this.selectedLang).navMenu;
+    this.menu = this.langService.get(this.selectedLang).nav;
   }
 
   notificationToggle(): void {

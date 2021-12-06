@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITabModel } from 'src/app/interfaces/tab-model';
 import { AuthService } from 'src/app/services/auth.service';
+import { IconService } from 'src/app/services/icon.service';
 import { LangService } from 'src/app/services/lang.service';
 import { TabService } from 'src/app/services/tab.service';
 import { environment } from 'src/environments/environment';
@@ -25,12 +26,19 @@ export class TabMenuComponent extends Base implements DoCheck {
   //language
   event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
-  menu: any = this.langService.get(this.selectedLang).navMenu;
+  menu: any = this.langService.get(this.selectedLang).nav;
 
   dropdown: any = this.langService.get(this.selectedLang).dropdown;
 
-  constructor(private route: Router, langService: LangService, private authService: AuthService, private tabService: TabService) {
-    super(langService);
+  constructor(
+    langService: LangService, 
+    iconService: IconService, 
+    router: Router, 
+    private authService: AuthService, 
+    private tabService: TabService
+    ) {
+    super(langService, iconService, router);
+    this.config(this.component.tabMenu);
     this.subscriptionListener();
   }
 
@@ -43,7 +51,7 @@ export class TabMenuComponent extends Base implements DoCheck {
 
   click(tab: ITabModel): void {
     if (tab.url?.includes('/')) {
-      this.route.navigateByUrl(tab.url ?? 'not-fount');
+      this.router.navigateByUrl(tab.url ?? 'not-fount');
     } else {
       this.model = tab;
       this.tabService.event.emit(this.model);
@@ -56,12 +64,12 @@ export class TabMenuComponent extends Base implements DoCheck {
     // this.selectedLang = this.selectedLang === environment.lang.bg ? environment.lang.en : environment.lang.bg;
     this.selectedLang = language;
     this.langService.setLocalStorage(this.selectedLang);
-    this.menu = this.langService.get(this.selectedLang).navMenu;
+    this.menu = this.langService.get(this.selectedLang).nav;
   }
 
   override langListener(): void {
+    super.langListener(this.component.nav);
     this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.navMenu;
       this.dropdown = result.dropdown;
     }));
   }

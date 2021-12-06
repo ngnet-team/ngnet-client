@@ -42,11 +42,6 @@
             width: 99%;
         }
     }
-
-    // &:hover {
-    //     background-color: getParam(colors, field, hover, back);
-    //     color: getParam(colors, field, hover, fore);
-    // }
 }
 
 //validations
@@ -56,4 +51,14 @@
     font-size: getParam(fonts, size, small);
     color: getParam(constants, alertColor);
     font-style: italic
+}
+
+// -------------------------- Tablet --------------------------
+
+@media only screen and (max-width: getParam(media, tablet, landscape)) {
+
+}
+
+@media only screen and (max-width: getParam(media, tablet, portrait)) {
+   
 }

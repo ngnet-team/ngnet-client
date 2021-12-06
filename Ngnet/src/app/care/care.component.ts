@@ -39,23 +39,22 @@ export class CareComponent extends PagerBase implements DoCheck {
   editingCareId: string | undefined;
   editingCompanyId: number | undefined;
   saveClicked: boolean = this.defaultCare.company == {};
-  //language
-  menu: any = this.langService.get(this.selectedLang).care;
   //labels
   careType: string = this.route.url.slice(1);
-  noCares: string = this.menu[this.careType].noCaresFound;
-  title: string = this.menu[this.careType].title;
-  icons: any = this.iconService.get(this.component.care);
+  noCares: string = '';
+  title: string = '';
 
   constructor(
     langService: LangService,
+    iconService: IconService,
+    router: Router,
     pagerService: PagerService,
     private careService: CareService,
     private route: Router,
     private messageService: MessageService,
-    private iconService: IconService
   ) {
-    super(pagerService, langService);
+    super(langService, iconService, router, pagerService);
+    this.config(this.component.care);
     this.loadNames();
     this.self();
     this.listener();
@@ -63,6 +62,8 @@ export class CareComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
+    this.noCares = this.menu[this.careType].noCaresFound;
+    this.title = this.menu[this.careType].title;
     if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
       this.remove();
     }
@@ -200,18 +201,6 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.careService.loadNames(this.careType).subscribe(res => {
       this.names = res;
     });
-  }
-
-  override langListener(): void {
-    super.langListener(this.component.care);
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.company = result.company;
-
-      if (this.careType) {
-        this.noCares = this.menu[this.careType].noCaresFound;
-        this.title = this.menu[this.careType].title;
-      }
-    }));
   }
 
   override pagerListener(): void {
