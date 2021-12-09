@@ -5,9 +5,11 @@ $bellTop: calc((1.75rem + 0.3rem) / 2);
 
 .badge {
     font-size: getParam(fonts, size, normal);
+    background-color: none;
     color: getParam(colors, area, fore);
 
     &:hover {
+        background-color: transparent;
         color: getParam(colors, area, hover, fore);
     }
 

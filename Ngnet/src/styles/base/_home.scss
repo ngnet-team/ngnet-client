@@ -5,7 +5,7 @@
 $header-back: getParam(colors, header, back);
 
 .container {
-    
+
     header {
         background-color: $header-back;
     }
@@ -14,7 +14,7 @@ $header-back: getParam(colors, header, back);
 
         div {
             height: 25rem;
-            margin-bottom: 1rem;
+            
             .content {
                 color: getParam(colors, area, back);
                 font-size: getParam(fonts, size, big);
@@ -32,11 +32,11 @@ $header-back: getParam(colors, header, back);
                 .button {
                     text-align: center;
                     margin-top: getParam(margins, huge);
-
                     button {
                         padding: getParam(paddings, large) 5rem;
                         background-color: $header-back;
                         color: getParam(colors, field, fore);
+                        border-radius: 3rem;
                     }
 
                     button:hover {

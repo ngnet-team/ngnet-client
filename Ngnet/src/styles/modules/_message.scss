@@ -1,10 +1,10 @@
-@import "../base/api";
+@import "../base/variables";
 
 $navHeight: 1.75rem * 2;
 
 .message {
     position: absolute;
-    top: $navHeight;
+    top: $nav-height;
     z-index: 2;
     background-color: getParam(constants, successColor, back);
     color: getParam(constants, successColor, fore);

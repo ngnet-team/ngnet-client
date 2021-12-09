@@ -1,5 +1,4 @@
 @import "variables";
-@import "api";
 @import "../modules/badge";
 
 .nav {
@@ -10,7 +9,6 @@
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
     box-shadow: getShadow(field, getParam(colors, field, active, back));
-    padding: $nav-padding;
     margin: $nav-margin;
 
     > div {
@@ -28,6 +26,15 @@
 
 .bell {
     color: getParam(colors, field, fore);
+}
+
+.logo:hover {
+    background-color: transparent;
+    color: getParam(colors, field, fore);
+    a {
+        background-color: transparent;
+        color: getParam(colors, field, fore);
+    }
 }
 
 .hamburger {

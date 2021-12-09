@@ -1,23 +1,31 @@
-@import "../base/api";
+@import "../base/variables";
 
 .tab {
     display: grid;
     grid-template-columns: auto 1fr;
-    
+
     color: getParam(colors, field, fore);
-    padding: getParam(paddings, small) getParam(paddings, normal);
+    padding: $tab-padding;
     text-align: center;
+    font-size: $tab-font;
 
     .icon {
         margin-right: getParam(margins, small);
     }
 
-    .element:hover {
-        cursor: pointer;
+    a {
+        color: getParam(colors, field, fore);
     }
 
     &:hover {
+        cursor: pointer;
+        background-color: getParam(colors, field, hover, back);
         color: getParam(colors, field, hover, fore);
+
+        a {
+            background-color: getParam(colors, field, hover, back);
+            color: getParam(colors, field, hover, fore);
+        }
     }
 }
 

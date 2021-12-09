@@ -27,6 +27,8 @@ export class CareComponent extends PagerBase implements DoCheck {
   defaultCare: IDefaultCareModel = { isDeleted: false, company: {} };
   pagedCares: ICareModel[] = [];
   names: IDropDownModel = {};
+  //type
+  careType: string = this.route.url.slice(1);
 
   @Output() pager: IPageModel = this.pagerService.model;
   @Output() company: ICompanyModel = this.defaultCare.company;
@@ -39,10 +41,6 @@ export class CareComponent extends PagerBase implements DoCheck {
   editingCareId: string | undefined;
   editingCompanyId: number | undefined;
   saveClicked: boolean = this.defaultCare.company == {};
-  //labels
-  careType: string = this.route.url.slice(1);
-  noCares: string = '';
-  title: string = '';
 
   constructor(
     langService: LangService,
@@ -62,8 +60,6 @@ export class CareComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    this.noCares = this.menu[this.careType].noCaresFound;
-    this.title = this.menu[this.careType].title;
     if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
       this.remove();
     }

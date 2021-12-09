@@ -9,6 +9,7 @@ import { ITabModel } from 'src/app/interfaces/tab-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
 import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -41,7 +42,8 @@ export class NavComponent implements DoCheck {
     private langService: LangService, 
     private messageService: MessageService, 
     private tabService: TabService,
-    private iconService: IconService
+    private iconService: IconService,
+    protected router: Router
     ) {
     this.subscriptionListener();
     this.adminChecker();
@@ -66,6 +68,10 @@ export class NavComponent implements DoCheck {
         this.openConfirmPopup();
       }
     }
+  }
+
+  public redirect(path: string = 'not-found'): void {
+    this.router.navigateByUrl(path);
   }
 
   openConfirmPopup(): void {

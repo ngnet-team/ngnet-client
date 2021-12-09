@@ -98,10 +98,12 @@
         "required": " *",
         "vehiclecare": {
             "title": "Vehicle Care",
+            "subTitle": "Tracking of motor vehicles",
             "noCaresFound": "There are no vehicle care records."
         },
         "healthcare": {
             "title": "Health Care",
+            "subTitle": "Tracking of health services",
             "noCaresFound": "There are no health care records."
         }
     },

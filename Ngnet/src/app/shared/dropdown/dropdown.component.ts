@@ -1,19 +1,20 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
 import { LangService } from 'src/app/services/lang.service';
 import { Base } from '../base-classes/base';
 import { IconService } from 'src/app/services/icon.service';
+import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
 
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent extends Base implements OnChanges {
+export class DropdownComponent extends Base implements OnChanges, DoCheck {
 
-  @Input() input: { field: string, type: string, value?: string } = { field: '', type: '' };
+  @Input() input: IDropDownOutputModel = { field: '', type: '' };
 
   //language
   dropdown: IJsonDropDownModel = { icon: '' };
@@ -28,6 +29,10 @@ export class DropdownComponent extends Base implements OnChanges {
     ) {
     super(langService, iconService, router);
     this.config(this.component.dropdown);
+  }
+
+  ngDoCheck() {
+    this.showOptions = this.input.visible ?? false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,22 +1,19 @@
 @import "../base/variables";
 @import "../base/api";
 
-$header-height: 4rem;
-
 header {
-    margin: 3rem 0;
-    background-color: getParam(colors, field, back);
-    color: getParam(colors, field, fore);
-    padding-top: 4rem;
-    padding-left: 4rem;
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: $header-gap;
+    background-color: getParam(colors, header, back);
+    color: getParam(colors, header, fore);
+    padding: $header-padding;
 
     .title {
-        height: $header-height;
-        font-size: 4rem;
+        font-size: $header-title;
     }
-    
+
     .sub-title {
-        font-size: 1rem;
-        padding-bottom: 4rem;
+        font-size: $header-sub-title;
     }
 }
