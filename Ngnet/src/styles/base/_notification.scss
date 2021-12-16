@@ -1,14 +1,14 @@
+@import 'variables';
 @import '../modules/box-card';
 @import '../modules/button';
 
 .notification {
-    min-width: $box-card-wrapper;
-    height: calc(100% - 5rem);
     border: getBorder(field, getParam(colors, field, fore));
     position: absolute;
     top: $notification-top;
     right: getParam(margins, large);
     z-index: 2;
+    height: 85%; //$notification-height; TODO
 
     display: grid;
     grid-template-rows: auto 1fr;

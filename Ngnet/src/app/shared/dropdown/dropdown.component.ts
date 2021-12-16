@@ -32,7 +32,7 @@ export class DropdownComponent extends Base implements OnChanges, DoCheck {
   }
 
   ngDoCheck() {
-    this.showOptions = this.input.visible ?? false;
+    // this.showOptions = this.input.visible ?? false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

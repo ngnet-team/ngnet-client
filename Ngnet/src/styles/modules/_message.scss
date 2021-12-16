@@ -5,7 +5,7 @@ $navHeight: 1.75rem * 2;
 .message {
     position: absolute;
     top: $nav-height;
-    z-index: 2;
+    z-index: 3;
     background-color: getParam(constants, successColor, back);
     color: getParam(constants, successColor, fore);
     text-align: center;
