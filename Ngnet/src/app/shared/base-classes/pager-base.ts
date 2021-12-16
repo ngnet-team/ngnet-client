@@ -18,6 +18,7 @@ export class PagerBase extends ServerErrorsBase {
     protected pagerService: PagerService) {
     super(langService, iconService, router);
     this.pagerListener(this.input);
+    this.pagerService.reset();
   }
 
   protected pagerListener(pagedItems: any): void {
@@ -29,5 +30,10 @@ export class PagerBase extends ServerErrorsBase {
   protected pagination(input: any): any {
     const { skip, take } = this.pagerService.skipTake(input.length);
     return input.slice(skip, take);
+  }
+
+  protected configPager(component: string = this.component.none, perPage: number = 4) {
+    super.config(component);
+    this.pagerService.setPerPage(perPage);
   }
 }

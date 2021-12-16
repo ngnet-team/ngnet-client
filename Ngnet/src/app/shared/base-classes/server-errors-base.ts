@@ -14,10 +14,10 @@ export class ServerErrorsBase extends Base {
     defaultMsg: string = 'This error is too long to be displayed. Please check the console for more information.';
 
     constructor(
-        langService: LangService, 
-        iconService: IconService, 
+        langService: LangService,
+        iconService: IconService,
         protected router: Router
-        ) {
+    ) {
         super(langService, iconService, router);
     }
 

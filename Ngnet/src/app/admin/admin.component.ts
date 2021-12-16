@@ -50,12 +50,11 @@ export class AdminComponent extends PagerBase implements DoCheck {
     private messageService: MessageService,
   ) {
     super(langService, iconService, router, pagerService);
-    this.config(this.component.admin);
+    this.configPager(this.component.admin, 10);
     if (!this.authService.accessWithRole(this.route)) {
       this.router.navigateByUrl('not-found');
     };
     this.getAllUsers();
-    this.pagerService.setPerPage(10);
   }
 
   ngDoCheck(): void {

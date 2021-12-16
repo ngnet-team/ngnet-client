@@ -67,4 +67,8 @@ export class PagerService {
       this.model.perPage = counts;
     }
   }
+
+  reset() {
+    this.model.pageNumber = 1;
+  }
 }

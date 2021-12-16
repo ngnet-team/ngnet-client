@@ -52,11 +52,10 @@ export class CareComponent extends PagerBase implements DoCheck {
     private messageService: MessageService,
   ) {
     super(langService, iconService, router, pagerService);
-    this.config(this.component.care);
+    this.configPager(this.component.care, 4);
     this.loadNames();
     this.self();
     this.listener();
-    this.pagerService.setPerPage(4);
   }
 
   ngDoCheck(): void {
