@@ -10,7 +10,7 @@ import { IErrorModel } from 'src/app/interfaces/response-error-model';
 })
 export class ErrorInterceptorService implements HttpInterceptor {
 
-  constructor(private route: Router) {}
+  constructor(private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<IErrorModel>> {
     return next.handle(request)
@@ -18,8 +18,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           console.log(error);
           if (error.status === 0) {
-            this.route.navigateByUrl("server-not-found");
+            this.router.navigateByUrl("server-not-found");
           }
+          // else if (error.status === 404) {
+          //   this.router.navigateByUrl("server-not-found");
+          // }
           return throwError(error);
         })
       )

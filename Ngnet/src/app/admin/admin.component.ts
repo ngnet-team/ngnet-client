@@ -6,7 +6,6 @@ import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
 import { IPageModel } from '../interfaces/page-model';
 import { IPopupModel } from '../interfaces/popup-model';
 import { ISideBarModel } from '../interfaces/side-bar-model';
-import { AdminService } from '../services/admin.service';
 import { AuthService } from '../services/auth.service';
 import { IconService } from '../services/icon.service';
 import { LangService } from '../services/lang.service';
@@ -45,15 +44,11 @@ export class AdminComponent extends PagerBase implements DoCheck {
     router: Router,
     pagerService: PagerService,
     private route: ActivatedRoute,
-    private adminService: AdminService,
     private authService: AuthService,
     private messageService: MessageService,
   ) {
     super(langService, iconService, router, pagerService);
     this.configPager(this.component.admin, 10);
-    if (!this.authService.accessWithRole(this.route)) {
-      this.router.navigateByUrl('not-found');
-    };
     this.getAllUsers();
   }
 
@@ -158,7 +153,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
   // ------- Private -------
 
   private getAllUsers(): void {
-    this.adminService.getAllUsers().subscribe({
+    this.authService.getAllUsers().subscribe({
       next: (res) => {
         this.users = res;
         this.filter();
@@ -184,7 +179,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
       return;
     }
     input.userId = this.updatingUser.id;
-    this.adminService.change(input).subscribe({
+    this.authService.change(input).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
@@ -207,7 +202,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
       roleName: input.new
     } as IAdminUserModel;
 
-    this.adminService.changeRole(user).subscribe({
+    this.authService.changeRole(user).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
@@ -227,7 +222,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
   private delete(permanent: boolean = false): void {
     this.updatingUser.isDeleted = true;
     this.updatingUser.permanentDeletion = permanent;
-    this.adminService.update(this.updatingUser).subscribe({
+    this.authService.update(this.updatingUser).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
@@ -245,7 +240,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
   }
 
   private resetPassword(): void {
-    this.adminService.resetPassword(this.updatingUser).subscribe({
+    this.authService.resetPassword(this.updatingUser).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res?.msg, this.selectedLang);
         this.infos = [];

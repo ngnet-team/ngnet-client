@@ -46,7 +46,6 @@ export class NavComponent implements DoCheck {
     protected router: Router
     ) {
     this.subscriptionListener();
-    this.adminChecker();
   }
 
   ngDoCheck(): void {
@@ -100,7 +99,6 @@ export class NavComponent implements DoCheck {
   private subscriptionListener(): void {
     this.event.push(this.authService.logginEvent.subscribe(isLogged => {
       this.isLogged = isLogged;
-      this.adminChecker();
     }));
     this.event.push(this.messageService.event.subscribe(message => {
       this.message = message;
@@ -115,13 +113,5 @@ export class NavComponent implements DoCheck {
     this.event.push(this.messageService.notificationCount.subscribe(count => {
       this.notificationCount = count;
     }));
-  }
-
-  private adminChecker() {
-    if (this.isLogged) {
-      this.authService.profile().subscribe(x => {
-        this.isAdmin = x.roleName === 'Admin';
-      });
-    }
   }
 }

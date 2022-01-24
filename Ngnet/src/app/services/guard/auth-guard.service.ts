@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { isAuthorized } from 'src/app/interfaces/auth/authorized';
 import { AuthService } from '../auth.service';
 
 @Injectable({
@@ -7,35 +8,33 @@ import { AuthService } from '../auth.service';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private authService: AuthService, private route: Router, private router: ActivatedRoute) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const { authRequired, redirectUrl, roleRequired } = route.data;
 
-    if (this.authorized(authRequired, roleRequired)) {
-      return true
-    }
+    if (authRequired === undefined) { return true; }
 
-    const url = redirectUrl ? redirectUrl : 'login';
-    this.route.navigate([url]);
-    return false;
-  }
+    if (authRequired && this.authService.user === undefined) { return false; }
 
-  private authorized(authRequired: boolean | undefined, roleRequired: string | undefined): boolean {
-
-    if (authRequired === undefined) {
-      return true;
-    }
-
-    if (authRequired !== this.authService.isLogged) {
+    if (!this.authorized(roleRequired)) {
+      const url = redirectUrl ? redirectUrl : 'login';
+      this.router.navigate([url]);
       return false;
     }
 
+    return true;
+  }
+
+  private authorized(roleRequired: string | undefined): boolean {
     if (roleRequired === undefined) {
       return true;
     }
 
-    //TODO: compare real role to the required one!
+    if (!isAuthorized(roleRequired, this.authService.user)) {
+      return true;
+    }
+
     return true;
   }
 }

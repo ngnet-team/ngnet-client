@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { IErrorModel } from 'src/app/interfaces/response-error-model';
 import { IconService } from 'src/app/services/icon.service';
 import { LangService } from 'src/app/services/lang.service';
@@ -33,14 +34,16 @@ export class LoginComponent extends ServerErrorsBase {
       next: (res) => {
         if (res.token) {
           this.authService.setToken(res.token);
+          this.authService.updateRoleUrl();
         }
         const msg = this.messageService.getMsg(res.responseMessage, this.selectedLang);
         this.messageService.event.emit(msg);
         this.authService.logginEvent.emit(true);
         this.messageService.remindClicked.emit(true);
-        this.redirect('profile');
+        this.router.navigateByUrl('profile');
       },
       error: (err) => {
+        console.log(err);
         if (err?.error) {
           this.serverErrors = err?.error;
           this.setServerError();

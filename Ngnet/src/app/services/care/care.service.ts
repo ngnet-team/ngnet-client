@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICareModel } from '../../interfaces/care/care-model';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,9 @@ export class CareService {
 
   private serverUrl: string = environment.serverUrl;
   private careBaseUrl: string = 'care';
+  private request: ICareModel = { userId: this.authService.user?.userId, isDeleted: false, createdOn: new Date};
 
-  constructor(private http: HttpClient, private route: Router) { }
+  constructor(private http: HttpClient, private route: Router, private authService: AuthService) { }
 
   loadNames(careUrl: string): Observable<any> {
     return this.http.get(this.serverUrl + careUrl + '/names');
@@ -32,7 +34,7 @@ export class CareService {
   }
 
   self(careUrl: string): Observable<any> {
-    return this.http.get(this.serverUrl + careUrl + '/self');
+    return this.http.post(this.serverUrl + careUrl + '/self', this.request);
   }
 
   delete(model: ICareModel, careUrl: string): Observable<any> {
