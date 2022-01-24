@@ -1,3 +1,4 @@
+@import 'variables';
 @import 'api';
 
 body {
@@ -9,7 +10,7 @@ body {
     background-position: center;
     opacity: getParam(colors, opacity);
 
-    height: 99%;
+    height: 98%;
 }
 
 textarea {
@@ -18,7 +19,7 @@ textarea {
 }
 
 select, input, textarea {
-    width: 10.6rem;
+    width: $inputs-width;
     background-color:  getParam(colors, area, back);
     color: getParam(colors, area, fore);
     border: none;
@@ -26,7 +27,7 @@ select, input, textarea {
 
 input {
     border-radius: 0.15rem;
-    height: 1.7rem;
+    height: $input-height;
 }
 
 select {
@@ -35,7 +36,6 @@ select {
 
 a {
     text-decoration: none;
-    color: getParam(colors, field, fore);
 }
 
 li {

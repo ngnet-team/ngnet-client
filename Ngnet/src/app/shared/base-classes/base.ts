@@ -1,10 +1,13 @@
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IChangeModel } from "src/app/interfaces/change-model";
+import { IconService } from "src/app/services/icon.service";
 import { LangService } from "../../services/lang.service";
 
 export class Base {
 
   subscription: Subscription[] = [];
+  icons: any;
   //language
   selectedLang: string = this.langService.langState;
   validations: any = this.langService.get(this.selectedLang).validations;
@@ -16,6 +19,7 @@ export class Base {
     login: 'login',
     register: 'register',
     profile: 'profile',
+    home: 'home',
     care: 'care',
     nav: 'nav',
     notification: 'notification',
@@ -25,16 +29,20 @@ export class Base {
     popup: 'popup',
   };
 
-  constructor(protected langService: LangService) {
-    this.langListener();
+  constructor(
+    protected langService: LangService,
+    protected iconService: IconService,
+    protected router: Router
+  ) {
   }
 
-  public langListener(field: string = this.component.none): void {
-    this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.selectedLang = result.language;
-      this.validations = result.validations;
-      this.menu = result[field];
-    }));
+  public redirect(path: string = 'not-found'): void {
+    this.router.navigateByUrl(path);
+  }
+
+  protected config(component: string = this.component.none) {
+    this.langListener(component);
+    this.icons = this.iconService.get(component);
   }
 
   //getData.switcher: true or false
@@ -73,5 +81,15 @@ export class Base {
     }
 
     return {};
+  }
+  
+  protected langListener(component: string = this.component.none): void {
+    this.menu = this.menu[component];
+
+    this.subscription.push(this.langService.langEvent.subscribe(result => {
+      this.selectedLang = result.language;
+      this.validations = result.validations;
+      this.menu = result[component];
+    }));
   }
 }

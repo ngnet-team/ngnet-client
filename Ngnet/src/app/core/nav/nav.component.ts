@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
+import { Component, DoCheck, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LangService } from 'src/app/services/lang.service';
@@ -9,6 +9,7 @@ import { ITabModel } from 'src/app/interfaces/tab-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
 import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -28,7 +29,7 @@ export class NavComponent implements DoCheck {
   //language
   event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
-  menu: any = this.langService.get(this.selectedLang).navMenu;
+  menu: any = this.langService.get(this.selectedLang).nav;
   icons: any = this.iconService.get('nav');
   //temporary
   message: string = '';
@@ -41,10 +42,10 @@ export class NavComponent implements DoCheck {
     private langService: LangService, 
     private messageService: MessageService, 
     private tabService: TabService,
-    private iconService: IconService
+    private iconService: IconService,
+    protected router: Router
     ) {
     this.subscriptionListener();
-    this.adminChecker();
   }
 
   ngDoCheck(): void {
@@ -68,6 +69,10 @@ export class NavComponent implements DoCheck {
     }
   }
 
+  public redirect(path: string = 'not-found'): void {
+    this.router.navigateByUrl(path);
+  }
+
   openConfirmPopup(): void {
     this.confirmPopup.visible = true;
   };
@@ -79,7 +84,7 @@ export class NavComponent implements DoCheck {
   changeLang(language: string): void {
     this.selectedLang = language;
     this.langService.setLocalStorage(this.selectedLang);
-    this.menu = this.langService.get(this.selectedLang).navMenu;
+    this.menu = this.langService.get(this.selectedLang).nav;
   }
 
   notificationToggle(): void {
@@ -94,7 +99,6 @@ export class NavComponent implements DoCheck {
   private subscriptionListener(): void {
     this.event.push(this.authService.logginEvent.subscribe(isLogged => {
       this.isLogged = isLogged;
-      this.adminChecker();
     }));
     this.event.push(this.messageService.event.subscribe(message => {
       this.message = message;
@@ -109,13 +113,5 @@ export class NavComponent implements DoCheck {
     this.event.push(this.messageService.notificationCount.subscribe(count => {
       this.notificationCount = count;
     }));
-  }
-
-  private adminChecker() {
-    if (this.isLogged) {
-      this.authService.profile().subscribe(x => {
-        this.isAdmin = x.roleName === 'Admin';
-      });
-    }
   }
 }

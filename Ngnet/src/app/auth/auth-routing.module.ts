@@ -33,6 +33,8 @@ const routes: Routes = [
     resolve: { profile: ProfileResolverService },
     data: {
       authRequired: true,
+      roleRequired: 'user',
+      redirectUrl: 'login'
     },
     canActivate: [ AuthGuardService ],
   }

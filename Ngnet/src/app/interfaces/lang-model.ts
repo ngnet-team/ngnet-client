@@ -1,6 +1,6 @@
 export interface ILangModel {
     language?: string,
-    navMenu?: {},
+    nav?: {},
     profile?: {},
     login?: {},
     register?: {},
@@ -11,4 +11,5 @@ export interface ILangModel {
     dropdown?: {},
     change?: {},
     popup?:{}
+    home?:{}
 }

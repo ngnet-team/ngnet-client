@@ -4,6 +4,7 @@ import { LangService } from 'src/app/services/lang.service';
 import { ServerErrorsBase } from '../base-classes/server-errors-base';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-popup',
@@ -13,13 +14,14 @@ import { IconService } from 'src/app/services/icon.service';
 //popup types: confirm, change, info
 export class PopupComponent extends ServerErrorsBase  {
   @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: undefined };
-  //language
-  menu: any = this.langService.get(this.selectedLang).popup;
 
-  icons: any = this.iconService.get(this.component.popup);
-
-  constructor(langService: LangService, private iconService: IconService) {
-    super(langService);
+  constructor(
+    langService: LangService,
+    iconService: IconService,
+    router: Router,
+    ) {
+    super(langService, iconService, router);
+    this.config(this.component.popup);
   }
 
   change(input: IChangeModel): void {
@@ -52,9 +54,5 @@ export class PopupComponent extends ServerErrorsBase  {
 
   exit() {
     this.input.visible = false;
-  }
-
-  override langListener(): void {
-    super.langListener(this.component.popup);
   }
 }

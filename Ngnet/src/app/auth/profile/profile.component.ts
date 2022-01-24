@@ -1,9 +1,11 @@
 import { Component, DoCheck, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUserRequestModel } from 'src/app/interfaces/auth/user-request-model';
 import { IUserResponseModel } from 'src/app/interfaces/auth/user-response-model';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { AuthService } from 'src/app/services/auth.service';
+import { IconService } from 'src/app/services/icon.service';
 import { LangService } from 'src/app/services/lang.service';
 import { MessageService } from 'src/app/services/message.service';
 import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
@@ -14,15 +16,19 @@ import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent extends ServerErrorsBase implements DoCheck {
-  @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'profile' } };
 
   user: IUserResponseModel = {};
+  @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'profile' } };
 
-  //language
-  menu: any = this.langService.get(this.selectedLang).profile;
-
-  constructor(private authService: AuthService, langService: LangService, private messageService: MessageService) {
-    super(langService);
+  constructor(
+    langService: LangService,
+    iconService: IconService,
+    router: Router,
+    private authService: AuthService, 
+    private messageService: MessageService
+    ) {
+    super(langService, iconService, router);
+    this.config(this.component.profile);
     this.getProfile();
   }
 
@@ -92,9 +98,5 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
       this.user = res;
     });
     this.errors = [];
-  }
-
-  override langListener(): void {
-    super.langListener(this.component.profile);
   }
 }

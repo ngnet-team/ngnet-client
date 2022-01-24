@@ -4,64 +4,104 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ILoginModel } from '../interfaces/auth/login-model';
 import { IRegisterModel } from '../interfaces/auth/register-model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IUserRequestModel } from '../interfaces/auth/user-request-model';
 import { IChangeModel } from '../interfaces/change-model';
+import { IAdminUserModel } from '../interfaces/admin/admin-user-model';
+import { IParsedToken } from '../interfaces/auth/parsed-token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private authUrl: string = environment.serverUrl + 'auth';
-  get isLogged(): boolean { return this.getToken() ? true : false };
+  private authKey = 'auth?30549/token%';
+
+  roleUrl: any = this.getParsedJwt();
+  isLogged: boolean = this.roleUrl && this.roleUrl != 'auth' ? true : false ;
+
+  private authUrl: string = environment.authUrl;
+  user : IParsedToken | undefined;
+
   logginEvent: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private http: HttpClient, private route: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   register(request: IRegisterModel): Observable<any> {
-    return this.http.post(this.authUrl + '/register', request)
+    return this.http.post(this.authUrl + this.roleUrl + '/register', request)
   }
 
   login(request: ILoginModel): Observable<any> {
-    return this.http.post(this.authUrl + '/login', request)
+    return this.http.post(this.authUrl + this.roleUrl + '/login', request)
   }
 
   logout(): void {
-    this.http.get(this.authUrl + '/logout').subscribe(res => {
-      localStorage.removeItem('auth-token');
+    this.http.get(this.authUrl + this.roleUrl + '/logout').subscribe(res => {
+      localStorage.removeItem(this.authKey);
     });
-    this.route.navigateByUrl('');
+    this.router.navigateByUrl('');
   }
 
   profile(): Observable<any> {
-    return this.http.get(this.authUrl + '/profile');
-  }
-
-  setToken(authToken: string): void {
-    localStorage.setItem('auth-token', authToken)
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('auth-token')
-  }
-
-  accessWithRole(router: ActivatedRoute): boolean {
-    var currRole: string = router.snapshot.data?.profile?.roleName;
-    var requiredRole: string = router.snapshot.data?.requiredRole
-
-    if (requiredRole === undefined) {
-      return true;
-    }
-
-    return requiredRole === currRole;
+    return this.http.get(this.authUrl + this.roleUrl + '/profile');
   }
 
   update(request: IUserRequestModel): Observable<any> {
-    return this.http.post(this.authUrl + '/update', request);
+    return this.http.post(this.authUrl + this.roleUrl + '/update', request);
   }
 
   change(request: IChangeModel): Observable<any> {
-    return this.http.post(this.authUrl + '/change', request);
+    return this.http.post(this.authUrl + this.roleUrl + '/change', request);
+  }
+
+  //Admins
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(this.authUrl + this.roleUrl + '/getAllUsers');
+  }
+
+  changeRole(user: IAdminUserModel): Observable<any> {
+    return this.http.post(this.authUrl + this.roleUrl + '/changeRole', user);
+  }
+
+  resetPassword(user: IAdminUserModel): Observable<any> {
+    return this.http.post(this.authUrl + this.roleUrl + '/resetPassword', user);
+  }
+
+  setToken(authToken: string): void {
+    localStorage.setItem(this.authKey, authToken)
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.authKey)
+  }
+
+  updateRoleUrl(): void {
+    this.roleUrl = this.getParsedJwt();
+  }
+
+  // ============= Private =============
+
+  private getParsedJwt(): any {
+    if (this.user) { return this.user.role; }
+
+    const token: any = this.getToken();
+    if (token == null) {
+      return "auth";
+    }
+
+    try {
+      const parsedToken = JSON.parse(atob(token.split('.')[1]));
+      this.user = { 
+        userId: parsedToken.nameid, 
+        username: parsedToken.unique_name, 
+        role: parsedToken.role.toLowerCase(), 
+      }
+
+      return this.user.role;
+    } catch (error) {
+      return "auth";
+    }
   }
 }

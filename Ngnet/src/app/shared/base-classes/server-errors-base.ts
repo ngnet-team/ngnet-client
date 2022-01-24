@@ -1,4 +1,6 @@
+import { Router } from "@angular/router";
 import { IErrorModel } from "src/app/interfaces/response-error-model";
+import { IconService } from "src/app/services/icon.service";
 import { environment } from "src/environments/environment";
 import { LangService } from "../../services/lang.service";
 import { Base } from "./base";
@@ -11,8 +13,12 @@ export class ServerErrorsBase extends Base {
     longError: number = 50;
     defaultMsg: string = 'This error is too long to be displayed. Please check the console for more information.';
 
-    constructor(langService: LangService) {
-        super(langService);
+    constructor(
+        langService: LangService,
+        iconService: IconService,
+        protected router: Router
+    ) {
+        super(langService, iconService, router);
     }
 
     protected setServerError(): void {
@@ -35,8 +41,8 @@ export class ServerErrorsBase extends Base {
         }
     }
 
-    override langListener(field: string = 'none'): void {
-        super.langListener(field);
+    override langListener(component: string = 'none'): void {
+        super.langListener(component);
         this.subscription.push(this.langService.langEvent.subscribe(result => {
             this.setServerError();
         }))

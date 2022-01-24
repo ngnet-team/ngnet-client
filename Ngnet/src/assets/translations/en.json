@@ -1,8 +1,8 @@
 {
     "language": "en",
-    "navMenu": {
+    "nav": {
         "logo": {
-            "name": "Logo",
+            "name": "NgNet",
             "url": "/"
         },
         "login": {
@@ -21,6 +21,16 @@
             "name": "Logout",
             "url": "logout"
         }
+    },
+    "home": {
+        "title": "Home Page",
+        "subTitle": {
+            "logged": "Welcome to NgNet",
+            "notLogged": "Sign up if you are a new member or sign in."
+        },
+        "vehicle": "Start your vehicle manager",
+        "health": "Start your health manager",
+        "click": "Click here"
     },
     "profile": {
         "title": "Your Account",
@@ -80,7 +90,7 @@
         "paidEndDate": "Paid end date",
         "reminder": "Reminder",
         "price": "Price",
-        "notes": "Notes",
+        "notes": "Notes (500 max)",
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",
@@ -88,10 +98,12 @@
         "required": " *",
         "vehiclecare": {
             "title": "Vehicle Care",
+            "subTitle": "Tracking of motor vehicles",
             "noCaresFound": "There are no vehicle care records."
         },
         "healthcare": {
             "title": "Health Care",
+            "subTitle": "Tracking of health services",
             "noCaresFound": "There are no health care records."
         }
     },

@@ -1,0 +1,29 @@
+@import 'api';
+
+/* ======= Reset defailt ======= */
+$inputs-width: 10.6rem;
+$input-height: 1.7rem;
+
+$tab-font: 1rem;
+$tab-padding: 1rem;
+$nav-padding: 0;
+$nav-margin: getParam(margins, large);
+$nav-height: $nav-margin + ($nav-padding * 2) + ($tab-padding * 2) + $tab-font;
+
+$notification-top: $nav-height + $nav-margin + ($nav-padding * 2);
+$notification-height: calc(100% - $nav-height + $nav-margin + ($nav-padding * 2));
+
+/* ======= Modules ======= */
+$box-card-width: max-content;
+$box-card-padding: getParam(paddings, large);
+$box-card-margin: getParam(margins, small);
+$box-card-wrapper: $box-card-width + ($box-card-margin * 2) + ($box-card-padding * 2);
+
+$button-min-width: 0.5rem;
+$button-padding: getParam(paddings, normal);
+$button-margin: getParam(margins, small);
+
+$header-title: 3rem;
+$header-sub-title: 1rem;
+$header-gap: 1rem;
+$header-padding: 3rem;

@@ -1,3 +1,12 @@
+<header>
+    <div class="title">
+        {{menu[careType].title}}
+    </div>
+    <div class="sub-title">
+        {{menu[careType].subTitle}}
+    </div>
+</header>
+
 <div class="container">
     <!-- --------------------- Result Set  --------------------- -->
     <div class="results">
@@ -16,7 +25,7 @@
         </div>
 
         <div class="no-items" *ngIf="cares.length === 0">
-            <p>{{noCares}}</p>
+            <p>{{menu[careType].noCaresFound}}</p>
         </div>
         <div class="items">
             <div class="box-card" *ngFor="let care of pagedCares">
@@ -96,7 +105,7 @@
 
             <div class="title">
                 <fa-icon class="icon" [icon]="icons.title[careType]"></fa-icon>
-                {{title}}
+                {{menu[careType].title}}
             </div>
             <div class="single-row">
                 <div class="field">
@@ -143,7 +152,7 @@
             <div class="double-width">
                 <div class="field">
                     <div class="label">{{menu.notes}}</div>
-                    <textarea type="text" name="notes" [(ngModel)]="defaultCare.notes"></textarea>
+                    <textarea type="text" name="notes" [(ngModel)]="defaultCare.notes" maxlength="500"></textarea>
                 </div>
             </div>
 

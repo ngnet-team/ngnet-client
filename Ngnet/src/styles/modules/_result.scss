@@ -31,6 +31,7 @@
     }
 
     .items {
+        min-width: $box-card-wrapper;
         
         > div {
             margin: getParam(margins, small) 0;

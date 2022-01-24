@@ -1,30 +1,38 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
 import { LangService } from 'src/app/services/lang.service';
 import { Base } from '../base-classes/base';
 import { IconService } from 'src/app/services/icon.service';
+import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
 
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent extends Base implements OnChanges {
+export class DropdownComponent extends Base implements OnChanges, DoCheck {
 
-  @Input() input: { field: string, type: string, value?: string } = { field: '', type: '' };
+  @Input() input: IDropDownOutputModel = { field: '', type: '' };
 
   //language
-  menu: any = this.langService.get(this.selectedLang).dropdown;
   dropdown: IJsonDropDownModel = { icon: '' };
-  icons: any = this.iconService.get(this.component.dropdown);
   //temporary
   showOptions: boolean = false;
   timeOut: any;
 
-  constructor(private route: Router, langService: LangService, private iconService: IconService) {
-    super(langService);
+  constructor(
+    langService: LangService, 
+    iconService: IconService,
+    router: Router, 
+    ) {
+    super(langService, iconService, router);
+    this.config(this.component.dropdown);
+  }
+
+  ngDoCheck() {
+    // this.showOptions = this.input.visible ?? false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,7 +43,7 @@ export class DropdownComponent extends Base implements OnChanges {
     this.visible(false, 0);
     
     if (this.input.type === 'route') {
-      this.route.navigateByUrl(option.url ?? 'not-found');
+      this.router.navigateByUrl(option.url ?? 'not-found');
     } else if (this.input.type === 'state') {
       this.input.value = option.url;
     }
@@ -53,9 +61,8 @@ export class DropdownComponent extends Base implements OnChanges {
   }
 
   override langListener(): void {
-    super.langListener();
+    super.langListener(this.component.dropdown);
     this.subscription.push(this.langService.langEvent.subscribe(result => {
-      this.menu = result.dropdown;
       this.dropdown = this.menu[this.input.field];
     }));
   }

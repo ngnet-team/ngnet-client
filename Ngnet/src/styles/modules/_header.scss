@@ -1,0 +1,19 @@
+@import "../base/variables";
+@import "../base/api";
+
+header {
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: $header-gap;
+    background-color: getParam(colors, header, back);
+    color: getParam(colors, header, fore);
+    padding: $header-padding;
+
+    .title {
+        font-size: $header-title;
+    }
+
+    .sub-title {
+        font-size: $header-sub-title;
+    }
+}

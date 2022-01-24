@@ -21,7 +21,7 @@ export class NotificationComponent {
 
   constructor(private messageService: MessageService, private iconService: IconService, private careService: CareService) {
     this.subscriptionListener();
-    this.getReminders();
+    // this.getReminders();
   }
 
   getReminders(): void {

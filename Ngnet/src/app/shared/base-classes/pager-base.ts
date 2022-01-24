@@ -1,4 +1,6 @@
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { IconService } from "src/app/services/icon.service";
 import { LangService } from "src/app/services/lang.service";
 import { PagerService } from "src/app/services/pager.service";
 import { ServerErrorsBase } from "./server-errors-base";
@@ -9,9 +11,14 @@ export class PagerBase extends ServerErrorsBase {
   //fake param
   input: any;
 
-  constructor(public pagerService: PagerService, langService: LangService) {
-    super(langService);
+  constructor(
+    protected langService: LangService, 
+    protected iconService: IconService,
+    protected router: Router, 
+    protected pagerService: PagerService) {
+    super(langService, iconService, router);
     this.pagerListener(this.input);
+    this.pagerService.reset();
   }
 
   protected pagerListener(pagedItems: any): void {
@@ -23,5 +30,10 @@ export class PagerBase extends ServerErrorsBase {
   protected pagination(input: any): any {
     const { skip, take } = this.pagerService.skipTake(input.length);
     return input.slice(skip, take);
+  }
+
+  protected configPager(component: string = this.component.none, perPage: number = 4) {
+    super.config(component);
+    this.pagerService.setPerPage(perPage);
   }
 }
