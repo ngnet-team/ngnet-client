@@ -6,6 +6,7 @@ import { LangService } from 'src/app/services/lang.service';
 import { Base } from '../base-classes/base';
 import { IconService } from 'src/app/services/icon.service';
 import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -25,9 +26,10 @@ export class DropdownComponent extends Base implements OnChanges, DoCheck {
   constructor(
     langService: LangService, 
     iconService: IconService,
+    authService: AuthService,
     router: Router, 
     ) {
-    super(langService, iconService, router);
+    super(langService, iconService, authService, router);
     this.config(this.component.dropdown);
   }
 

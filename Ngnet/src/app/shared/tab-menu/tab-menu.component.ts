@@ -33,11 +33,11 @@ export class TabMenuComponent extends Base implements DoCheck {
   constructor(
     langService: LangService, 
     iconService: IconService, 
+    authService: AuthService,
     router: Router, 
-    private authService: AuthService, 
     private tabService: TabService
     ) {
-    super(langService, iconService, router);
+    super(langService, iconService, authService, router);
     this.config(this.component.tabMenu);
     this.subscriptionListener();
   }

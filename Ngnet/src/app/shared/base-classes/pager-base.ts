@@ -1,5 +1,6 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { AuthService } from "src/app/services/auth.service";
 import { IconService } from "src/app/services/icon.service";
 import { LangService } from "src/app/services/lang.service";
 import { PagerService } from "src/app/services/pager.service";
@@ -14,9 +15,10 @@ export class PagerBase extends ServerErrorsBase {
   constructor(
     protected langService: LangService, 
     protected iconService: IconService,
+    protected authService: AuthService,
     protected router: Router, 
     protected pagerService: PagerService) {
-    super(langService, iconService, router);
+    super(langService, iconService, authService, router);
     this.pagerListener(this.input);
     this.pagerService.reset();
   }

@@ -41,13 +41,12 @@ export class AdminComponent extends PagerBase implements DoCheck {
   constructor(
     langService: LangService,
     iconService: IconService,
+    authService: AuthService,
     router: Router,
     pagerService: PagerService,
-    private route: ActivatedRoute,
-    private authService: AuthService,
     private messageService: MessageService,
   ) {
-    super(langService, iconService, router, pagerService);
+    super(langService, iconService, authService, router, pagerService);
     this.configPager(this.component.admin, 10);
     this.getAllUsers();
   }
