@@ -1,7 +1,7 @@
 import { Component, DoCheck, Input, Output } from '@angular/core';
 import { IPageModel } from 'src/app/interfaces/page-model';
-import { PagerService } from 'src/app/services/pager.service';
-import { IconService } from 'src/app/services/icon.service';
+import { PagerService } from 'src/app/services/components/pager/pager.service';
+import { IconService } from 'src/app/services/common/icon/icon.service';
 
 @Component({
   selector: 'app-page',

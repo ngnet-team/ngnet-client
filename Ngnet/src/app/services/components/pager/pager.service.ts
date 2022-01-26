@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IPageModel } from '../interfaces/page-model';
+import { IPageModel } from '../../../interfaces/page-model';
 
 @Injectable({
   providedIn: 'root'

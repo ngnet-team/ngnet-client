@@ -1,6 +1,6 @@
-@import '../../styles/modules/button';
-@import '../../styles/modules/badge';
-@import '../../styles/modules/header';
+@import '../../../styles/modules/button';
+@import '../../../styles/modules/badge';
+@import '../../../styles/modules/header';
 
 $dashboard-back: getParam(colors, area, back);
 $dashboard-fore: getParam(colors, area, fore);

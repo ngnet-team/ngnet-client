@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from '../services/guard/auth-guard.service';
-import { ProfileResolverService } from '../services/profile-resolver.service';
+import { AuthGuardService } from '../services/guards/auth-guard.service';
+import { ProfileResolverService } from '../services/components/profile/profile-resolver.service';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
@@ -40,4 +40,4 @@ const routes: Routes = [
   }
 ];
 
-export const UserRoutingModule = RouterModule.forChild(routes);
+export const AuthRoutingModule = RouterModule.forChild(routes);

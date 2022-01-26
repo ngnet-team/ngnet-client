@@ -4,10 +4,10 @@ import { IUserRequestModel } from 'src/app/interfaces/auth/user-request-model';
 import { IUserResponseModel } from 'src/app/interfaces/auth/user-response-model';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
-import { AuthService } from 'src/app/services/auth.service';
-import { IconService } from 'src/app/services/icon.service';
-import { LangService } from 'src/app/services/lang.service';
-import { MessageService } from 'src/app/services/message.service';
+import { AuthService } from 'src/app/services/modules/auth/auth.service';
+import { IconService } from 'src/app/services/common/icon/icon.service';
+import { LangService } from 'src/app/services/common/lang/lang.service';
+import { MessageService } from 'src/app/services/common/message/message.service';
 import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
 
 @Component({

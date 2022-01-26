@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ICompanyModel } from '../interfaces/company-model';
+import { ICompanyModel } from '../../../interfaces/company-model';
 
 @Injectable({
   providedIn: 'root'

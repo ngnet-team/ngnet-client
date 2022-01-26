@@ -1,9 +1,9 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IChangeModel } from "src/app/interfaces/change-model";
-import { AuthService } from "src/app/services/auth.service";
-import { IconService } from "src/app/services/icon.service";
-import { LangService } from "../../services/lang.service";
+import { AuthService } from "src/app/services/modules/auth/auth.service";
+import { IconService } from "src/app/services/common/icon/icon.service";
+import { LangService } from "../../services/common/lang/lang.service";
 
 export class Base {
 
@@ -29,6 +29,14 @@ export class Base {
     page: 'page',
     popup: 'popup',
   };
+
+  private roles = [
+    'owner',
+    'admin',
+    'member',
+    'user',
+    'guest',
+  ];
 
   constructor(
     protected langService: LangService,
@@ -108,5 +116,17 @@ export class Base {
 
     obj.userId = this.authService.user?.userId;
     return obj;
+  }
+
+  protected hasPermissions(role: string | undefined): boolean {
+    if (!this.authService.user) { return false; }
+    
+    if (!role) { return false; }
+    
+    const requiredRole = this.roles.indexOf(role);
+    if (requiredRole === -1) { return false; }
+
+    const userRole = this.roles.indexOf(this.authService.user.role as string);
+    return userRole <= requiredRole;
   }
 }

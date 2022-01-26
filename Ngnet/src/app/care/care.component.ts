@@ -3,18 +3,18 @@ import { Router } from '@angular/router';
 import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { ICareModel } from '../interfaces/care/care-model';
-import { LangService } from '../services/lang.service';
-import { CareService } from '../services/care/care.service';
+import { LangService } from '../services/common/lang/lang.service';
+import { CareService } from '../services/components/care/care.service';
 import { IDefaultCareModel } from '../interfaces/care/default-care-model';
 import { IPageModel } from '../interfaces/page-model';
-import { PagerService } from '../services/pager.service';
+import { PagerService } from '../services/components/pager/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
-import { MessageService } from '../services/message.service';
+import { MessageService } from '../services/common/message/message.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
 import { IPopupModel } from '../interfaces/popup-model';
-import { IconService } from '../services/icon.service';
+import { IconService } from '../services/common/icon/icon.service';
 import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/modules/auth/auth.service';
 
 @Component({
   selector: 'app-care',

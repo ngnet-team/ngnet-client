@@ -1,9 +1,9 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { AuthService } from "src/app/services/auth.service";
-import { IconService } from "src/app/services/icon.service";
-import { LangService } from "src/app/services/lang.service";
-import { PagerService } from "src/app/services/pager.service";
+import { AuthService } from "src/app/services/modules/auth/auth.service";
+import { IconService } from "src/app/services/common/icon/icon.service";
+import { LangService } from "src/app/services/common/lang/lang.service";
+import { PagerService } from "src/app/services/components/pager/pager.service";
 import { ServerErrorsBase } from "./server-errors-base";
 
 export class PagerBase extends ServerErrorsBase {

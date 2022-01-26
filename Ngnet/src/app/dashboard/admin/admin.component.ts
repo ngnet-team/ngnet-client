@@ -1,17 +1,18 @@
 import { Component, DoCheck, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IAdminUserModel } from '../interfaces/admin/admin-user-model';
-import { IChangeModel } from '../interfaces/change-model';
-import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
-import { IPageModel } from '../interfaces/page-model';
-import { IPopupModel } from '../interfaces/popup-model';
-import { ISideBarModel } from '../interfaces/side-bar-model';
-import { AuthService } from '../services/auth.service';
-import { IconService } from '../services/icon.service';
-import { LangService } from '../services/lang.service';
-import { MessageService } from '../services/message.service';
-import { PagerService } from '../services/pager.service';
-import { PagerBase } from '../shared/base-classes/pager-base';
+import { IAdminUserModel } from '../../interfaces/modules/dashboard/admin-user-model';
+import { IChangeModel } from '../../interfaces/change-model';
+import { IDropDownOutputModel } from '../../interfaces/dropdown/dropdown-output';
+import { IPageModel } from '../../interfaces/page-model';
+import { IPopupModel } from '../../interfaces/popup-model';
+import { ISideBarModel } from '../../interfaces/side-bar-model';
+import { AuthService } from '../../services/modules/auth/auth.service';
+import { IconService } from '../../services/common/icon/icon.service';
+import { LangService } from '../../services/common/lang/lang.service';
+import { MessageService } from '../../services/common/message/message.service';
+import { PagerService } from '../../services/components/pager/pager.service';
+import { PagerBase } from '../../shared/base-classes/pager-base';
+import { Router } from '@angular/router';
+import { DashboardService } from 'src/app/services/modules/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-admin',
@@ -44,11 +45,12 @@ export class AdminComponent extends PagerBase implements DoCheck {
     authService: AuthService,
     router: Router,
     pagerService: PagerService,
+    private dashboardService: DashboardService,
     private messageService: MessageService,
   ) {
     super(langService, iconService, authService, router, pagerService);
     this.configPager(this.component.admin, 10);
-    this.getAllUsers();
+    this.getUsers();
   }
 
   ngDoCheck(): void {
@@ -151,8 +153,8 @@ export class AdminComponent extends PagerBase implements DoCheck {
   }
   // ------- Private -------
 
-  private getAllUsers(): void {
-    this.authService.getAllUsers().subscribe({
+  private getUsers(): void {
+    this.dashboardService.getUsers().subscribe({
       next: (res) => {
         this.users = res;
         this.filter();
@@ -182,7 +184,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
-        this.getAllUsers();
+        this.getUsers();
       },
       error: (err) => {
         if (err?.error?.errors) {
@@ -201,11 +203,11 @@ export class AdminComponent extends PagerBase implements DoCheck {
       roleName: input.new
     } as IAdminUserModel;
 
-    this.authService.changeRole(user).subscribe({
+    this.dashboardService.changeRole(user).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
-        this.getAllUsers();
+        this.getUsers();
       },
       error: (err) => {
         if (err?.error?.errors) {
@@ -225,7 +227,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
-        this.getAllUsers();
+        this.getUsers();
       },
       error: (err) => {
         if (err?.error?.errors) {
@@ -245,7 +247,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
         this.infos = [];
         this.infos.push(` Your new password is: ${res?.newPassword}.`);
         this.messageService.event.emit(msg);
-        this.getAllUsers();
+        this.getUsers();
       },
       error: (err) => {
         if (err?.error?.errors) {

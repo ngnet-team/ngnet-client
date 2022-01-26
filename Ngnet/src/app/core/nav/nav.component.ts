@@ -1,22 +1,23 @@
 import { Component, DoCheck, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { LangService } from 'src/app/services/lang.service';
-import { MessageService } from 'src/app/services/message.service';
+import { AuthService } from 'src/app/services/modules/auth/auth.service';
+import { LangService } from 'src/app/services/common/lang/lang.service';
+import { MessageService } from 'src/app/services/common/message/message.service';
 import { environment } from 'src/environments/environment';
-import { TabService } from 'src/app/services/tab.service';
+import { TabService } from 'src/app/services/common/tab/tab.service';
 import { ITabModel } from 'src/app/interfaces/tab-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
-import { IconService } from 'src/app/services/icon.service';
+import { IconService } from 'src/app/services/common/icon/icon.service';
 import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
 import { Router } from '@angular/router';
+import { Base } from 'src/app/shared/base-classes/base';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements DoCheck {
+export class NavComponent extends Base implements DoCheck {
 
   @Input() tab: ITabModel = {};
   @Input() isLogged: boolean = this.authService.isLogged;
@@ -33,18 +34,19 @@ export class NavComponent implements DoCheck {
   icons: any = this.iconService.get('nav');
   //temporary
   message: string = '';
-  isAdmin: boolean = false;
+  isAdmin: boolean = this.hasPermissions('admin');
   notification: boolean = false;
   notificationCount: number = 0;
 
   constructor(
-    private authService: AuthService, 
-    private langService: LangService, 
+    langService: LangService,
+    iconService: IconService,
+    authService: AuthService,
+    router: Router, 
     private messageService: MessageService, 
     private tabService: TabService,
-    private iconService: IconService,
-    protected router: Router
     ) {
+      super(langService, iconService, authService, router);
     this.subscriptionListener();
   }
 

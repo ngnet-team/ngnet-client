@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ICareModel } from 'src/app/interfaces/care/care-model';
 import { ITimeModel } from 'src/app/interfaces/time-model';
-import { CareService } from 'src/app/services/care/care.service';
-import { IconService } from 'src/app/services/icon.service';
-import { MessageService } from 'src/app/services/message.service';
+import { CareService } from 'src/app/services/components/care/care.service';
+import { IconService } from 'src/app/services/common/icon/icon.service';
+import { MessageService } from 'src/app/services/common/message/message.service';
 
 @Component({
   selector: 'app-notification',

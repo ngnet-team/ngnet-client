@@ -1,4 +1,4 @@
-import { IUserExperianceModel } from "./user-experiance-model";
+import { IEntryModel } from "./entry-model";
 
 export interface IAdminUserModel {
     id?: string,
@@ -13,6 +13,6 @@ export interface IAdminUserModel {
     modifiedOn?: string,
     deletedOn?: string,
     isDeleted?: boolean
-    experiances?: IUserExperianceModel[],
+    experiances?: IEntryModel[],
     permanentDeletion?: boolean
 }

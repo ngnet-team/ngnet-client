@@ -1,8 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import * as bg from "../../assets/translations/bg.json";
-import * as en from "../../assets/translations/en.json";
-import { ILangModel } from '../interfaces/lang-model';
+import * as bg from "../../../../assets/translations/bg.json";
+import * as en from "../../../../assets/translations/en.json";
+import { ILangModel } from '../../../interfaces/lang-model';
 
 @Injectable({
   providedIn: 'root'

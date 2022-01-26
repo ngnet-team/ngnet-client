@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './dashboard/admin/admin.component';
 import { HomeComponent } from './home/home.component';
-import { AuthGuardService } from './services/guard/auth-guard.service';
-import { ProfileResolverService } from './services/profile-resolver.service';
+import { AuthGuardService } from './services/guards/auth-guard.service';
+import { ProfileResolverService } from './services/components/profile/profile-resolver.service';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { ServerNotFoundComponent } from './shared/server-not-found/server-not-found.component';
 import { CareComponent } from './care/care.component';

@@ -1,14 +1,14 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { ILoginModel } from '../interfaces/auth/login-model';
-import { IRegisterModel } from '../interfaces/auth/register-model';
+import { environment } from '../../../../environments/environment';
+import { ILoginModel } from '../../../interfaces/auth/login-model';
+import { IRegisterModel } from '../../../interfaces/auth/register-model';
 import { Router } from '@angular/router';
-import { IUserRequestModel } from '../interfaces/auth/user-request-model';
-import { IChangeModel } from '../interfaces/change-model';
-import { IAdminUserModel } from '../interfaces/admin/admin-user-model';
-import { IParsedToken } from '../interfaces/auth/parsed-token';
+import { IUserRequestModel } from '../../../interfaces/auth/user-request-model';
+import { IChangeModel } from '../../../interfaces/change-model';
+import { IAdminUserModel } from '../../../interfaces/modules/dashboard/admin-user-model';
+import { IParsedToken } from '../../../interfaces/auth/parsed-token';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,12 @@ export class AuthService {
   roleUrl: any = this.getParsedJwt();
   isLogged: boolean = this.roleUrl && this.roleUrl != 'auth' ? true : false ;
 
-  private authUrl: string = environment.authUrl;
+  protected authUrl: string = environment.authUrl;
   user : IParsedToken | undefined;
 
   logginEvent: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(protected http: HttpClient, protected router: Router) {
   }
 
   register(request: IRegisterModel): Observable<any> {
@@ -39,6 +39,8 @@ export class AuthService {
   logout(): void {
     this.http.get(this.authUrl + this.roleUrl + '/logout').subscribe(res => {
       localStorage.removeItem(this.authKey);
+      this.user = undefined;
+      this.updateRoleUrl();
     });
     this.router.navigateByUrl('');
   }
@@ -53,16 +55,6 @@ export class AuthService {
 
   change(request: IChangeModel): Observable<any> {
     return this.http.post(this.authUrl + this.roleUrl + '/change', request);
-  }
-
-  //Admins
-
-  getAllUsers(): Observable<any> {
-    return this.http.get(this.authUrl + this.roleUrl + '/getAllUsers');
-  }
-
-  changeRole(user: IAdminUserModel): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/changeRole', user);
   }
 
   resetPassword(user: IAdminUserModel): Observable<any> {

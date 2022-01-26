@@ -7,29 +7,28 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { AuthGuardService } from './services/guard/auth-guard.service';
+import { AuthGuardService } from './services/guards/auth-guard.service';
 import { ErrorInterceptorService } from './services/interceptors/error-interceptor.service';
 import { HttpInterceptorService } from './services/interceptors/http-interceptor.service';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
-import { ProfileResolverService } from './services/profile-resolver.service';
-import { AdminComponent } from './admin/admin.component';
+import { ProfileResolverService } from './services/components/profile/profile-resolver.service';
 import { CareComponent } from './care/care.component';
-import { CareService } from './services/care/care.service';
-import { LangService } from './services/lang.service';
-import { CompanyService } from './services/company.service';
-import { PagerService } from './services/pager.service';
+import { CareService } from './services/components/care/care.service';
+import { LangService } from './services/common/lang/lang.service';
+import { CompanyService } from './services/components/company/company.service';
+import { PagerService } from './services/components/pager/pager.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MessageService } from './services/message.service';
-import { TabService } from './services/tab.service';
-import { IconService } from './services/icon.service';
-import { AuthService } from './services/auth.service';
+import { MessageService } from './services/common/message/message.service';
+import { TabService } from './services/common/tab/tab.service';
+import { IconService } from './services/common/icon/icon.service';
+import { AuthService } from './services/modules/auth/auth.service';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AdminComponent,
     CareComponent,
   ],
   schemas: [
@@ -45,6 +44,7 @@ import { AuthService } from './services/auth.service';
     SharedModule,
     CoreModule,
     AuthModule,
+    DashboardModule,
   ],
   providers: [
     AuthService,

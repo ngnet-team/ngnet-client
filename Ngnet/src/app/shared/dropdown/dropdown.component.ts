@@ -2,11 +2,11 @@ import { Component, DoCheck, Input, OnChanges, SimpleChanges } from '@angular/co
 import { Router } from '@angular/router';
 import { IDropDownOptionModel } from 'src/app/interfaces/dropdown/dropdown-option-model';
 import { IJsonDropDownModel } from 'src/app/interfaces/dropdown/json-dropdown-model';
-import { LangService } from 'src/app/services/lang.service';
+import { LangService } from 'src/app/services/common/lang/lang.service';
 import { Base } from '../base-classes/base';
-import { IconService } from 'src/app/services/icon.service';
+import { IconService } from 'src/app/services/common/icon/icon.service';
 import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/modules/auth/auth.service';
 
 @Component({
   selector: 'app-dropdown',

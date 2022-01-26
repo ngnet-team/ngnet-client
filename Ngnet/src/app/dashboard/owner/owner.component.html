@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="creation">
+        <form class="form" #maxroles="ngForm" (ngSubmit)="setMaxRoles(maxroles.value)">
+            <div class="title">
+                Max Roles
+            </div>
+
+            <div class="field">
+                <div class="label">Roles</div>
+                <select name="name" ngModel required>
+                    <option *ngFor="let role of roles" [value]="role.name">{{role.name}}</option>
+                </select>
+            </div>
+            <div class="field">
+                <div class="label">Max Count</div>
+                <input type="number" name="maxCount">
+            </div>
+
+            <div>
+                <button class="button" [disabled]="maxroles.invalid">Set</button>
+            </div>
+        </form>
+    </div>
+</div>
