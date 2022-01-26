@@ -35,6 +35,7 @@ export class NavComponent extends Base implements DoCheck {
   //temporary
   message: string = '';
   isAdmin: boolean = this.hasPermissions('admin');
+  isOwner: boolean = this.hasPermissions('owner');
   notification: boolean = false;
   notificationCount: number = 0;
 

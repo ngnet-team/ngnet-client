@@ -1,40 +1,41 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { isAuthorized } from 'src/app/interfaces/auth/authorized';
 import { AuthService } from '../modules/auth/auth.service';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
 
+  private url: string = '';
+
   constructor(private authService: AuthService, private router: Router) { }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const { authRequired, redirectUrl, roleRequired } = route.data;
 
-    if (authRequired === undefined) { return true; }
+    // Success: no auth restriction
+    if (authRequired === undefined) { return true; } 
 
-    if (authRequired && this.authService.user === undefined) { return false; }
+    // Success: must NOT be logged and NOT
+    else if (authRequired === false && !this.authService.user) { return true; }
 
-    if (!this.authorized(roleRequired)) {
-      const url = redirectUrl ? redirectUrl : 'login';
-      this.router.navigate([url]);
-      return false;
-    }
+    // Denied: must be logged but NOT
+    else if (authRequired === true && !this.authService.user) { this.url = redirectUrl ? redirectUrl : 'login'; }
 
-    return true;
-  }
+    // Denied: must NOT be logged but it is
+    else if (authRequired === false && this.authService.user) { this.url = redirectUrl ? redirectUrl : ''; }
 
-  private authorized(roleRequired: string | undefined): boolean {
-    if (roleRequired === undefined) {
-      return true;
-    }
+    // Success: no role restriction
+    else if (roleRequired === undefined) { return true; }  
 
-    if (!isAuthorized(roleRequired, this.authService.user)) {
-      return true;
-    }
+    // Denied: has role but NOT required one
+    else if (!this.authService.isAuthorized(roleRequired)) { this.url = redirectUrl ? redirectUrl : ''; }
+    
+    // Success
+    else { return true; }
 
-    return true;
+    this.router.navigate([this.url]);
+    return false;
   }
 }

@@ -11,11 +11,11 @@
             <app-dropdown class="element" [input]="adminDropdown" routerLink="/admin"></app-dropdown>
         </div>
         <!-- ^^^^^^^^^^^^^^ Owner ONLY ^^^^^^^^^^^^^^ -->
-        <div class="tab" (click)="redirect('owner')">
+        <div *ngIf="isOwner" class="tab" (click)="redirect('owner')">
             <!-- <fa-icon class="icon" [icon]="icons.profile"></fa-icon> -->
             <a class="profile element">Owner</a>
         </div>
-        <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
+
         <div class="tab dropdown" (mouseover)="managerDropdown.visible = true" (mouseleave)="managerDropdown.visible = false">
             <app-dropdown class="element" [input]="managerDropdown"></app-dropdown>
         </div>

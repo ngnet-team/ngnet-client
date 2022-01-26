@@ -16,6 +16,7 @@ import { IParsedToken } from '../../../interfaces/auth/parsed-token';
 export class AuthService {
 
   private authKey = 'auth?30549/token%';
+  private roles = [ 'owner', 'admin', 'member', 'user', 'guest'];
 
   roleUrl: any = this.getParsedJwt();
   isLogged: boolean = this.roleUrl && this.roleUrl != 'auth' ? true : false ;
@@ -71,6 +72,18 @@ export class AuthService {
 
   updateRoleUrl(): void {
     this.roleUrl = this.getParsedJwt();
+  }
+
+  isAuthorized(role: string) {
+    if (!role || !this.user) { return false; }
+
+    const requiredRole = this.roles.indexOf(role);
+    if (requiredRole === -1) { return false; }
+
+    const userRole = this.roles.indexOf((this.user as IParsedToken).role as string);
+    if (userRole === -1) { return false; }
+
+    return userRole <= requiredRole;
   }
 
   // ============= Private =============
