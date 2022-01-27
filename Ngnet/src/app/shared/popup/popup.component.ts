@@ -5,6 +5,7 @@ import { ServerErrorsBase } from '../base-classes/server-errors-base';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/icon.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-popup',
@@ -18,9 +19,10 @@ export class PopupComponent extends ServerErrorsBase  {
   constructor(
     langService: LangService,
     iconService: IconService,
+    authService: AuthService,
     router: Router,
     ) {
-    super(langService, iconService, router);
+    super(langService, iconService, authService, router);
     this.config(this.component.popup);
   }
 

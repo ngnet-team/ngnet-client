@@ -1,6 +1,7 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IChangeModel } from "src/app/interfaces/change-model";
+import { AuthService } from "src/app/services/auth.service";
 import { IconService } from "src/app/services/icon.service";
 import { LangService } from "../../services/lang.service";
 
@@ -32,6 +33,7 @@ export class Base {
   constructor(
     protected langService: LangService,
     protected iconService: IconService,
+    protected authService: AuthService,
     protected router: Router
   ) {
   }
@@ -82,7 +84,7 @@ export class Base {
 
     return {};
   }
-  
+
   protected langListener(component: string = this.component.none): void {
     this.menu = this.menu[component];
 
@@ -91,5 +93,20 @@ export class Base {
       this.validations = result.validations;
       this.menu = result[component];
     }));
+  }
+
+  protected asignUserId(obj: any) {
+    if (!obj) { return; }
+
+    if (!Object.keys(obj).includes('userId')) {
+      return;
+    }
+
+    if (!this.authService.user) {
+      return;
+    }
+
+    obj.userId = this.authService.user?.userId;
+    return obj;
   }
 }

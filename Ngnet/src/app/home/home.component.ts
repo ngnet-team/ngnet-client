@@ -17,10 +17,10 @@ export class HomeComponent extends Base {
   constructor(
     langService: LangService, 
     iconService: IconService,
+    authService: AuthService,
     route: Router,
-    private authService: AuthService
     ) {
-    super(langService, iconService, route);
+    super(langService, iconService, authService, route);
     this.config(this.component.home);
   }
 }

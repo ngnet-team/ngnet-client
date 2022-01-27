@@ -14,6 +14,7 @@ import { PagerBase } from '../shared/base-classes/pager-base';
 import { IPopupModel } from '../interfaces/popup-model';
 import { IconService } from '../services/icon.service';
 import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-care',
@@ -45,13 +46,14 @@ export class CareComponent extends PagerBase implements DoCheck {
   constructor(
     langService: LangService,
     iconService: IconService,
+    protected authService: AuthService,
     router: Router,
     pagerService: PagerService,
     private careService: CareService,
     private route: Router,
     private messageService: MessageService,
   ) {
-    super(langService, iconService, router, pagerService);
+    super(langService, iconService, authService, router, pagerService);
     this.configPager(this.component.care, 4);
     this.loadNames();
     this.self();
@@ -125,6 +127,10 @@ export class CareComponent extends PagerBase implements DoCheck {
     }
 
     this.serverErrors = {} as IErrorModel;
+
+    if (!model.userId) {
+      model.userId = this.authService.user?.userId;
+    }
 
     this.careService.save(model, this.careType).subscribe({
       next: (res) => {

@@ -18,11 +18,11 @@ export class RegisterComponent extends ServerErrorsBase {
   constructor(
     langService: LangService,
     iconService: IconService,
-    router: Router,
-    private authService: AuthService, 
+    authService: AuthService,
+    router: Router, 
     private messageService: MessageService
   ) {
-    super(langService, iconService, router);
+    super(langService, iconService, authService, router);
     this.config(this.component.register);
   }
 

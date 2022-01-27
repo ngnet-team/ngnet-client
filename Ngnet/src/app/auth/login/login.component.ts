@@ -19,11 +19,11 @@ export class LoginComponent extends ServerErrorsBase {
   constructor(
     langService: LangService,
     iconService: IconService,
+    authService: AuthService,
     router: Router,
-    private authService: AuthService,
     private messageService: MessageService
   ) {
-    super(langService, iconService, router);
+    super(langService, iconService, authService, router);
     this.config(this.component.login);
   }
 
