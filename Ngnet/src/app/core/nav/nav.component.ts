@@ -34,8 +34,8 @@ export class NavComponent extends Base implements DoCheck {
   icons: any = this.iconService.get('nav');
   //temporary
   message: string = '';
-  isAdmin: boolean = this.hasPermissions('admin');
-  isOwner: boolean = this.hasPermissions('owner');
+  isAdmin: boolean = this.authService.isAuthorized('admin');
+  isOwner: boolean = this.authService.isAuthorized('admin');
   notification: boolean = false;
   notificationCount: number = 0;
 

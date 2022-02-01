@@ -31,7 +31,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
   pagedUsers: IAdminUserModel[] = [];
   updatingUser: IAdminUserModel = {};
 
-  @Output() pager: IPageModel = this.pagerService.model;
+  @Output() pager: IPageModel = this.pagerService.getInstance();
   @Output() sideMenu: ISideBarModel = { visible: false };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'admin', content: [] } };
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin' } };
@@ -94,7 +94,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
     private messageService: MessageService,
   ) {
     super(langService, iconService, authService, router, pagerService);
-    this.configPager(this.component.admin, 10);
+    this.config(this.component.admin);
     this.getUsers();
     this.getEntries();
   }
@@ -217,14 +217,6 @@ export class AdminComponent extends PagerBase implements DoCheck {
           acc.push(user);
           return acc;
         }, [] as IDashboardContentModel[]);
-        this.filter();
-        //results view
-        this.pagedUsers = this.pagination(this.filteredUsers);
-        //no items in the page
-        if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
-          //TODO 
-          console.log('re-render results when the last item is deleted in current page to show previus one if avaliable');
-        }
       },
       error: (err) => {
         if (err?.error) {
@@ -369,9 +361,9 @@ export class AdminComponent extends PagerBase implements DoCheck {
     //     break;
     // }
 
-    this.pagedUsers = this.pagination(this.filteredUsers);
+    this.pagedUsers = this.pagination(this.pager, this.filteredUsers);
     //no items in the page
-    if (this.pagedUsers.length === 0 && this.pagerService.model.totalPages > 1) {
+    if (this.pagedUsers.length === 0 && this.pager.totalPages > 1) {
       //TODO 
       console.log('re-render results when the last item is deleted in current page to show previus one if avaliable');
     }
@@ -380,7 +372,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
   override pagerListener(): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;
-      this.pagedUsers = this.pagination(this.filteredUsers);
+      this.pagedUsers = this.pagination(this.pager, this.filteredUsers);
     }));
   }
 }

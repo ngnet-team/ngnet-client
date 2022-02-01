@@ -7,7 +7,7 @@ import { IPageModel } from '../../../interfaces/page-model';
 })
 export class PagerService {
 
-  model: IPageModel = { 
+  private model: IPageModel = { 
     visible: false,
     length: 0, 
     perPage: environment.pagination.countsPerPage, 
@@ -22,11 +22,13 @@ export class PagerService {
   
   constructor() {}
 
-  skipTake(length: number): { skip: number, take: number } {
-    this.model.totalPages = this.setPageNumbers(length);
+  getInstance() { return this.model };
 
-    let skip = (this.model.pageNumber - 1) * this.model.perPage;
-    let take = this.model.pageNumber * this.model.perPage;
+  skipTake(model: IPageModel, length: number): { skip: number, take: number } {
+    model.totalPages = this.setPageNumbers(model, length).totalPages;
+
+    let skip = (model.pageNumber - 1) * model.perPage;
+    let take = model.pageNumber * model.perPage;
 
     if (skip >= length) {
       skip = 0;
@@ -39,36 +41,34 @@ export class PagerService {
     return { skip, take }
   }
 
-  setPageNumbers(length: number): number {
-    this.model.numbers = [];
-    const pages = Math.ceil(length / this.model.perPage);
+  setPageNumbers(model: IPageModel, length: number): IPageModel {
+    model.numbers = [];
+    const pages = Math.ceil(length / model.perPage);
     for (let i = 1; i <= pages; i++) {
-      this.model.numbers.push(i);
+      model.numbers.push(i);
     }
+    model.totalPages = model.numbers.length;
     //show pager
-    this.model.visible = this.model.numbers.length > 1 ? true : false;
-    return this.model.numbers.length;
+    model.visible = model.numbers.length > 1 ? true : false;
+    return model;
   }
 
-  pageClick(page: number) {
-    this.model.pageNumber = page;
+  pageClick(model: IPageModel, page: number): void {
+    model.pageNumber = page;
     this.pageSelect.emit(page)
   }
   
-  public validatePage(page: number): number | null {
+  public validatePage(model: IPageModel, page: number): number | null {
     const start: number | null = 1;
-    const end: number | null = this.model.totalPages;
+    const end: number | null = model.totalPages;
 
     return page < start ? null : page > end ? null : page;
   }
 
-  setPerPage(counts: number) {
+  setPerPage(model: IPageModel, counts: number): IPageModel {
     if (counts > 0) {
-      this.model.perPage = counts;
+      model.perPage = counts;
     }
-  }
-
-  reset() {
-    this.model.pageNumber = 1;
+    return model;
   }
 }

@@ -5,12 +5,14 @@ import { IconService } from "src/app/services/common/icon/icon.service";
 import { LangService } from "src/app/services/common/lang/lang.service";
 import { PagerService } from "src/app/services/components/pager/pager.service";
 import { ServerErrorsBase } from "./server-errors-base";
+import { IPageModel } from "src/app/interfaces/page-model";
 
 export class PagerBase extends ServerErrorsBase {
 
   subscription: Subscription[] = [];
   //fake param
   input: any;
+  pager: IPageModel = this.pagerService.getInstance();
 
   constructor(
     protected langService: LangService, 
@@ -20,22 +22,21 @@ export class PagerBase extends ServerErrorsBase {
     protected pagerService: PagerService) {
     super(langService, iconService, authService, router);
     this.pagerListener(this.input);
-    this.pagerService.reset();
   }
 
   protected pagerListener(pagedItems: any): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(result => {
-      pagedItems = this.pagination(this.input);
+      pagedItems = this.pagination(this.pager, this.input);
     }));
   }
 
-  protected pagination(input: any): any {
-    const { skip, take } = this.pagerService.skipTake(input.length);
+  protected pagination(pager: IPageModel, input: any): any {
+    const { skip, take } = this.pagerService.skipTake(pager, input.length);
     return input.slice(skip, take);
   }
 
-  protected configPager(component: string = this.component.none, perPage: number = 4) {
+  protected configPager(component: string = this.component.none, perPage: number = 4): IPageModel {
     super.config(component);
-    this.pagerService.setPerPage(perPage);
+    return this.pagerService.setPerPage(this.pagerService.getInstance(), perPage);
   }
 }

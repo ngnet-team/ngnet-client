@@ -31,14 +31,6 @@ export class Base {
     dashboard: 'dashboard',
   };
 
-  private roles = [
-    'owner',
-    'admin',
-    'member',
-    'user',
-    'guest',
-  ];
-
   constructor(
     protected langService: LangService,
     protected iconService: IconService,
@@ -117,17 +109,5 @@ export class Base {
 
     obj.userId = this.authService.user?.userId;
     return obj;
-  }
-
-  protected hasPermissions(role: string | undefined): boolean {
-    if (!this.authService.user) { return false; }
-    
-    if (!role) { return false; }
-    
-    const requiredRole = this.roles.indexOf(role);
-    if (requiredRole === -1) { return false; }
-
-    const userRole = this.roles.indexOf(this.authService.user.role as string);
-    return userRole <= requiredRole;
   }
 }

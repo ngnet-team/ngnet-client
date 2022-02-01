@@ -45,7 +45,7 @@ export class DashboardService extends AuthService {
   // ============================================================================================
 
   //Auth board
-  setMaxRoles(maxRoles: IRoleModel): Observable<any> {
+  setMaxRoles(maxRoles: IRoleModel[]): Observable<any> {
     return this.http.post(this.authUrl + this.roleUrl + '/setMaxRoles', maxRoles);
   }
 }

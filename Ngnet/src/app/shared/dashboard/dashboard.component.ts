@@ -19,9 +19,17 @@ import { IDashboardContentCellModel } from 'src/app/interfaces/shared/dashboard-
 export class DashboardComponent extends PagerBase implements DoCheck {
 
   @Input() input: IDashboardModel = {};
-  @Output() pager: IPageModel = this.pagerService.model;
+  @Output() pager: IPageModel = {
+    visible: false,
+    length: 0,
+    perPage: 0,
+    numbers: [],
+    pageNumber: 0,
+    totalPages: 0
+  };
 
   content: IDashboardContentModel[] | undefined;
+  filteredContent: IDashboardContentModel[] = [];
   pagedContent: IDashboardContentModel[] = [];
   icons: any = this.iconService.get(this.component.dashboard);
   descSort: boolean = false; 
@@ -34,13 +42,13 @@ export class DashboardComponent extends PagerBase implements DoCheck {
     pagerService: PagerService,
   ) {
     super(langService, iconService, authService, router, pagerService);
-    this.configPager(this.component.dashboard, 2);
+    this.pager = this.configPager(this.component.dashboard, 4);
   }
 
   ngDoCheck(): void {
     if (this.input.content && !this.content) {
       this.content = this.input.content;
-      this.pagedContent = this.input.content;
+      this.pagedContent = this.pagination(this.pager, this.content);
     }
   }
 
@@ -71,7 +79,7 @@ export class DashboardComponent extends PagerBase implements DoCheck {
   override pagerListener(): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;
-      this.pagedContent = this.pagination(this.content);
+      this.pagedContent = this.pagination(this.pager, this.content);
     }));
   }
 }

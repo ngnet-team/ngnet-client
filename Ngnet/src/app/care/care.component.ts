@@ -31,7 +31,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   //type
   careType: string = this.route.url.slice(1);
 
-  @Output() pager: IPageModel = this.pagerService.model;
+  @Output() pager: IPageModel = this.pagerService.getInstance();
   @Output() company: ICompanyModel = this.defaultCare.company;
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'care' } };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care' } };
@@ -66,8 +66,8 @@ export class CareComponent extends PagerBase implements DoCheck {
     }
     //change language only the value is different and existing one
     if (this.pageDropdown.value !== this.selectedLang && this.pageDropdown.value) {
-      this.pagerService.setPerPage(+this.pageDropdown.value);
-      this.pagedCares = this.pagination(this.cares);
+      this.pager = this.pagerService.setPerPage(this.pager, +this.pageDropdown.value);
+      this.pagedCares = this.pagination(this.pager, this.cares);
     }
     //DROPDOWN input: change filter only the value is different and existing one
     if (this.filterDropdown.value) {
@@ -81,9 +81,9 @@ export class CareComponent extends PagerBase implements DoCheck {
         this.errors = [];
         this.cares = res;
         //results view
-        this.pagedCares = this.pagination(this.cares);
+        this.pagedCares = this.pagination(this.pager, this.cares);
         //no items in the page
-        if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
+        if (this.pagedCares.length === 0 && this.pager.totalPages > 1) {
           //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
         }
       },
@@ -207,7 +207,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   override pagerListener(): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;
-      this.pagedCares = this.pagination(this.cares);
+      this.pagedCares = this.pagination(this.pager, this.cares);
     }));
   }
 
@@ -230,6 +230,6 @@ export class CareComponent extends PagerBase implements DoCheck {
       default:
         break;
     }
-    this.pagedCares = this.pagination(this.cares);
+    this.pagedCares = this.pagination(this.pager, this.cares);
   }
 }
