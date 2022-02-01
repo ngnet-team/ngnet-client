@@ -1,0 +1,1 @@
+export interface IDashboardHeaderModel { name: string, sort: boolean; }

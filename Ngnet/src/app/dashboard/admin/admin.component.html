@@ -11,62 +11,11 @@
 <div class="admin">
     <!-- -------------- User Dashboard -------------- -->
 
-    <div class="dashboard">
-        <div class="header">
-            <div>Id</div>
-            <div>Role</div>
-            <div>Username</div>
-            <div>Email</div>
-            <div class="center">More</div>
-            <div class="center">Modified</div>
-            <div class="center">Entries</div>
-            <div>Actions</div>
-            <app-dropdown class="center" [input]="filterDropdown"></app-dropdown>
-        </div>
-        <div class="content">
-            <div *ngFor="let user of pagedUsers" class="user"
-                [ngClass]="user.isDeleted ? 'deleted' : user.modifiedOn ? 'modified' : ''">
-                <div>{{user.id}}</div>
-                <div>
-                    {{user.roleName}}
-                    <fa-icon class="badge" [icon]="icons.edit" (click)="openChangePopup('Role', user, 'role')"></fa-icon>
-                </div>
-                <div>{{user.userName}}</div>
-                <div>
-                    {{user.email}}
-                    <fa-icon class="badge" [icon]="icons.edit" (click)="openChangePopup('Email', user, 'email', true)"></fa-icon>
-                </div>
-                <div class="center">
-                    <fa-icon class="badge" [icon]="icons.more" (click)="openMorePopup(user)"></fa-icon>
-                </div>
-                <div class="center">
-                    <fa-icon class="badge" [icon]="icons.more" (click)="openModifiedPopup(user)"></fa-icon>
-                </div>
-                <div class="center">
-                    <fa-icon class="badge" [icon]="icons.more" (click)="openExpiriancePopup(user)"></fa-icon>
-                </div>
-                <div>
-                    <button class="button" (click)="openConfirmPopup(user, true)">Delete</button>
-                    <button class="button" (click)="openConfirmPopup(user)">Reset Password</button>
-                </div>
-            </div>
+    <app-dashboard [input]="usersDashboard"></app-dashboard>
 
-            <div *ngFor="let error of errors">
-                <span>Error:</span>
-                <span class="validation">{{error}}</span>
-            </div>
-
-            <div *ngFor="let info of infos">
-                <span>Info:</span>
-                <span>{{info}}</span>
-            </div>
-            <div *ngIf="infos || errors">
-                <button class="button" (click)="clear()">Clear</button>
-            </div>
-
-            <app-page [pager]="pager"></app-page>
-        </div>
-    </div>
+    <!-- -------------- Entry Dashboard -------------- -->
+    
+    <app-dashboard [input]="entriesDashboard"></app-dashboard>
 </div>
 
 <!-- -------------- popup items -------------- -->

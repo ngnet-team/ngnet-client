@@ -1,0 +1,1 @@
+export interface IDashboardContentCellModel { name: string | undefined, editable?: boolean }

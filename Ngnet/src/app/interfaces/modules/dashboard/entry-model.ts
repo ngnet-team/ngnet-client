@@ -1,4 +1,8 @@
+import { Data } from "@angular/router";
+
 export interface IEntryModel {
-    loggedIn?: string,
-    loggedOut?: string,
+    userId?: string,
+    username?: string,
+    login?: boolean,
+    createdOn?: Data,
 }

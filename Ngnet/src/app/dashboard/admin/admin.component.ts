@@ -13,6 +13,9 @@ import { PagerService } from '../../services/components/pager/pager.service';
 import { PagerBase } from '../../shared/base-classes/pager-base';
 import { Router } from '@angular/router';
 import { DashboardService } from 'src/app/services/modules/dashboard/dashboard.service';
+import { IEntryModel } from 'src/app/interfaces/modules/dashboard/entry-model';
+import { IDashboardModel } from 'src/app/interfaces/shared/dashboard-model';
+import { IDashboardContentModel } from 'src/app/interfaces/shared/dashboard-content-model';
 
 @Component({
   selector: 'app-admin',
@@ -22,7 +25,8 @@ import { DashboardService } from 'src/app/services/modules/dashboard/dashboard.s
 export class AdminComponent extends PagerBase implements DoCheck {
 
   //models
-  users: IAdminUserModel[] = [];
+  users: IDashboardContentModel[] | undefined;
+  entries: IDashboardContentModel[] | undefined;
   filteredUsers: IAdminUserModel[] = [];
   pagedUsers: IAdminUserModel[] = [];
   updatingUser: IAdminUserModel = {};
@@ -33,6 +37,47 @@ export class AdminComponent extends PagerBase implements DoCheck {
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'admin' } };
   @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'admin' } };
   @Output() filterDropdown: IDropDownOutputModel = { field: 'filterAdmin', type: 'state', value: '' };
+  @Output() usersDashboard: IDashboardModel = {
+    header: [
+      {
+        name: 'Id',
+        sort: false,
+      },
+      {
+        name: 'Role',
+        sort: true,
+      },
+      {
+        name: 'Username',
+        sort: true,
+      },
+      {
+        name: 'Email',
+        sort: true,
+      },
+    ],
+    filters: this.filterDropdown,
+  };
+  @Output() entriesDashboard: IDashboardModel = {
+    header: [
+      {
+        name: 'User Id',
+        sort: false,
+      },
+      {
+        name: 'Username',
+        sort: true,
+      },
+      {
+        name: 'Action',
+        sort: true,
+      },
+      {
+        name: 'CreatedOn',
+        sort: true,
+      },
+    ],
+  };
 
   icons: any = this.iconService.get(this.component.admin);
   //temporary
@@ -51,6 +96,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
     super(langService, iconService, authService, router, pagerService);
     this.configPager(this.component.admin, 10);
     this.getUsers();
+    this.getEntries();
   }
 
   ngDoCheck(): void {
@@ -61,7 +107,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
     //CONFIRM popup
     const confirmPopup = this.confirmPopupChecker(this.confirmPopup);
-    if (confirmPopup.switcher) { this.delete(); } 
+    if (confirmPopup.switcher) { this.delete(); }
     else if (confirmPopup.confirmed) { this.resetPassword(); }
 
     //DROPDOWN input: change filter only the value is different and existing one
@@ -72,8 +118,17 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
     //CHANGE popup
     const changePopup = this.changePopupChecker(this.changePopup);
-    if (changePopup.repeat) { this.change(changePopup.model); } 
+    if (changePopup.repeat) { this.change(changePopup.model); }
     else if (changePopup.changed) { this.changeRole(changePopup.model); }
+
+    //Dashboard
+    if (this.users) {
+      this.usersDashboard.content = this.users;
+    }
+
+    if (this.entries) {
+      this.entriesDashboard.content = this.entries;
+    }
   }
 
   clear() {
@@ -101,7 +156,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
     this.changePopup.visible = true;
     this.errors = undefined;
   }
-  
+
   openConfirmPopup(user: IAdminUserModel, switcher: boolean = false): void {
     if (switcher) {
       this.confirmPopup.getData.switcher = true;
@@ -134,29 +189,34 @@ export class AdminComponent extends PagerBase implements DoCheck {
     this.infoPopup.visible = true;
   }
 
-  openExpiriancePopup(user: IAdminUserModel): void {
-    this.infoPopup.getData.content.push('Entries: ' + user.experiances?.length ?? 0);
-    let enter = true;
-    user.experiances?.forEach(e => {
-      if (e.loggedIn && enter) {
-        enter = false;
-        this.infoPopup.getData.content.push('----------------------------------------------------');
-      } else if (e.loggedOut && !enter) {
-        enter = true;
-        this.infoPopup.getData.content.push('----------------------------------------------------');
-      }
-
-      this.infoPopup.getData.content.push(e.loggedIn ? 'Login: ' + e.loggedIn : 'LogOut: ' + e.loggedOut);
-    });
-
-    this.infoPopup.visible = true;
-  }
   // ------- Private -------
 
   private getUsers(): void {
     this.dashboardService.getUsers().subscribe({
       next: (res) => {
-        this.users = res;
+        this.users = (res as IAdminUserModel[]).reduce((acc, curr) => {
+          const user: IDashboardContentModel = {
+            row: [
+              {
+                name: curr.id,
+              },
+              {
+                name: curr.roleName,
+                editable: true,
+              },
+              {
+                name: curr.userName,
+                editable: true,
+              },
+              {
+                name: curr.email,
+                editable: true,
+              },
+            ]
+          };
+          acc.push(user);
+          return acc;
+        }, [] as IDashboardContentModel[]);
         this.filter();
         //results view
         this.pagedUsers = this.pagination(this.filteredUsers);
@@ -165,6 +225,39 @@ export class AdminComponent extends PagerBase implements DoCheck {
           //TODO 
           console.log('re-render results when the last item is deleted in current page to show previus one if avaliable');
         }
+      },
+      error: (err) => {
+        if (err?.error) {
+          this.serverErrors = err?.error;
+          this.setServerError();
+        };
+      }
+    });
+  }
+
+  private getEntries(): void {
+    this.dashboardService.getEntries().subscribe({
+      next: (res) => {
+        this.entries = (res as IEntryModel[]).reduce((acc, curr) => {
+          const user: IDashboardContentModel = {
+            row: [
+              {
+                name: curr.userId,
+              },
+              {
+                name: curr.username,
+              },
+              {
+                name: curr.login == true ? 'Sign In' : 'Sign Out',
+              },
+              {
+                name: (curr.createdOn as Date).toString(),
+              },
+            ]
+          };
+          acc.push(user);
+          return acc;
+        }, [] as IDashboardContentModel[]);
       },
       error: (err) => {
         if (err?.error) {
@@ -199,7 +292,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
 
   private changeRole(input: IChangeModel): void {
     var user = {
-      id: this.updatingUser.id, 
+      id: this.updatingUser.id,
       roleName: input.new
     } as IAdminUserModel;
 
@@ -261,20 +354,20 @@ export class AdminComponent extends PagerBase implements DoCheck {
   }
 
   private filter(): void {
-    switch (this.filteredBy) {
-      case 'all':
-        this.filteredUsers = this.users;
-        break;
-      case 'modified':
-        this.filteredUsers = this.users.filter(u => u.modifiedOn);
-        break;
-      case 'deleted':
-        this.filteredUsers = this.users.filter(u => u.isDeleted);
-        break;
-      default:
-        this.filteredUsers = this.users;
-        break;
-    }
+    // switch (this.filteredBy) {
+    //   case 'all':
+    //     this.filteredUsers = this.users;
+    //     break;
+    //   case 'modified':
+    //     this.filteredUsers = this.users.filter(u => u.modifiedOn);
+    //     break;
+    //   case 'deleted':
+    //     this.filteredUsers = this.users.filter(u => u.isDeleted);
+    //     break;
+    //   default:
+    //     this.filteredUsers = this.users;
+    //     break;
+    // }
 
     this.pagedUsers = this.pagination(this.filteredUsers);
     //no items in the page

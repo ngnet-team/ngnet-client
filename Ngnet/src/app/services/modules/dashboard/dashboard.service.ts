@@ -35,6 +35,11 @@ export class DashboardService extends AuthService {
     return this.http.get(this.authUrl + this.roleUrl + '/getRoles') as Observable<IRoleModel[]>;
   }
 
+  //Entity board
+  getEntries(): Observable<any> {
+    return this.http.get(this.authUrl + this.roleUrl + '/getEntries');
+  }
+
   // ============================================================================================
   // ========================================== Owners ==========================================
   // ============================================================================================

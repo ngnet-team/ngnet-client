@@ -28,6 +28,7 @@ export class Base {
     dropdown: 'dropdown',
     page: 'page',
     popup: 'popup',
+    dashboard: 'dashboard',
   };
 
   private roles = [

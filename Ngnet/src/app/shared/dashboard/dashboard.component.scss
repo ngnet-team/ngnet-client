@@ -1,0 +1,62 @@
+@import "../../../styles/modules/button";
+@import "../../../styles/modules/badge";
+@import "../../../styles/modules/header";
+
+$dashboard-back: getParam(colors, area, back);
+$dashboard-fore: getParam(colors, area, fore);
+
+$columns: attr(columns);
+
+.dashboard {
+    display: relative;
+    margin: 2rem;
+    padding: getParam(paddings, huge);
+    background-color: $dashboard-back;
+    color: $dashboard-fore;
+    box-shadow: getShadow(field, $dashboard-back);
+    font-size: getParam(fonts, size, small);
+
+    .headers {
+        display: grid;
+        grid-template-columns: repeat(6, 200px);
+        column-gap: getParam(paddings, small);
+        border-bottom: getBorder(field, $dashboard-fore);
+        font-size: calc(200px * #{$columns});
+
+        > div[class="header-row"] {
+            text-align: left;
+            margin: getParam(paddings, small);
+
+            > span[class="header-icon"] {
+                margin-left: getParam(margins, small);
+            }
+        }
+    }
+
+    .content {
+        display: grid;
+        grid-auto-flow: row;
+
+        > div[class="content-row"] {
+            display: grid;
+            grid-template-columns: repeat(6, 200px);
+            column-gap: getParam(paddings, small);
+            border-bottom: getBorder(field, $dashboard-fore);
+
+            text-align: left;
+            margin: getParam(paddings, small);
+
+            > div[class="content-cell"] {
+
+                > span[class="content-icon"] {
+                    margin-left: getParam(margins, small);
+                }
+            }
+        }
+    }
+
+    .filter {
+        display: absolute;
+        top: 10px;
+    }
+}

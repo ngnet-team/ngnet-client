@@ -9,6 +9,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TabMenuComponent } from './tab-menu/tab-menu.component';
 import { PopupComponent } from './popup/popup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PopupComponent } from './popup/popup.component';
     DropdownComponent,
     TabMenuComponent,
     PopupComponent,
+    DashboardComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -35,6 +37,7 @@ import { PopupComponent } from './popup/popup.component';
     FontAwesomeModule,
     TabMenuComponent,
     PopupComponent,
+    DashboardComponent,
   ]
 })
 export class SharedModule { }
