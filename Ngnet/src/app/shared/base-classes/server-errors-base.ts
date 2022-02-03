@@ -1,9 +1,9 @@
 import { Router } from "@angular/router";
 import { IErrorModel } from "src/app/interfaces/response-error-model";
-import { AuthService } from "src/app/services/auth.service";
-import { IconService } from "src/app/services/icon.service";
+import { AuthService } from "src/app/services/modules/auth/auth.service";
+import { IconService } from "src/app/services/common/icon/icon.service";
 import { environment } from "src/environments/environment";
-import { LangService } from "../../services/lang.service";
+import { LangService } from "../../services/common/lang/lang.service";
 import { Base } from "./base";
 
 export class ServerErrorsBase extends Base {

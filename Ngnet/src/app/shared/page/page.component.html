@@ -1,26 +1,26 @@
 <div class="pagination" *ngIf="pager.visible">
 
-    <a [class.disabled]="pagerService.model.pageNumber === 1" class="arrow" (click)="pageClick(1)">
+    <a [class.disabled]="pager.pageNumber === 1" class="arrow" (click)="pageClick(1)">
         <fa-icon [icon]="icons.doubleLeft"></fa-icon>
     </a>
 
-    <a [class.disabled]="pagerService.model.pageNumber === 1" class="arrow"
-        (click)="pageClick(pagerService.model.pageNumber - 1)">
+    <a [class.disabled]="pager.pageNumber === 1" class="arrow"
+        (click)="pageClick(pager.pageNumber - 1)">
         <fa-icon [icon]="icons.left"></fa-icon>
     </a>
 
     <div class="pages">
-        <a [class.selected]="page === pagerService.model.pageNumber" class="page" (click)="pageClick(page)"
+        <a [class.selected]="page === pager.pageNumber" class="page" (click)="pageClick(page)"
             *ngFor="let page of pagesView()">{{page}}</a>
     </div>
 
-    <a [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow"
-        (click)="pageClick(pagerService.model.pageNumber + 1)">
+    <a [class.disabled]="pager.pageNumber === pager.totalPages" class="arrow"
+        (click)="pageClick(pager.pageNumber + 1)">
         <fa-icon [icon]="icons.right"></fa-icon>
     </a>
 
-    <a [class.disabled]="pagerService.model.pageNumber === pagerService.model.totalPages" class="arrow"
-        (click)="pageClick(pagerService.model.totalPages)">
+    <a [class.disabled]="pager.pageNumber === pager.totalPages" class="arrow"
+        (click)="pageClick(pager.totalPages)">
         <fa-icon [icon]="icons.doubleRight"></fa-icon>
     </a>
 

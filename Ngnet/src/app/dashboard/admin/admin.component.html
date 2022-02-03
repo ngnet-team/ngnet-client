@@ -1,0 +1,26 @@
+<!-- <app-side-bar [model]="sideMenu"></app-side-bar> -->
+
+<header>
+    <div class="title">
+        Admin
+    </div>
+    <div class="sub-title">
+    </div>
+</header>
+
+<div class="admin">
+    <!-- -------------- User Dashboard -------------- -->
+
+    <app-dashboard [input]="usersDashboard"></app-dashboard>
+
+    <!-- -------------- Entry Dashboard -------------- -->
+    
+    <app-dashboard [input]="entriesDashboard"></app-dashboard>
+</div>
+
+<!-- -------------- popup items -------------- -->
+<app-popup [input]="infoPopup"></app-popup>
+
+<app-popup [input]="changePopup" class="popup"></app-popup>
+
+<app-popup [input]="confirmPopup"></app-popup>

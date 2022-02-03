@@ -1,0 +1,63 @@
+@import '../../../styles/modules/button';
+@import '../../../styles/modules/badge';
+@import '../../../styles/modules/header';
+
+$dashboard-back: getParam(colors, area, back);
+$dashboard-fore: getParam(colors, area, fore);
+
+.admin {
+    position: relative;
+}
+
+.dashboard {
+
+    // Users:  Id/Role/Username/Email/More/Modified/Actions
+    $user-columns: 1fr 0.5fr 1fr 1.5fr 0.3fr 0.5fr 2.5fr;
+    // Entries:  User Id/Usename/Login/CreatedOn
+    $entry-columns: 1fr 0.8fr 0.5fr 2fr;
+
+    margin: 2rem;
+    padding: getParam(paddings, huge);
+
+    background-color: $dashboard-back;
+    color: $dashboard-fore;
+    box-shadow: getShadow(field, $dashboard-back);
+    font-size: getParam(fonts, size, small);
+
+    .header-user, .content-user > div {
+        display: grid;
+        column-gap: getParam(paddings, small);
+        border-bottom: getBorder(field, $dashboard-fore);
+        font-size: getParam(fonts, size, normal);
+        grid-template-columns: $user-columns;
+        
+        > div {
+            text-align: left;
+            margin: getParam(paddings, small);
+        }
+    }
+
+    .header-entry, .content-entry > div {
+        display: grid;
+        column-gap: getParam(paddings, small);
+        border-bottom: getBorder(field, $dashboard-fore);
+        font-size: getParam(fonts, size, normal);
+        grid-template-columns: $entry-columns;
+
+        > div {
+            text-align: left;
+            margin: getParam(paddings, small);
+        }
+    }
+
+    .content {
+
+        .deleted {
+            color: getParam(constants, alertColor);
+        }
+
+        .modified {
+            color: getParam(constants, successColor, back);
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<div class="dashboard">
+
+    <div class="headers">
+        <!-- From Input -->
+        <div class="header-row" *ngFor="let header of input.header">
+            <span class="header-name">{{header.name}}</span>
+            <span class="header-icon"*ngIf="header.sort">
+                <fa-icon (click)="sort(header)" class="badge" [icon]="icons.sort"></fa-icon>
+            </span>            
+        </div>
+        <!-- Build In -->
+    </div>
+    <div class="content">
+        <div class="content-row" *ngFor="let rows of pagedContent">
+            <div class="content-cell" *ngFor="let row of rows.row">
+                <span class="content-name">{{row.name}}</span>
+                <span class="content-icon"*ngIf="row.editable">
+                    <fa-icon (click)="changePopup(row.name)" class="badge" [icon]="icons.edit"></fa-icon>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- <app-dropdown class="filter" [input]="input.filters"></app-dropdown> -->
+
+    <app-page [pager]="pager"></app-page>
+
+</div>

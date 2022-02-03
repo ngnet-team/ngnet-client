@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ICompanyDropDownNames } from 'src/app/interfaces/dropdown/company-dropdown';
 import { ICompanyModel } from 'src/app/interfaces/company-model';
-import { CompanyService } from 'src/app/services/company.service';
-import { LangService } from 'src/app/services/lang.service';
+import { CompanyService } from 'src/app/services/components/company/company.service';
+import { LangService } from 'src/app/services/common/lang/lang.service';
 import { Base } from '../base-classes/base';
-import { IconService } from '../../services/icon.service';
+import { IconService } from '../../services/common/icon/icon.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/modules/auth/auth.service';
 
 @Component({
   selector: 'app-company-form',

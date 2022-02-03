@@ -1,9 +1,9 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IChangeModel } from "src/app/interfaces/change-model";
-import { AuthService } from "src/app/services/auth.service";
-import { IconService } from "src/app/services/icon.service";
-import { LangService } from "../../services/lang.service";
+import { AuthService } from "src/app/services/modules/auth/auth.service";
+import { IconService } from "src/app/services/common/icon/icon.service";
+import { LangService } from "../../services/common/lang/lang.service";
 
 export class Base {
 
@@ -28,6 +28,7 @@ export class Base {
     dropdown: 'dropdown',
     page: 'page',
     popup: 'popup',
+    dashboard: 'dashboard',
   };
 
   constructor(
@@ -70,7 +71,7 @@ export class Base {
       const model: IChangeModel = {
         old: popup.returnData.old,
         new: popup.returnData.new,
-        value: popup.getData.type,
+        key: popup.getData.type,
 
       };
       if (repeat) {

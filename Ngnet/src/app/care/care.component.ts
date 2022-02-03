@@ -3,18 +3,18 @@ import { Router } from '@angular/router';
 import { IDropDownModel } from '../interfaces/dropdown/dropdown-model';
 import { IErrorModel } from '../interfaces/response-error-model';
 import { ICareModel } from '../interfaces/care/care-model';
-import { LangService } from '../services/lang.service';
-import { CareService } from '../services/care/care.service';
+import { LangService } from '../services/common/lang/lang.service';
+import { CareService } from '../services/components/care/care.service';
 import { IDefaultCareModel } from '../interfaces/care/default-care-model';
 import { IPageModel } from '../interfaces/page-model';
-import { PagerService } from '../services/pager.service';
+import { PagerService } from '../services/components/pager/pager.service';
 import { ICompanyModel } from '../interfaces/company-model';
-import { MessageService } from '../services/message.service';
+import { MessageService } from '../services/common/message/message.service';
 import { PagerBase } from '../shared/base-classes/pager-base';
 import { IPopupModel } from '../interfaces/popup-model';
-import { IconService } from '../services/icon.service';
+import { IconService } from '../services/common/icon/icon.service';
 import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/modules/auth/auth.service';
 
 @Component({
   selector: 'app-care',
@@ -31,7 +31,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   //type
   careType: string = this.route.url.slice(1);
 
-  @Output() pager: IPageModel = this.pagerService.model;
+  @Output() pager: IPageModel = this.pagerService.getInstance();
   @Output() company: ICompanyModel = this.defaultCare.company;
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'care' } };
   @Output() infoPopup: IPopupModel = { visible: false, confirmed: false, type: 'info', getData: { from: 'care' } };
@@ -66,8 +66,8 @@ export class CareComponent extends PagerBase implements DoCheck {
     }
     //change language only the value is different and existing one
     if (this.pageDropdown.value !== this.selectedLang && this.pageDropdown.value) {
-      this.pagerService.setPerPage(+this.pageDropdown.value);
-      this.pagedCares = this.pagination(this.cares);
+      this.pager = this.pagerService.setPerPage(this.pager, +this.pageDropdown.value);
+      this.pagedCares = this.pagination(this.pager, this.cares);
     }
     //DROPDOWN input: change filter only the value is different and existing one
     if (this.filterDropdown.value) {
@@ -81,9 +81,9 @@ export class CareComponent extends PagerBase implements DoCheck {
         this.errors = [];
         this.cares = res;
         //results view
-        this.pagedCares = this.pagination(this.cares);
+        this.pagedCares = this.pagination(this.pager, this.cares);
         //no items in the page
-        if (this.pagedCares.length === 0 && this.pagerService.model.totalPages > 1) {
+        if (this.pagedCares.length === 0 && this.pager.totalPages > 1) {
           //TODO re-render results when the last item is deleted in current page to show previus one if avaliable 
         }
       },
@@ -207,7 +207,7 @@ export class CareComponent extends PagerBase implements DoCheck {
   override pagerListener(): void {
     this.subscription.push(this.pagerService.pageSelect.subscribe(pageNumber => {
       this.pager.pageNumber = pageNumber;
-      this.pagedCares = this.pagination(this.cares);
+      this.pagedCares = this.pagination(this.pager, this.cares);
     }));
   }
 
@@ -230,6 +230,6 @@ export class CareComponent extends PagerBase implements DoCheck {
       default:
         break;
     }
-    this.pagedCares = this.pagination(this.cares);
+    this.pagedCares = this.pagination(this.pager, this.cares);
   }
 }

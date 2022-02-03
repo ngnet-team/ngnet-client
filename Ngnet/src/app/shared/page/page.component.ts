@@ -1,7 +1,7 @@
 import { Component, DoCheck, Input, Output } from '@angular/core';
 import { IPageModel } from 'src/app/interfaces/page-model';
-import { PagerService } from 'src/app/services/pager.service';
-import { IconService } from 'src/app/services/icon.service';
+import { PagerService } from 'src/app/services/components/pager/pager.service';
+import { IconService } from 'src/app/services/common/icon/icon.service';
 
 @Component({
   selector: 'app-page',
@@ -15,34 +15,34 @@ export class PageComponent implements DoCheck {
 
   icons: any = this.iconService.get('pager');
 
-  constructor(public pagerService: PagerService, private iconService: IconService) { }
+  constructor(public pagerService: PagerService, private iconService: IconService) {}
 
   ngDoCheck(): void {
   }
 
   pageClick(page: number) {
-    if (!this.pagerService.validatePage(page)) { return; };
+    if (!this.pagerService.validatePage(this.pager, page)) { return; };
     
     this.pageSelect = page;
-    this.pagerService.pageClick(page);
+    this.pagerService.pageClick(this.pager, page);
   }
 
   pagesView(): number[] {
     const index = this.pager.numbers.indexOf(this.pageSelect);
     const currPage = this.pager.numbers[index];
-
+    
     let from = currPage - this.pagerService.scope;
     //transfer pages if not enough counts to the end
     const transferCounts = this.pagerService.scope - (this.pager.numbers.length - currPage);
     if (transferCounts > 0) {
       from -= transferCounts;
     }
-
+    
     let to = currPage + this.pagerService.scope;
-
+    
     const view: number[] = [];
     for (let num = from; num <= to; num++) {
-      if (this.pagerService.validatePage(num)) {
+      if (this.pagerService.validatePage(this.pager, num)) {
         view.push(num);
       }
       //add more pages if needed
@@ -50,7 +50,6 @@ export class PageComponent implements DoCheck {
         to += 1;
       }
     }
-
     return view;
   }
 }
