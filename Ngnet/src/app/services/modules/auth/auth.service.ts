@@ -9,13 +9,14 @@ import { IUserRequestModel } from '../../../interfaces/auth/user-request-model';
 import { IChangeModel } from '../../../interfaces/change-model';
 import { IAdminUserModel } from '../../../interfaces/modules/dashboard/admin-user-model';
 import { IParsedToken } from '../../../interfaces/auth/parsed-token';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private authKey = 'auth?30549/token%';
+  private authKey = 'ngnet.auth?30549/token%';
   private roles = [ 'owner', 'admin', 'member', 'user', 'guest'];
 
   roleUrl: any = this.getParsedJwt();
@@ -26,7 +27,7 @@ export class AuthService {
 
   logginEvent: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(protected http: HttpClient, protected router: Router) {
+  constructor(protected http: HttpClient, protected router: Router, protected cookieService: CookieService) {
   }
 
   register(request: IRegisterModel): Observable<any> {
@@ -39,7 +40,7 @@ export class AuthService {
 
   logout(): void {
     this.http.get(this.authUrl + this.roleUrl + '/logout').subscribe(res => {
-      localStorage.removeItem(this.authKey);
+      this.cookieService.delete(this.authKey);
       this.user = undefined;
       this.updateRoleUrl();
     });
@@ -63,11 +64,11 @@ export class AuthService {
   }
 
   setToken(authToken: string): void {
-    localStorage.setItem(this.authKey, authToken)
+    this.cookieService.set(this.authKey, authToken);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.authKey)
+  getToken(): string {
+    return this.cookieService.get(this.authKey);
   }
 
   updateRoleUrl(): void {

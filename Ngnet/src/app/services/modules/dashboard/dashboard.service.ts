@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { IAdminUserModel } from 'src/app/interfaces/modules/dashboard/admin-user-model';
 import { IRoleModel } from 'src/app/interfaces/modules/dashboard/role-model';
@@ -14,8 +15,8 @@ export class DashboardService extends AuthService {
 
   private serverUrl: string = environment.serverUrl;
 
-  constructor(protected http: HttpClient, protected router: Router) {
-    super(http, router)
+  constructor(protected http: HttpClient, protected router: Router, protected cookieService: CookieService) {
+    super(http, router, cookieService)
   }
 
   // ============================================================================================

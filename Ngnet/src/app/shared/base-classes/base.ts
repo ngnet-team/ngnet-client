@@ -71,7 +71,7 @@ export class Base {
       const model: IChangeModel = {
         old: popup.returnData.old,
         new: popup.returnData.new,
-        value: popup.getData.type,
+        key: popup.getData.type,
 
       };
       if (repeat) {
