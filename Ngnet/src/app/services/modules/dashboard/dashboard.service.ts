@@ -25,7 +25,7 @@ export class DashboardService extends AuthService {
 
   //Auth board
   getUsers(): Observable<any> {
-    return this.http.get(this.authUrl + this.roleUrl + '/getUsers');
+    return this.http.get(this.authUrl + this.roleUrl + '/users');
   }
 
   changeRole(user: IAdminUserModel): Observable<any> {
@@ -33,12 +33,12 @@ export class DashboardService extends AuthService {
   }
 
   getRoles(): Observable<IRoleModel[]> {
-    return this.http.get(this.authUrl + this.roleUrl + '/getRoles') as Observable<IRoleModel[]>;
+    return this.http.get(this.authUrl + this.roleUrl + '/roles') as Observable<IRoleModel[]>;
   }
 
   //Entity board
   getEntries(): Observable<any> {
-    return this.http.get(this.authUrl + this.roleUrl + '/getEntries');
+    return this.http.get(this.authUrl + this.roleUrl + '/entries');
   }
 
   // ============================================================================================

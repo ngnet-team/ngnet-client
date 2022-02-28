@@ -16,11 +16,11 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthService {
 
-  private authKey = 'ngnet.auth?30549/token%';
-  private roles = [ 'owner', 'admin', 'member', 'user', 'guest'];
+  private authKey = 'NgNet.authorization.token';
+  private roles = [ 'owner', 'admin', 'member', 'user' ];
 
   roleUrl: any = this.getParsedJwt();
-  isLogged: boolean = this.roleUrl && this.roleUrl != 'auth' ? true : false ;
+  isLogged: boolean = this.roleUrl;
 
   protected authUrl: string = environment.authUrl;
   user : IParsedToken | undefined;
@@ -31,11 +31,15 @@ export class AuthService {
   }
 
   register(request: IRegisterModel): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/register', request)
+    return this.http.post(this.authUrl + 'register', request)
   }
 
   login(request: ILoginModel): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/login', request)
+    return this.http.post(this.authUrl + 'login', request)
+  }
+
+  resetPassword(user: IAdminUserModel): Observable<any> {
+    return this.http.post(this.authUrl + 'resetPassword', user);
   }
 
   logout(): void {
@@ -57,10 +61,6 @@ export class AuthService {
 
   change(request: IChangeModel): Observable<any> {
     return this.http.post(this.authUrl + this.roleUrl + '/change', request);
-  }
-
-  resetPassword(user: IAdminUserModel): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/resetPassword', user);
   }
 
   setToken(authToken: string): void {
@@ -89,12 +89,12 @@ export class AuthService {
 
   // ============= Private =============
 
-  private getParsedJwt(): any {
+  private getParsedJwt(): string | undefined {
     if (this.user) { return this.user.role; }
 
     const token: any = this.getToken();
     if (token == null) {
-      return "auth";
+      return '';
     }
 
     try {
@@ -107,7 +107,7 @@ export class AuthService {
 
       return this.user.role;
     } catch (error) {
-      return "auth";
+      return '';
     }
   }
 }
