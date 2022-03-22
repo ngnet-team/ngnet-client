@@ -34,18 +34,17 @@ export class LoginComponent extends ServerErrorsBase {
         if (res.token) {
           this.authService.setToken(res.token);
           this.authService.updateRoleUrl();
+          this.messageService.event.emit(res.responseMessage);
+          this.authService.logginEvent.emit(true);
+          this.messageService.remindClicked.emit(true);
+          this.router.navigateByUrl('profile');
         }
-        const msg = this.messageService.getMsg(res.responseMessage, this.selectedLang);
-        this.messageService.event.emit(msg);
-        this.authService.logginEvent.emit(true);
-        this.messageService.remindClicked.emit(true);
-        this.router.navigateByUrl('profile');
       },
       error: (err) => {
-        console.log(err);
         if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
+          // this.serverErrors = err.error;
+          // this.setServerError();
+          this.errors?.push(err.error[this.selectedLang]);
         };
       }
     });

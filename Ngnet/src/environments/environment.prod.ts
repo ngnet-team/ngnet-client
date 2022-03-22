@@ -5,7 +5,7 @@ export const environment = {
   authUrl: "http://localhost:7000/",
   lang: {
     title: 'language',
-    default: "bg",
+    default: "en",
     en: "en",
     bg: "bg"
   },

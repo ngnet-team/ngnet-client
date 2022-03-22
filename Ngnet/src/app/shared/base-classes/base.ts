@@ -8,6 +8,7 @@ import { LangService } from "../../services/common/lang/lang.service";
 export class Base {
 
   subscription: Subscription[] = [];
+  data: any;
   icons: any;
   //language
   selectedLang: string = this.langService.langState;
@@ -96,7 +97,7 @@ export class Base {
     }));
   }
 
-  protected asignUserId(obj: any) {
+  protected assignUserId(obj: any) {
     if (!obj) { return; }
 
     if (!Object.keys(obj).includes('userId')) {

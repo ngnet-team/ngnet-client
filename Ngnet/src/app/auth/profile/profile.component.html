@@ -12,20 +12,20 @@
             <div class="sub-title">{{menu.details}}</div>
             <div class="field">
                 <label class="label">{{menu.firstName}}</label>
-                <input class="single-row" #firstNameInput="ngModel" type="text" name="firstName" [(ngModel)]="user.firstName">
+                <input class="single-row" #firstNameInput="ngModel" type="text" name="firstName" [(ngModel)]="data.firstName">
             </div>
             <div class="field">
                 <label class="label">{{menu.lastName}}</label>
-                <input class="single-row" #lastNameInput="ngModel" type="text" name="lastName" [(ngModel)]="user.lastName">
+                <input class="single-row" #lastNameInput="ngModel" type="text" name="lastName" [(ngModel)]="data.lastName">
             </div>
             <div class="field">
                 <label class="label">{{menu.age}}</label>
-                <input class="single-row" #ageInput="ngModel" type="number" name="age" [(ngModel)]="user.age">
+                <input class="single-row" #ageInput="ngModel" type="number" name="age" [(ngModel)]="data.age">
             </div>
             <div class="field">
                 <label class="label">{{menu.email}}</label>
                 <div class="single-row">
-                    <div>{{user.email}}</div>
+                    <div>{{data.email}}</div>
                     <a (click)="openChangePopup(menu.email, 'email')" class="change">{{menu.change}}</a>
                 </div>
             </div>

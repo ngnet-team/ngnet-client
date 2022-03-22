@@ -11,7 +11,7 @@ export class MessageService {
 
   private msgUrl: string = environment.serverUrl + 'message';
   //events
-  event: EventEmitter<string> = new EventEmitter();
+  event: EventEmitter<any> = new EventEmitter();
   notificationVisibility: EventEmitter<boolean> = new EventEmitter();
   notificationCount: EventEmitter<number> = new EventEmitter();
   remindClicked: EventEmitter<boolean> = new EventEmitter();

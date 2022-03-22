@@ -1,7 +1,6 @@
 import { Component, DoCheck, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUserRequestModel } from 'src/app/interfaces/auth/user-request-model';
-import { IUserResponseModel } from 'src/app/interfaces/auth/user-response-model';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { AuthService } from 'src/app/services/modules/auth/auth.service';
@@ -17,7 +16,6 @@ import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base
 })
 export class ProfileComponent extends ServerErrorsBase implements DoCheck {
 
-  user: IUserResponseModel = {};
   @Output() changePopup: IPopupModel = { visible: false, confirmed: false, type: 'change', getData: { from: 'profile' } };
 
   constructor(
@@ -86,7 +84,7 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     };
 
     if (type === 'email') {
-      this.changePopup.getData.value = this.user.email;
+      this.changePopup.getData.value = this.data.email;
     }
 
     this.changePopup.visible = true;
@@ -95,7 +93,7 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
 
   private getProfile(): void {
     this.authService.profile().subscribe(res => {
-      this.user = res;
+      this.data = res;
     });
     this.errors = [];
   }

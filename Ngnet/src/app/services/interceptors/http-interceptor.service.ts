@@ -8,14 +8,12 @@ import { AuthService } from '../modules/auth/auth.service';
 })
 export class HttpInterceptorService  implements  HttpInterceptor {
 
-  token: string = this.authService.getToken();
-
   constructor(private authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     req = req.clone({
       setHeaders: {
-        Authorization: this.token ? `Bearer ${this.token}` : this.token,
+        Authorization: this.authService.getToken() ? `Bearer ${this.authService.getToken()}` : this.authService.getToken(),
         'x-api-key': 'FC14A488-0C65-4052-BA99-FAC18291B5FC',
       }
     });

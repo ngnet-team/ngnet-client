@@ -104,7 +104,7 @@ export class NavComponent extends Base implements DoCheck {
       this.isLogged = isLogged;
     }));
     this.event.push(this.messageService.event.subscribe(message => {
-      this.message = message;
+      this.message = message[this.selectedLang];
 
       setTimeout(() => {
         this.removeMessage();
