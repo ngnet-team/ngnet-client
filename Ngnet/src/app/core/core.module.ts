@@ -8,8 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { NotificationComponent } from './notification/notification.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
 
-
-
 @NgModule({
   declarations: [
     NavComponent,

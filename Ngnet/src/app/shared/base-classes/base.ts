@@ -1,7 +1,7 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IChangeModel } from "src/app/interfaces/change-model";
-import { AuthService } from "src/app/services/modules/auth/auth.service";
+import { AuthService } from "src/app/services/auth/auth.service";
 import { IconService } from "src/app/services/common/icon/icon.service";
 import { LangService } from "../../services/common/lang/lang.service";
 

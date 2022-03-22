@@ -22,7 +22,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from './services/common/message/message.service';
 import { TabService } from './services/common/tab/tab.service';
 import { IconService } from './services/common/icon/icon.service';
-import { AuthService } from './services/modules/auth/auth.service';
+import { AuthService } from './services/auth/auth.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({

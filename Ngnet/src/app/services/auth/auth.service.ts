@@ -1,14 +1,14 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-import { ILoginModel } from '../../../interfaces/auth/login-model';
-import { IRegisterModel } from '../../../interfaces/auth/register-model';
+import { environment } from '../../../environments/environment';
+import { ILoginModel } from '../../interfaces/auth/login-model';
+import { IRegisterModel } from '../../interfaces/auth/register-model';
 import { Router } from '@angular/router';
-import { IUserRequestModel } from '../../../interfaces/auth/user-request-model';
-import { IChangeModel } from '../../../interfaces/change-model';
-import { IAdminUserModel } from '../../../interfaces/modules/dashboard/admin-user-model';
-import { IParsedToken } from '../../../interfaces/auth/parsed-token';
+import { IUserRequestModel } from '../../interfaces/auth/user-request-model';
+import { IChangeModel } from '../../interfaces/change-model';
+import { IAdminUserModel } from '../../interfaces/modules/dashboard/admin-user-model';
+import { IParsedToken } from '../../interfaces/auth/parsed-token';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({

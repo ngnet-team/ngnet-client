@@ -14,7 +14,7 @@ import { PagerBase } from '../shared/base-classes/pager-base';
 import { IPopupModel } from '../interfaces/popup-model';
 import { IconService } from '../services/common/icon/icon.service';
 import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
-import { AuthService } from '../services/modules/auth/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-care',

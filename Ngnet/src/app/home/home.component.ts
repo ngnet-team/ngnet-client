@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/modules/auth/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 import { IconService } from '../services/common/icon/icon.service';
 import { LangService } from '../services/common/lang/lang.service';
 import { Base } from '../shared/base-classes/base';

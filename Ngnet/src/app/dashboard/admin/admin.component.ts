@@ -5,14 +5,14 @@ import { IDropDownOutputModel } from '../../interfaces/dropdown/dropdown-output'
 import { IPageModel } from '../../interfaces/page-model';
 import { IPopupModel } from '../../interfaces/popup-model';
 import { ISideBarModel } from '../../interfaces/side-bar-model';
-import { AuthService } from '../../services/modules/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { IconService } from '../../services/common/icon/icon.service';
 import { LangService } from '../../services/common/lang/lang.service';
 import { MessageService } from '../../services/common/message/message.service';
 import { PagerService } from '../../services/components/pager/pager.service';
 import { PagerBase } from '../../shared/base-classes/pager-base';
 import { Router } from '@angular/router';
-import { DashboardService } from 'src/app/services/modules/dashboard/dashboard.service';
+import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { IEntryModel } from 'src/app/interfaces/modules/dashboard/entry-model';
 import { IDashboardModel } from 'src/app/interfaces/shared/dashboard-model';
 import { IDashboardContentModel } from 'src/app/interfaces/shared/dashboard-content-model';

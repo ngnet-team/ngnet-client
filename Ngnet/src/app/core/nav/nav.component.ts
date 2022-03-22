@@ -1,6 +1,6 @@
 import { Component, DoCheck, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/modules/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { MessageService } from 'src/app/services/common/message/message.service';
 import { environment } from 'src/environments/environment';

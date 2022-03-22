@@ -6,7 +6,7 @@ import { LangService } from 'src/app/services/common/lang/lang.service';
 import { Base } from '../base-classes/base';
 import { IconService } from '../../services/common/icon/icon.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/modules/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-company-form',
