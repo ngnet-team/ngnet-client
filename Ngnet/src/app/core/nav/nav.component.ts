@@ -35,7 +35,7 @@ export class NavComponent extends Base implements DoCheck {
   //temporary
   message: string = '';
   isAdmin: boolean = this.authService.isAuthorized('admin');
-  isOwner: boolean = this.authService.isAuthorized('admin');
+  isOwner: boolean = this.authService.isAuthorized('owner');
   notification: boolean = false;
   notificationCount: number = 0;
 
@@ -102,6 +102,8 @@ export class NavComponent extends Base implements DoCheck {
   private subscriptionListener(): void {
     this.event.push(this.authService.logginEvent.subscribe(isLogged => {
       this.isLogged = isLogged;
+      this.isAdmin = this.authService.isAuthorized('admin');
+      this.isOwner = this.authService.isAuthorized('owner');
     }));
     this.event.push(this.messageService.event.subscribe(message => {
       this.message = message[this.selectedLang];

@@ -68,7 +68,6 @@ export class AuthService {
   }
 
   getToken(): string {
-    console.log(this.cookieService.get(this.authKey))
     return this.cookieService.get(this.authKey);
   }
 
