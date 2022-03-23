@@ -30,6 +30,7 @@ export class Base {
     page: 'page',
     popup: 'popup',
     dashboard: 'dashboard',
+    posts: 'posts',
   };
 
   constructor(

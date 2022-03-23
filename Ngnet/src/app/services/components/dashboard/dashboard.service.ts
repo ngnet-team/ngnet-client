@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { IAdminUserModel } from 'src/app/interfaces/modules/dashboard/admin-user-model';
 import { IRoleModel } from 'src/app/interfaces/modules/dashboard/role-model';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'

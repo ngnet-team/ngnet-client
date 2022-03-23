@@ -12,7 +12,7 @@ import { MessageService } from '../../services/common/message/message.service';
 import { PagerService } from '../../services/components/pager/pager.service';
 import { PagerBase } from '../../shared/base-classes/pager-base';
 import { Router } from '@angular/router';
-import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+import { DashboardService } from 'src/app/services/components/dashboard/dashboard.service';
 import { IEntryModel } from 'src/app/interfaces/modules/dashboard/entry-model';
 import { IDashboardModel } from 'src/app/interfaces/shared/dashboard-model';
 import { IDashboardContentModel } from 'src/app/interfaces/shared/dashboard-content-model';
