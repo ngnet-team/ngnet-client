@@ -9,7 +9,7 @@ import { ITimeModel } from '../../../interfaces/time-model';
 })
 export class MessageService {
 
-  private msgUrl: string = environment.serverUrl + 'message';
+  private msgUrl: string = environment.servers.care + 'message';
   //events
   event: EventEmitter<any> = new EventEmitter();
   notificationVisibility: EventEmitter<boolean> = new EventEmitter();

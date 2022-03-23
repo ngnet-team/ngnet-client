@@ -11,7 +11,7 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class CareService {
 
-  private serverUrl: string = environment.serverUrl;
+  private serverUrl: string = environment.servers.care;
   private careBaseUrl: string = 'care';
   private request: ICareModel = { userId: this.authService.user?.userId, isDeleted: false, createdOn: new Date};
 

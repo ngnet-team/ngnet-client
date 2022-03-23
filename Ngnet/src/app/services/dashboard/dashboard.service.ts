@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class DashboardService extends AuthService {
 
-  private serverUrl: string = environment.serverUrl;
+  private serverUrl: string = environment.servers.care;
 
   constructor(protected http: HttpClient, protected router: Router, protected cookieService: CookieService) {
     super(http, router, cookieService)

@@ -22,7 +22,7 @@ export class AuthService {
   roleUrl: any = this.getParsedJwt();
   isLogged: boolean = this.roleUrl;
 
-  protected authUrl: string = environment.authUrl;
+  protected authUrl: string = environment.servers.auth;
   user : IParsedToken | undefined;
 
   logginEvent: EventEmitter<boolean> = new EventEmitter();

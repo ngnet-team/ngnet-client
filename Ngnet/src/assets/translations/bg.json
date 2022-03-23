@@ -20,6 +20,10 @@
         "logout": {
             "name": "Отписване",
             "url": "logout"
+        },
+        "posts": {
+            "name": "Постове",
+            "url": "posts"
         }
     },
     "home": {

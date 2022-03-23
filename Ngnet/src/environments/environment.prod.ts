@@ -1,8 +1,11 @@
 export const environment = {
   production: false,
   appName: "Ngnet",
-  serverUrl: "http://localhost:5000/",
-  authUrl: "http://localhost:7000/",
+  servers: {
+    auth: "http://localhost:7000/",
+    care: "http://localhost:5000/",
+    social: "http://localhost:3000/",
+  },
   lang: {
     title: 'language',
     default: "en",
