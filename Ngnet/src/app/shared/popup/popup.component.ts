@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { ServerErrorsBase } from '../base-classes/server-errors-base';
@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 //popup types: confirm, change, info
 export class PopupComponent extends ServerErrorsBase  {
-  @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: undefined };
+  @Input() input: IPopupModel = { type: '', visible: false };
 
   constructor(
     langService: LangService,
@@ -57,13 +57,10 @@ export class PopupComponent extends ServerErrorsBase  {
 
   }
 
-  confirm(switcher: boolean = false): void {
-    if (switcher) {
-      return;
-      this.input.getData.switcher = switcher;
-    }
-
+  confirm(): void {
     this.input.confirmed = true;
+    this.input.returnData = this.input.getData;
+    this.input.getData = undefined;
     this.exit();
   }
 

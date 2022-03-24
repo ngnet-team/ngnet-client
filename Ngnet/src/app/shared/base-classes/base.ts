@@ -1,6 +1,7 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IChangeModel } from "src/app/interfaces/change-model";
+import { IPopupModel } from "src/app/interfaces/popup-model";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { IconService } from "src/app/services/common/icon/icon.service";
 import { LangService } from "../../services/common/lang/lang.service";
@@ -50,42 +51,52 @@ export class Base {
     this.icons = this.iconService.get(component);
   }
 
-  //getData.switcher: true or false
-  protected confirmPopupChecker(popup: any): any {
-    if (popup.confirmed) {
-      let confirmed = popup.confirmed;
-      let switcher = popup.getData.switcher;
-
-      popup.getData.switcher = false;
-      popup.confirmed = false;
-
-      return { confirmed, switcher };
-    }
-    return {};
-  }
-
-  //getData.repeat: true or false
-  protected changePopupChecker(popup: any): any {
-    if (popup.returnData && !popup.visible) {
-      let changed = true;
-      let repeat = popup.getData.repeat;
-
-      const model: IChangeModel = {
-        old: popup.returnData.old,
-        new: popup.returnData.new,
-        key: popup.getData.type,
-
-      };
-      if (repeat) {
-        model.repeatNew = popup.returnData.repeatNew;
-      }
-
-      popup.returnData = undefined;
-
-      return { changed, repeat, model };
+  protected popupHandler(popup: IPopupModel): any {
+    if (popup.visible) {
+      return;
     }
 
-    return {};
+    var result = { 
+      visible: false, 
+      confirmed: false, 
+      type: popup.type, 
+      getData: { from: popup.getData.from },
+      returnData: popup.returnData
+    };
+
+    switch (popup.type) {
+      // -------- Form -------- 
+      case 'form':
+        break;
+      // -------- Confirm -------- 
+      case 'confirm':
+        break;
+      // -------- Change -------- 
+      // case 'change':
+      //   if (popup.returnData) {
+      //     let changed = true;
+      //     let repeat = popup.getData.repeat;
+
+      //     const model: IChangeModel = {
+      //       old: popup.returnData.old,
+      //       new: popup.returnData.new,
+      //       key: popup.getData.type,
+
+      //     };
+      //     if (repeat) {
+      //       model.repeatNew = popup.returnData.repeatNew;
+      //     }
+
+      //     result.returnData = model;
+
+      //     result = { changed, repeat, model };
+      //   }
+      //   break;
+      default:
+        break;
+    }
+
+    return result;
   }
 
   protected langListener(component: string = this.component.none): void {

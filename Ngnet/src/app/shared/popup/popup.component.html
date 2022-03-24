@@ -71,17 +71,7 @@
         </div>
         <!-- ----------------- Confirm popup ----------------- -->
         <div *ngIf="input.type === 'confirm'">
-            <div *ngIf="input.getData?.switcher" class="switcher">
-                <label class="label">{{input.getData.label}}</label>
-                <input #checkBoxValue class="checkbox" type="checkbox">
-                <p class="validation" *ngIf="checkBoxValue.checked">{{validations.forbiddenField}}</p>
-                <div class="button">
-                    <button (click)="confirm(checkBoxValue.checked)">{{menu.confirm.button}}</button>
-                </div>
-            </div>
-            <div *ngIf="!input.getData?.switcher" class="button">
-                <button id="confirm" (click)="confirm()">{{menu.confirm.button}}</button>
-            </div>
+            <button id="confirm" (click)="confirm()">{{menu.confirm.button}}</button>
         </div>
         <!-- ----------------- Info popup ----------------- -->
         <div *ngIf="input.type === 'info'">

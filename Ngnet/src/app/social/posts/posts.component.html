@@ -11,6 +11,9 @@
             <div class="by">
                 Created by {{post.author.name}}
             </div>
+            <div class="delete">
+                <button class="button" (click)="openConfirmPopup(post)">Delete</button>
+            </div>
         </article>
 
     </div>
@@ -21,3 +24,4 @@
 
 <!-- -------------- popup items -------------- -->
 <app-popup [input]="createFormPopup"></app-popup>
+<app-popup [input]="confirmPopup"></app-popup>

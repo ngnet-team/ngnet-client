@@ -32,10 +32,10 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
 
   ngDoCheck(): void {
     //CHANGE popup
-    const changePopup = this.changePopupChecker(this.changePopup);
-    if (changePopup.repeat) {
-      this.change(changePopup.model);
-    }
+    // const changePopup = this.changePopupChecker(this.changePopup);
+    // if (changePopup.repeat) {
+    //   this.change(changePopup.model);
+    // }
   }
 
   update(input: IUserRequestModel): void {

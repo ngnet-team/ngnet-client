@@ -61,8 +61,9 @@ export class CareComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
+    if (this.confirmPopup.confirmed) {
       this.remove();
+      this.confirmPopup.confirmed = false;
     }
     //change language only the value is different and existing one
     if (this.pageDropdown.value !== this.selectedLang && this.pageDropdown.value) {

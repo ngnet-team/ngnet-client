@@ -1,7 +1,8 @@
 export interface IPopupModel {
-    visible: boolean,
-    confirmed: boolean,
     type: string,
-    getData: any,
+    visible: boolean,
+    from?: string,
+    confirmed?: Boolean,
+    getData?: any,
     returnData?: any,
 }

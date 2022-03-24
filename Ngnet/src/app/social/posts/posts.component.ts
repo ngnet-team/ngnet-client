@@ -20,7 +20,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
     { label: 'Title', value: 'title' },
     { label: 'Content', value: 'content' },
   ];
-  @Output() createFormPopup: IPopupModel = { visible: false, confirmed: false, type: 'form', getData: { from: 'post' } };
+  @Output() createFormPopup: IPopupModel = { type: 'form', visible: false, from: 'post' };
+  @Output() confirmPopup: IPopupModel = { type: 'confirm', visible: false, confirmed: false, from: 'post' };
 
   constructor(
     langService: LangService,
@@ -36,16 +37,27 @@ export class PostsComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    var formData = this.createFormPopup.returnData;
-    if (formData) {
-      this.create(formData);
+
+    if (this.createFormPopup.returnData) {
+      this.create(this.createFormPopup.returnData);
       this.createFormPopup.returnData = undefined;
+    }
+
+    if (this.confirmPopup.confirmed) {
+      this.remove(this.confirmPopup.returnData);
+      this.confirmPopup.returnData = undefined;
+      this.confirmPopup.confirmed = false;
     }
   }
 
   openCreateForm() {
-    this.createFormPopup.getData.fields = this.postFields;
     this.createFormPopup.visible = true;
+    this.createFormPopup.getData = { fields: this.postFields };
+  }
+
+  openConfirmPopup(post: any) {
+    this.confirmPopup.visible = true;
+    this.confirmPopup.getData = post;
   }
 
   create(model: any) {
@@ -59,10 +71,23 @@ export class PostsComponent extends PagerBase implements DoCheck {
       id: user?.userId,
       name: user?.username,
     };
-    console.log(model);
     this.postService.create(model).subscribe({
       next: (res) => {
-        console.log(this.posts);
+        this.getAll();
+      },
+      error: (err) => {
+        if (err?.error) {
+          console.log(err);
+          this.errors?.push(err.error[this.selectedLang]);
+        }
+      }
+    });
+  }
+
+  remove(post: any) {
+    this.postService.delete(post.id).subscribe({
+      next: (res) => {
+        console.log(res);
         this.getAll();
       },
       error: (err) => {
