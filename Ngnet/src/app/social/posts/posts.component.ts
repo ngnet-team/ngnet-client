@@ -16,11 +16,11 @@ import { PagerBase } from 'src/app/shared/base-classes/pager-base';
 export class PostsComponent extends PagerBase implements DoCheck {
 
   posts: any = [];
-  postFields: any = [
-    { label: 'Title', value: 'title' },
-    { label: 'Content', value: 'content' },
+  postFields = [
+    { label: 'Title', name: 'title', value: '' },
+    { label: 'Content', name: 'content', value: '' },
   ];
-  @Output() createFormPopup: IPopupModel = { type: 'form', visible: false, from: 'post' };
+  @Output() formPopup: IPopupModel = { type: 'form', visible: false, from: 'post' };
   @Output() confirmPopup: IPopupModel = { type: 'confirm', visible: false, confirmed: false, from: 'post' };
 
   constructor(
@@ -37,12 +37,14 @@ export class PostsComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-
-    if (this.createFormPopup.returnData) {
-      this.create(this.createFormPopup.returnData);
-      this.createFormPopup.returnData = undefined;
+    if (this.formPopup.returnData) {
+      if (this.formPopup.returnData.id) {
+        this.edit(this.formPopup.returnData);
+      } else {
+        this.create(this.formPopup.returnData);
+      }
+      this.formPopup.returnData = undefined;
     }
-
     if (this.confirmPopup.confirmed) {
       this.remove(this.confirmPopup.returnData);
       this.confirmPopup.returnData = undefined;
@@ -50,9 +52,18 @@ export class PostsComponent extends PagerBase implements DoCheck {
     }
   }
 
-  openCreateForm() {
-    this.createFormPopup.visible = true;
-    this.createFormPopup.getData = { fields: this.postFields };
+  openFormPopup(post: any = undefined) {
+    this.formPopup.visible = true;
+    this.formPopup.getData = {};
+    //Edit existing
+    if (post) {
+      this.postFields = this.postFields.map(x => {
+        x.value = post[x.name];
+        return x;
+      });
+      this.formPopup.getData.id = post.id;
+    }
+    this.formPopup.getData.fields = this.postFields;
   }
 
   openConfirmPopup(post: any) {
@@ -72,6 +83,20 @@ export class PostsComponent extends PagerBase implements DoCheck {
       name: user?.username,
     };
     this.postService.create(model).subscribe({
+      next: (res) => {
+        this.getAll();
+      },
+      error: (err) => {
+        if (err?.error) {
+          console.log(err);
+          this.errors?.push(err.error[this.selectedLang]);
+        }
+      }
+    });
+  }
+
+  edit(model: any) {
+    this.postService.update(model).subscribe({
       next: (res) => {
         this.getAll();
       },

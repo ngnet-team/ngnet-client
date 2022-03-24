@@ -26,7 +26,7 @@ export class PopupComponent extends ServerErrorsBase  {
     this.config(this.component.popup);
   }
 
-  create(input: any): void {
+  form(input: any): void {
     if (!input.title && !input.content) {
       return;
     }
@@ -34,8 +34,9 @@ export class PopupComponent extends ServerErrorsBase  {
     this.input.returnData = {
       title: input.title,
       content: input.content,
+      id: this.input.getData?.id
     };
-
+    
     this.exit();
   }
 
@@ -60,11 +61,12 @@ export class PopupComponent extends ServerErrorsBase  {
   confirm(): void {
     this.input.confirmed = true;
     this.input.returnData = this.input.getData;
-    this.input.getData = undefined;
+
     this.exit();
   }
 
   exit() {
     this.input.visible = false;
+    this.input.getData = undefined;
   }
 }

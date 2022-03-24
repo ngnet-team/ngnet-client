@@ -21,8 +21,8 @@ export class PostService {
     return this.http.post(this.postsApiUrl, model);
   }
 
-  update(id: any, model: any) {
-    return this.http.patch(this.postsApiUrl + id, model);
+  update(model: any) {
+    return this.http.patch(this.postsApiUrl, model);
   }
 
   delete(id: any) {

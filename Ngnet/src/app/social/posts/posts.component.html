@@ -1,4 +1,7 @@
 <div class="container">
+    <div class="create">
+        <button class="button" (click)="openFormPopup()">Create post</button>
+    </div>
     <div class="posts">
         <h1>Posts</h1>
         <article *ngFor="let post of posts">
@@ -14,14 +17,14 @@
             <div class="delete">
                 <button class="button" (click)="openConfirmPopup(post)">Delete</button>
             </div>
+            <div class="edit">
+                <button class="button" (click)="openFormPopup(post)">Edit</button>
+            </div>
         </article>
 
-    </div>
-    <div class="create">
-        <button class="button" (click)="openCreateForm()">Create post</button>
     </div>
 </div>
 
 <!-- -------------- popup items -------------- -->
-<app-popup [input]="createFormPopup"></app-popup>
+<app-popup [input]="formPopup"></app-popup>
 <app-popup [input]="confirmPopup"></app-popup>

@@ -8,13 +8,13 @@
         </div>
         <!-- ----------------- Form popup ----------------- -->
         <div *ngIf="input.type === 'form'">
-            <form class="form" #f="ngForm" (ngSubmit)="create(f.value)">
+            <form class="form" #f="ngForm" (ngSubmit)="form(f.value)">
                 <div *ngFor="let field of input.getData.fields" class="field">
                     <label class="label">{{field.label}} 
                         <!-- <span class="requiredInput">{{menu[input.type].required}}</span> -->
                     </label>
                     <div>
-                        <input #input="ngModel" type="text" [name]="field.value" ngModel required>
+                        <input #input="ngModel" type="text" [name]="field.name" [(ngModel)]="field.value" required>
                         <p class="validation" *ngIf="input.errors?.required && input.touched">
                             {{validations.requiredField}}</p>
                     </div>
