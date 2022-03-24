@@ -19,19 +19,19 @@
             <p>{{post.content}}</p>
             <div class="reactions">
                 <span class="badge">
-                    <fa-icon [icon]="icons.reactions.like"></fa-icon> 1
+                    <fa-icon [icon]="icons.reactions.like"></fa-icon> {{likes ? likes : 0}}
                 </span>
                 <span class="badge">
-                    <fa-icon [icon]="icons.reactions.dislike"></fa-icon> 1
+                    <fa-icon [icon]="icons.reactions.dislike"></fa-icon> {{likes ? likes : 0}}
                 </span>
                 <span class="badge">
-                    <fa-icon [icon]="icons.reactions.laugh"></fa-icon> 1
+                    <fa-icon [icon]="icons.reactions.laugh"></fa-icon> {{likes ? likes : 0}}
                 </span>
                 <span class="badge">
-                    <fa-icon [icon]="icons.reactions.heart"></fa-icon> 1
+                    <fa-icon [icon]="icons.reactions.heart"></fa-icon> {{likes ? likes : 0}}
                 </span>
                 <span class="badge">
-                    <fa-icon [icon]="icons.reactions.angry"></fa-icon> 1
+                    <fa-icon [icon]="icons.reactions.angry"></fa-icon> {{likes ? likes : 0}}
                 </span>
             </div>
             <div class="actions">
