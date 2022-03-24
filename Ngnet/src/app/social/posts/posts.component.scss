@@ -1,30 +1,38 @@
-@import '../../../styles/modules/button';
-
-.posts {
-    color: white;
-    margin: 5% 25%;
-
-    .h1 {
-        text-align: center;
-    }
-
-    article {
-        width: 500px;
-        padding: 20px;
-        margin-top: 10px;
-        background-color: antiquewhite;
-        color: black;
-
-        h2 {
-            text-align: center;
-        }
-
-        .by {
-            text-align: right;
-        }
-    }
-}
+@import "../../../styles/modules/button";
+@import '../../../styles/modules/header';
 
 .create {
     margin: 20px;
+}
+
+.header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
+}
+
+.posts {
+    margin: 20px 600px;
+}
+
+/* Fake image */
+.fakeimg {
+    background-color: #aaa;
+    width: 90%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }

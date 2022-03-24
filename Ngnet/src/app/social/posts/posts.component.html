@@ -2,26 +2,33 @@
     <div class="create">
         <button (click)="openFormPopup()">Create post</button>
     </div>
-    <div class="posts">
-        <h1>Posts</h1>
-        <article *ngFor="let post of posts">
-            <h2>
-                {{post.title}}
-            </h2>
-            <div>
-                {{post.content}}
-            </div>
-            <div class="by">
-                Created by {{post.author.name}}
-            </div>
-            <div *ngIf="user?.userId === post.author.id" class="actions">
-                <button (click)="openConfirmPopup(post)">Delete</button>
-                <button (click)="openFormPopup(post)">Edit</button>
-            </div>
-        </article>
 
+    <header>
+        <div class="title">
+            Posts
+        </div>
+    </header>
+    
+    <div *ngIf="posts" class="posts">
+        <div *ngFor="let post of posts" class="card">
+            <h2>{{post.title}}</h2>
+            <h5>{{post.createdOn}} by {{post.author.name}}</h5>
+            <div *ngIf="post.imageUrl" class="fakeimg" style="height:100px;">Image</div>
+            <p>{{post.content}}</p>
+            <div class="actions">
+                <button (click)="openFormPopup(post)">Edit</button>
+                <button (click)="openConfirmPopup(post)">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!posts" class="no-posts">
+        No posts...
     </div>
 </div>
+
+
+
+
 
 <!-- -------------- popup items -------------- -->
 <app-popup [input]="formPopup"></app-popup>
