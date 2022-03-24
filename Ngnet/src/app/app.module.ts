@@ -22,8 +22,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from './services/common/message/message.service';
 import { TabService } from './services/common/tab/tab.service';
 import { IconService } from './services/common/icon/icon.service';
-import { AuthService } from './services/modules/auth/auth.service';
+import { AuthService } from './services/auth/auth.service';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { SocialModule } from './social/social.module';
+import { PostService } from './services/components/post/post.service';
 
 @NgModule({
   declarations: [
@@ -35,15 +37,16 @@ import { DashboardModule } from './dashboard/dashboard.module';
     CUSTOM_ELEMENTS_SCHEMA
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,
     FormsModule,
     NoopAnimationsModule,
     //custom
     SharedModule,
     CoreModule,
     AuthModule,
+    SocialModule,
     DashboardModule,
   ],
   providers: [
@@ -57,6 +60,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MessageService,
     TabService,
     IconService,
+    PostService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

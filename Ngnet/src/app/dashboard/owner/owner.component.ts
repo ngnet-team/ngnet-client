@@ -4,8 +4,8 @@ import { IRoleModel } from 'src/app/interfaces/modules/dashboard/role-model';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { MessageService } from 'src/app/services/common/message/message.service';
-import { AuthService } from 'src/app/services/modules/auth/auth.service';
-import { DashboardService } from 'src/app/services/modules/dashboard/dashboard.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { DashboardService } from 'src/app/services/components/dashboard/dashboard.service';
 import { Base } from 'src/app/shared/base-classes/base';
 
 @Component({

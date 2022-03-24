@@ -2,7 +2,7 @@ import { Component, DoCheck, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITabModel } from 'src/app/interfaces/tab-model';
-import { AuthService } from 'src/app/services/modules/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { TabService } from 'src/app/services/common/tab/tab.service';

@@ -10,7 +10,7 @@ import { ICompanyModel } from '../../../interfaces/company-model';
 })
 export class CompanyService {
 
-  private companyUrl: string = environment.serverUrl + 'company';
+  private companyUrl: string = environment.servers.care + 'company';
   model: ICompanyModel = {};
 
   constructor(private http: HttpClient, private route: Router) { }

@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { ServerErrorsBase } from '../base-classes/server-errors-base';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/modules/auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-popup',
@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/services/modules/auth/auth.service';
 })
 //popup types: confirm, change, info
 export class PopupComponent extends ServerErrorsBase  {
-  @Input() input: IPopupModel = { visible: false, confirmed: false, type: '', getData: undefined };
+  @Input() input: IPopupModel = { type: '', visible: false };
 
   constructor(
     langService: LangService,
@@ -24,6 +24,20 @@ export class PopupComponent extends ServerErrorsBase  {
     ) {
     super(langService, iconService, authService, router);
     this.config(this.component.popup);
+  }
+
+  form(input: any): void {
+    if (!input.title && !input.content) {
+      return;
+    }
+
+    this.input.returnData = {
+      title: input.title,
+      content: input.content,
+      id: this.input.getData?.id
+    };
+    
+    this.exit();
   }
 
   change(input: IChangeModel): void {
@@ -44,17 +58,15 @@ export class PopupComponent extends ServerErrorsBase  {
 
   }
 
-  confirm(switcher: boolean = false): void {
-    if (switcher) {
-      return;
-      this.input.getData.switcher = switcher;
-    }
-
+  confirm(): void {
     this.input.confirmed = true;
+    this.input.returnData = this.input.getData;
+
     this.exit();
   }
 
   exit() {
     this.input.visible = false;
+    this.input.getData = undefined;
   }
 }

@@ -15,6 +15,7 @@ export class IconService {
       register: fas.faUserPlus,
       bell: fas.faBell,
       close: fas.faTimesCircle,
+      posts: fas.faPhone
     },
     care: {
       more: fas.faPlus,

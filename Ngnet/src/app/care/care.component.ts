@@ -14,7 +14,7 @@ import { PagerBase } from '../shared/base-classes/pager-base';
 import { IPopupModel } from '../interfaces/popup-model';
 import { IconService } from '../services/common/icon/icon.service';
 import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
-import { AuthService } from '../services/modules/auth/auth.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-care',
@@ -61,8 +61,9 @@ export class CareComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.confirmPopupChecker(this.confirmPopup).confirmed) {
+    if (this.confirmPopup.confirmed) {
       this.remove();
+      this.confirmPopup.confirmed = false;
     }
     //change language only the value is different and existing one
     if (this.pageDropdown.value !== this.selectedLang && this.pageDropdown.value) {
@@ -129,7 +130,7 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.serverErrors = {} as IErrorModel;
 
     if (!model.userId) {
-      model.userId = this.authService.user?.userId;
+      model.userId = this.authService.getParsedJwt()?.userId;
     }
 
     this.careService.save(model, this.careType).subscribe({

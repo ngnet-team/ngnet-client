@@ -6,7 +6,7 @@ import { LangService } from 'src/app/services/common/lang/lang.service';
 import { MessageService } from 'src/app/services/common/message/message.service';
 import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
 import { ILoginModel } from '../../interfaces/auth/login-model';
-import { AuthService } from '../../services/modules/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -33,19 +33,17 @@ export class LoginComponent extends ServerErrorsBase {
       next: (res) => {
         if (res.token) {
           this.authService.setToken(res.token);
-          this.authService.updateRoleUrl();
+          this.messageService.event.emit(res.responseMessage);
+          this.authService.logginEvent.emit(true);
+          this.messageService.remindClicked.emit(true);
+          this.router.navigateByUrl('profile');
         }
-        const msg = this.messageService.getMsg(res.responseMessage, this.selectedLang);
-        this.messageService.event.emit(msg);
-        this.authService.logginEvent.emit(true);
-        this.messageService.remindClicked.emit(true);
-        this.router.navigateByUrl('profile');
       },
       error: (err) => {
-        console.log(err);
         if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
+          // this.serverErrors = err.error;
+          // this.setServerError();
+          this.errors?.push(err.error[this.selectedLang]);
         };
       }
     });

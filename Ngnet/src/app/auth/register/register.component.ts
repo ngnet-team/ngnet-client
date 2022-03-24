@@ -6,7 +6,7 @@ import { LangService } from 'src/app/services/common/lang/lang.service';
 import { MessageService } from 'src/app/services/common/message/message.service';
 import { ServerErrorsBase } from 'src/app/shared/base-classes/server-errors-base';
 import { IRegisterModel } from '../../interfaces/auth/register-model';
-import { AuthService } from '../../services/modules/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-register',

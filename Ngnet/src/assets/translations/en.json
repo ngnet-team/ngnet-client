@@ -20,6 +20,10 @@
         "logout": {
             "name": "Logout",
             "url": "logout"
+        },
+        "posts": {
+            "name": "Posts",
+            "url": "posts"
         }
     },
     "home": {
@@ -228,6 +232,9 @@
         },
         "info": {
             "title": "More information"
+        },
+        "form": {
+            "title": "Create"
         }
     }
 }

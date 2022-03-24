@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="create">
+        <button (click)="openFormPopup()">Create post</button>
+    </div>
+
+    <header>
+        <div class="title">
+            Posts
+        </div>
+    </header>
+    
+    <div *ngIf="posts" class="posts">
+        <div *ngFor="let post of posts" class="card">
+            <h2>{{post.title}}</h2>
+            <h5>{{post.createdOn}} by {{post.author.name}}</h5>
+            <div *ngIf="post.imageUrl" class="fakeimg" style="height:100px;">Image</div>
+            <p>{{post.content}}</p>
+            <div class="actions">
+                <button (click)="openFormPopup(post)">Edit</button>
+                <button (click)="openConfirmPopup(post)">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!posts" class="no-posts">
+        No posts...
+    </div>
+</div>
+
+
+
+
+
+<!-- -------------- popup items -------------- -->
+<app-popup [input]="formPopup"></app-popup>
+<app-popup [input]="confirmPopup"></app-popup>

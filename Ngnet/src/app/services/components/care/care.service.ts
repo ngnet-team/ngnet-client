@@ -4,16 +4,16 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICareModel } from '../../../interfaces/care/care-model';
-import { AuthService } from '../../modules/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CareService {
 
-  private serverUrl: string = environment.serverUrl;
+  private serverUrl: string = environment.servers.care;
   private careBaseUrl: string = 'care';
-  private request: ICareModel = { userId: this.authService.user?.userId, isDeleted: false, createdOn: new Date};
+  private request: ICareModel = { userId: this.authService.getParsedJwt()?.userId, isDeleted: false, createdOn: new Date};
 
   constructor(private http: HttpClient, private route: Router, private authService: AuthService) { }
 

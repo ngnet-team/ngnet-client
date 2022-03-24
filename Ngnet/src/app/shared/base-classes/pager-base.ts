@@ -1,6 +1,6 @@
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { AuthService } from "src/app/services/modules/auth/auth.service";
+import { AuthService } from "src/app/services/auth/auth.service";
 import { IconService } from "src/app/services/common/icon/icon.service";
 import { LangService } from "src/app/services/common/lang/lang.service";
 import { PagerService } from "src/app/services/components/pager/pager.service";
