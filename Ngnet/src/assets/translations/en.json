@@ -232,6 +232,9 @@
         },
         "info": {
             "title": "More information"
+        },
+        "form": {
+            "title": "Create"
         }
     }
 }

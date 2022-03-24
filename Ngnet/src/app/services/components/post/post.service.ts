@@ -9,23 +9,23 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class PostService {
 
-  private serverUrl: string = environment.servers.social;
+  private postsApiUrl: string = environment.servers.social + 'post' + '/';
 
   constructor(private http: HttpClient, private route: Router, private authService: AuthService) { }
 
   getAll() {
-    return this.http.get(this.serverUrl);
+    return this.http.get(this.postsApiUrl);
   }
 
   create(model: any) {
-    return this.http.post(this.serverUrl, model);
+    return this.http.post(this.postsApiUrl, model);
   }
 
-  update(model: any) {
-    return this.http.patch(this.serverUrl, model);
+  update(id: any, model: any) {
+    return this.http.patch(this.postsApiUrl + id, model);
   }
 
   delete(id: any) {
-    return this.http.delete(this.serverUrl + id);
+    return this.http.delete(this.postsApiUrl + id);
   }
 }

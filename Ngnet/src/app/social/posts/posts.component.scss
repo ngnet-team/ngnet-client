@@ -1,3 +1,30 @@
-.container {
+@import '../../../styles/modules/button';
+
+.posts {
     color: white;
+    margin: 5% 25%;
+
+    .h1 {
+        text-align: center;
+    }
+
+    article {
+        width: 500px;
+        padding: 20px;
+        margin-top: 10px;
+        background-color: antiquewhite;
+        color: black;
+
+        h2 {
+            text-align: center;
+        }
+
+        .by {
+            text-align: right;
+        }
+    }
+}
+
+.create {
+    margin: 20px;
 }

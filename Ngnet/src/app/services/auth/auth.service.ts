@@ -19,7 +19,7 @@ export class AuthService {
   private authKey = 'NgNet.authorization.token';
   private roles = [ 'owner', 'admin', 'member', 'user' ];
 
-  roleUrl: any = this.getParsedJwt();
+  roleUrl: any = this.getParsedJwt()?.role;
   isLogged: boolean = this.roleUrl;
 
   protected authUrl: string = environment.servers.auth;
@@ -89,25 +89,23 @@ export class AuthService {
 
   // ============= Private =============
 
-  private getParsedJwt(): string | undefined {
-    if (this.user) { return this.user.role; }
-
+  public getParsedJwt(): IParsedToken | undefined {
     const token: any = this.getToken();
     if (token == null) {
-      return '';
+      return undefined;
     }
 
     try {
       const parsedToken = JSON.parse(atob(token.split('.')[1]));
       this.user = { 
-        userId: parsedToken.nameid, 
-        username: parsedToken.unique_name, 
+        userId: parsedToken.userid, 
+        username: parsedToken.username, 
         role: parsedToken.role.toLowerCase(), 
       }
 
-      return this.user.role;
+      return this.user;
     } catch (error) {
-      return '';
+      return undefined;
     }
   }
 }

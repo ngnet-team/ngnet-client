@@ -26,6 +26,19 @@ export class PopupComponent extends ServerErrorsBase  {
     this.config(this.component.popup);
   }
 
+  create(input: any): void {
+    if (!input.title && !input.content) {
+      return;
+    }
+
+    this.input.returnData = {
+      title: input.title,
+      content: input.content,
+    };
+
+    this.exit();
+  }
+
   change(input: IChangeModel): void {
     if (input.repeatNew && input.new !== input.repeatNew) {
       return;

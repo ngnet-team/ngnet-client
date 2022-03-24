@@ -1,8 +1,23 @@
 <div class="container">
-    <p>posts works!</p>
+    <div class="posts">
+        <h1>Posts</h1>
+        <article *ngFor="let post of posts">
+            <h2>
+                {{post.title}}
+            </h2>
+            <div>
+                {{post.content}}
+            </div>
+            <div class="by">
+                Created by {{post.author.name}}
+            </div>
+        </article>
 
-    <div>
-        Data: {{data}}
     </div>
-
+    <div class="create">
+        <button class="button" (click)="openCreateForm()">Create post</button>
+    </div>
 </div>
+
+<!-- -------------- popup items -------------- -->
+<app-popup [input]="createFormPopup"></app-popup>
