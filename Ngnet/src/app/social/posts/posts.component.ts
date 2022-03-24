@@ -33,7 +33,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     private postService: PostService,
   ) {
     super(langService, iconService, authService, router, pagerService);
-    this.configPager(this.component.post, 4);
+    this.configPager(this.component.posts, 4);
     this.getAll();
   }
 
