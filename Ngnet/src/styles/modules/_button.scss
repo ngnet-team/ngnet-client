@@ -1,7 +1,7 @@
 @import "../base/variables";
 @import "../base/api";
 
-.button {
+button {
     display: inline-block;
     min-width: $button-min-width;
     background-color: getParam(colors, action, back);

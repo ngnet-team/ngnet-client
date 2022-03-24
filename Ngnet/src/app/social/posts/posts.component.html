@@ -1,6 +1,6 @@
 <div class="container">
     <div class="create">
-        <button class="button" (click)="openFormPopup()">Create post</button>
+        <button (click)="openFormPopup()">Create post</button>
     </div>
     <div class="posts">
         <h1>Posts</h1>
@@ -15,10 +15,10 @@
                 Created by {{post.author.name}}
             </div>
             <div class="delete">
-                <button class="button" (click)="openConfirmPopup(post)">Delete</button>
+                <button (click)="openConfirmPopup(post)">Delete</button>
             </div>
             <div class="edit">
-                <button class="button" (click)="openFormPopup(post)">Edit</button>
+                <button (click)="openFormPopup(post)">Edit</button>
             </div>
         </article>
 
