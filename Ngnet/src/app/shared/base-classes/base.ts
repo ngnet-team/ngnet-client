@@ -116,11 +116,11 @@ export class Base {
       return;
     }
 
-    if (!this.authService.user) {
+    if (!this.authService.getParsedJwt()) {
       return;
     }
 
-    obj.userId = this.authService.user?.userId;
+    obj.userId = this.authService.getParsedJwt()?.userId;
     return obj;
   }
 }

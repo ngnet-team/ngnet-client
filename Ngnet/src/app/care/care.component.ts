@@ -130,7 +130,7 @@ export class CareComponent extends PagerBase implements DoCheck {
     this.serverErrors = {} as IErrorModel;
 
     if (!model.userId) {
-      model.userId = this.authService.user?.userId;
+      model.userId = this.authService.getParsedJwt()?.userId;
     }
 
     this.careService.save(model, this.careType).subscribe({

@@ -25,20 +25,20 @@ export class DashboardService extends AuthService {
 
   //Auth board
   getUsers(): Observable<any> {
-    return this.http.get(this.authUrl + this.roleUrl + '/users');
+    return this.http.get(this.authUrl + this.getParsedJwt()?.role + '/users');
   }
 
   changeRole(user: IAdminUserModel): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/changeRole', user);
+    return this.http.post(this.authUrl + this.getParsedJwt()?.role + '/changeRole', user);
   }
 
   getRoles(): Observable<IRoleModel[]> {
-    return this.http.get(this.authUrl + this.roleUrl + '/roles') as Observable<IRoleModel[]>;
+    return this.http.get(this.authUrl + this.getParsedJwt()?.role + '/roles') as Observable<IRoleModel[]>;
   }
 
   //Entity board
   getEntries(): Observable<any> {
-    return this.http.get(this.authUrl + this.roleUrl + '/entries');
+    return this.http.get(this.authUrl + this.getParsedJwt()?.role + '/entries');
   }
 
   // ============================================================================================
@@ -47,6 +47,6 @@ export class DashboardService extends AuthService {
 
   //Auth board
   setMaxRoles(maxRoles: IRoleModel[]): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/setMaxRoles', maxRoles);
+    return this.http.post(this.authUrl + this.getParsedJwt()?.role + '/setMaxRoles', maxRoles);
   }
 }

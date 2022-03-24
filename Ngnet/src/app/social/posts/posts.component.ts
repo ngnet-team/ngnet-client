@@ -14,7 +14,8 @@ import { PagerBase } from 'src/app/shared/base-classes/pager-base';
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent extends PagerBase implements DoCheck {
-
+  
+  user = this.authService.getParsedJwt();
   posts: any = [];
   postFields = [
     { label: 'Title', name: 'title', value: '' },

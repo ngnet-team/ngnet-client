@@ -14,10 +14,8 @@
             <div class="by">
                 Created by {{post.author.name}}
             </div>
-            <div class="delete">
+            <div *ngIf="user?.userId === post.author.id" class="actions">
                 <button (click)="openConfirmPopup(post)">Delete</button>
-            </div>
-            <div class="edit">
                 <button (click)="openFormPopup(post)">Edit</button>
             </div>
         </article>

@@ -33,7 +33,6 @@ export class LoginComponent extends ServerErrorsBase {
       next: (res) => {
         if (res.token) {
           this.authService.setToken(res.token);
-          this.authService.updateRoleUrl();
           this.messageService.event.emit(res.responseMessage);
           this.authService.logginEvent.emit(true);
           this.messageService.remindClicked.emit(true);

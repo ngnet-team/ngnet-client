@@ -19,8 +19,7 @@ export class AuthService {
   private authKey = 'NgNet.authorization.token';
   private roles = [ 'owner', 'admin', 'member', 'user' ];
 
-  roleUrl: any = this.getParsedJwt()?.role;
-  isLogged: boolean = this.roleUrl;
+  isLogged: boolean = this.getParsedJwt() ? true : false;
 
   protected authUrl: string = environment.servers.auth;
   user : IParsedToken | undefined;
@@ -43,24 +42,23 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.get(this.authUrl + this.roleUrl + '/logout').subscribe(res => {
+    this.http.get(this.authUrl + this.getParsedJwt()?.role + '/logout').subscribe(res => {
       this.cookieService.delete(this.authKey);
       this.user = undefined;
-      this.updateRoleUrl();
     });
     this.router.navigateByUrl('');
   }
 
   profile(): Observable<any> {
-    return this.http.get(this.authUrl + this.roleUrl + '/profile');
+    return this.http.get(this.authUrl + this.getParsedJwt()?.role + '/profile');
   }
 
   update(request: IUserRequestModel): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/update', request);
+    return this.http.post(this.authUrl + this.getParsedJwt()?.role + '/update', request);
   }
 
   change(request: IChangeModel): Observable<any> {
-    return this.http.post(this.authUrl + this.roleUrl + '/change', request);
+    return this.http.post(this.authUrl + this.getParsedJwt()?.role + '/change', request);
   }
 
   setToken(authToken: string): void {
@@ -69,10 +67,6 @@ export class AuthService {
 
   getToken(): string {
     return this.cookieService.get(this.authKey);
-  }
-
-  updateRoleUrl(): void {
-    this.roleUrl = this.getParsedJwt();
   }
 
   isAuthorized(role: string) {
@@ -86,8 +80,6 @@ export class AuthService {
 
     return userRole <= requiredRole;
   }
-
-  // ============= Private =============
 
   public getParsedJwt(): IParsedToken | undefined {
     const token: any = this.getToken();
