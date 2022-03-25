@@ -1,6 +1,7 @@
 import { Component, DoCheck, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
+import { IPostModel } from 'src/app/interfaces/posts/post-model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
@@ -135,6 +136,27 @@ export class PostsComponent extends PagerBase implements DoCheck {
     this.postService.getAll().subscribe({
       next: (res) => {
         this.posts = res;
+      },
+      error: (err) => {
+        if (err?.error) {
+          console.log(err);
+          this.errors?.push(err.error[this.selectedLang]);
+        }
+      }
+    });
+  }
+
+  react(postId: string, emoji: string): void {
+    const authorId = this.authService.getParsedJwt()?.userId;
+    var reaction = { 
+      authorId,
+      postId,
+      like: true //TODO
+    };
+
+    this.postService.react(reaction).subscribe({
+      next: (res) => {
+        this.getAll();
       },
       error: (err) => {
         if (err?.error) {

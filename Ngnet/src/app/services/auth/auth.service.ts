@@ -22,7 +22,6 @@ export class AuthService {
   isLogged: boolean = this.getParsedJwt() ? true : false;
 
   protected authUrl: string = environment.servers.auth;
-  user : IParsedToken | undefined;
 
   logginEvent: EventEmitter<boolean> = new EventEmitter();
 
@@ -44,7 +43,6 @@ export class AuthService {
   logout(): void {
     this.http.get(this.authUrl + this.getParsedJwt()?.role + '/logout').subscribe(res => {
       this.cookieService.delete(this.authKey);
-      this.user = undefined;
     });
     this.router.navigateByUrl('');
   }
@@ -70,12 +68,12 @@ export class AuthService {
   }
 
   isAuthorized(role: string) {
-    if (!role || !this.user) { return false; }
+    if (!role || !this.getParsedJwt()) { return false; }
 
     const requiredRole = this.roles.indexOf(role);
     if (requiredRole === -1) { return false; }
 
-    const userRole = this.roles.indexOf((this.user as IParsedToken).role as string);
+    const userRole = this.roles.indexOf(this.getParsedJwt()?.role as string);
     if (userRole === -1) { return false; }
 
     return userRole <= requiredRole;
@@ -89,13 +87,13 @@ export class AuthService {
 
     try {
       const parsedToken = JSON.parse(atob(token.split('.')[1]));
-      this.user = { 
+      var user = { 
         userId: parsedToken.userid, 
         username: parsedToken.username, 
         role: parsedToken.role.toLowerCase(), 
       }
 
-      return this.user;
+      return user;
     } catch (error) {
       return undefined;
     }

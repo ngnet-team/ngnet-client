@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/auth.service';
 
@@ -13,19 +14,23 @@ export class PostService {
 
   constructor(private http: HttpClient, private route: Router, private authService: AuthService) { }
 
-  getAll() {
+  getAll(): Observable<any> {
     return this.http.get(this.postsApiUrl);
   }
 
-  create(model: any) {
+  create(model: any): Observable<any> {
     return this.http.post(this.postsApiUrl, model);
   }
 
-  update(model: any) {
+  update(model: any): Observable<any> {
     return this.http.patch(this.postsApiUrl, model);
   }
 
-  delete(id: any) {
+  delete(id: any): Observable<any> {
     return this.http.delete(this.postsApiUrl + id);
+  }
+
+  react(model: any): Observable<any> {
+    return this.http.post(this.postsApiUrl + 'reaction/', model);
   }
 }
