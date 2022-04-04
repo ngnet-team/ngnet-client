@@ -38,7 +38,7 @@
             </div>
             <div class="actions">
                 <button (click)="openFormPopup(post)">Edit</button>
-                <button (click)="openConfirmPopup(post)">Delete</button>
+                <button (click)="openConfirmPopup({ post: post.id})">Delete</button>
             </div>
             <div class="add-comment">
                 <form class="form" #comm="ngForm" (ngSubmit)="addComment(post.id, comm.value)">
@@ -69,8 +69,8 @@
                         <span class="author">{{comment.author.name}}</span>
                     </h6>
                     <div class="actions">
-                        <button (click)="openFormPopup(post)">Edit</button>
-                        <button (click)="openConfirmPopup(post)">Delete</button>
+                        <button (click)="openFormPopup(comment)">Edit</button>
+                        <button (click)="openConfirmPopup({ comment: comment._id})">Delete</button>
                     </div>
                 </div>
             </div>

@@ -48,7 +48,12 @@ export class PostsComponent extends PagerBase implements DoCheck {
       this.formPopup.returnData = undefined;
     }
     if (this.confirmPopup.confirmed) {
-      this.remove(this.confirmPopup.returnData);
+      console.log(this.confirmPopup)
+      if (this.confirmPopup.returnData?.post) {
+        this.remove(this.confirmPopup.returnData.post);
+      } else if (this.confirmPopup.returnData?.comment) {
+        this.removeComment(this.confirmPopup.returnData.comment);
+      }
       this.confirmPopup.returnData = undefined;
       this.confirmPopup.confirmed = false;
     }
@@ -68,9 +73,9 @@ export class PostsComponent extends PagerBase implements DoCheck {
     this.formPopup.getData.fields = this.postFields;
   }
 
-  openConfirmPopup(post: any) {
+  openConfirmPopup(input: any) {
     this.confirmPopup.visible = true;
-    this.confirmPopup.getData = post;
+    this.confirmPopup.getData = input;
   }
 
   create(model: any) {
@@ -111,8 +116,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  remove(post: any) {
-    this.postService.delete(post.id).subscribe({
+  remove(postId: string) {
+    this.postService.delete(postId).subscribe({
       next: (res) => {
         console.log(res);
         this.getAll();
@@ -173,6 +178,27 @@ export class PostsComponent extends PagerBase implements DoCheck {
     };
 
     this.postService.addComment(model).subscribe({
+      next: (res) => {
+        this.getAll();
+        this.posts = this.posts.map(x => {
+          if (x.id === res.id) {
+            x.hiddenComments = false;
+          }
+          return x;
+        });
+      },
+      error: (err) => {
+        if (err?.error) {
+          console.log(err);
+          this.errors?.push(err.error[this.selectedLang]);
+        }
+      }
+    });
+  }
+
+  removeComment(commentId: string) {
+    console.log(commentId)
+    this.postService.removeComment({ commentId }).subscribe({
       next: (res) => {
         this.getAll();
       },
