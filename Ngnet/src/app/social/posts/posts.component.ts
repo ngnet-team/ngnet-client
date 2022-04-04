@@ -168,9 +168,12 @@ export class PostsComponent extends PagerBase implements DoCheck {
   }
 
   addComment(postId: string, input: any) {
-    const authorId = this.authService.getParsedJwt()?.userId;
+    const user = this.authService.getParsedJwt();
     var model = {
-      authorId,
+      author: {
+        id: user?.userId,
+        name: user?.username,
+      },
       postId,
       content: input.content,
     };
@@ -190,6 +193,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
   private formatReactions(response: IPostModel[]) {
     const authorId = this.authService.getParsedJwt()?.userId;
+
     return response.map(x => {
       const hasReaction = x.reactions.filter(x => x.authorId === authorId)[0];
       if (hasReaction) {
@@ -201,6 +205,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
       x.laughs = x.reactions.filter(x => x.emoji === 'laugh').length;
       x.hearts = x.reactions.filter(x => x.emoji === 'heart').length;
       x.angries = x.reactions.filter(x => x.emoji === 'angry').length;
+
+      x.comments = x.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
       return x;
     });
   }

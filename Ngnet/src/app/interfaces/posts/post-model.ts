@@ -1,3 +1,4 @@
+import { ICommentModel } from "./comment-model";
 import { IReactionModel } from "./reaction-model";
 
 export interface IPostModel {
@@ -6,7 +7,7 @@ export interface IPostModel {
     imageUrl: string,
     author: {},
     receiverId: string,
-    comments: [],
+    comments: ICommentModel[],
     reactions: IReactionModel[],
     createdOn: Date,
     likes: number,

@@ -1,7 +1,7 @@
 @import "../../../styles/modules/button";
 @import '../../../styles/modules/header';
 @import '../../../styles/modules/badge';
-@import '../../../styles/modules/form-h';
+@import '../../../styles/modules/box-card';
 
 .create {
     margin: 20px;
@@ -41,4 +41,23 @@
 
 .own {
     color: rgb(31, 190, 31);
+}
+
+.add-comment {
+
+    textarea {
+        height: 50px;
+        width: 100%;
+    }
+    background-color: beige;
+    padding: 20px;
+}
+
+.comments {
+    background-color: antiquewhite;
+    padding: 20px;
+    
+    > div {
+        margin-bottom: 10px;
+    }
 }

@@ -8,11 +8,11 @@
             Posts
         </div>
     </header>
-    
+
     <div *ngIf="posts" class="posts">
         <div *ngFor="let post of posts" class="card">
             <h2>{{post.title}}</h2>
-            <h5>{{post.createdOn.replace('T', ' ').slice(0, -5)}} by 
+            <h5>{{post.createdOn.replace('T', ' ').slice(0, -5)}} by
                 <span class="author">{{post.author.name}}</span>
             </h5>
             <div *ngIf="post.imageUrl" class="fakeimg" style="height:100px;">Image</div>
@@ -22,7 +22,8 @@
                     <fa-icon (click)="react(post.id, 'like')" [icon]="icons.reactions.like"></fa-icon> {{post.likes}}
                 </span>
                 <span class="badge" [ngClass]="{'own': post.own === 'dislike' }">
-                    <fa-icon (click)="react(post.id, 'dislike')" [icon]="icons.reactions.dislike"></fa-icon> {{post.dislikes}}
+                    <fa-icon (click)="react(post.id, 'dislike')" [icon]="icons.reactions.dislike"></fa-icon>
+                    {{post.dislikes}}
                 </span>
                 <span class="badge" [ngClass]="{'own': post.own === 'laugh' }">
                     <fa-icon (click)="react(post.id, 'laugh')" [icon]="icons.reactions.laugh"></fa-icon> {{post.laughs}}
@@ -31,25 +32,39 @@
                     <fa-icon (click)="react(post.id, 'heart')" [icon]="icons.reactions.heart"></fa-icon> {{post.hearts}}
                 </span>
                 <span class="badge" [ngClass]="{'own': post.own === 'angry' }">
-                    <fa-icon (click)="react(post.id, 'angry')" [icon]="icons.reactions.angry"></fa-icon> {{post.angries}}
+                    <fa-icon (click)="react(post.id, 'angry')" [icon]="icons.reactions.angry"></fa-icon>
+                    {{post.angries}}
                 </span>
             </div>
             <div class="actions">
                 <button (click)="openFormPopup(post)">Edit</button>
                 <button (click)="openConfirmPopup(post)">Delete</button>
             </div>
+            <div class="add-comment">
+                <form class="form" #comm="ngForm" (ngSubmit)="addComment(post.id, comm.value)">
+                    <div class="field">
+                        <div class="label">Content</div>
+                        <textarea #contentInput="ngModel" type="text" name="content" ngModel required></textarea>
+                        <p class="validation" *ngIf="contentInput.errors?.required && contentInput.touched">The Content
+                            is required</p>
+                    </div>
+                    <div class="button">
+                        <button type="submit" [disabled]="comm.invalid">Add Comment</button>
+                    </div>
+                </form>
+            </div>
             <div class="comments">
-                <div class="add-comment">
-                    <form class="form" #comm="ngForm" (ngSubmit)="addComment(post.id, comm.value)">
-                        <div class="field">
-                            <div class="label">Content</div>
-                            <textarea  #contentInput="ngModel" type="text" name="content" ngModel required></textarea>
-                            <p class="validation" *ngIf="contentInput.errors?.required && contentInput.touched">The Content is required</p>
-                        </div>
-                        <div class="button">
-                            <button type="submit" [disabled]="comm.invalid">Add Comment</button>
-                        </div>
-                    </form>
+                <h4>Comments</h4>
+                <div *ngFor="let comment of post.comments" class="box-card">
+                    <p>{{comment.content}}</p>
+                    <div *ngIf="comment.imageUrl" class="fakeimg" style="height:100px;">Image</div>
+                    <h6>{{comment.createdOn.replace('T', ' ').slice(0, -5)}} by
+                        <span class="author">{{post.author.name}}</span>
+                    </h6>
+                    <div class="actions">
+                        <button (click)="openFormPopup(post)">Edit</button>
+                        <button (click)="openConfirmPopup(post)">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
