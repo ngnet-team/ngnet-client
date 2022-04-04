@@ -151,8 +151,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
     var reaction = {
       authorId,
       postId,
-      like: true //TODO
-    };
+    } as any;
+    reaction[emoji] = true;
 
     this.postService.react(reaction).subscribe({
       next: (res) => {
