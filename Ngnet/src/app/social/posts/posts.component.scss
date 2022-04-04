@@ -39,8 +39,20 @@
     clear: both;
 }
 
-.own {
-    color: rgb(31, 190, 31);
+.own[emoji = like], .own[emoji = dislike] {
+    color: rgb(45, 110, 185);
+}
+
+.own[emoji = laugh] {
+    color: rgb(223, 223, 62);
+}
+
+.own[emoji = heart] {
+    color: rgb(231, 48, 48);
+}
+
+.own[emoji = angry] {
+    color: rgb(100, 11, 11);
 }
 
 .add-comment {

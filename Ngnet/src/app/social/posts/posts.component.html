@@ -18,20 +18,20 @@
             <div *ngIf="post.imageUrl" class="fakeimg" style="height:100px;">Image</div>
             <p>{{post.content}}</p>
             <div class="reactions">
-                <span class="badge" [ngClass]="{'own': post.own === 'like' }">
+                <span class="badge" [ngClass]="{'own': post.own === 'like' }" emoji="like">
                     <fa-icon (click)="react(post.id, 'like')" [icon]="icons.reactions.like"></fa-icon> {{post.likes}}
                 </span>
-                <span class="badge" [ngClass]="{'own': post.own === 'dislike' }">
+                <span class="badge" [ngClass]="{'own': post.own === 'dislike' }" emoji="dislike">
                     <fa-icon (click)="react(post.id, 'dislike')" [icon]="icons.reactions.dislike"></fa-icon>
                     {{post.dislikes}}
                 </span>
-                <span class="badge" [ngClass]="{'own': post.own === 'laugh' }">
+                <span class="badge" [ngClass]="{'own': post.own === 'laugh' }" emoji="laugh">
                     <fa-icon (click)="react(post.id, 'laugh')" [icon]="icons.reactions.laugh"></fa-icon> {{post.laughs}}
                 </span>
-                <span class="badge" [ngClass]="{'own': post.own === 'heart' }">
+                <span class="badge" [ngClass]="{'own': post.own === 'heart' }" emoji="heart">
                     <fa-icon (click)="react(post.id, 'heart')" [icon]="icons.reactions.heart"></fa-icon> {{post.hearts}}
                 </span>
-                <span class="badge" [ngClass]="{'own': post.own === 'angry' }">
+                <span class="badge" [ngClass]="{'own': post.own === 'angry' }" emoji="angry">
                     <fa-icon (click)="react(post.id, 'angry')" [icon]="icons.reactions.angry"></fa-icon>
                     {{post.angries}}
                 </span>
@@ -80,10 +80,6 @@
         No posts...
     </div>
 </div>
-
-
-
-
 
 <!-- -------------- popup items -------------- -->
 <app-popup [input]="formPopup"></app-popup>
