@@ -151,8 +151,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
     var reaction = {
       authorId,
       postId,
-    } as any;
-    reaction[emoji] = true;
+      emoji,
+    };
 
     this.postService.react(reaction).subscribe({
       next: (res) => {
@@ -172,18 +172,14 @@ export class PostsComponent extends PagerBase implements DoCheck {
     return response.map(x => {
       const hasReaction = x.reactions.filter(x => x.authorId === authorId)[0];
       if (hasReaction) {
-        x.own = hasReaction.like ? 'like' :
-                hasReaction.dislike ? 'dislike' :
-                hasReaction.laugh ? 'laugh' :
-                hasReaction.heart ? 'heart' :
-                hasReaction.angry ? 'angry' : '';
+        x.own = hasReaction.emoji;
       }
 
-      x.like = x.reactions.filter(x => x.like).length;
-      x.dislike = x.reactions.filter(x => x.dislike).length;
-      x.laugh = x.reactions.filter(x => x.laugh).length;
-      x.heart = x.reactions.filter(x => x.heart).length;
-      x.angry = x.reactions.filter(x => x.angry).length;
+      x.likes = x.reactions.filter(x => x.emoji === 'like').length;
+      x.dislikes = x.reactions.filter(x => x.emoji === 'dislike').length;
+      x.laughs = x.reactions.filter(x => x.emoji === 'laugh').length;
+      x.hearts = x.reactions.filter(x => x.emoji === 'heart').length;
+      x.angries = x.reactions.filter(x => x.emoji === 'angry').length;
       return x;
     });
   }

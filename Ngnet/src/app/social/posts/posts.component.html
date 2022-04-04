@@ -19,19 +19,19 @@
             <p>{{post.content}}</p>
             <div class="reactions">
                 <span class="badge" [ngClass]="{'own': post.own === 'like' }">
-                    <fa-icon (click)="react(post.id, 'like')" [icon]="icons.reactions.like"></fa-icon> {{post.like}}
+                    <fa-icon (click)="react(post.id, 'like')" [icon]="icons.reactions.like"></fa-icon> {{post.likes}}
                 </span>
                 <span class="badge" [ngClass]="{'own': post.own === 'dislike' }">
-                    <fa-icon (click)="react(post.id, 'dislike')" [icon]="icons.reactions.dislike"></fa-icon> {{post.dislike}}
+                    <fa-icon (click)="react(post.id, 'dislike')" [icon]="icons.reactions.dislike"></fa-icon> {{post.dislikes}}
                 </span>
                 <span class="badge" [ngClass]="{'own': post.own === 'laugh' }">
-                    <fa-icon (click)="react(post.id, 'laugh')" [icon]="icons.reactions.laugh"></fa-icon> {{post.laugh}}
+                    <fa-icon (click)="react(post.id, 'laugh')" [icon]="icons.reactions.laugh"></fa-icon> {{post.laughs}}
                 </span>
                 <span class="badge" [ngClass]="{'own': post.own === 'heart' }">
-                    <fa-icon (click)="react(post.id, 'heart')" [icon]="icons.reactions.heart"></fa-icon> {{post.heart}}
+                    <fa-icon (click)="react(post.id, 'heart')" [icon]="icons.reactions.heart"></fa-icon> {{post.hearts}}
                 </span>
                 <span class="badge" [ngClass]="{'own': post.own === 'angry' }">
-                    <fa-icon (click)="react(post.id, 'angry')" [icon]="icons.reactions.angry"></fa-icon> {{post.angry}}
+                    <fa-icon (click)="react(post.id, 'angry')" [icon]="icons.reactions.angry"></fa-icon> {{post.angries}}
                 </span>
             </div>
             <div class="actions">
