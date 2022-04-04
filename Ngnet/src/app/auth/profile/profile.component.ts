@@ -1,5 +1,5 @@
 import { Component, DoCheck, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUserRequestModel } from 'src/app/interfaces/auth/user-request-model';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
@@ -23,7 +23,8 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     iconService: IconService,
     authService: AuthService,
     router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
     ) {
     super(langService, iconService, authService, router);
     this.config(this.component.profile);
@@ -92,9 +93,10 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
   }
 
   private getProfile(): void {
-    this.authService.profile().subscribe(res => {
-      this.data = res;
-    });
+    // this.authService.profile().subscribe(res => {
+    //   this.data = res;
+    // });
     this.errors = [];
+    this.data = this.route.snapshot.data.profile;
   }
 }

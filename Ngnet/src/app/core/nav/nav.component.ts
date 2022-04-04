@@ -21,6 +21,10 @@ export class NavComponent extends Base implements DoCheck {
 
   @Input() tab: ITabModel = {};
   @Input() isLogged: boolean = this.authService.isLogged;
+  // get logged() {
+  //   console.log(this.isLogged)
+  //   return this.isLogged;
+  // }
 
   @Output() adminDropdown: IDropDownOutputModel = { field: 'admin', type: 'route' };
   @Output() managerDropdown: IDropDownOutputModel = { field: 'manager', type: 'route' };
