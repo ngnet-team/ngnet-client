@@ -38,6 +38,20 @@
                 <button (click)="openFormPopup(post)">Edit</button>
                 <button (click)="openConfirmPopup(post)">Delete</button>
             </div>
+            <div class="comments">
+                <div class="add-comment">
+                    <form class="form" #comm="ngForm" (ngSubmit)="addComment(post.id, comm.value)">
+                        <div class="field">
+                            <div class="label">Content</div>
+                            <textarea  #contentInput="ngModel" type="text" name="content" ngModel required></textarea>
+                            <p class="validation" *ngIf="contentInput.errors?.required && contentInput.touched">The Content is required</p>
+                        </div>
+                        <div class="button">
+                            <button type="submit" [disabled]="comm.invalid">Add Comment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div *ngIf="!posts" class="no-posts">

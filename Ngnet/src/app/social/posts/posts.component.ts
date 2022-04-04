@@ -148,13 +148,34 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
   react(postId: string, emoji: string): void {
     const authorId = this.authService.getParsedJwt()?.userId;
-    var reaction = {
+    var model = {
       authorId,
       postId,
       emoji,
     };
 
-    this.postService.react(reaction).subscribe({
+    this.postService.react(model).subscribe({
+      next: (res) => {
+        this.getAll();
+      },
+      error: (err) => {
+        if (err?.error) {
+          console.log(err);
+          this.errors?.push(err.error[this.selectedLang]);
+        }
+      }
+    });
+  }
+
+  addComment(postId: string, input: any) {
+    const authorId = this.authService.getParsedJwt()?.userId;
+    var model = {
+      authorId,
+      postId,
+      content: input.content,
+    };
+
+    this.postService.addComment(model).subscribe({
       next: (res) => {
         this.getAll();
       },

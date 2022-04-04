@@ -11,6 +11,7 @@ import { AuthService } from '../../auth/auth.service';
 export class PostService {
 
   private postsApiUrl: string = environment.servers.social + 'post' + '/';
+  private commentsApiUrl: string = environment.servers.social + 'comment' + '/';
 
   constructor(private http: HttpClient, private route: Router, private authService: AuthService) { }
 
@@ -32,5 +33,9 @@ export class PostService {
 
   react(model: any): Observable<any> {
     return this.http.post(this.postsApiUrl + 'reaction/', model);
+  }
+
+  addComment(model: any): Observable<any> {
+    return this.http.post(this.commentsApiUrl, model);
   }
 }
