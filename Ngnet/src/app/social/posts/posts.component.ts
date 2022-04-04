@@ -168,7 +168,17 @@ export class PostsComponent extends PagerBase implements DoCheck {
   }
 
   private formatReactions(response: IPostModel[]) {
+    const authorId = this.authService.getParsedJwt()?.userId;
     return response.map(x => {
+      const hasReaction = x.reactions.filter(x => x.authorId === authorId)[0];
+      if (hasReaction) {
+        x.own = hasReaction.like ? 'like' :
+                hasReaction.dislike ? 'dislike' :
+                hasReaction.laugh ? 'laugh' :
+                hasReaction.heart ? 'heart' :
+                hasReaction.angry ? 'angry' : '';
+      }
+
       x.like = x.reactions.filter(x => x.like).length;
       x.dislike = x.reactions.filter(x => x.dislike).length;
       x.laugh = x.reactions.filter(x => x.laugh).length;

@@ -14,4 +14,5 @@ export interface IPostModel {
     laugh: number,
     heart: number,
     angry: number,
+    own: string
 }

@@ -4,4 +4,5 @@ export interface IReactionModel {
     laugh: boolean,
     heart: boolean,
     angry: boolean,
+    authorId: string,
 }
