@@ -53,13 +53,20 @@
                     </div>
                 </form>
             </div>
-            <div class="comments">
+
+            <div class="button">
+                <button (click)="post.hiddenComments = !post.hiddenComments">
+                    {{post.hiddenComments ? 'Show' : 'Hide'}} comments
+                </button>
+            </div>
+
+            <div *ngIf="post.comments.length > 0 && !post.hiddenComments" class="comments">
                 <h4>Comments</h4>
                 <div *ngFor="let comment of post.comments" class="box-card">
                     <p>{{comment.content}}</p>
                     <div *ngIf="comment.imageUrl" class="fakeimg" style="height:100px;">Image</div>
                     <h6>{{comment.createdOn.replace('T', ' ').slice(0, -5)}} by
-                        <span class="author">{{post.author.name}}</span>
+                        <span class="author">{{comment.author.name}}</span>
                     </h6>
                     <div class="actions">
                         <button (click)="openFormPopup(post)">Edit</button>

@@ -17,19 +17,13 @@ import { PagerBase } from 'src/app/shared/base-classes/pager-base';
 export class PostsComponent extends PagerBase implements DoCheck {
 
   user = this.authService.getParsedJwt();
-  posts: any = [];
+  posts: IPostModel[] = [];
   postFields = [
     { label: 'Title', name: 'title', value: '' },
     { label: 'Content', name: 'content', value: '' },
   ];
   @Output() formPopup: IPopupModel = { type: 'form', visible: false, from: 'post' };
   @Output() confirmPopup: IPopupModel = { type: 'confirm', visible: false, confirmed: false, from: 'post' };
-
-  likes: number = (this.posts.reactions as [{ like: number }])?.filter(x => x.like).length;
-  dislikes: number = (this.posts.reactions as [{ dislike: number }])?.filter(x => x.dislike).length;
-  laughs: number = (this.posts.reactions as [{ laugh: number }])?.filter(x => x.laugh).length;
-  hearts: number = (this.posts.reactions as [{ heart: number }])?.filter(x => x.heart).length;
-  angries: number = (this.posts.reactions as [{ angry: number }])?.filter(x => x.angry).length;
 
   constructor(
     langService: LangService,
@@ -207,6 +201,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
       x.angries = x.reactions.filter(x => x.emoji === 'angry').length;
 
       x.comments = x.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
+      x.hiddenComments = true;
       return x;
     });
   }
