@@ -15,7 +15,7 @@ import { PagerBase } from 'src/app/shared/base-classes/pager-base';
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent extends PagerBase implements DoCheck {
-  
+
   user = this.authService.getParsedJwt();
   posts: any = [];
   postFields = [
@@ -25,11 +25,11 @@ export class PostsComponent extends PagerBase implements DoCheck {
   @Output() formPopup: IPopupModel = { type: 'form', visible: false, from: 'post' };
   @Output() confirmPopup: IPopupModel = { type: 'confirm', visible: false, confirmed: false, from: 'post' };
 
-  likes: number = (this.posts.reactions as [{like: number}])?.filter(x => x.like).length;
-  dislikes: number = (this.posts.reactions as [{dislike: number}])?.filter(x => x.dislike).length;
-  laughs: number = (this.posts.reactions as [{laugh: number}])?.filter(x => x.laugh).length;
-  hearts: number = (this.posts.reactions as [{heart: number}])?.filter(x => x.heart).length;
-  angries: number = (this.posts.reactions as [{angry: number}])?.filter(x => x.angry).length;
+  likes: number = (this.posts.reactions as [{ like: number }])?.filter(x => x.like).length;
+  dislikes: number = (this.posts.reactions as [{ dislike: number }])?.filter(x => x.dislike).length;
+  laughs: number = (this.posts.reactions as [{ laugh: number }])?.filter(x => x.laugh).length;
+  hearts: number = (this.posts.reactions as [{ heart: number }])?.filter(x => x.heart).length;
+  angries: number = (this.posts.reactions as [{ angry: number }])?.filter(x => x.angry).length;
 
   constructor(
     langService: LangService,
@@ -135,7 +135,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
   getAll(): void {
     this.postService.getAll().subscribe({
       next: (res) => {
-        this.posts = res;
+        this.posts = this.formatReactions(res as IPostModel[]);
       },
       error: (err) => {
         if (err?.error) {
@@ -148,7 +148,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
   react(postId: string, emoji: string): void {
     const authorId = this.authService.getParsedJwt()?.userId;
-    var reaction = { 
+    var reaction = {
       authorId,
       postId,
       like: true //TODO
@@ -164,6 +164,17 @@ export class PostsComponent extends PagerBase implements DoCheck {
           this.errors?.push(err.error[this.selectedLang]);
         }
       }
+    });
+  }
+
+  private formatReactions(response: IPostModel[]) {
+    return response.map(x => {
+      x.like = x.reactions.filter(x => x.like).length;
+      x.dislike = x.reactions.filter(x => x.dislike).length;
+      x.laugh = x.reactions.filter(x => x.laugh).length;
+      x.heart = x.reactions.filter(x => x.heart).length;
+      x.angry = x.reactions.filter(x => x.angry).length;
+      return x;
     });
   }
 }

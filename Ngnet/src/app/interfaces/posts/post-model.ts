@@ -9,5 +9,9 @@ export interface IPostModel {
     comments: [],
     reactions: IReactionModel[],
     createdOn: Date,
-    likes: number,
+    like: number,
+    dislike: number,
+    laugh: number,
+    heart: number,
+    angry: number,
 }
