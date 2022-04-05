@@ -39,6 +39,11 @@
                     margin-bottom: getParam(margins, small);
                 }
             }
+
+            .actions {
+                display: flex;
+                justify-content: space-between;
+            }
         }
     }
 }

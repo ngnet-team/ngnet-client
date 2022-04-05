@@ -81,6 +81,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
         return x;
       });
       this.formPopup.getData.meta = { postId, id: input._id };
+    } else { //Create post
+      this.formPopup.getData.fields = this.postFields;
     }
 
     this.formPopup.visible = true;
