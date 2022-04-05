@@ -23,6 +23,9 @@ export class PostsComponent extends PagerBase implements DoCheck {
     { label: 'Title', name: 'title', value: '' },
     { label: 'Content', name: 'content', value: '' },
   ];
+  commentFields = [
+    { label: 'Content', name: 'content', value: '' },
+  ];
   @Output() formPopup: IPopupModel = { type: 'form', visible: false, from: 'post' };
   @Output() confirmPopup: IPopupModel = { type: 'confirm', visible: false, confirmed: false, from: 'post' };
 
@@ -41,15 +44,17 @@ export class PostsComponent extends PagerBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.formPopup.returnData) {
-      console.log(this.formPopup.returnData);
-      // if (this.formPopup.returnData.id) {
-      //   this.edit(this.formPopup.returnData);
-      // } else {
-      //   this.create(this.formPopup.returnData);
-      // }
+    //Form
+    const form = this.formPopup.returnData;
+    if (form) {
+      if (form?.title) { //Post
+        this.save(form);
+      } else if (form) { //Comment
+        this.saveComment(form, form.meta.postId);
+      }
       this.formPopup.returnData = undefined;
     }
+    //Confirm
     if (this.confirmPopup.confirmed) {
       if (this.confirmPopup.returnData?.post) {
         this.remove(this.confirmPopup.returnData.post);
@@ -61,18 +66,24 @@ export class PostsComponent extends PagerBase implements DoCheck {
     }
   }
 
-  openFormPopup(post: any = undefined) {
-    this.formPopup.visible = true;
+  openFormPopup(input: any = undefined, postId: any = undefined) {
     this.formPopup.getData = {};
-    //Edit existing
-    if (post) {
-      this.postFields = this.postFields.map(x => {
-        x.value = post[x.name];
+
+    if (input?.title) { //Update post
+      this.formPopup.getData.fields = this.postFields.map(x => {
+        x.value = input[x.name];
         return x;
       });
-      this.formPopup.getData.id = post.id;
+      this.formPopup.getData.meta = { id: input.id };
+    } else if (input) { //Update comment
+      this.formPopup.getData.fields = this.commentFields.map(x => {
+        x.value = input[x.name];
+        return x;
+      });
+      this.formPopup.getData.meta = { postId, id: input._id };
     }
-    this.formPopup.getData.fields = this.postFields;
+
+    this.formPopup.visible = true;
   }
 
   openConfirmPopup(input: any) {
@@ -80,32 +91,34 @@ export class PostsComponent extends PagerBase implements DoCheck {
     this.confirmPopup.getData = input;
   }
 
-  create(model: any) {
-    var user = this.authService.getParsedJwt();
+  save(model: any) {
+    var request;
 
-    if (!user) {
-      console.log('no logged user!');
+    //Save file
+    // if (model?.image) {
+    //   this.fileService.save(model?.image).subscribe({
+    //     next: (res) => {
+    //       console.log(res);
+    //     },
+    //     error: (err) => {
+    //       console.log(err);
+    //     }
+    //   });;
+    // }
+
+    if (!model?.meta) { //Create
+      var user = this.authService.getParsedJwt();
+      model.author = {
+        id: user?.userId,
+        name: user?.username,
+      };
+      request = this.postService.create(model);
+    } else { //Update
+      model.id = model.meta?.id;
+      request = this.postService.update(model)
     }
 
-    model.author = {
-      id: user?.userId,
-      name: user?.username,
-    };
-    this.postService.create(model).subscribe({
-      next: (res) => {
-        this.getAll();
-      },
-      error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
-      }
-    });
-  }
-
-  edit(model: any) {
-    this.postService.update(model).subscribe({
+    request.subscribe({
       next: (res) => {
         this.getAll();
       },
@@ -168,18 +181,24 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  addComment(postId: string, input: any) {
-    const user = this.authService.getParsedJwt();
-    var model = {
-      author: {
+  saveComment(model: any, postId: string) {
+    var request;
+
+    if (!model?.meta) { //Create
+      const user = this.authService.getParsedJwt();
+      model.author = {
         id: user?.userId,
         name: user?.username,
-      },
-      postId,
-      content: input.content,
-    };
+      };
+      model.postId = postId;
 
-    this.postService.addComment(model).subscribe({
+      request = this.postService.addComment(model);
+    } else { //Update
+      model.id = model.meta.id;
+      request = this.postService.updateComment(model);
+    }
+
+    request?.subscribe({
       next: (res) => {
         this.getAll();
         this.posts = this.posts.map(x => {

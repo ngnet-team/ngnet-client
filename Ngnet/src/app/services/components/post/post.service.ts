@@ -39,6 +39,10 @@ export class PostService {
     return this.http.post(this.commentsApiUrl, model);
   }
 
+  updateComment(model: any): Observable<any> {
+    return this.http.patch(this.commentsApiUrl, model);
+  }
+
   removeComment(model: any): Observable<any> {
     return this.http.delete(this.commentsApiUrl + model.commentId);
   }

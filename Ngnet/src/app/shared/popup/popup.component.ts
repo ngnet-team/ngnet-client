@@ -6,7 +6,6 @@ import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { v4 as uuid } from 'uuid';
 import { FileService } from 'src/app/services/common/file/file.service';
 
 @Component({
@@ -35,16 +34,11 @@ export class PopupComponent extends ServerErrorsBase  {
       return; //TODO it's not abstract
     }
     
-    const guid = uuid();
-    const imageFile = new File([this.file], guid, {
-      type: this.file?.type,
-      lastModified: this.file?.lastModified,
-    });
-
+    // const imageFile = this.fileService.set(this.file);
+    // this.input.returnData.image = imageFile;
 
     this.input.returnData = input;
-    this.input.returnData.image = imageFile;
-    this.input.returnData.id = this.input.getData?.id;
+    this.input.returnData.meta = this.input.getData?.meta;
     
     this.exit();
   }

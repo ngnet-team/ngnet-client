@@ -41,7 +41,7 @@
                 <button (click)="openConfirmPopup({ post: post.id})">Delete</button>
             </div>
             <div class="add-comment">
-                <form class="form" #comm="ngForm" (ngSubmit)="addComment(post.id, comm.value)">
+                <form class="form" #comm="ngForm" (ngSubmit)="saveComment(comm.value, post.id)">
                     <div class="field">
                         <div class="label">Content</div>
                         <textarea #contentInput="ngModel" type="text" name="content" ngModel required></textarea>
@@ -69,7 +69,7 @@
                         <span class="author">{{comment.author.name}}</span>
                     </h6>
                     <div class="actions">
-                        <button (click)="openFormPopup(comment)">Edit</button>
+                        <button (click)="openFormPopup(comment, post.id)">Edit</button>
                         <button (click)="openConfirmPopup({ comment: comment._id})">Delete</button>
                     </div>
                 </div>
