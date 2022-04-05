@@ -7,6 +7,7 @@ import { MessageService } from 'src/app/services/common/message/message.service'
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DashboardService } from 'src/app/services/components/dashboard/dashboard.service';
 import { Base } from 'src/app/shared/base-classes/base';
+import { FileService } from 'src/app/services/common/file/file.service';
 
 @Component({
   selector: 'app-owner',
@@ -22,10 +23,11 @@ export class OwnerComponent extends Base {
     iconService: IconService,
     authService: AuthService,
     router: Router,
+    fileService: FileService,
     private dashboardService: DashboardService,
     private messageService: MessageService,
     ) {
-      super(langService, iconService, authService, router);
+      super(langService, iconService, authService, router, fileService);
       this.config(this.component.admin);
       this.getRoles();
     }

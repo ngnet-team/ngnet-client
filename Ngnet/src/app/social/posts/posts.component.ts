@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IPostModel } from 'src/app/interfaces/posts/post-model';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { FileService } from 'src/app/services/common/file/file.service';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { PagerService } from 'src/app/services/components/pager/pager.service';
@@ -30,25 +31,26 @@ export class PostsComponent extends PagerBase implements DoCheck {
     iconService: IconService,
     authService: AuthService,
     router: Router,
+    fileService: FileService,
     pagerService: PagerService,
     private postService: PostService,
   ) {
-    super(langService, iconService, authService, router, pagerService);
+    super(langService, iconService, authService, router, fileService, pagerService);
     this.configPager(this.component.posts, 4);
     this.getAll();
   }
 
   ngDoCheck(): void {
     if (this.formPopup.returnData) {
-      if (this.formPopup.returnData.id) {
-        this.edit(this.formPopup.returnData);
-      } else {
-        this.create(this.formPopup.returnData);
-      }
+      console.log(this.formPopup.returnData);
+      // if (this.formPopup.returnData.id) {
+      //   this.edit(this.formPopup.returnData);
+      // } else {
+      //   this.create(this.formPopup.returnData);
+      // }
       this.formPopup.returnData = undefined;
     }
     if (this.confirmPopup.confirmed) {
-      console.log(this.confirmPopup)
       if (this.confirmPopup.returnData?.post) {
         this.remove(this.confirmPopup.returnData.post);
       } else if (this.confirmPopup.returnData?.comment) {

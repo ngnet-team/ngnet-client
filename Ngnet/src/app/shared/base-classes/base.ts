@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { IChangeModel } from "src/app/interfaces/change-model";
 import { IPopupModel } from "src/app/interfaces/popup-model";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { FileService } from "src/app/services/common/file/file.service";
 import { IconService } from "src/app/services/common/icon/icon.service";
 import { LangService } from "../../services/common/lang/lang.service";
 
@@ -38,7 +39,8 @@ export class Base {
     protected langService: LangService,
     protected iconService: IconService,
     protected authService: AuthService,
-    protected router: Router
+    protected router: Router,
+    protected fileService: FileService,
   ) {
   }
 

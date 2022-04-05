@@ -7,6 +7,7 @@ import { Base } from '../base-classes/base';
 import { IconService } from '../../services/common/icon/icon.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { FileService } from 'src/app/services/common/file/file.service';
 
 @Component({
   selector: 'app-company-form',
@@ -24,10 +25,11 @@ export class CompanyFormComponent extends Base implements OnChanges {
     langService: LangService,
     iconService: IconService,
     authService: AuthService,
-    route: Router,
+    router: Router,
+    fileService: FileService,
     public companyService: CompanyService,
   ) {
-    super(langService, iconService, authService, route);
+    super(langService, iconService, authService, router, fileService);
     this.config(this.component.company);
     this.loadNames();
   }

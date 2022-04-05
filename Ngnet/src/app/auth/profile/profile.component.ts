@@ -4,6 +4,7 @@ import { IUserRequestModel } from 'src/app/interfaces/auth/user-request-model';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { FileService } from 'src/app/services/common/file/file.service';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { MessageService } from 'src/app/services/common/message/message.service';
@@ -23,10 +24,11 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     iconService: IconService,
     authService: AuthService,
     router: Router,
+    fileService: FileService,
     private messageService: MessageService,
     private route: ActivatedRoute
     ) {
-    super(langService, iconService, authService, router);
+    super(langService, iconService, authService, router, fileService);
     this.config(this.component.profile);
     this.data = this.route.snapshot.data.profile;
   }

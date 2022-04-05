@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITabModel } from 'src/app/interfaces/tab-model';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { FileService } from 'src/app/services/common/file/file.service';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { TabService } from 'src/app/services/common/tab/tab.service';
@@ -35,9 +36,10 @@ export class TabMenuComponent extends Base implements DoCheck {
     iconService: IconService, 
     authService: AuthService,
     router: Router, 
+    fileService: FileService,
     private tabService: TabService
     ) {
-    super(langService, iconService, authService, router);
+    super(langService, iconService, authService, router, fileService);
     this.config(this.component.tabMenu);
     this.subscriptionListener();
   }
