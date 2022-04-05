@@ -20,7 +20,6 @@ export class AuthService {
   private roles = [ 'owner', 'admin', 'member', 'user' ];
 
   isLogged: boolean = this.getParsedJwt() ? true : false;
-
   protected authUrl: string = environment.servers.auth;
 
   logginEvent: EventEmitter<boolean> = new EventEmitter();

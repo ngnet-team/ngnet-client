@@ -28,7 +28,7 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     ) {
     super(langService, iconService, authService, router);
     this.config(this.component.profile);
-    this.getProfile();
+    this.data = this.route.snapshot.data.profile;
   }
 
   ngDoCheck(): void {
@@ -93,10 +93,9 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
   }
 
   private getProfile(): void {
-    // this.authService.profile().subscribe(res => {
-    //   this.data = res;
-    // });
+    this.authService.profile().subscribe(res => {
+      this.data = res;
+    });
     this.errors = [];
-    this.data = this.route.snapshot.data.profile;
   }
 }

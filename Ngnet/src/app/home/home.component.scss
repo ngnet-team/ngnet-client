@@ -1,1 +1,66 @@
-@import '../../styles/base/home';
+@import "../../styles/base/variables";
+@import "../../styles/base/api";
+@import "../../styles/modules/header";
+
+$header-back: getParam(colors, header, back);
+
+.container {
+
+    header {
+        background-color: $header-back;
+    }
+
+    section {
+
+        div {
+            height: 25rem;
+            
+            .content {
+                color: getParam(colors, area, back);
+                font-size: getParam(fonts, size, big);
+
+                div {
+                    padding-top: 1.5rem;
+                    padding-left: 10rem;
+                }
+
+                .text {
+                    width: max-content;
+                    height: max-content;
+                }
+
+                .button {
+                    text-align: center;
+                    margin-top: getParam(margins, huge);
+                    button {
+                        padding: getParam(paddings, large) 5rem;
+                        background-color: $header-back;
+                        color: getParam(colors, field, fore);
+                        border-radius: 3rem;
+                    }
+
+                    button:hover {
+                        cursor: pointer;
+                    }
+
+                    button:disabled {
+                        cursor: no-drop;
+                    }
+                }
+
+                .button {
+                    display: inline-block;
+                }
+            }
+        }
+
+        .vehicle {
+            background: url(../../assets/images/homepage-car.PNG) no-repeat center;
+        }
+
+        .health {
+            background: url(../../assets/images/homepage-health.PNG) no-repeat;
+            background-size: 100% 100%;
+        }
+    }
+}
