@@ -3,40 +3,44 @@
 @import '../../../styles/modules/badge';
 @import '../../../styles/modules/box-card';
 
-.create {
-    margin: 20px;
-}
+.container {
+    .create {
+        margin: getParam(margins, small);
+    }
 
-.header {
-    padding: 30px;
-    font-size: 40px;
-    text-align: center;
-    background: white;
-}
+    .posts {
+        margin: getParam(margins, small) 25%;
 
-.posts {
-    margin: 20px 600px;
-}
+        .post {
+            background-color: getParam(colors, area, back);
+            padding: getParam(paddings, large);
+            margin-top: getParam(margins, normal);
 
-/* Fake image */
-.fakeimg {
-    background-color: #aaa;
-    width: 90%;
-    padding: 20px;
-}
+            .fakeimg {
+                background-color: #aaa;
+                width: 90%;
+                padding: 20px;
+            }
 
-/* Add a card effect for articles */
-.card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+            .add-comment {
+                textarea {
+                    height: 50px;
+                    width: 100%;
+                }
+                background-color: getParam(colors, field-sec, back);
+                padding: 20px;
+            }
+            
+            .comments {
+                background-color: getParam(colors, field-sec, back);
+                padding: getParam(paddings, normal);
+                
+                > div {
+                    margin-bottom: getParam(margins, small);
+                }
+            }
+        }
+    }
 }
 
 .own[emoji = like], .own[emoji = dislike] {
@@ -53,25 +57,6 @@
 
 .own[emoji = angry] {
     color: rgb(100, 11, 11);
-}
-
-.add-comment {
-
-    textarea {
-        height: 50px;
-        width: 100%;
-    }
-    background-color: beige;
-    padding: 20px;
-}
-
-.comments {
-    background-color: antiquewhite;
-    padding: 20px;
-    
-    > div {
-        margin-bottom: 10px;
-    }
 }
 
 .badge:hover {
