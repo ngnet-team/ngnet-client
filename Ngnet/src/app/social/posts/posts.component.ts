@@ -80,7 +80,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
         x.value = input[x.name];
         return x;
       });
-      this.formPopup.getData.meta = { postId, id: input._id };
+      this.formPopup.getData.meta = { postId, id: input.id };
     } else { //Create post
       this.formPopup.getData.fields = this.postFields;
     }
@@ -245,7 +245,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     this.socialService.reactComment(model).subscribe({
       next: (res) => {
         console.log(res)
-        this.getPosts();
+        // this.getPosts();
       },
       error: (err) => {
         if (err?.error) {

@@ -1,7 +1,7 @@
 import { IReactionModel } from "./reaction-model";
 
 export interface ICommentModel {
-    _id: string,
+    id: string,
     createdOn: string,
     content: string,
     imageUrl: string,
