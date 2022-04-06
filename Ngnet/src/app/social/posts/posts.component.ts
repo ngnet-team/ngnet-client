@@ -136,7 +136,6 @@ export class PostsComponent extends PagerBase implements DoCheck {
   removePost(postId: string) {
     this.socialService.removePost(postId).subscribe({
       next: (res) => {
-        console.log(res);
         this.getPosts();
       },
       error: (err) => {
@@ -148,11 +147,11 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  getPosts(): void {
+  getPosts(commentId: any = undefined, reactionId: any = undefined): void {
     this.socialService.getPosts().subscribe({
       next: (res) => {
         this.posts = res;
-        this.formatReactions();
+        this.formatReactions(commentId, reactionId);
       },
       error: (err) => {
         if (err?.error) {
@@ -203,13 +202,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
     request?.subscribe({
       next: (res) => {
-        this.getPosts();
-        this.posts = this.posts.map(x => {
-          if (x.id === res.id) {
-            x.hiddenComments = false;
-          }
-          return x;
-        });
+        this.getPosts(res.id);
       },
       error: (err) => {
         if (err?.error) {
@@ -224,7 +217,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     console.log(commentId)
     this.socialService.removeComment({ commentId }).subscribe({
       next: (res) => {
-        this.getPosts();
+        this.getPosts(res.id);
       },
       error: (err) => {
         if (err?.error) {
