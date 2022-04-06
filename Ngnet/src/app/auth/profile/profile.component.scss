@@ -1,1 +1,76 @@
-@import '../../../styles/base/profile';
+@import '../../../styles/base/api';
+@import '../../../styles/modules/form-h';
+@import '../../../styles/modules/header';
+
+.content {
+    text-align: center;
+    margin: getParam(margins, huge) 25%;
+
+    .title {
+        font-size: getParam(fonts, size, big);
+        background-color: getParam(colors, header, back);
+        color: getParam(colors, header, fore);
+        text-align: left;
+        padding: getParam(paddings, normal) getParam(paddings, huge);
+        margin-bottom: getParam(margins, huge);
+    }
+}
+
+.blur {
+    filter: blur(8px); //no such configuration
+}
+
+//tablet - SHOULD BE EXTENDED
+@media screen and (max-width: 1000px) {
+    .content {
+        margin: 2rem 4rem;
+
+        .form {
+            padding: 3rem 2rem;
+        }
+    }
+}
+
+//mobile - SHOULD BE EXTENDED
+@media screen and (max-width: 600px) {
+    .header {
+        margin: 1rem 0;
+
+        .title {
+            padding: 2rem;
+            font-size: 30px;
+        }
+    }
+
+    .content {
+        margin: 1rem 2rem;
+
+        .form {
+            padding: 2rem 2rem;
+
+            .title {
+                margin-bottom: 1rem;
+                font-size: 20px;
+            }
+
+            .field {
+                .data {
+                    flex-direction: column;
+                    width: 60%;
+
+                    .change {
+                        text-align: left;
+                    }
+                }
+            }
+
+            .button {
+                margin-top: 1rem;
+
+                button {
+                    padding: 0.4rem 3rem;
+                }
+            }
+        }
+    }
+}

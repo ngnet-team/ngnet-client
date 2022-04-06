@@ -20,6 +20,10 @@
                     </div>
                 </div>
 
+                <div class="field image">
+                    <input type="file" (change)="onFileSelected($event)">
+                </div>
+
                 <div *ngFor="let error of errors">
                     <p class="validation">{{error}}</p>
                 </div>

@@ -15,6 +15,7 @@ import { IPopupModel } from '../interfaces/popup-model';
 import { IconService } from '../services/common/icon/icon.service';
 import { IDropDownOutputModel } from '../interfaces/dropdown/dropdown-output';
 import { AuthService } from '../services/auth/auth.service';
+import { FileService } from '../services/common/file/file.service';
 
 @Component({
   selector: 'app-care',
@@ -48,12 +49,13 @@ export class CareComponent extends PagerBase implements DoCheck {
     iconService: IconService,
     protected authService: AuthService,
     router: Router,
+    fileService: FileService,
     pagerService: PagerService,
     private careService: CareService,
     private route: Router,
     private messageService: MessageService,
   ) {
-    super(langService, iconService, authService, router, pagerService);
+    super(langService, iconService, authService, router, fileService, pagerService);
     this.configPager(this.component.care, 4);
     this.loadNames();
     this.self();

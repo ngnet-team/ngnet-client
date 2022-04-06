@@ -1,6 +1,9 @@
 export const environment = {
   production: false,
-  appName: "Ngnet",
+  app: {
+    name: "Ngnet",
+    domain: "http://localhost:4200/"
+  },
   servers: {
     auth: "http://localhost:7000/",
     care: "http://localhost:5000/",

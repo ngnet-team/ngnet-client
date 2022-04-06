@@ -6,6 +6,7 @@ import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { FileService } from 'src/app/services/common/file/file.service';
 
 @Component({
   selector: 'app-popup',
@@ -15,29 +16,35 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 //popup types: confirm, change, info
 export class PopupComponent extends ServerErrorsBase  {
   @Input() input: IPopupModel = { type: '', visible: false };
+  file: any;
 
   constructor(
     langService: LangService,
     iconService: IconService,
     authService: AuthService,
     router: Router,
+    fileService: FileService,
     ) {
-    super(langService, iconService, authService, router);
+    super(langService, iconService, authService, router, fileService);
     this.config(this.component.popup);
   }
 
   form(input: any): void {
     if (!input.title && !input.content) {
-      return;
+      return; //TODO it's not abstract
     }
+    
+    // const imageFile = this.fileService.set(this.file);
+    // this.input.returnData.image = imageFile;
 
-    this.input.returnData = {
-      title: input.title,
-      content: input.content,
-      id: this.input.getData?.id
-    };
+    this.input.returnData = input;
+    this.input.returnData.meta = this.input.getData?.meta;
     
     this.exit();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
   }
 
   change(input: IChangeModel): void {

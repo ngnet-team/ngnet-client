@@ -1,3 +1,169 @@
-@import '../../../styles/modules/button';
-@import '../../../styles/modules/popup';
 @import '../../../styles/modules/form-h';
+
+.container {
+    background-color: getParam(colors, field, back);
+    border-radius: getParam(borders, field, rounding);
+    border: getBorder(field, getParam(colors, field, fore));
+    max-width: 30rem;
+    padding: getParam(paddings, large) 0;
+    z-index: 4;
+    position: fixed;
+    top: 15%;
+    left: calc(40%);
+
+    .exit {
+        position: absolute;
+        top: getParam(fonts, size, tiny);
+        right: getParam(fonts, size, tiny);
+        color: getParam(colors, header, back);
+        font-size: getParam(fonts, size, huge);
+    }
+
+    .exit:hover {
+        cursor: pointer;
+    }
+
+    .content {
+        height: 100%;
+        margin: 2rem 4rem;
+        font-size: getParam(fonts, size, normal);
+
+        .title {
+            font-size: getParam(fonts, size, big);
+            background-color: getParam(colors, header, back);
+            color: getParam(colors, header, fore);
+            text-align: left;
+            padding: getParam(paddings, normal) getParam(paddings, huge);
+            margin-bottom: getParam(margins, huge);
+        }
+
+        .button {
+            text-align: center;
+            margin-top: 3rem;
+
+            button {
+                padding: getParam(paddings, large) 7rem;
+                background-color: getParam(colors, header, back);
+                color: getParam(colors, field, fore);
+            }
+
+            button:hover {
+                cursor: pointer;
+            }
+        }
+
+        .text {
+            padding: getParam(paddings, normal);
+            background-color: getParam(colors, area, back);
+        }
+
+        .switcher {
+            padding: getParam(paddings, normal);
+            color: getParam(colors, field, fore);
+
+            .checkbox {
+                width: getParam(fonts, size, big);
+            }
+        }
+    }
+}
+
+// -------------------------- Laptop --------------------------
+
+@media only screen and (max-width: getParam(media, laptop)) {
+    .container {
+        padding: getParam(paddings, normal) 0;
+    
+        .exit {
+            font-size: getParam(fonts, size, big);
+        }
+    
+        .content {
+            margin: 1.5rem 3rem;
+    
+            .title {
+                font-size: getParam(fonts, size, normal);
+                padding: getParam(paddings, small) getParam(paddings, large);
+                margin-bottom: getParam(margins, large);
+            }
+    
+            .button {
+                margin-top: 2rem;
+    
+                button {
+                    font-size: getParam(fonts, size, small);
+                    padding: getParam(paddings, normal) 5rem;
+                }
+            }
+        }
+    }
+}
+
+// -------------------------- Tablet --------------------------
+
+@media only screen and (max-width: getParam(media, tablet, landscape)) {
+    .container {
+        padding: getParam(paddings, small) 0;
+    
+        .exit {
+            font-size: getParam(fonts, size, normal);
+        }
+    
+        .content {
+            margin: 1rem 2rem;
+    
+            .title {
+                font-size: getParam(fonts, size, small);
+                padding: getParam(paddings, tiny) getParam(paddings, normal);
+                margin-bottom: getParam(margins, normal);
+            }
+    
+            .button {
+                margin-top: 1rem;
+    
+                button {
+                    font-size: getParam(fonts, size, tiny);
+                    padding: getParam(paddings, small) 3rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: getParam(media, tablet, portrait)) {
+    .container {
+        padding: getParam(paddings, tiny) 0;
+    
+        .exit {
+            font-size: getParam(fonts, size, normal);
+        }
+    
+        .content {
+            margin: 0.8rem 3rem;
+    
+            .title {
+                font-size: getParam(fonts, size, tiny);
+                padding: getParam(paddings, tiny) getParam(paddings, tiny);
+                margin-bottom: getParam(margins, tiny);
+            }
+    
+            .button {
+                margin-top: 1rem;
+    
+                button {
+                    font-size: getParam(fonts, size, tiny);
+                    padding: getParam(paddings, tiny) 2rem;
+                }
+            }
+        }
+    }
+}
+
+// -------------------------- Smartphone --------------------------
+
+@media only screen and (max-width: getParam(media, smartphones, landscape)) {
+}
+
+@media only screen and (max-width: getParam(media, smartphones, portrait)) {
+}
+

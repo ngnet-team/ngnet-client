@@ -1,6 +1,7 @@
 import { Router } from "@angular/router";
 import { IErrorModel } from "src/app/interfaces/response-error-model";
 import { AuthService } from "src/app/services/auth/auth.service";
+import { FileService } from "src/app/services/common/file/file.service";
 import { IconService } from "src/app/services/common/icon/icon.service";
 import { environment } from "src/environments/environment";
 import { LangService } from "../../services/common/lang/lang.service";
@@ -18,9 +19,10 @@ export class ServerErrorsBase extends Base {
         langService: LangService,
         iconService: IconService,
         protected authService: AuthService,
-        protected router: Router
+        protected router: Router,
+        fileService: FileService,
     ) {
-        super(langService, iconService, authService, router);
+        super(langService, iconService, authService, router, fileService);
     }
 
     protected setServerError(): void {

@@ -16,6 +16,7 @@ import { DashboardService } from 'src/app/services/components/dashboard/dashboar
 import { IEntryModel } from 'src/app/interfaces/modules/dashboard/entry-model';
 import { IDashboardModel } from 'src/app/interfaces/shared/dashboard-model';
 import { IDashboardContentModel } from 'src/app/interfaces/shared/dashboard-content-model';
+import { FileService } from 'src/app/services/common/file/file.service';
 
 @Component({
   selector: 'app-admin',
@@ -89,11 +90,12 @@ export class AdminComponent extends PagerBase implements DoCheck {
     iconService: IconService,
     authService: AuthService,
     router: Router,
+    fileService: FileService,
     pagerService: PagerService,
     private dashboardService: DashboardService,
     private messageService: MessageService,
   ) {
-    super(langService, iconService, authService, router, pagerService);
+    super(langService, iconService, authService, router, fileService, pagerService);
     this.config(this.component.admin);
     this.getUsers();
     this.getEntries();

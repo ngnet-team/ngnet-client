@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+import { faAngry, faHeart, faLaugh, fas, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +64,15 @@ export class IconService {
       more: fas.faPlus,
       edit: fas.faPencilAlt,
       sort: fas.faSort,
+    },
+    posts: {
+      reactions: {
+        like: faThumbsUp,
+        dislike: faThumbsDown,
+        heart: faHeart,
+        angry: faAngry,
+        laugh: faLaugh,
+      },
     },
   };
 

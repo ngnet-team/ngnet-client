@@ -6,6 +6,7 @@ import { LangService } from "src/app/services/common/lang/lang.service";
 import { PagerService } from "src/app/services/components/pager/pager.service";
 import { ServerErrorsBase } from "./server-errors-base";
 import { IPageModel } from "src/app/interfaces/page-model";
+import { FileService } from "src/app/services/common/file/file.service";
 
 export class PagerBase extends ServerErrorsBase {
 
@@ -19,8 +20,9 @@ export class PagerBase extends ServerErrorsBase {
     protected iconService: IconService,
     protected authService: AuthService,
     protected router: Router, 
+    protected fileService: FileService,
     protected pagerService: PagerService) {
-    super(langService, iconService, authService, router);
+    super(langService, iconService, authService, router, fileService);
     this.pagerListener(this.input);
   }
 

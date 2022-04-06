@@ -25,7 +25,8 @@ import { IconService } from './services/common/icon/icon.service';
 import { AuthService } from './services/auth/auth.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SocialModule } from './social/social.module';
-import { PostService } from './services/components/post/post.service';
+import { FileService } from './services/common/file/file.service';
+import { SocialService } from './services/components/social/social.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PostService } from './services/components/post/post.service';
     MessageService,
     TabService,
     IconService,
-    PostService,
+    SocialService,
+    FileService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,

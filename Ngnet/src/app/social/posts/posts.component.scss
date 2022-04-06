@@ -1,38 +1,69 @@
 @import "../../../styles/modules/button";
 @import '../../../styles/modules/header';
+@import '../../../styles/modules/badge';
+@import '../../../styles/modules/box-card';
 
-.create {
-    margin: 20px;
+.container {
+    .create {
+        margin: getParam(margins, small);
+    }
+
+    .posts {
+        margin: getParam(margins, small) 25%;
+
+        .post {
+            background-color: getParam(colors, area, back);
+            padding: getParam(paddings, large);
+            margin-top: getParam(margins, normal);
+
+            .fakeimg {
+                background-color: #aaa;
+                width: 90%;
+                padding: 20px;
+            }
+
+            .add-comment {
+                textarea {
+                    height: 50px;
+                    width: 100%;
+                }
+                background-color: getParam(colors, field-sec, back);
+                padding: 20px;
+            }
+            
+            .comments {
+                background-color: getParam(colors, field-sec, back);
+                padding: getParam(paddings, normal);
+                
+                > div {
+                    margin-bottom: getParam(margins, small);
+                }
+            }
+
+            .actions {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
 }
 
-.header {
-    padding: 30px;
-    font-size: 40px;
-    text-align: center;
-    background: white;
+.own[emoji = like], .own[emoji = dislike] {
+    color: rgb(45, 110, 185);
 }
 
-.posts {
-    margin: 20px 600px;
+.own[emoji = laugh] {
+    color: rgb(223, 223, 62);
 }
 
-/* Fake image */
-.fakeimg {
-    background-color: #aaa;
-    width: 90%;
-    padding: 20px;
+.own[emoji = heart] {
+    color: rgb(231, 48, 48);
 }
 
-/* Add a card effect for articles */
-.card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
+.own[emoji = angry] {
+    color: rgb(100, 11, 11);
 }
 
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+.badge:hover {
+    cursor: pointer;
 }

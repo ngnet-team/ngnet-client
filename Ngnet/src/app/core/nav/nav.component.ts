@@ -11,6 +11,7 @@ import { IconService } from 'src/app/services/common/icon/icon.service';
 import { IDropDownOutputModel } from 'src/app/interfaces/dropdown/dropdown-output';
 import { Router } from '@angular/router';
 import { Base } from 'src/app/shared/base-classes/base';
+import { FileService } from 'src/app/services/common/file/file.service';
 
 @Component({
   selector: 'app-nav',
@@ -44,10 +45,11 @@ export class NavComponent extends Base implements DoCheck {
     iconService: IconService,
     authService: AuthService,
     router: Router, 
+    fileService: FileService,
     private messageService: MessageService, 
     private tabService: TabService,
     ) {
-      super(langService, iconService, authService, router);
+      super(langService, iconService, authService, router, fileService);
     this.subscriptionListener();
   }
 

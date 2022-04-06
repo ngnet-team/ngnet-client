@@ -10,6 +10,7 @@ import { IDashboardModel } from 'src/app/interfaces/shared/dashboard-model';
 import { IDashboardContentModel } from 'src/app/interfaces/shared/dashboard-content-model';
 import { IDashboardHeaderModel } from 'src/app/interfaces/shared/dashboard-header-model';
 import { IDashboardContentCellModel } from 'src/app/interfaces/shared/dashboard-content-cell-model';
+import { FileService } from 'src/app/services/common/file/file.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,9 +40,10 @@ export class DashboardComponent extends PagerBase implements DoCheck {
     iconService: IconService,
     authService: AuthService,
     router: Router,
+    fileService: FileService,
     pagerService: PagerService,
   ) {
-    super(langService, iconService, authService, router, pagerService);
+    super(langService, iconService, authService, router, fileService, pagerService);
     this.pager = this.configPager(this.component.dashboard, 4);
   }
 
