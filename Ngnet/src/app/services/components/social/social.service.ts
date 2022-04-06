@@ -50,4 +50,8 @@ export class SocialService {
   reactComment(model: any): Observable<any> {
     return this.http.post(this.commentsApiUrl + 'reaction/', model);
   }
+
+  getCommentReactions(commentId: string): Observable<any> {
+    return this.http.get(this.commentsApiUrl + 'reaction/' + commentId);
+  }
 }

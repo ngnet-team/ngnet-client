@@ -151,7 +151,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
   getPosts(): void {
     this.socialService.getPosts().subscribe({
       next: (res) => {
-        this.posts = this.formatReactions(res as IPostModel[]);
+        this.posts = res;
+        this.formatReactions();
       },
       error: (err) => {
         if (err?.error) {
@@ -244,6 +245,33 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
     this.socialService.reactComment(model).subscribe({
       next: (res) => {
+        this.posts = this.posts.map(p => {
+          p.comments = p.comments.map(c => {
+            c.reactions = c.reactions.map(r => {
+              if (r.id === res.id) {
+                r = res;
+              };
+              return r;
+            });
+            return c;
+          });
+          return p;
+        });
+
+        this.formatReactions();
+      },
+      error: (err) => {
+        if (err?.error) {
+          console.log(err);
+          this.errors?.push(err.error[this.selectedLang]);
+        }
+      }
+    });
+  }
+
+  getCommentReactions(commentId: string) {
+    this.socialService.getCommentReactions(commentId).subscribe({
+      next: (res) => {
         console.log(res)
         // this.getPosts();
       },
@@ -256,10 +284,10 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  private formatReactions(response: IPostModel[]) {
+  private formatReactions() {
     const authorId = this.authService.getParsedJwt()?.userId;
 
-    return response.map(p => {
+    this.posts = this.posts.map(p => {
       const hasReaction = p.reactions?.filter(x => x.authorId === authorId)[0];
       if (hasReaction) {
         p.own = hasReaction.emoji;
