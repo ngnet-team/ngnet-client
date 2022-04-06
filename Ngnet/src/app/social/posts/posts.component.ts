@@ -237,21 +237,37 @@ export class PostsComponent extends PagerBase implements DoCheck {
   private formatReactions(response: IPostModel[]) {
     const authorId = this.authService.getParsedJwt()?.userId;
 
-    return response.map(x => {
-      const hasReaction = x.reactions.filter(x => x.authorId === authorId)[0];
+    return response.map(p => {
+      const hasReaction = p.reactions.filter(x => x.authorId === authorId)[0];
       if (hasReaction) {
-        x.own = hasReaction.emoji;
+        p.own = hasReaction.emoji;
       }
 
-      x.likes = x.reactions.filter(x => x.emoji === 'like').length;
-      x.dislikes = x.reactions.filter(x => x.emoji === 'dislike').length;
-      x.laughs = x.reactions.filter(x => x.emoji === 'laugh').length;
-      x.hearts = x.reactions.filter(x => x.emoji === 'heart').length;
-      x.angries = x.reactions.filter(x => x.emoji === 'angry').length;
+      p.likes = p.reactions.filter(x => x.emoji === 'like').length;
+      p.dislikes = p.reactions.filter(x => x.emoji === 'dislike').length;
+      p.laughs = p.reactions.filter(x => x.emoji === 'laugh').length;
+      p.hearts = p.reactions.filter(x => x.emoji === 'heart').length;
+      p.angries = p.reactions.filter(x => x.emoji === 'angry').length;
 
-      x.comments = x.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
-      x.hiddenComments = true;
-      return x;
+      p.comments = p.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn)).map(c => {
+        const hasReaction = c.reactions.filter(x => x.authorId === authorId)[0];
+        if (hasReaction) {
+          c.own = hasReaction.emoji;
+        }
+
+        c.likes = c.reactions.filter(x => x.emoji === 'like').length;
+        c.dislikes = c.reactions.filter(x => x.emoji === 'dislike').length;
+        c.laughs = c.reactions.filter(x => x.emoji === 'laugh').length;
+        c.hearts = c.reactions.filter(x => x.emoji === 'heart').length;
+        c.angries = c.reactions.filter(x => x.emoji === 'angry').length;
+
+        return c;
+      });
+
+
+
+      p.hiddenComments = true;
+      return p;
     });
   }
 }

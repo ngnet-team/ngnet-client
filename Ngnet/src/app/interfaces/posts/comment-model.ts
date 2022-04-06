@@ -1,3 +1,5 @@
+import { IReactionModel } from "./reaction-model";
+
 export interface ICommentModel {
     _id: string,
     createdOn: string,
@@ -6,4 +8,11 @@ export interface ICommentModel {
     author: {
         name: string,
     },
+    reactions: IReactionModel[],
+    likes: number,
+    dislikes: number,
+    laughs: number,
+    hearts: number,
+    angries: number,
+    own: string,
 }
