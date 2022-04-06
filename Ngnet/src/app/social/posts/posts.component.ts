@@ -151,7 +151,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     this.socialService.getPosts().subscribe({
       next: (res) => {
         this.posts = res;
-        this.formatReactions(commentId, reactionId);
+        this.formatData(commentId, reactionId);
       },
       error: (err) => {
         if (err?.error) {
@@ -214,7 +214,6 @@ export class PostsComponent extends PagerBase implements DoCheck {
   }
 
   removeComment(commentId: string) {
-    console.log(commentId)
     this.socialService.removeComment({ commentId }).subscribe({
       next: (res) => {
         this.getPosts(res.id);
@@ -238,20 +237,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
     this.socialService.reactComment(model).subscribe({
       next: (res) => {
-        this.posts = this.posts.map(p => {
-          p.comments = p.comments.map(c => {
-            c.reactions = c.reactions.map(r => {
-              if (r.id === res.id) {
-                r = res;
-              };
-              return r;
-            });
-            return c;
-          });
-          return p;
-        });
-
-        this.formatReactions('', res.id);
+        this.updateData('', res);
       },
       error: (err) => {
         if (err?.error) {
@@ -262,7 +248,27 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  private formatReactions(commentId: any = undefined, reactionId: any = undefined) {
+  private updateData(comment: any = undefined, reaction: any = undefined) {
+    this.posts = this.posts.map(p => {
+      p.comments = p.comments.map(c => {
+        if (c.id === comment?.id) {
+          c = comment;
+        };
+        c.reactions = c.reactions.map(r => {
+          if (r.id === reaction?.id) {
+            r = reaction;
+          };
+          return r;
+        });
+        return c;
+      });
+      return p;
+    });
+
+    this.formatData(comment?.id, reaction?.id);
+  }
+
+  private formatData(commentId: any = undefined, reactionId: any = undefined) {
     const authorId = this.authService.getParsedJwt()?.userId;
     let postId = '';
 
