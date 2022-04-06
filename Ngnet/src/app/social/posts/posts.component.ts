@@ -7,7 +7,7 @@ import { FileService } from 'src/app/services/common/file/file.service';
 import { IconService } from 'src/app/services/common/icon/icon.service';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { PagerService } from 'src/app/services/components/pager/pager.service';
-import { PostService } from 'src/app/services/components/post/post.service';
+import { SocialService } from 'src/app/services/components/social/social.service';
 import { PagerBase } from 'src/app/shared/base-classes/pager-base';
 
 @Component({
@@ -36,11 +36,11 @@ export class PostsComponent extends PagerBase implements DoCheck {
     router: Router,
     fileService: FileService,
     pagerService: PagerService,
-    private postService: PostService,
+    private socialService: SocialService,
   ) {
     super(langService, iconService, authService, router, fileService, pagerService);
     this.configPager(this.component.posts, 4);
-    this.getAll();
+    this.getPosts();
   }
 
   ngDoCheck(): void {
@@ -48,7 +48,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     const form = this.formPopup.returnData;
     if (form) {
       if (form?.title) { //Post
-        this.save(form);
+        this.savePost(form);
       } else if (form) { //Comment
         this.saveComment(form, form.meta.postId);
       }
@@ -57,7 +57,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     //Confirm
     if (this.confirmPopup.confirmed) {
       if (this.confirmPopup.returnData?.post) {
-        this.remove(this.confirmPopup.returnData.post);
+        this.removePost(this.confirmPopup.returnData.post);
       } else if (this.confirmPopup.returnData?.comment) {
         this.removeComment(this.confirmPopup.returnData.comment);
       }
@@ -93,7 +93,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     this.confirmPopup.getData = input;
   }
 
-  save(model: any) {
+  savePost(model: any) {
     var request;
 
     //Save file
@@ -114,15 +114,15 @@ export class PostsComponent extends PagerBase implements DoCheck {
         id: user?.userId,
         name: user?.username,
       };
-      request = this.postService.create(model);
+      request = this.socialService.addPost(model);
     } else { //Update
       model.id = model.meta?.id;
-      request = this.postService.update(model)
+      request = this.socialService.updatePost(model)
     }
 
     request.subscribe({
       next: (res) => {
-        this.getAll();
+        this.getPosts();
       },
       error: (err) => {
         if (err?.error) {
@@ -133,11 +133,11 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  remove(postId: string) {
-    this.postService.delete(postId).subscribe({
+  removePost(postId: string) {
+    this.socialService.removePost(postId).subscribe({
       next: (res) => {
         console.log(res);
-        this.getAll();
+        this.getPosts();
       },
       error: (err) => {
         if (err?.error) {
@@ -148,8 +148,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  getAll(): void {
-    this.postService.getAll().subscribe({
+  getPosts(): void {
+    this.socialService.getPosts().subscribe({
       next: (res) => {
         this.posts = this.formatReactions(res as IPostModel[]);
       },
@@ -162,7 +162,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  react(postId: string, emoji: string): void {
+  reactPost(postId: string, emoji: string): void {
     const authorId = this.authService.getParsedJwt()?.userId;
     var model = {
       authorId,
@@ -170,9 +170,9 @@ export class PostsComponent extends PagerBase implements DoCheck {
       emoji,
     };
 
-    this.postService.react(model).subscribe({
+    this.socialService.reactPost(model).subscribe({
       next: (res) => {
-        this.getAll();
+        this.getPosts();
       },
       error: (err) => {
         if (err?.error) {
@@ -194,15 +194,15 @@ export class PostsComponent extends PagerBase implements DoCheck {
       };
       model.postId = postId;
 
-      request = this.postService.addComment(model);
+      request = this.socialService.addComment(model);
     } else { //Update
       model.id = model.meta.id;
-      request = this.postService.updateComment(model);
+      request = this.socialService.updateComment(model);
     }
 
     request?.subscribe({
       next: (res) => {
-        this.getAll();
+        this.getPosts();
         this.posts = this.posts.map(x => {
           if (x.id === res.id) {
             x.hiddenComments = false;
@@ -221,9 +221,31 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
   removeComment(commentId: string) {
     console.log(commentId)
-    this.postService.removeComment({ commentId }).subscribe({
+    this.socialService.removeComment({ commentId }).subscribe({
       next: (res) => {
-        this.getAll();
+        this.getPosts();
+      },
+      error: (err) => {
+        if (err?.error) {
+          console.log(err);
+          this.errors?.push(err.error[this.selectedLang]);
+        }
+      }
+    });
+  }
+
+  reactComment(commentId: string, emoji: string): void {
+    const authorId = this.authService.getParsedJwt()?.userId;
+    var model = {
+      authorId,
+      commentId,
+      emoji,
+    };
+
+    this.socialService.reactComment(model).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.getPosts();
       },
       error: (err) => {
         if (err?.error) {
@@ -238,33 +260,31 @@ export class PostsComponent extends PagerBase implements DoCheck {
     const authorId = this.authService.getParsedJwt()?.userId;
 
     return response.map(p => {
-      const hasReaction = p.reactions.filter(x => x.authorId === authorId)[0];
+      const hasReaction = p.reactions?.filter(x => x.authorId === authorId)[0];
       if (hasReaction) {
         p.own = hasReaction.emoji;
       }
 
-      p.likes = p.reactions.filter(x => x.emoji === 'like').length;
-      p.dislikes = p.reactions.filter(x => x.emoji === 'dislike').length;
-      p.laughs = p.reactions.filter(x => x.emoji === 'laugh').length;
-      p.hearts = p.reactions.filter(x => x.emoji === 'heart').length;
-      p.angries = p.reactions.filter(x => x.emoji === 'angry').length;
+      p.likes = p.reactions?.filter(x => x.emoji === 'like').length;
+      p.dislikes = p.reactions?.filter(x => x.emoji === 'dislike').length;
+      p.laughs = p.reactions?.filter(x => x.emoji === 'laugh').length;
+      p.hearts = p.reactions?.filter(x => x.emoji === 'heart').length;
+      p.angries = p.reactions?.filter(x => x.emoji === 'angry').length;
 
       p.comments = p.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn)).map(c => {
-        const hasReaction = c.reactions.filter(x => x.authorId === authorId)[0];
+        const hasReaction = c.reactions?.filter(x => x.authorId === authorId)[0];
         if (hasReaction) {
           c.own = hasReaction.emoji;
         }
 
-        c.likes = c.reactions.filter(x => x.emoji === 'like').length;
-        c.dislikes = c.reactions.filter(x => x.emoji === 'dislike').length;
-        c.laughs = c.reactions.filter(x => x.emoji === 'laugh').length;
-        c.hearts = c.reactions.filter(x => x.emoji === 'heart').length;
-        c.angries = c.reactions.filter(x => x.emoji === 'angry').length;
+        c.likes = c.reactions?.filter(x => x.emoji === 'like').length;
+        c.dislikes = c.reactions?.filter(x => x.emoji === 'dislike').length;
+        c.laughs = c.reactions?.filter(x => x.emoji === 'laugh').length;
+        c.hearts = c.reactions?.filter(x => x.emoji === 'heart').length;
+        c.angries = c.reactions?.filter(x => x.emoji === 'angry').length;
 
         return c;
       });
-
-
 
       p.hiddenComments = true;
       return p;
