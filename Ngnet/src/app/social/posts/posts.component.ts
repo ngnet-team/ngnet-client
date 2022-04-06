@@ -258,7 +258,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
           return p;
         });
 
-        this.formatReactions();
+        this.formatReactions('', res.id);
       },
       error: (err) => {
         if (err?.error) {
@@ -269,23 +269,9 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  getCommentReactions(commentId: string) {
-    this.socialService.getCommentReactions(commentId).subscribe({
-      next: (res) => {
-        console.log(res)
-        // this.getPosts();
-      },
-      error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
-      }
-    });
-  }
-
-  private formatReactions() {
+  private formatReactions(commentId: any = undefined, reactionId: any = undefined) {
     const authorId = this.authService.getParsedJwt()?.userId;
+    let postId = '';
 
     this.posts = this.posts.map(p => {
       const hasReaction = p.reactions?.filter(x => x.authorId === authorId)[0];
@@ -311,10 +297,17 @@ export class PostsComponent extends PagerBase implements DoCheck {
         c.hearts = c.reactions?.filter(x => x.emoji === 'heart').length;
         c.angries = c.reactions?.filter(x => x.emoji === 'angry').length;
 
+        if (c.id === commentId) {
+          postId = p.id;
+        }
+        if (c.reactions.filter(r => r.id === reactionId).length > 0) {
+          postId = p.id;
+        }
+
         return c;
       });
 
-      p.hiddenComments = true;
+      p.hiddenComments = p.id !== postId ? true : false;
       return p;
     });
   }
