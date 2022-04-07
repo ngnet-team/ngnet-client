@@ -8,11 +8,8 @@ export interface ICommentModel {
     author: {
         name: string,
     },
+    postId: string,
     reactions: IReactionModel[],
-    likes: number,
-    dislikes: number,
-    laughs: number,
-    hearts: number,
-    angries: number,
     own: string,
+    isDeleted: boolean,
 }
