@@ -4,4 +4,5 @@ export interface IReactionModel {
     postId: string,
     commentId: string,
     emoji: string,
+    isDeleted: boolean,
 }

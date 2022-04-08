@@ -262,9 +262,13 @@ export class PostsComponent extends PagerBase implements DoCheck {
       const newComment = comment && comment?.postId === p.id &&
         p.comments.filter(c => c.id === comment?.id).length === 0;
 
+      if (newComment && p.comments.length === 0) {
+        p.comments.push(comment as ICommentModel);
+        touchedPostId = p.id;
+      }
+
       for (let i = 0; i < p.comments.length; i++) {
         let c = p.comments[i];
-        this.highlightReaction(c);
 
         if (!touchedPostId) {
           if (newComment) { //modify Created
@@ -277,11 +281,36 @@ export class PostsComponent extends PagerBase implements DoCheck {
               p.comments[i] = comment as ICommentModel;
             }
             touchedPostId = p.id;
-          } 
+          }
         }
 
-        //Reactions
-        // c.reactions.filter(r => r.id === reaction?.id).length > 0;
+        const newReaction = reaction && reaction?.commentId === c.id &&
+          c.reactions.filter(r => r?.id === reaction?.id).length === 0;
+
+        if (newReaction && c.reactions.length === 0) {
+          p.comments[i].reactions.push(reaction as IReactionModel);
+          touchedPostId = p.id;
+        }
+
+        for (let j = 0; j < c.reactions.length; j++) {
+          const r = c.reactions[j];
+
+          if (!touchedPostId) {
+            if (newReaction) { //modify Created
+              p.comments[i].reactions.push(reaction as IReactionModel);
+              touchedPostId = p.id;
+            } else if (r.id === reaction?.id) {
+              if (reaction?.isDeleted) { //modify Deleted
+                p.comments[i].reactions.splice(j, 1);
+              } else { //modify Updated
+                p.comments[i].reactions[j] = reaction as IReactionModel;
+              }
+              touchedPostId = p.id;
+            }
+          }
+        }
+
+        this.highlightReaction(p.comments[i]);
       }
 
       p.hiddenComments = !touchedPostId || touchedPostId !== p.id ? true : false;
