@@ -267,14 +267,14 @@ export class PostsComponent extends PagerBase implements DoCheck {
         this.highlightReaction(c);
 
         if (!touchedPostId) {
-          if (newComment) { //update Created
+          if (newComment) { //modify Created
             p.comments.push(comment as ICommentModel);
             touchedPostId = p.id;
           } else if (c.id === comment?.id) {
-            if (comment?.isDeleted) { //update Deleted
+            if (comment?.isDeleted) { //modify Deleted
               p.comments.splice(i, 1);
-            } else { //update Updated
-              c = comment as ICommentModel;
+            } else { //modify Updated
+              p.comments[i] = comment as ICommentModel;
             }
             touchedPostId = p.id;
           } 
@@ -284,9 +284,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
         // c.reactions.filter(r => r.id === reaction?.id).length > 0;
       }
 
-      if (!touchedPostId || touchedPostId !== p.id) {
-        p.hiddenComments = true;
-      }
+      p.hiddenComments = !touchedPostId || touchedPostId !== p.id ? true : false;
 
       p.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
       return p;
