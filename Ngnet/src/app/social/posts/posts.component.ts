@@ -174,7 +174,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
     this.socialService.reactPost(model).subscribe({
       next: (reaction) => {
-        this.getPosts();
+        this.updateData(reaction);
       },
       error: (err) => {
         if (err?.error) {
@@ -251,74 +251,91 @@ export class PostsComponent extends PagerBase implements DoCheck {
   }
 
   private updateData(input: any = undefined) {
-    let comment = input?.content ? input as ICommentModel : undefined;
-    let reaction = input?.emoji ? input as IReactionModel : undefined;
+    let updated = false;
 
-    let touchedPostId = '';
-
-    this.posts = this.posts.map(p => {
-      this.highlightReaction(p);
-
-      const newComment = comment && comment?.postId === p.id &&
-        p.comments.filter(c => c.id === comment?.id).length === 0;
-
-      if (newComment && p.comments.length === 0) {
-        p.comments.push(comment as ICommentModel);
-        touchedPostId = p.id;
+    for (let i = 0; i < this.posts.length; i++) {
+      if (updated) {
+        break;
       }
 
-      for (let i = 0; i < p.comments.length; i++) {
-        let c = p.comments[i];
+      if (this.posts[i].id === input?.id) {
+        this.posts[i] = input;
+        updated = this.updatedElement(this.posts[i]);
+      }
 
-        if (!touchedPostId) {
-          if (newComment) { //modify Created
-            p.comments.push(comment as ICommentModel);
-            touchedPostId = p.id;
-          } else if (c.id === comment?.id) {
-            if (comment?.isDeleted) { //modify Deleted
-              p.comments.splice(i, 1);
-            } else { //modify Updated
-              p.comments[i] = comment as ICommentModel;
-            }
-            touchedPostId = p.id;
+      for (let j = 0; j < this.posts[i].reactions.length; j++) {
+        if (updated) {
+          break;
+        }
+
+        if (this.posts[i].reactions[j].id === input?.id) {
+          this.posts[i].reactions[j] = input;
+          updated = this.updatedElement(this.posts[i]);
+        }
+      }
+
+      const newPostReaction = !updated && input && input?.postId === this.posts[i].id &&
+        this.posts[i].reactions.filter(r => r.id === input?.id).length === 0;
+      if (newPostReaction) {
+        this.posts[i].reactions.push(input as IReactionModel);
+        updated = this.updatedElement(this.posts[i]);
+        continue;
+      }
+
+      for (let k = 0; k < this.posts[i].comments.length; k++) {
+        if (updated) {
+          break;
+        }
+
+        this.highlightReaction(this.posts[i].comments[k]);
+
+        if (this.posts[i].comments[k].id === input?.id) {
+          this.posts[i].comments[k] = input;
+          updated = this.updatedElement(this.posts[i]);
+          break;
+        }
+
+        for (let l = 0; l < this.posts[i].comments[k].reactions.length; l++) {
+          if (updated) {
+            break;
+          }
+
+          if (this.posts[i].comments[k].reactions[l].id === input?.id) {
+            this.posts[i].comments[k].reactions[l] = input;
+            updated = this.updatedElement(this.posts[i]);
+            break;
           }
         }
 
-        const newReaction = reaction && reaction?.commentId === c.id &&
-          c.reactions.filter(r => r?.id === reaction?.id).length === 0;
-
-        if (newReaction && c.reactions.length === 0) {
-          p.comments[i].reactions.push(reaction as IReactionModel);
-          touchedPostId = p.id;
+        const newCommentReaction = !updated && input && input?.commentId === this.posts[i].comments[k].id &&
+          this.posts[i].comments[k].reactions.filter(r => r.id === input?.id).length === 0;
+        if (newCommentReaction) {
+          this.posts[i].comments[k].reactions.push(input as IReactionModel);
+          updated = this.updatedElement(this.posts[i]);
+          continue;
         }
-
-        for (let j = 0; j < c.reactions.length; j++) {
-          const r = c.reactions[j];
-
-          if (!touchedPostId) {
-            if (newReaction) { //modify Created
-              p.comments[i].reactions.push(reaction as IReactionModel);
-              touchedPostId = p.id;
-            } else if (r.id === reaction?.id) {
-              if (reaction?.isDeleted) { //modify Deleted
-                p.comments[i].reactions.splice(j, 1);
-              } else { //modify Updated
-                p.comments[i].reactions[j] = reaction as IReactionModel;
-              }
-              touchedPostId = p.id;
-            }
-          }
-        }
-
-        this.highlightReaction(p.comments[i]);
       }
 
-      p.hiddenComments = !touchedPostId || touchedPostId !== p.id ? true : false;
+      const newComment = !updated && input && input?.postId === this.posts[i].id &&
+      this.posts[i].comments.filter(c => c.id === input?.id).length === 0;
+      if (newComment) {
+        this.posts[i].comments.push(input as ICommentModel);
+        this.highlightReaction(input);
+        updated = this.updatedElement(this.posts[i]);
+      }
 
-      p.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
-      return p;
-    });
-  }
+      this.highlightReaction(this.posts[i]);
+
+      this.posts[i].comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
+    }
+
+    const newPost = !updated && input && this.posts.filter(p => p.id === input?.id).length === 0;
+    if (newPost) {
+      this.posts.push(input as IPostModel);
+      this.highlightReaction(input);
+    }
+  };
+
 
   emojiLength(reactions: IReactionModel[], emoji: string) {
     return reactions?.filter(x => x.emoji === emoji)?.length;
@@ -333,5 +350,10 @@ export class PostsComponent extends PagerBase implements DoCheck {
     if (ownReaction) {
       element.own = ownReaction.emoji;
     }
+  }
+
+  updatedElement(post: IPostModel) {
+    post.showComments = true;
+    return true;
   }
 }

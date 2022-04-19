@@ -60,12 +60,12 @@
             </div>
 
             <div class="button">
-                <button (click)="post.hiddenComments = !post.hiddenComments">
-                    {{post.hiddenComments ? 'Show' : 'Hide'}} comments
+                <button (click)="post.showComments = !post.showComments">
+                    {{post.showComments ? 'Hide' : 'Show'}} comments
                 </button>
             </div>
 
-            <div *ngIf="post.comments.length > 0 && !post.hiddenComments" class="comments">
+            <div *ngIf="post.comments.length > 0 && post.showComments" class="comments">
                 <h4>Comments</h4>
                 <div *ngFor="let comment of post.comments" class="box-card">
                     <p>{{comment.content}}</p>
