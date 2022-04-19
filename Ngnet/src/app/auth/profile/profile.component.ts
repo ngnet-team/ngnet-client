@@ -34,35 +34,38 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
   }
 
   ngDoCheck(): void {
-    //CHANGE popup
-    // const changePopup = this.changePopupChecker(this.changePopup);
-    // if (changePopup.repeat) {
-    //   this.change(changePopup.model);
-    // }
+    if (this.changePopup.returnData) {
+      console.log(this.changePopup)
+      this.change(this.changePopup.returnData);
+      this.changePopup.returnData = undefined;
+    }
   }
 
   update(input: IUserRequestModel): void {
     this.authService.update(input).subscribe({
       next: (res) => {
-        console.log(res)
-        const msg = this.messageService.getMsg(res, this.selectedLang);
-        this.messageService.event.emit(msg);
+        this.messageService.event.emit(res);
         this.getProfile();
       },
       error: (err) => {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
+          this.serverError = err.error[this.selectedLang];
         };
       }
     });
   }
 
   change(input: IChangeModel): void {
+    const data = {
+      id: this.authService.getParsedJwt()?.userId,
+      key: input.key,
+      old: input.old,
+      new: input.new,
+    };
 
-    this.authService.change(input).subscribe({
+    this.authService.change(data).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
         this.messageService.event.emit(msg);
@@ -72,21 +75,20 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
+          this.serverError = err.error[this.selectedLang];
         };
       }
     });
   }
 
-  openChangePopup(label: string, type: string) {
+  openChangePopup(label: string, key: string) {
     this.changePopup.getData = {
       label: label.toLowerCase(),
-      type: type,
+      key: key,
       repeat: true,
     };
 
-    if (type === 'email') {
+    if (key === 'email') {
       this.changePopup.getData.value = this.data.email;
     }
 

@@ -94,7 +94,7 @@ export class CareComponent extends PagerBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }
@@ -129,7 +129,7 @@ export class CareComponent extends PagerBase implements DoCheck {
       model.company.phoneNumber = undefined;
     }
 
-    this.serverErrors = {} as IErrorModel;
+    this.serverError = {} as IErrorModel;
 
     if (!model.userId) {
       model.userId = this.authService.getParsedJwt()?.userId;
@@ -149,7 +149,7 @@ export class CareComponent extends PagerBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }
@@ -183,7 +183,7 @@ export class CareComponent extends PagerBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }

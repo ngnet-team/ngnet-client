@@ -29,8 +29,6 @@ export class LoginComponent extends ServerErrorsBase {
   }
 
   login(input: ILoginModel): void {
-    this.serverErrors = {} as IErrorModel;
-
     this.authService.login(input).subscribe({
       next: (res) => {
         if (res.token) {
@@ -42,11 +40,7 @@ export class LoginComponent extends ServerErrorsBase {
         }
       },
       error: (err) => {
-        if (err?.error) {
-          // this.serverErrors = err.error;
-          // this.setServerError();
-          this.errors?.push(err.error[this.selectedLang]);
-        };
+        this.serverError = err?.error[this.selectedLang];
       }
     });
   }

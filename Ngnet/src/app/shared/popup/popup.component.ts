@@ -51,13 +51,9 @@ export class PopupComponent extends ServerErrorsBase  {
     if (input.repeatNew && input.new !== input.repeatNew) {
       return;
     }
-    
-    this.input.returnData = {
-      old: input.old,
-      new: input.new,
-      repeatNew: input.repeatNew,
-    };
-
+    this.input.returnData = this.input.getData;
+    this.input.returnData.old = input.old;
+    this.input.returnData.new = input.new;
     this.exit();
   }
 
