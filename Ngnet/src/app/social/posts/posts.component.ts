@@ -124,7 +124,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
     request.subscribe({
       next: (post) => {
-        this.getPosts();
+        this.updateData(post);
       },
       error: (err) => {
         if (err?.error) {
