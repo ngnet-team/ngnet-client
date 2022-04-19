@@ -35,7 +35,6 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
 
   ngDoCheck(): void {
     if (this.changePopup.returnData) {
-      console.log(this.changePopup)
       this.change(this.changePopup.returnData);
       this.changePopup.returnData = undefined;
     }
@@ -67,11 +66,11 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
 
     this.authService.change(data).subscribe({
       next: (res) => {
-        const msg = this.messageService.getMsg(res, this.selectedLang);
-        this.messageService.event.emit(msg);
+        this.messageService.event.emit(res);
         this.getProfile();
       },
       error: (err) => {
+        console.log(err.error)
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
@@ -97,6 +96,7 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
   }
 
   private getProfile(): void {
+    this.serverError = undefined;
     this.authService.profile().subscribe(res => {
       this.data = res;
     });

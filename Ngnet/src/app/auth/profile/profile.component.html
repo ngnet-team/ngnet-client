@@ -54,8 +54,8 @@
                 </div> -->
             </div>
 
-            <div *ngFor="let error of errors">
-                <p class="validation">{{error}}</p>
+            <div *ngIf="serverError">
+                <p class="validation">{{serverError}}</p>
             </div>
 
             <div class="button">
