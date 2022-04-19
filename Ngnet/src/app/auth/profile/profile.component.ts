@@ -89,10 +89,12 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
 
     if (key === 'email') {
       this.changePopup.getData.value = this.data.email;
+    } else if (key === 'username') {
+      this.changePopup.getData.value = this.data.username;
     }
 
     this.changePopup.visible = true;
-    this.errors = undefined;
+    this.serverError = undefined;
   }
 
   private getProfile(): void {
@@ -100,6 +102,5 @@ export class ProfileComponent extends ServerErrorsBase implements DoCheck {
     this.authService.profile().subscribe(res => {
       this.data = res;
     });
-    this.errors = [];
   }
 }
