@@ -223,7 +223,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
       },
       error: (err) => {
         if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }
@@ -256,7 +256,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
       },
       error: (err) => {
         if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }
@@ -278,7 +278,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }
@@ -301,7 +301,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }
@@ -321,7 +321,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }
@@ -341,7 +341,7 @@ export class AdminComponent extends PagerBase implements DoCheck {
         if (err?.error?.errors) {
           this.unhandledServerError(err?.error.errors);
         } else if (err?.error) {
-          this.serverErrors = err?.error;
+          this.serverError = err?.error;
           this.setServerError();
         };
       }

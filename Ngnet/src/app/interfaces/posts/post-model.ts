@@ -19,5 +19,5 @@ export interface IPostModel {
     hearts: number,
     angries: number,
     own: string,
-    hiddenComments: boolean, 
+    showComments: boolean, 
 }

@@ -31,9 +31,10 @@
                     <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">
                         {{validations.passwordLength}}</p>
                 </div>
-    
+
                 <div class="field">
-                    <div class="label">{{menu.repeatPassword}} <span class="requiredInput">{{menu.required}}</span></div>
+                    <div class="label">{{menu.repeatPassword}} <span class="requiredInput">{{menu.required}}</span>
+                    </div>
                     <input #repeatPasswordInput="ngModel" type="password" name="repeatPassword" ngModel required
                         minlength="6">
                     <p class="validation" *ngIf="repeatPasswordInput.errors?.required && repeatPasswordInput.touched">
@@ -43,25 +44,25 @@
                 </div>
             </div>
 
-           <div class="single-row">
-            <div class="field">
-                <div class="label">{{menu.firstName}}</div>
-                <input #firstNameInput="ngModel" type="text" name="firstName" ngModel>
+            <div class="single-row">
+                <div class="field">
+                    <div class="label">{{menu.firstName}}</div>
+                    <input #firstNameInput="ngModel" type="text" name="firstName" ngModel>
+                </div>
+
+                <div class="field">
+                    <div class="label">{{menu.lastName}}</div>
+                    <input #lastNameInput="ngModel" type="text" name="lastName" ngModel>
+                </div>
+
+                <div class="field">
+                    <div class="label">{{menu.age}}</div>
+                    <input #ageInput="ngModel" type="number" name="age" [ngModel]="null">
+                </div>
             </div>
 
-            <div class="field">
-                <div class="label">{{menu.lastName}}</div>
-                <input #lastNameInput="ngModel" type="text" name="lastName" ngModel>
-            </div>
-
-            <div class="field">
-                <div class="label">{{menu.age}}</div>
-                <input #ageInput="ngModel" type="number" name="age" [ngModel]="null">
-            </div>
-           </div>
-
-            <div *ngFor="let error of errors">
-                <p class="validation">{{error}}</p>
+            <div *ngIf="serverError">
+                <p class="validation">{{serverError}}</p>
             </div>
 
             <div>

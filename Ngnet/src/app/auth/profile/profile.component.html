@@ -23,6 +23,13 @@
                 <input id="age" class="single-row" #ageInput="ngModel" type="number" name="age" [(ngModel)]="data.age">
             </div>
             <div class="field">
+                <label class="label">{{menu.username}}</label>
+                <div class="single-row">
+                    <div>{{data.username}}</div>
+                    <a (click)="openChangePopup(menu.username, 'username')" class="change">{{menu.change}}</a>
+                </div>
+            </div>
+            <div class="field">
                 <label class="label">{{menu.email}}</label>
                 <div class="single-row">
                     <div id="email">{{data.email}}</div>
@@ -54,8 +61,8 @@
                 </div> -->
             </div>
 
-            <div *ngFor="let error of errors">
-                <p class="validation">{{error}}</p>
+            <div *ngIf="serverError">
+                <p class="validation">{{serverError}}</p>
             </div>
 
             <div class="button">

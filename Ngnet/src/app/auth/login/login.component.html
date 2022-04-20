@@ -14,9 +14,9 @@
                 <p class="validation" *ngIf="passwordInput.errors?.required && passwordInput.touched">{{validations.requiredPassword}}</p>
                 <p class="validation" *ngIf="passwordInput.errors?.minlength && passwordInput.touched">{{validations.passwordLength}}</p>
             </div>
-    
-            <div *ngFor="let error of errors">
-                <p class="validation">{{error}}</p>
+
+            <div *ngIf="serverError">
+                <p class="validation">{{serverError}}</p>
             </div>
     
             <div>
@@ -26,3 +26,5 @@
         <div class="register" (click)="redirect('register')">{{menu.notRegistered}}</div>
     </div>
 </div>
+
+Errors: {{errors}}

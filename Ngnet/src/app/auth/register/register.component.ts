@@ -29,8 +29,6 @@ export class RegisterComponent extends ServerErrorsBase {
   }
 
   register(input: IRegisterModel): void {
-    this.serverErrors = {} as IErrorModel;
-
     this.authService.register(input).subscribe({
       next: (res) => {
         const msg = this.messageService.getMsg(res, this.selectedLang);
@@ -38,10 +36,7 @@ export class RegisterComponent extends ServerErrorsBase {
         this.redirect(this.component.login);
       },
       error: (err) => {
-        if (err?.error) {
-          this.serverErrors = err?.error;
-          this.setServerError();
-        };
+        this.serverError = err?.error[this.selectedLang];
       }
     });
   }

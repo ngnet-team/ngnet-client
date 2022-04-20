@@ -9,7 +9,7 @@ import { Base } from "./base";
 
 export class ServerErrorsBase extends Base {
 
-    serverErrors: IErrorModel = {};
+    serverError: IErrorModel | undefined;
     errors: string[] | undefined;
 
     longError: number = 50;
@@ -26,16 +26,16 @@ export class ServerErrorsBase extends Base {
     }
 
     protected setServerError(): void {
-        if (typeof this.serverErrors === 'string') {
+        if (typeof this.serverError === 'string') {
 
-            if ((this.serverErrors as string).length > this.longError) {
+            if ((this.serverError as string).length > this.longError) {
                 this.errors = [this.defaultMsg];
                 return;
             }
 
-            this.errors?.push(this.serverErrors);
+            this.errors?.push(this.serverError);
         } else {
-            this.errors = this.selectedLang === environment.lang.bg ? this.serverErrors?.bg : this.serverErrors?.en;
+            this.errors = this.selectedLang === environment.lang.bg ? this.serverError?.bg : this.serverError?.en;
         }
     }
 

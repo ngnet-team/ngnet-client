@@ -2,6 +2,8 @@ import { Component, DoCheck, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IPopupModel } from 'src/app/interfaces/popup-model';
 import { IPostModel } from 'src/app/interfaces/posts/post-model';
+import { IReactionModel } from 'src/app/interfaces/posts/reaction-model';
+import { ICommentModel } from 'src/app/interfaces/posts/comment-model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FileService } from 'src/app/services/common/file/file.service';
 import { IconService } from 'src/app/services/common/icon/icon.service';
@@ -121,37 +123,31 @@ export class PostsComponent extends PagerBase implements DoCheck {
     }
 
     request.subscribe({
-      next: (res) => {
-        this.getPosts();
+      next: (post) => {
+        this.updateData(post);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
 
   removePost(postId: string) {
     this.socialService.removePost(postId).subscribe({
-      next: (res) => {
-        this.getPosts();
+      next: (deletedPostId) => {
+        this.updateData(deletedPostId);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
 
-  getPosts(commentId: any = undefined, reactionId: any = undefined): void {
+  getPosts(): void {
     this.socialService.getPosts().subscribe({
-      next: (res) => {
-        this.posts = res;
-        this.formatReactions(commentId, reactionId);
+      next: (posts) => {
+        this.posts = posts;
+        this.updateData();
       },
       error: (err) => {
         if (err?.error) {
@@ -171,8 +167,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
     };
 
     this.socialService.reactPost(model).subscribe({
-      next: (res) => {
-        this.getPosts();
+      next: (reaction) => {
+        this.updateData(reaction);
       },
       error: (err) => {
         if (err?.error) {
@@ -201,29 +197,22 @@ export class PostsComponent extends PagerBase implements DoCheck {
     }
 
     request?.subscribe({
-      next: (res) => {
-        this.getPosts(res.id);
+      next: (comment) => {
+        this.updateData(comment);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
 
   removeComment(commentId: string) {
-    console.log(commentId)
     this.socialService.removeComment({ commentId }).subscribe({
-      next: (res) => {
-        this.getPosts(res.id);
+      next: (comment) => {
+        this.updateData(comment);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
@@ -237,21 +226,8 @@ export class PostsComponent extends PagerBase implements DoCheck {
     };
 
     this.socialService.reactComment(model).subscribe({
-      next: (res) => {
-        this.posts = this.posts.map(p => {
-          p.comments = p.comments.map(c => {
-            c.reactions = c.reactions.map(r => {
-              if (r.id === res.id) {
-                r = res;
-              };
-              return r;
-            });
-            return c;
-          });
-          return p;
-        });
-
-        this.formatReactions('', res.id);
+      next: (reaction) => {
+        this.updateData(reaction);
       },
       error: (err) => {
         if (err?.error) {
@@ -262,46 +238,175 @@ export class PostsComponent extends PagerBase implements DoCheck {
     });
   }
 
-  private formatReactions(commentId: any = undefined, reactionId: any = undefined) {
-    const authorId = this.authService.getParsedJwt()?.userId;
-    let postId = '';
+  private updateData(input: any = undefined) {
+    let updated = false;
 
-    this.posts = this.posts.map(p => {
-      const hasReaction = p.reactions?.filter(x => x.authorId === authorId)[0];
-      if (hasReaction) {
-        p.own = hasReaction.emoji;
+    if (this.removeElement(input)) {
+      return;
+    }
+
+    for (let i = 0; i < this.posts.length; i++) {
+      if (updated) {
+        break;
       }
 
-      p.likes = p.reactions?.filter(x => x.emoji === 'like').length;
-      p.dislikes = p.reactions?.filter(x => x.emoji === 'dislike').length;
-      p.laughs = p.reactions?.filter(x => x.emoji === 'laugh').length;
-      p.hearts = p.reactions?.filter(x => x.emoji === 'heart').length;
-      p.angries = p.reactions?.filter(x => x.emoji === 'angry').length;
+      if (this.posts[i].id === input?.id) {
+        this.posts[i] = input;
+        updated = this.updatedElement(this.posts[i]);
+      }
 
-      p.comments = p.comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn)).map(c => {
-        const hasReaction = c.reactions?.filter(x => x.authorId === authorId)[0];
-        if (hasReaction) {
-          c.own = hasReaction.emoji;
+      for (let j = 0; j < this.posts[i].reactions.length; j++) {
+        if (updated) {
+          break;
         }
 
-        c.likes = c.reactions?.filter(x => x.emoji === 'like').length;
-        c.dislikes = c.reactions?.filter(x => x.emoji === 'dislike').length;
-        c.laughs = c.reactions?.filter(x => x.emoji === 'laugh').length;
-        c.hearts = c.reactions?.filter(x => x.emoji === 'heart').length;
-        c.angries = c.reactions?.filter(x => x.emoji === 'angry').length;
-
-        if (c.id === commentId) {
-          postId = p.id;
+        if (this.posts[i].reactions[j].id === input?.id) {
+          this.posts[i].reactions[j] = input;
+          updated = this.updatedElement(this.posts[i]);
         }
-        if (c.reactions.filter(r => r.id === reactionId).length > 0) {
-          postId = p.id;
+      }
+
+      const newPostReaction = !updated && input && input?.postId === this.posts[i].id &&
+        !input?.reactions && this.posts[i].reactions.filter(r => r.id === input?.id).length === 0;
+      if (newPostReaction) {
+        this.posts[i].reactions.push(input as IReactionModel);
+        this.highlightReaction(this.posts[i]);
+        updated = this.updatedElement(this.posts[i]);
+        break;
+      }
+
+      for (let k = 0; k < this.posts[i].comments.length; k++) {
+        if (updated) {
+          break;
         }
 
-        return c;
-      });
+        if (this.posts[i].comments[k].id === input?.id) {
+          this.posts[i].comments[k] = input;
+          updated = this.updatedElement(this.posts[i]);
+          break;
+        }
 
-      p.hiddenComments = p.id !== postId ? true : false;
-      return p;
-    });
+        for (let l = 0; l < this.posts[i].comments[k].reactions.length; l++) {
+          if (updated) {
+            break;
+          }
+
+          if (this.posts[i].comments[k].reactions[l].id === input?.id) {
+            this.posts[i].comments[k].reactions[l] = input;
+            updated = this.updatedElement(this.posts[i]);
+            break;
+          }
+        }
+
+        const newCommentReaction = !updated && input && input?.commentId === this.posts[i].comments[k].id &&
+          !input?.reactions && this.posts[i].comments[k].reactions.filter(r => r.id === input?.id).length === 0;
+        if (newCommentReaction) {
+          this.posts[i].comments[k].reactions.push(input as IReactionModel);
+          this.highlightReaction(this.posts[i].comments[k]);
+          updated = this.updatedElement(this.posts[i]);
+          break;
+        }
+
+        this.highlightReaction(this.posts[i].comments[k]);
+      }
+
+      const newComment = !updated && input && input?.postId === this.posts[i].id &&
+        input?.reactions && this.posts[i].comments.filter(c => c.id === input?.id).length === 0;
+      if (newComment) {
+        this.posts[i].comments.push(input as ICommentModel);
+        this.highlightReaction(input);
+        updated = this.updatedElement(this.posts[i]);
+      }
+
+      this.highlightReaction(this.posts[i]);
+
+      this.posts[i].comments.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
+    }
+
+    const newPost = !updated && input && this.posts.filter(p => p.id === input?.id).length === 0;
+    if (newPost) {
+      this.posts.push(input as IPostModel);
+      this.highlightReaction(input);
+      updated = this.updatedElement(input);
+    }
+
+    this.posts.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
+  };
+
+
+  emojiLength(reactions: IReactionModel[], emoji: string) {
+    return reactions?.filter(x => x.emoji === emoji)?.length;
+  }
+
+  highlightReaction(input: any) { //post or comment
+    const element = input?.content ? input as IPostModel :
+      input as ICommentModel;
+
+    const authorId = this.authService.getParsedJwt()?.userId;
+    const ownReaction = element.reactions?.filter(x => x.authorId === authorId)[0];
+    if (ownReaction) {
+      element.own = ownReaction.emoji;
+    }
+  }
+
+  updatedElement(post: IPostModel) {
+    post.showComments = true;
+    return true;
+  }
+
+  errorHandler(error: string) {
+    const startIndex = error.indexOf("ValidationError:");
+    const endIndex = error.indexOf("<br>");
+    alert(error.slice(startIndex, endIndex));
+  }
+
+  removeElement(input: any): boolean {
+    if (typeof input !== 'string') {
+      return false;
+    }
+
+    let touched = false;
+
+    for (let i = 0; i < this.posts.length; i++) {
+      if (touched) {
+        break;
+      }
+
+      if (this.posts[i].id === input) {
+        this.posts.splice(i, 1);
+        touched = true;
+        break;
+      }
+
+      for (let l = 0; l < this.posts[i].reactions.length; l++) {
+        if (this.posts[i].reactions[l].id === input) {
+          this.posts[i].reactions.splice(l, 1);
+          touched = true;
+          break;
+        }
+      }
+
+      for (let j = 0; j < this.posts[i].comments.length; j++) {
+        if (touched) {
+          break;
+        }
+
+        if (this.posts[i].comments[j].id === input) {
+          this.posts[i].comments.splice(j, 1);
+          touched = true;
+          break;
+        }
+
+        for (let k = 0; k < this.posts[i].comments[j].reactions.length; k++) {
+          if (this.posts[i].comments[j].reactions[k].id === input) {
+            this.posts[i].comments[j].reactions.splice(k, 1);
+            touched = true;
+            break;
+          }
+        }
+      }
+    }
+
+    return true;
   }
 }
