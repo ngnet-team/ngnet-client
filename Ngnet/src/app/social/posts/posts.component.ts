@@ -127,10 +127,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
         this.updateData(post);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
@@ -207,10 +204,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
         this.updateData(comment);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
@@ -221,10 +215,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
         this.updateData(comment);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
@@ -275,19 +266,18 @@ export class PostsComponent extends PagerBase implements DoCheck {
       }
 
       const newPostReaction = !updated && input && input?.postId === this.posts[i].id &&
-        this.posts[i].reactions.filter(r => r.id === input?.id).length === 0;
+      !input?.reactions && this.posts[i].reactions.filter(r => r.id === input?.id).length === 0;
       if (newPostReaction) {
         this.posts[i].reactions.push(input as IReactionModel);
+        this.highlightReaction(this.posts[i]);
         updated = this.updatedElement(this.posts[i]);
-        continue;
+        break;
       }
 
       for (let k = 0; k < this.posts[i].comments.length; k++) {
         if (updated) {
           break;
         }
-
-        this.highlightReaction(this.posts[i].comments[k]);
 
         if (this.posts[i].comments[k].id === input?.id) {
           this.posts[i].comments[k] = input;
@@ -308,16 +298,19 @@ export class PostsComponent extends PagerBase implements DoCheck {
         }
 
         const newCommentReaction = !updated && input && input?.commentId === this.posts[i].comments[k].id &&
-          this.posts[i].comments[k].reactions.filter(r => r.id === input?.id).length === 0;
+          !input?.reactions && this.posts[i].comments[k].reactions.filter(r => r.id === input?.id).length === 0;
         if (newCommentReaction) {
           this.posts[i].comments[k].reactions.push(input as IReactionModel);
+          this.highlightReaction(this.posts[i].comments[k]);
           updated = this.updatedElement(this.posts[i]);
-          continue;
+          break;
         }
+
+        this.highlightReaction(this.posts[i].comments[k]);
       }
 
       const newComment = !updated && input && input?.postId === this.posts[i].id &&
-      this.posts[i].comments.filter(c => c.id === input?.id).length === 0;
+        input?.reactions && this.posts[i].comments.filter(c => c.id === input?.id).length === 0;
       if (newComment) {
         this.posts[i].comments.push(input as ICommentModel);
         this.highlightReaction(input);
@@ -355,5 +348,11 @@ export class PostsComponent extends PagerBase implements DoCheck {
   updatedElement(post: IPostModel) {
     post.showComments = true;
     return true;
+  }
+
+  errorHandler(error: string) {
+    const startIndex = error.indexOf("ValidationError:");
+    const endIndex = error.indexOf("<br>");
+    alert(error.slice(startIndex, endIndex));
   }
 }
