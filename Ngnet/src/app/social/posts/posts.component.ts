@@ -241,7 +241,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
   private updateData(input: any = undefined) {
     let updated = false;
 
-    if (this.deletePost(input)) {
+    if (this.removeElement(input)) {
       return;
     }
 
@@ -360,13 +360,23 @@ export class PostsComponent extends PagerBase implements DoCheck {
     alert(error.slice(startIndex, endIndex));
   }
 
-  deletePost(input: any): boolean {
+  removeElement(input: any): boolean {
     if (typeof input !== 'string') {
       return false;
     }
-
+    //Remove Post
     if (this.posts.some(p => p.id === input)) {
       this.posts = this.posts.filter(p => p.id !== input);
+    }
+    //Remove Comment
+    if (this.posts.some(p => p.comments.some(c => c.id === input))) {
+      for (let i = 0; i < this.posts.length; i++) {
+        for (let j = 0; j < this.posts[i].comments.length; j++) {
+          if (this.posts[i].comments[j].id === input) {
+            this.posts[i].comments.splice(j, 1);
+          }
+        }
+      }
     }
 
     return true;
