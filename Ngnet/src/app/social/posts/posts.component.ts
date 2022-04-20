@@ -377,12 +377,32 @@ export class PostsComponent extends PagerBase implements DoCheck {
         touched = true;
         break;
       }
-      
+
+      for (let l = 0; l < this.posts[i].reactions.length; l++) {
+        if (this.posts[i].reactions[l].id === input) {
+          this.posts[i].reactions.splice(l, 1);
+          touched = true;
+          break;
+        }
+      }
+
       for (let j = 0; j < this.posts[i].comments.length; j++) {
+        if (touched) {
+          break;
+        }
+
         if (this.posts[i].comments[j].id === input) {
           this.posts[i].comments.splice(j, 1);
           touched = true;
           break;
+        }
+
+        for (let k = 0; k < this.posts[i].comments[j].reactions.length; k++) {
+          if (this.posts[i].comments[j].reactions[k].id === input) {
+            this.posts[i].comments[j].reactions.splice(k, 1);
+            touched = true;
+            break;
+          }
         }
       }
     }
