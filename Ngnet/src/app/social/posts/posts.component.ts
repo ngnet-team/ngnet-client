@@ -134,14 +134,11 @@ export class PostsComponent extends PagerBase implements DoCheck {
 
   removePost(postId: string) {
     this.socialService.removePost(postId).subscribe({
-      next: (post) => {
-        this.getPosts();
+      next: (deletedPostId) => {
+        this.updateData(deletedPostId);
       },
       error: (err) => {
-        if (err?.error) {
-          console.log(err);
-          this.errors?.push(err.error[this.selectedLang]);
-        }
+        this.errorHandler(err.error);
       }
     });
   }
@@ -244,6 +241,10 @@ export class PostsComponent extends PagerBase implements DoCheck {
   private updateData(input: any = undefined) {
     let updated = false;
 
+    if (this.deletePost(input)) {
+      return;
+    }
+
     for (let i = 0; i < this.posts.length; i++) {
       if (updated) {
         break;
@@ -266,7 +267,7 @@ export class PostsComponent extends PagerBase implements DoCheck {
       }
 
       const newPostReaction = !updated && input && input?.postId === this.posts[i].id &&
-      !input?.reactions && this.posts[i].reactions.filter(r => r.id === input?.id).length === 0;
+        !input?.reactions && this.posts[i].reactions.filter(r => r.id === input?.id).length === 0;
       if (newPostReaction) {
         this.posts[i].reactions.push(input as IReactionModel);
         this.highlightReaction(this.posts[i]);
@@ -326,7 +327,10 @@ export class PostsComponent extends PagerBase implements DoCheck {
     if (newPost) {
       this.posts.push(input as IPostModel);
       this.highlightReaction(input);
+      updated = this.updatedElement(input);
     }
+
+    this.posts.sort((a, b) => b.createdOn.localeCompare(a.createdOn));
   };
 
 
@@ -354,5 +358,17 @@ export class PostsComponent extends PagerBase implements DoCheck {
     const startIndex = error.indexOf("ValidationError:");
     const endIndex = error.indexOf("<br>");
     alert(error.slice(startIndex, endIndex));
+  }
+
+  deletePost(input: any): boolean {
+    if (typeof input !== 'string') {
+      return false;
+    }
+
+    if (this.posts.some(p => p.id === input)) {
+      this.posts = this.posts.filter(p => p.id !== input);
+    }
+
+    return true;
   }
 }
