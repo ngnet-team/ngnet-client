@@ -364,17 +364,25 @@ export class PostsComponent extends PagerBase implements DoCheck {
     if (typeof input !== 'string') {
       return false;
     }
-    //Remove Post
-    if (this.posts.some(p => p.id === input)) {
-      this.posts = this.posts.filter(p => p.id !== input);
-    }
-    //Remove Comment
-    if (this.posts.some(p => p.comments.some(c => c.id === input))) {
-      for (let i = 0; i < this.posts.length; i++) {
-        for (let j = 0; j < this.posts[i].comments.length; j++) {
-          if (this.posts[i].comments[j].id === input) {
-            this.posts[i].comments.splice(j, 1);
-          }
+
+    let touched = false;
+
+    for (let i = 0; i < this.posts.length; i++) {
+      if (touched) {
+        break;
+      }
+
+      if (this.posts[i].id === input) {
+        this.posts.splice(i, 1);
+        touched = true;
+        break;
+      }
+      
+      for (let j = 0; j < this.posts[i].comments.length; j++) {
+        if (this.posts[i].comments[j].id === input) {
+          this.posts[i].comments.splice(j, 1);
+          touched = true;
+          break;
         }
       }
     }

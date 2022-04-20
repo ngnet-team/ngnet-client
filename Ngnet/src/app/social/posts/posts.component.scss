@@ -67,3 +67,7 @@
 .badge:hover {
     cursor: pointer;
 }
+
+.no-posts {
+    color: getParam(colors, area, back);
+}
