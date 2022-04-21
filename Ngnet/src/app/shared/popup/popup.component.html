@@ -14,7 +14,7 @@
                         <!-- <span class="requiredInput">{{menu[input.type].required}}</span> -->
                     </label>
                     <div>
-                        <input #input="ngModel" type="text" [name]="field.name" [(ngModel)]="field.value" required>
+                        <input #input="ngModel" type="text" [name]="field.name" [(ngModel)]="field.value" [required]="field?.required" >
                         <p class="validation" *ngIf="input.errors?.required && input.touched">
                             {{validations.requiredField}}</p>
                     </div>

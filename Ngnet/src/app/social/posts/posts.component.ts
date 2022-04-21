@@ -22,11 +22,11 @@ export class PostsComponent extends PagerBase implements DoCheck {
   user = this.authService.getParsedJwt();
   posts: IPostModel[] = [];
   postFields = [
-    { label: 'Title', name: 'title', value: '' },
-    { label: 'Content', name: 'content', value: '' },
+    { label: 'Title', name: 'title', value: '', required: true },
+    { label: 'Content', name: 'content', value: '', required: true },
   ];
   commentFields = [
-    { label: 'Content', name: 'content', value: '' },
+    { label: 'Content', name: 'content', value: '', required: true },
   ];
   @Output() formPopup: IPopupModel = { type: 'form', visible: false, from: 'post' };
   @Output() confirmPopup: IPopupModel = { type: 'confirm', visible: false, confirmed: false, from: 'post' };

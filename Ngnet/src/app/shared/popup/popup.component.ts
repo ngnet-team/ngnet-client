@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IChangeModel } from 'src/app/interfaces/change-model';
 import { LangService } from 'src/app/services/common/lang/lang.service';
 import { ServerErrorsBase } from '../base-classes/server-errors-base';
@@ -30,10 +30,6 @@ export class PopupComponent extends ServerErrorsBase  {
   }
 
   form(input: any): void {
-    if (!input.title && !input.content) {
-      return; //TODO it's not abstract
-    }
-    
     // const imageFile = this.fileService.set(this.file);
     // this.input.returnData.image = imageFile;
 
