@@ -1,14 +1,16 @@
+import { Component, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { IChangeModel } from "src/app/interfaces/change-model";
 import { IPopupModel } from "src/app/interfaces/popup-model";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { FileService } from "src/app/services/common/file/file.service";
 import { IconService } from "src/app/services/common/icon/icon.service";
 import { LangService } from "../../services/common/lang/lang.service";
 
-export class Base {
-
+@Component({
+  template: ''
+})
+export class Base implements OnDestroy {
   subscription: Subscription[] = [];
   data: any;
   icons: any;
@@ -42,6 +44,10 @@ export class Base {
     protected router: Router,
     protected fileService: FileService,
   ) {
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   public redirect(path: string = 'not-found'): void {
