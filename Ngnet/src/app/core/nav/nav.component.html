@@ -1,58 +1,61 @@
 <div class="nav">
-    <div class="tab logo" (click)="redirect('/')">
+    <div (click)="redirect('/')">
         <a>
             <!-- <img src="../../../assets/icons/logo.png" alt="{{menu.logo}}"> -->
             {{menu.logo.name}}
         </a>
     </div>
-    <div *ngIf="isLogged" class="logged">
-        <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
-        <div *ngIf="isAdmin" class="tab dropdown" (mouseover)="adminDropdown.visible = true" (mouseleave)="adminDropdown.visible = false">
-            <app-dropdown class="element" [input]="adminDropdown" routerLink="/admin"></app-dropdown>
-        </div>
-        <!-- ^^^^^^^^^^^^^^ Owner ONLY ^^^^^^^^^^^^^^ -->
-        <div *ngIf="isOwner" class="tab" (click)="redirect('owner')">
-            <!-- <fa-icon class="icon" [icon]="icons.profile"></fa-icon> -->
-            <a class="profile element">Owner</a>
-        </div>
+    <div [ngClass]="{'hamManu': hamMenu }">
+        <div *ngIf="isLogged" class="logged">
+            <!-- ^^^^^^^^^^^^^^ Admin ONLY ^^^^^^^^^^^^^^ -->
+            <div *ngIf="isAdmin" class="tab dropdown" (mouseover)="adminDropdown.visible = true"
+                (mouseleave)="adminDropdown.visible = false">
+                <app-dropdown class="element" [input]="adminDropdown" routerLink="/admin"></app-dropdown>
+            </div>
+            <!-- ^^^^^^^^^^^^^^ Owner ONLY ^^^^^^^^^^^^^^ -->
+            <div *ngIf="isOwner" class="tab" (click)="redirect('owner')">
+                <!-- <fa-icon class="icon" [icon]="icons.profile"></fa-icon> -->
+                <a class="profile element">Owner</a>
+            </div>
 
-        <div class="tab dropdown" (mouseover)="managerDropdown.visible = true" (mouseleave)="managerDropdown.visible = false">
-            <app-dropdown class="element" [input]="managerDropdown"></app-dropdown>
+            <div class="tab dropdown" (mouseover)="managerDropdown.visible = true"
+                (mouseleave)="managerDropdown.visible = false">
+                <app-dropdown class="element" [input]="managerDropdown"></app-dropdown>
+            </div>
+            <div class="tab" (click)="redirect('posts')">
+                <fa-icon class="icon" [icon]="icons.posts"></fa-icon>
+                <a class="profile element">{{menu.posts.name}}</a>
+            </div>
+            <div class="tab" (click)="redirect('profile')">
+                <fa-icon class="icon" [icon]="icons.profile"></fa-icon>
+                <a class="profile element">{{menu.profile.name}}</a>
+            </div>
+            <div class="tab" (click)="openConfirmPopup()">
+                <fa-icon class="icon" [icon]="icons.logout"></fa-icon>
+                <a class="logout element">{{menu.logout.name}}</a>
+            </div>
         </div>
-        <div class="tab" (click)="redirect('posts')">
-            <fa-icon class="icon" [icon]="icons.posts"></fa-icon>
-            <a class="profile element">{{menu.posts.name}}</a>
+        <div *ngIf="!isLogged" class="not-logged">
+            <div class="tab" (click)="redirect('login')">
+                <fa-icon class="icon" [icon]="icons.login"></fa-icon>
+                <a class="login element">{{menu.login.name}}</a>
+            </div>
+            <div class="tab" (click)="redirect('register')">
+                <fa-icon class="icon" [icon]="icons.register"></fa-icon>
+                <a class="register element">{{menu.register.name}}</a>
+            </div>
         </div>
-        <div class="tab" (click)="redirect('profile')">
-            <fa-icon class="icon" [icon]="icons.profile"></fa-icon>
-            <a class="profile element">{{menu.profile.name}}</a>
-        </div>
-        <div class="tab" (click)="openConfirmPopup()">
-            <fa-icon class="icon" [icon]="icons.logout"></fa-icon>
-            <a class="logout element">{{menu.logout.name}}</a>
-        </div>
-    </div>
-    <div *ngIf="!isLogged" class="not-logged">
-        <div class="tab" (click)="redirect('login')">
-            <fa-icon class="icon" [icon]="icons.login"></fa-icon>
-            <a class="login element">{{menu.login.name}}</a>
-        </div>
-        <div class="tab" (click)="redirect('register')">
-            <fa-icon class="icon" [icon]="icons.register"></fa-icon>
-            <a class="register element">{{menu.register.name}}</a>
-        </div>
-    </div>
-    <div>
-        <div class="tab dropdown" (mouseover)="languageDropdown.visible = true" (mouseleave)="languageDropdown.visible = false">
+        <div class="tab dropdown" (mouseover)="languageDropdown.visible = true"
+            (mouseleave)="languageDropdown.visible = false">
             <app-dropdown class="element" [input]="languageDropdown"></app-dropdown>
         </div>
         <div class="tab badge bell" (click)="notificationToggle()">
             <fa-icon class="icon" [data-count]="notificationCount" [icon]="icons.bell"></fa-icon>
         </div>
-        <!-- mobile -->
-        <div class="hamburger" (click)="openTabMenu()">
-            <fa-icon class="badge" [icon]="icons.hamburger"></fa-icon>
-        </div>
+    </div>
+    <!-- mobile -->
+    <div class="hamburger" (click)="hamMenu = !hamMenu">
+        <fa-icon class="badge" [icon]="icons.hamburger"></fa-icon>
     </div>
 </div>
 
@@ -66,6 +69,3 @@
 <!-- -------------- popup items -------------- -->
 
 <app-popup [input]="confirmPopup"></app-popup>
-
-<!-- TODO: needs to be displayed only in tablet or mobile mode -->
-<app-tab-menu [visible]="tabMenu" class="tab-menu"></app-tab-menu>

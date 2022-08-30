@@ -1,53 +1,83 @@
 @import "../../../styles/base/variables";
-@import "../../../styles/modules/tab";
 @import "../../../styles/modules/badge";
 @import "../../../styles/modules/message";
 
 .nav {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
+    justify-content: space-between;
+    padding: getParam(paddings, normal) getParam(paddings, large);
+    color: getParam(colors, field, fore);
+    background-color: getParam(colors, field, back);
     max-height: $nav-height;
     font-size: getParam(fonts, size, normal);
-    background-color: getParam(colors, field, back);
-    color: getParam(colors, field, fore);
-    box-shadow: getShadow(field, getParam(colors, field, active, back));
     margin: $nav-margin 0;
 
     > div {
         display: flex;
-        justify-content: center;
+        align-self: center;
     }
 
-    .logo {
-        font-size: 100%;
+    > div:nth-child(2) {
+        > div {
+            display: flex;
+        }
+
+        &.hamMenu {
+            display: flex;
+            flex-direction: column;
+        }
     }
-}
 
-.bell {
-    color: getParam(colors, field, fore);
-}
+    .hamburger {
+        display: none;
+        font-size: getParam(fonts, size, huge);
+        align-self: center;
 
-.logo:hover {
-    background-color: transparent;
-    color: getParam(colors, field, fore);
-    a {
-        background-color: transparent;
+        fa-icon {
+            font-size: 100%;
+            cursor: pointer;
+            color: getParam(colors, field, fore);
+
+            &:hover {
+                color: getParam(colors, field, hover, fore);
+            }
+        }
+    }
+
+    .tab {
+        display: grid;
+        grid-template-columns: auto 1fr;
+
         color: getParam(colors, field, fore);
-    }
-}
+        padding: $tab-padding;
+        text-align: center;
+        font-size: $tab-font;
 
-.hamburger {
-    display: none;
-    font-size: getParam(fonts, size, huge);
-    align-self: center;
+        .icon {
+            margin: 0 getParam(margins, small);
+        }
 
-    fa-icon {
-        font-size: 100%;
-        cursor: pointer;
-        color: getParam(colors, field, fore);
+        a {
+            color: getParam(colors, field, fore);
+        }
 
         &:hover {
+            cursor: pointer;
+            background-color: getParam(colors, field, hover, back);
             color: getParam(colors, field, hover, fore);
+
+            a {
+                background-color: getParam(colors, field, hover, back);
+                color: getParam(colors, field, hover, fore);
+            }
+        }
+    }
+
+    .bell {
+        color: getParam(colors, field, fore);
+
+        .icon {
+            margin: 0;
         }
     }
 }
@@ -55,27 +85,21 @@
 // -------------------------- Laptop --------------------------
 
 @media only screen and (max-width: getParam(media, laptop)) {
-    .nav {
-        display: flex;
-        justify-content: space-between;
-    }
 }
 
 // -------------------------- Tablet --------------------------
 
 @media only screen and (max-width: getParam(media, tablet, landscape)) {
-    .tab {
-        display: none;
-    }
-
-    .hamburger {
-        display: block;
-    }
-
     .nav {
-        display: flex;
-        justify-content: space-between;
         padding: getParam(paddings, normal) 1rem;
+
+        > div:nth-child(2) {
+            display: none;
+        }
+
+        .hamburger {
+            display: block;
+        }
     }
 }
 

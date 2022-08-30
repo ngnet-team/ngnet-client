@@ -27,7 +27,6 @@ export class NavComponent extends Base implements DoCheck {
   @Output() managerDropdown: IDropDownOutputModel = { field: 'manager', type: 'route' };
   @Output() languageDropdown: IDropDownOutputModel = { field: 'language', type: 'state', value: '' };
   @Output() confirmPopup: IPopupModel = { visible: false, confirmed: false, type: 'confirm', getData: { from: 'nav', switcher: false } };
-  @Output() tabMenu: boolean = false;
   //language
   event: Subscription[] = [];
   selectedLang: string = this.langService.getLocalStorage() ?? environment.lang.default;
@@ -39,6 +38,7 @@ export class NavComponent extends Base implements DoCheck {
   isOwner: boolean = this.authService.isAuthorized('owner');
   notification: boolean = false;
   notificationCount: number = 0;
+  hamMenu: boolean = false;
 
   constructor(
     langService: LangService,
@@ -95,10 +95,6 @@ export class NavComponent extends Base implements DoCheck {
   notificationToggle(): void {
     this.notification = !this.notification;
     this.messageService.notificationVisibility.emit(this.notification);
-  }
-
-  openTabMenu(): void {
-    this.tabMenu = !this.tabMenu;
   }
 
   private subscriptionListener(): void {
