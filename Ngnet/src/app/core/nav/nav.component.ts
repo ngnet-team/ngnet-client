@@ -103,7 +103,7 @@ export class NavComponent extends Base implements DoCheck {
 
   private subscriptionListener(): void {
     this.event.push(this.authService.logginEvent.subscribe(isLogged => {
-      this.isLogged = isLogged;
+      this.isLogged = this.authService.isLogged;
       this.isAdmin = this.authService.isAuthorized('admin');
       this.isOwner = this.authService.isAuthorized('owner');
     }));

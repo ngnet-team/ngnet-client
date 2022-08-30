@@ -1,6 +1,6 @@
 <div class="nav">
     <div class="tab logo" (click)="redirect('/')">
-        <a class="logo">
+        <a>
             <!-- <img src="../../../assets/icons/logo.png" alt="{{menu.logo}}"> -->
             {{menu.logo.name}}
         </a>
@@ -49,11 +49,11 @@
         <div class="tab badge bell" (click)="notificationToggle()">
             <fa-icon class="icon" [data-count]="notificationCount" [icon]="icons.bell"></fa-icon>
         </div>
+        <!-- mobile -->
+        <div class="hamburger" (click)="openTabMenu()">
+            <fa-icon class="badge" [icon]="icons.hamburger"></fa-icon>
+        </div>
     </div>
-    <!-- mobile -->
-    <!-- <div class="hamburger" (click)="openTabMenu()">
-        <fa-icon class="badge" [icon]="icons.hamburger"></fa-icon>
-    </div> -->
 </div>
 
 <!-- -------------- free items -------------- -->

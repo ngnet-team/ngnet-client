@@ -11,19 +11,16 @@
     background-color: getParam(colors, field, back);
     color: getParam(colors, field, fore);
     box-shadow: getShadow(field, getParam(colors, field, active, back));
-    margin: $nav-margin;
+    margin: $nav-margin 0;
 
     > div {
         display: flex;
         justify-content: center;
     }
 
-    // .logo {
-    //     width: 2.5rem;
-    //     img {
-    //         width: 100%;
-    //     }
-    // }
+    .logo {
+        font-size: 100%;
+    }
 }
 
 .bell {
@@ -42,6 +39,17 @@
 .hamburger {
     display: none;
     font-size: getParam(fonts, size, huge);
+    align-self: center;
+
+    fa-icon {
+        font-size: 100%;
+        cursor: pointer;
+        color: getParam(colors, field, fore);
+
+        &:hover {
+            color: getParam(colors, field, hover, fore);
+        }
+    }
 }
 
 // -------------------------- Laptop --------------------------
@@ -56,24 +64,12 @@
 // -------------------------- Tablet --------------------------
 
 @media only screen and (max-width: getParam(media, tablet, landscape)) {
-    .nav {
-        display: flex;
-        justify-content: center;
-        font-size: getParam(fonts, size, small);
-    }
-
-    .hamburger {
-        display: none;
-    }
-}
-
-@media only screen and (max-width: getParam(media, tablet, portrait)) {
     .tab {
         display: none;
     }
 
     .hamburger {
-        display: inline-block;
+        display: block;
     }
 
     .nav {
@@ -83,17 +79,13 @@
     }
 }
 
+@media only screen and (max-width: getParam(media, tablet, portrait)) {
+}
+
 // -------------------------- Smartphone --------------------------
 
 @media only screen and (max-width: getParam(media, smartphones, landscape)) {
 }
 
 @media only screen and (max-width: getParam(media, smartphones, portrait)) {
-}
-
-@media only screen and (min-width: 601px) {
-    .hamburger {
-        background-color: chocolate;
-        display: none;
-    }
 }

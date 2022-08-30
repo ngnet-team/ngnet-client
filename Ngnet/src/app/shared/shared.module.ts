@@ -7,7 +7,6 @@ import { CompanyFormComponent } from './company-form/company-form.component';
 import { FormsModule } from '@angular/forms';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TabMenuComponent } from './tab-menu/tab-menu.component';
 import { PopupComponent } from './popup/popup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -18,7 +17,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     PageComponent,
     CompanyFormComponent,
     DropdownComponent,
-    TabMenuComponent,
     PopupComponent,
     DashboardComponent,
   ],
@@ -35,7 +33,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CompanyFormComponent,
     DropdownComponent,
     FontAwesomeModule,
-    TabMenuComponent,
     PopupComponent,
     DashboardComponent,
   ]
